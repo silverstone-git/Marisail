@@ -3,6 +3,13 @@ import JobDescription from './JobDescription';
 import VesselDetails from './VesselDetails';
 import CustomerContactDetails from './CustomerContactDetails';
 import TransportQuotes from './TransportQuotes';
+import QueAns from './QueAns';
+import PaymentInsurance from './PaymentInsurance';
+import Feedback from './Feedback';
+import HaulierDetails from './HaulierDetails';
+import HaulierCommunications from './HaulierCommunications';
+import HaulierSafetyCompliance from './HaulierSafetyCompliance';
+import CalculatePriceAndPay from './CalculatePriceAndPay';
 
 export default function Form() {
 
@@ -68,10 +75,102 @@ export default function Form() {
         quoteDate: "",
         declineDate: "",
         withdrawDate: "",
-        withdrwan: "",   //Sarthak excel m dekh yaha prr problem h kuch
+        withdrwan: "",   // Sarthak excel m dekh yaha prr problem h kuch
         declineQuote: "",
         withdrawQuote: "",
     })
+
+    const [queAns, setQueAns] = useState({
+        questionDate: "",
+        answerDate: "",
+        transportProviderQuestions: "",
+        customerAnswers: "",
+        writeQuestion: "",
+        answerQuestion: "",
+        customeConfirmsCompletion: "",
+        addItem: "",
+    });
+
+    const [feedback, setFeedback] = useState({
+        customerFeedbackNotes: "",
+        customerFeedbackScore: "",
+        positive: "",
+        neutral: "",
+        negative: "",
+        reviews: "",
+        rating: "",
+        itemTitle: "",
+        leftBy: "",
+        comments: "",
+        date: "",
+        customerGivesFeedbackNotes: "",
+        customerGivesFeedbackScore: "",
+        seeMyQuotes: "",
+    });
+    
+    const [haulierDetails, setHaulierDetails] = useState({
+        haulierID: "",
+        haulierAddress: "",
+        haulierName: "",
+        haulierNumberJobs: "",
+        haulierTotalCustomerScore: "",
+        resgisteredSince: "",
+        numberVehicles: "",
+        numberDrivers: "",
+        verified: "",
+        vehicleType: "",
+        vehicleCapacity: "",
+    });
+
+    const [haulierCommunications, setHaulierCommunications] = useState({
+        customerServiceContactInformation: "",
+        realTimeTracking: "",
+        electronicProofOfDelivery: "",
+        automatedAlertsAndNotifications: "",
+        trackingSystem: "",
+        deliveryWindow: "",
+        deliveryConfirmation: "",
+    });
+
+    const [haulierSafetyCompliance, setHaulierSafetyCompliance] = useState({
+        safetyCertifications: "",
+        environmentalRegulationsCompliance: "",
+        hazardousMaterialsHandling: "",
+        safetyTrainingPrograms: "",
+        accidentReportingProcedure: "",
+        healthAndSafetyPolicy: "",
+        safetyAudits: "",
+        riskAssessments: "",
+        incidentManagement: "",
+        complianceRecords: "",
+        permitsAndLicenses: "",
+        transportRegulationsCompliance: "",    
+    });
+
+    const [paymentInsurance, setPaymentInsurance] = useState({
+        paymentTerms: "",
+        serviceLegalAgreement: "",
+        acceptedPaymentMethods: "",
+        cancellationPolicy: "",
+        currency: "",
+        invoiceTime: "",
+        latePaymentFee: "",
+        billingContactInformation: "",
+        disputeResolutionTerms: "",
+        liabilityCoverage: "",
+        insurancePolicy: "",
+        insuranceCoverage: "",
+        insuranceProvider: "",
+        insuranceClaimProcess: "",
+    });
+
+    const [calculatePriceAndPay, setCalculatePriceAndPay] = useState({
+        priceLabel: "",
+        priceDrop: "",
+        currency: "",
+        VAT: "",
+        totalPrice: "",
+    });
 
 
     // go back to previous page
@@ -88,7 +187,14 @@ export default function Form() {
         <JobDescription props={jobDes} setProps={setJobDes} />,
         <VesselDetails props={vesselDetails} setProps={setVesselDetails} />,
         <CustomerContactDetails props={customerContactDetails} setProps={setCustomerContactDetails} />,
-        <TransportQuotes props={transportQuotes} setProps={setTransportQuotes} />
+        <TransportQuotes props={transportQuotes} setProps={setTransportQuotes} />,
+        <QueAns props={queAns} setProps={setQueAns} />,
+        <Feedback props={feedback} setProps={setFeedback} />,
+        <HaulierDetails props={haulierDetails} setProps={setHaulierDetails} />,
+        <HaulierCommunications props={haulierCommunications} setProps={setHaulierCommunications} />,
+        <HaulierSafetyCompliance props={haulierSafetyCompliance} setProps={setHaulierSafetyCompliance} />,
+        <PaymentInsurance props={paymentInsurance} setProps={setPaymentInsurance} />,
+        <CalculatePriceAndPay props={calculatePriceAndPay} setProps={setCalculatePriceAndPay} />,
     ];  
 
 
@@ -97,6 +203,8 @@ export default function Form() {
         {pages.map((item, index) => {
             if (index === page)
                 return item;
+            
+            return null;
         })}
         
         <br />
@@ -105,7 +213,10 @@ export default function Form() {
         {
             page === 0 ? null : <button onClick={prevStep}>Previous</button>
         }
-        <button onClick={nextStep}>Next</button>
+        {
+            page === pages.length - 1 ? <button onClick={() => setSubmit(true)}>Submit</button> : <button onClick={nextStep}>Next</button>
+        }
+        
 
     </div>
 }

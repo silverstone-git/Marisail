@@ -25,7 +25,6 @@ export default function TransportQuotes({props, setProps}) {
         <input type="text" name="declineQuote" onChange={handleChange("declineQuote")} value={props.declineQuote}/>
         <label>Withdraw Quote:</label>
         <input type="text" name="withdrawQuote" onChange={handleChange("withdrawQuote")} value={props.withdrawQuote}/>
-
       </form>
  
     </div>
