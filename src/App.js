@@ -1,12 +1,12 @@
-import './App.css';
+import './Components/formUtilites/style/main.css';
 import Form from './Components/formUtilites/Form';
 
 function App() {
   return (
     <div className="App">
-      <header className="">
+      <h2 className="">
         Marisail Form
-      </header>
+      </h2>
       <body>
         <Form />
       </body>

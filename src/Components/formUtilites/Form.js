@@ -208,14 +208,16 @@ export default function Form() {
         })}
         
         <br />
-        {/* <button onClick={() => setSubmit(true)}>Submit</button> */}
-        <br/>
-        {
-            page === 0 ? null : <button onClick={prevStep}>Previous</button>
-        }
-        {
-            page === pages.length - 1 ? <button onClick={() => setSubmit(true)}>Submit</button> : <button onClick={nextStep}>Next</button>
-        }
+        <div className='buttons'>
+            {/* <button onClick={() => setSubmit(true)}>Submit</button> */}
+            <br/>
+            {
+                page === 0 ? null : <button onClick={prevStep}>Previous</button>
+            }
+            {
+                page === pages.length - 1 ? <button onClick={() => setSubmit(true)}>Submit</button> : <button onClick={nextStep}>Next</button>
+            }
+        </div>
         
 
     </div>
