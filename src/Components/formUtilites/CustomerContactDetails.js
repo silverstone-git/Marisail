@@ -8,7 +8,7 @@ export default function CustomerContactDetails({props, setProps}) {
     return (
     <div>
       <h2>Customer Contact Details</h2>
-        <form id="form">
+        <form className="form">
         
             <div className="set">
                 <label>Customer Type:</label>

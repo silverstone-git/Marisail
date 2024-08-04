@@ -7,7 +7,7 @@ export default function VesselDetails({props, setProps}) {
   return (
     <div>
       <h2>Vessel Details</h2>
-      <form id="form">
+      <form className="form">
       <div className="set">
                     <label>Item Number:</label>
                     <input type="text" name="itemNumber" onChange={handleChange("itemNumber")} value={props.itemNumber} />
