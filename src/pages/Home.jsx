@@ -1,4 +1,4 @@
-import AppCarousel from '../components/AppCarousel';
+import AppCarousel from '../Components/AppCarousel';
 
 const Home = () => {
   return (
