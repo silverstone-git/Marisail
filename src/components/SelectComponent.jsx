@@ -7,7 +7,6 @@ function SelectComponent({ label, setValue, value, setOpenKey, openKey }) {
     MarisailID: {
       name: "Marisail ID",
       options: [
-        "Choose...",
         "Ifor Williams",
         "Load Rite",
         "SeaTrail",
@@ -21,7 +20,6 @@ function SelectComponent({ label, setValue, value, setOpenKey, openKey }) {
     Make: {
       name: "Make",
       options: [
-        "Choose...",
         "P5",
         "P6e",
         "GD85",
@@ -39,7 +37,6 @@ function SelectComponent({ label, setValue, value, setOpenKey, openKey }) {
     Model: {
       name: "Model",
       options: [
-        "Choose...",
         "Basic",
         "Deluxe",
         "Premium",
@@ -52,12 +49,11 @@ function SelectComponent({ label, setValue, value, setOpenKey, openKey }) {
     },
     Year: {
       name: "Year",
-      options: ["Choose...", "2022", "2023", "2024", "2025"],
+      options: ["2022", "2023", "2024", "2025"],
     },
     Type: {
       name: "Type",
       options: [
-        "Choose...",
         "Single-axle",
         "Tandem-axle",
         "Triple-axle",
@@ -75,7 +71,6 @@ function SelectComponent({ label, setValue, value, setOpenKey, openKey }) {
       name: "Gross Vehicle Weight Rating",
       subtitle: "(GVWR)",
       options: [
-        "Choose...",
         "2,000 lbs",
         "3,500 lbs",
         "5,000 lbs",
@@ -86,7 +81,6 @@ function SelectComponent({ label, setValue, value, setOpenKey, openKey }) {
     LoadCapacity: {
       name: "Load Capacity",
       options: [
-        "Choose...",
         "1,500 lbs",
         "2,500 lbs",
         "4,000 lbs",
@@ -96,24 +90,15 @@ function SelectComponent({ label, setValue, value, setOpenKey, openKey }) {
     },
     Length: {
       name: "Length",
-      options: [
-        "Choose...",
-        "12 ft",
-        "14 ft",
-        "16 ft",
-        "18 ft",
-        "20 ft",
-        "24 ft",
-      ],
+      options: ["12 ft", "14 ft", "16 ft", "18 ft", "20 ft", "24 ft"],
     },
     Width: {
       name: "Width",
-      options: ["Choose...", "6 ft", "6.5 ft", "7 ft", "8 ft", "8.5 ft"],
+      options: ["6 ft", "6.5 ft", "7 ft", "8 ft", "8.5 ft"],
     },
     FrameMaterial: {
       name: "Frame Material",
       options: [
-        "Choose...",
         "Galvanized Steel",
         "Powder-Coated Steel",
         "Painted Steel",
@@ -127,7 +112,6 @@ function SelectComponent({ label, setValue, value, setOpenKey, openKey }) {
     FrameCoating: {
       name: "Frame Coating",
       options: [
-        "Choose...",
         "Galvanized",
         "Powder-Coated",
         "Painted",
@@ -137,20 +121,19 @@ function SelectComponent({ label, setValue, value, setOpenKey, openKey }) {
     },
     FrameCrossmemberType: {
       name: "Frame Crossmember Type",
-      options: ["Choose...", "Box-Section", "I-Beam", "Channel", "Tubular"],
+      options: ["Box-Section", "I-Beam", "Channel", "Tubular"],
     },
     FrameWeldType: {
       name: "Frame Weld Type",
-      options: ["Choose...", "MIG", "TIG", "Stick", "Spot", "Seam"],
+      options: ["MIG", "TIG", "Stick", "Spot", "Seam"],
     },
     MaximumAngleofApproach: {
       name: "Maximum Angle of Approach",
-      options: ["Choose...", "15 degrees", "20 degrees", "25 degrees"],
+      options: ["15 degrees", "20 degrees", "25 degrees"],
     },
     FloorMaterial: {
       name: "Floor Material",
       options: [
-        "Choose...",
         "Plywood",
         "Marine Plywood",
         "Aluminum Plank",
@@ -161,7 +144,6 @@ function SelectComponent({ label, setValue, value, setOpenKey, openKey }) {
     SidesMaterial: {
       name: "Sides Material",
       options: [
-        "Choose...",
         "Steel Panels",
         "Aluminum Panels",
         "Composite Panels",
@@ -170,53 +152,35 @@ function SelectComponent({ label, setValue, value, setOpenKey, openKey }) {
     },
     RoofMaterial: {
       name: "Roof Material",
-      options: [
-        "Choose...",
-        "Steel Sheet",
-        "Aluminum Sheet",
-        "Fibreglass",
-        "Composite",
-      ],
+      options: ["Steel Sheet", "Aluminum Sheet", "Fibreglass", "Composite"],
     },
     GreasePoints: {
       name: "Grease Points",
-      options: ["Choose...", "4 Points", "6 Points", "8 Points"],
+      options: ["4 Points", "6 Points", "8 Points"],
     },
     BearingType: {
       name: "Bearing Type",
-      options: ["Choose...", "Tapered", "Sealed", "Needle", "Roller"],
+      options: ["Tapered", "Sealed", "Needle", "Roller"],
     },
     MaintenanceSchedule: {
       name: "Maintenance Schedule",
-      options: ["Choose...", "Monthly", "Quarterly", "Annually"],
+      options: ["Monthly", "Quarterly", "Annually"],
     },
     Storage: {
       name: "Storage",
-      options: [
-        "Choose...",
-        "Side Compartments",
-        "Under Deck",
-        "Front Compartments",
-      ],
+      options: ["Side Compartments", "Under Deck", "Front Compartments"],
     },
     TieDownPoints: {
       name: "Tie-Down Points",
-      options: ["Choose...", "4 Points", "6 Points", "8 Points", "12 Points"],
+      options: ["4 Points", "6 Points", "8 Points", "12 Points"],
     },
     ToolBox: {
       name: "Tool Box",
-      options: ["Choose...", "Front Mount", "Side Mount", "Under Deck"],
+      options: ["Front Mount", "Side Mount", "Under Deck"],
     },
     BumperType: {
       name: "Bumper Type",
-      options: [
-        "Choose...",
-        "Rubber",
-        "Steel",
-        "Aluminum",
-        "Polyurethane",
-        "Composite",
-      ],
+      options: ["Rubber", "Steel", "Aluminum", "Polyurethane", "Composite"],
     },
     RampType: {
       name: "Ramp Type",
@@ -597,24 +561,18 @@ function SelectComponent({ label, setValue, value, setOpenKey, openKey }) {
       <Accordion.Item eventKey={label}>
         <Accordion.Header>{lablesOptions[label]?.name}</Accordion.Header>
         <Accordion.Body>
-          {lablesOptions[label]?.options
-            .sort((a, b) => {
-              if (a === value) return -1;
-              if (b === value) return 1;
-              return 0;
-            })
-            .map((item) => {
-              return (
-                <Form.Check
-                  type="radio"
-                  aria-label="radio 1"
-                  name={lablesOptions[label]?.name}
-                  checked={item === value}
-                  onChange={(e) => setValue(item)}
-                  label={item}
-                />
-              );
-            })}
+          {lablesOptions[label]?.options.map((item) => {
+            return (
+              <Form.Check
+                type="radio"
+                aria-label="radio 1"
+                name={lablesOptions[label]?.name}
+                checked={item === value}
+                onChange={(e) => setValue(item)}
+                label={item}
+              />
+            );
+          })}
         </Accordion.Body>
       </Accordion.Item>
     </Accordion>
