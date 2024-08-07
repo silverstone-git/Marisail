@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import HeaderNavbar from './Components/HeaderNavbar';
+import HeaderNavbar from './components/HeaderNavbar';
 
 import { useRef } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
