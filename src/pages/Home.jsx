@@ -1,15 +1,21 @@
 import AppCarousel from '../components/AppCarousel';
+import SponsorsRanking from '../components/Home/SponsorsRanking';
 
 const Home = () => {
   return (
-    <main
-      style={{
-        maxHeight: `100vh `,
-        overflow: 'hidden',
-      }}
-    >
-      <AppCarousel></AppCarousel>
-    </main>
+    <>
+      <main
+        style={{
+          maxHeight: `100vh `,
+          overflow: 'hidden',
+        }}
+      >
+        <AppCarousel></AppCarousel>
+      </main>
+      <section>
+        <SponsorsRanking></SponsorsRanking>
+      </section>
+    </>
   );
 };
 
