@@ -2,9 +2,7 @@ import EngineAdvert from "../components/Engine/EngineAdvert";
 import EngineSearch from "../components/Engine/EngineSearch";
 import PropTypes from 'prop-types';
 
-const Engines = ({ type }) => {
-  console.log("001 Type--",type);
-  
+const Engines = ({ type }) => {  
   return (
     <main
       style={{
