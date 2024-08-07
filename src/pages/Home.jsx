@@ -7,9 +7,7 @@ const Home = () => {
         maxHeight: `100vh `,
         overflow: 'hidden',
       }}
-    >
-      <AppCarousel></AppCarousel>
-    </main>
+    ></main>
   );
 };
 
