@@ -7,7 +7,6 @@ import SelectComponent from "../SelectComponent";
 // import InputComponent from "../InputComponent";
 // import CheckComponent from "../CheckComponent";
 import "./engineAdvert.module.scss";
-import Accordion from "react-bootstrap/Accordion";
 
 const EngineAdvert = () => {
   const [form, setForm] = useState({
@@ -36,6 +35,7 @@ const EngineAdvert = () => {
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    type="advertEngine"
                     label="Condition"
                     value={form.condition}
                     setValue={(val) => setForm({ ...form, condition: val })}
@@ -45,6 +45,7 @@ const EngineAdvert = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    type="advertEngine"
                     value={form.usedCondition}
                     setValue={(val) => setForm({ ...form, usedCondition: val })}
                     label="UsedCondition"
@@ -54,6 +55,7 @@ const EngineAdvert = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    type="advertEngine"
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.seller}
@@ -63,6 +65,7 @@ const EngineAdvert = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    type="advertEngine"
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.offeredBy}
@@ -72,6 +75,7 @@ const EngineAdvert = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    type="advertEngine"
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.lastSurveyDate}
@@ -83,6 +87,7 @@ const EngineAdvert = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    type="advertEngine"
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.brokerValuation}
@@ -101,6 +106,7 @@ const EngineAdvert = () => {
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    type="advertEngine"
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.marisailVesselId}
@@ -112,6 +118,7 @@ const EngineAdvert = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    type="advertEngine"
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.engineMake}
@@ -121,6 +128,7 @@ const EngineAdvert = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    type="advertEngine"
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.engineClassification}
@@ -132,6 +140,7 @@ const EngineAdvert = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    type="advertEngine"
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.certification}
@@ -141,6 +150,7 @@ const EngineAdvert = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    type="advertEngine"
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.engineModel}
@@ -150,6 +160,7 @@ const EngineAdvert = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    type="advertEngine"
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.manufacturerWarranty}
@@ -161,6 +172,7 @@ const EngineAdvert = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    type="advertEngine"
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.engineModelYear}

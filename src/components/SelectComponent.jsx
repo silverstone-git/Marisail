@@ -2,8 +2,15 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import Accordion from "react-bootstrap/Accordion";
 
-function SelectComponent({ label, setValue, value, setOpenKey, openKey }) {
-  const lablesOptions = {
+function SelectComponent({
+  label,
+  setValue,
+  value,
+  setOpenKey,
+  openKey,
+  type,
+}) {
+  const advertEngineOptions = {
     Condition: {
       name: "Condition",
       options: [
@@ -13,7 +20,7 @@ function SelectComponent({ label, setValue, value, setOpenKey, openKey }) {
         "Condition 4",
         "Condition 5",
         "Condition 6",
-        "Condition 7"
+        "Condition 7",
       ],
     },
     UsedCondition: {
@@ -559,21 +566,28 @@ function SelectComponent({ label, setValue, value, setOpenKey, openKey }) {
       options: ["1 Year", "2 Years", "5 Years"],
     },
   };
+  let selectedComponent = "";
+  if (type == "advertEngine") {
+    selectedComponent = advertEngineOptions;
+  } else {
+    selectedComponent;
+  }
+
   return (
     <Accordion
       activeKey={openKey}
       onSelect={(eventKey) => setOpenKey(eventKey)}
     >
       <Accordion.Item eventKey={label}>
-        <Accordion.Header>{lablesOptions[label]?.name}</Accordion.Header>
+        <Accordion.Header>{selectedComponent[label]?.name}</Accordion.Header>
         <Accordion.Body style={{ maxHeight: "200px", overflowY: "auto" }}>
-          {lablesOptions[label]?.options.map((item,index) => {
+          {selectedComponent[label]?.options.map((item, index) => {
             return (
               <Form.Check
                 type="radio"
                 key={index}
                 aria-label="radio 1"
-                name={lablesOptions[label]?.name}
+                name={selectedComponent[label]?.name}
                 checked={item === value}
                 onChange={(e) => setValue(item)}
                 label={item}
