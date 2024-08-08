@@ -30,7 +30,7 @@ const EngineAdvert = () => {
       <Container className="mb-5">
         <Row>
           <Col md={6} className="mt-4">
-            <h6>Condition</h6>
+            <h6 className="ms-3">Condition</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
@@ -101,7 +101,7 @@ const EngineAdvert = () => {
             </Col>
           </Col>
           <Col md={6} className="mt-4">
-            <h6>General</h6>
+            <h6 className="ms-3">General</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
