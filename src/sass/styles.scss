@@ -1,18 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   font-family: 'Roboto', sans-serif;
 }
+
 $primary: #971e28;
 
 $secondary: #000;
+
 .btn.btn-primary {
   background-color: $primary;
 }
+
 .btn.btn-primary:hover {
   background-color: darken($primary, 10%);
 }
@@ -21,9 +26,11 @@ $secondary: #000;
   background-color: darken($primary, 10%);
   box-shadow: none;
 }
+
 .btn-secondary {
   background-color: $secondary;
 }
+
 .btn-secondary:hover {
   background-color: darken($secondary, 10%);
 }
@@ -31,4 +38,35 @@ $secondary: #000;
 .btn {
   border: none;
   border-radius: 2rem;
+}
+
+/* engineAdvert.module.scss */
+.accordion {
+  .accordion-item {
+    .accordion-header {
+      .accordion-button {
+        &:not(.collapsed) {
+          border: none !important;
+          background-color: transparent !important;
+          box-shadow: none !important;
+        }
+
+        &:hover {
+          border: none !important;
+          box-shadow: none !important;
+        }
+
+        &:focus {
+          box-shadow: none !important;
+        }
+
+        border: none !important;
+        box-shadow: none !important;
+      }
+    }
+
+    .accordion-body {
+      border: none !important;
+    }
+  }
 }
