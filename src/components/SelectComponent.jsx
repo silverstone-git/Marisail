@@ -71,7 +71,7 @@ function SelectComponent({ label, setValue, value, setOpenKey, openKey }) {
         "Box",
         "Car Hauler",
         "Boat Trailer",
-        "Equipment Trailer,",
+        "Equipment Trailer",
       ],
     },
     engineMake: {
@@ -566,7 +566,7 @@ function SelectComponent({ label, setValue, value, setOpenKey, openKey }) {
     >
       <Accordion.Item eventKey={label}>
         <Accordion.Header>{lablesOptions[label]?.name}</Accordion.Header>
-        <Accordion.Body>
+        <Accordion.Body style={{ maxHeight: "200px", overflowY: "auto" }}>
           {lablesOptions[label]?.options.map((item,index) => {
             return (
               <Form.Check
