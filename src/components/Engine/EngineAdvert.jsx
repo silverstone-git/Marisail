@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Container } from "react-bootstrap";
-import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
-import Row from "react-bootstrap/Row";
+import { Col, InputGroup, Form, Row } from "react-bootstrap";
 import SelectComponent from "../SelectComponent";
-// import InputComponent from "../InputComponent";
-// import CheckComponent from "../CheckComponent";
+import InputComponent from "../InputComponent";
 import "./engineAdvert.module.scss";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 const EngineAdvert = () => {
   const [form, setForm] = useState({
@@ -14,7 +14,7 @@ const EngineAdvert = () => {
     usedCondition: "",
     seller: "",
     offeredBy: "",
-    lastSurveyDate: "",
+    lastSurveyDate: null,
     brokerValuation: "",
     marisailVesselId: "",
     engineMake: "",
@@ -74,28 +74,41 @@ const EngineAdvert = () => {
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.lastSurveyDate}
-                    setValue={(val) =>
-                      setForm({ ...form, lastSurveyDate: val })
-                    }
-                    label="lastSurveyDate"
-                  />
+                  <InputGroup>
+                    <label
+                      className="ms-4 mt-2"
+                      style={{ marginRight: "15rem" }}
+                    >
+                      Last Survey Date
+                    </label>
+                    <DatePicker
+                      className="form-control datepicker-input"
+                      selected={form.lastSurveyDate}
+                      onChange={(date) =>
+                        setForm({ ...form, lastSurveyDate: date })
+                      }
+                      dateFormat="dd/MM/yyyy"
+                      placeholderText="DD/MM/YYYY"
+                    />
+                    <InputGroup.Text>
+                      <i className="bi bi-calendar" />
+                    </InputGroup.Text>
+                  </InputGroup>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
+                  <InputGroup>
+                    <label>
+                      Broker Valuation
+                    </label>
+                  <InputComponent
+                    formType={'number'}
                     type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
                     value={form.brokerValuation}
-                    setValue={(val) =>
-                      setForm({ ...form, brokerValuation: val })
+                    setValue={(e) =>
+                      setForm({ ...form, brokerValuation: e.target.value })
                     }
-                    label="brokerValuation"
                   />
+                  </InputGroup>
                 </Col>
               </Form>
             </Col>

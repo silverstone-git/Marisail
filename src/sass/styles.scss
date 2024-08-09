@@ -41,6 +41,11 @@ $secondary: #000;
 }
 
 /* engineAdvert.module.scss */
+
+.form-control:focus{
+  box-shadow: none !important;
+}
+
 .accordion {
   --bs-accordion-border-color: transparent;
 
