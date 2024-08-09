@@ -3,6 +3,7 @@ import { Container } from "react-bootstrap";
 import { Col, Form, Row } from "react-bootstrap";
 import SelectComponent from "../SelectComponent";
 import InputComponent from "../InputComponent";
+import MultipleSelectComponent from "../MultipleSelectComponent"
 import DatePickerComponent from "../DatePickerComponent";
 import "./engineAdvert.module.scss";
 import "react-datepicker/dist/react-datepicker.css";
@@ -22,6 +23,7 @@ const EngineAdvert = () => {
     certification: "",
     engineModel: "",
     manufacturerWarranty: "",
+    testField:[]
   });
   const [openKey, setOpenKey] = useState(null);
 
@@ -100,6 +102,13 @@ const EngineAdvert = () => {
                         brokerValuation: e.target.value,
                       })
                     }
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <MultipleSelectComponent
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    label={`Test Field`}
                   />
                 </Col>
               </Form>
