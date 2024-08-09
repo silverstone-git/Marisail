@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Container } from "react-bootstrap";
-import { Col, InputGroup, Form, Row, Accordion } from "react-bootstrap";
+import { Col, Form, Row } from "react-bootstrap";
 import SelectComponent from "../SelectComponent";
 import InputComponent from "../InputComponent";
+import DatePickerComponent from "../DatePickerComponent";
 import "./engineAdvert.module.scss";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
@@ -74,33 +74,18 @@ const EngineAdvert = () => {
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <Accordion defaultActiveKey="0">
-                    <Accordion.Item eventKey="0">
-                      <Accordion.Header>Last Survey Date</Accordion.Header>
-                      <Accordion.Body>
-                        <div>
-                          <InputGroup>
-                            <div className="customDatePickerWidth">
-                              <DatePicker
-                                className="form-control datepicker-input"
-                                selected={form.lastSurveyDate}
-                                onChange={(date) =>
-                                  setForm({ ...form, lastSurveyDate: date })
-                                }
-                                dateFormat="dd/MM/yyyy"
-                                placeholderText="DD/MM/YYYY"
-                              />
-                            </div>
-                            {/* <div className="customDatePickerWidthText">
-                          <InputGroup.Text>
-                              <i className="bi bi-calendar" />
-                            </InputGroup.Text>
-                          </div> */}
-                          </InputGroup>
-                        </div>
-                      </Accordion.Body>
-                    </Accordion.Item>
-                  </Accordion>
+                  <div className="customDatePickerWidth">
+                    <DatePickerComponent
+                      openKey={openKey}
+                      setOpenKey={setOpenKey}
+                      label={"Last Survey Date"}
+                      selected={form.lastSurveyDate}
+                      type="advertEngine"
+                      onChange={(date) =>
+                        setForm({ ...form, lastSurveyDate: date })
+                      }
+                    />
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <InputComponent
