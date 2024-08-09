@@ -30,7 +30,7 @@ const EngineAdvert = () => {
       <Container className="mb-5">
         <Row>
           <Col md={6} className="mt-4">
-            <h6 className="ms-3">Condition</h6>
+            <h6 style={{ marginLeft: 20 }}>Condition</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
@@ -74,47 +74,60 @@ const EngineAdvert = () => {
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <InputGroup>
-                    <label
-                      className="ms-4 mt-2"
-                      style={{ marginRight: "15rem" }}
-                    >
+                  {/* <Accordion defaultActiveKey="0">
+                    <Accordion.Item eventKey="0">
+                      <Accordion.Header>Last Survey Date</Accordion.Header>
+                      <Accordion.Body> */}
+                      <Form.Label style={{ marginLeft: 20 }}>
                       Last Survey Date
-                    </label>
-                    <DatePicker
-                      className="form-control datepicker-input"
-                      selected={form.lastSurveyDate}
-                      onChange={(date) =>
-                        setForm({ ...form, lastSurveyDate: date })
-                      }
-                      dateFormat="dd/MM/yyyy"
-                      placeholderText="DD/MM/YYYY"
-                    />
-                    <InputGroup.Text>
-                      <i className="bi bi-calendar" />
-                    </InputGroup.Text>
-                  </InputGroup>
+                    </Form.Label>
+                        <div>
+                          <InputGroup>
+                            <DatePicker
+                              className="form-control datepicker-input"
+                              selected={form.lastSurveyDate}
+                              onChange={(date) =>
+                                setForm({ ...form, lastSurveyDate: date })
+                              }
+                              dateFormat="dd/MM/yyyy"
+                              placeholderText="DD/MM/YYYY"
+                              style={{ width: "100%" }}
+                            />
+                            <InputGroup.Text>
+                              <i className="bi bi-calendar" />
+                            </InputGroup.Text>
+                          </InputGroup>
+                        </div>
+                      {/* </Accordion.Body>
+                    </Accordion.Item>
+                  </Accordion> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <InputGroup>
-                    <label>
-                      Broker Valuation
-                    </label>
-                  <InputComponent
-                    formType={'number'}
-                    type="advertEngine"
-                    value={form.brokerValuation}
-                    setValue={(e) =>
-                      setForm({ ...form, brokerValuation: e.target.value })
-                    }
-                  />
-                  </InputGroup>
+                      <Form.Group>
+                      <InputGroup>
+                          <InputComponent
+                            label={'Broker Valuation'}
+                            openKey={openKey}
+                            setOpenKey={setOpenKey}
+                            formType={"number"}
+                            type="advertEngine"
+                            style={{ width: "100%" }}
+                            value={form.brokerValuation}
+                            setValue={(e) =>
+                              setForm({
+                                ...form,
+                                brokerValuation: e.target.value,
+                              })
+                            }
+                          />
+                        </InputGroup>
+                        </Form.Group>
                 </Col>
               </Form>
             </Col>
           </Col>
           <Col md={6} className="mt-4">
-            <h6 className="ms-3">General</h6>
+            <h6 style={{ marginLeft: 20 }}>General</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
