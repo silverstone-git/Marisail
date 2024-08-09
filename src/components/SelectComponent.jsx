@@ -580,13 +580,13 @@ function SelectComponent({
     >
       <Accordion.Item eventKey={label}>
         <Accordion.Header>{selectedComponent[label]?.name}</Accordion.Header>
-        <Accordion.Body style={{ maxHeight: "200px", overflowY: "auto" }}>
+        <Accordion.Body style={{ maxHeight: 200, overflowY: "auto" }}>
           {selectedComponent[label]?.options.map((item, index) => {
             return (
               <Form.Check
                 type="radio"
                 key={index}
-                aria-label="radio 1"
+                aria-label={label}
                 name={selectedComponent[label]?.name}
                 checked={item === value}
                 onChange={(e) => setValue(item)}
