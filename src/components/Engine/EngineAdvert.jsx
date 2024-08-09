@@ -80,10 +80,9 @@ const EngineAdvert = () => {
                       setOpenKey={setOpenKey}
                       label={"Last Survey Date"}
                       selected={form.lastSurveyDate}
+                      value={form.lastSurveyDate}
                       type="advertEngine"
-                      onChange={(date) =>
-                        setForm({ ...form, lastSurveyDate: date })
-                      }
+                      setValue={(val) => setForm({ ...form, lastSurveyDate: val })}
                     />
                   </div>
                 </Col>
@@ -94,7 +93,6 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     formType={"number"}
                     type="advertEngine"
-                    style={{ width: "100%" }}
                     value={form.brokerValuation}
                     setValue={(e) =>
                       setForm({

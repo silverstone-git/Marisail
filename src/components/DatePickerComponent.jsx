@@ -19,10 +19,12 @@ function DatePickerComponent({
                 <Accordion.Header>{label}</Accordion.Header>
                 <Accordion.Body>
                     <DatePicker
+                        selected={value}
                         className="form-control datepicker-input"
                         dateFormat="dd/MM/yyyy"
                         placeholderText="DD/MM/YYYY"
-                    />
+                        onChange={(date) => setValue(date)}
+                        />
                 </Accordion.Body>
             </Accordion.Item>
         </Accordion>
