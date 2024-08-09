@@ -52,6 +52,8 @@ $secondary: #000;
   .accordion-item {
     .accordion-header {
       .accordion-button {
+        border: none !important;
+        box-shadow: none !important;
         &:not(.collapsed) {
           border: none !important;
           background-color: transparent !important;
@@ -66,9 +68,6 @@ $secondary: #000;
         &:focus {
           box-shadow: none !important;
         }
-
-        border: none !important;
-        box-shadow: none !important;
       }
     }
 
@@ -87,4 +86,14 @@ $secondary: #000;
 
 .customDatePickerWidthText {
   width: 7%;
+}
+
+.custom-checkbox .form-check-input:checked {
+  background-color: #193e77; 
+  border-color: #193e77;
+}
+
+.custom-radio .form-check-input:checked {
+  background-color: #193e77; 
+  border-color: #193e77;
 }

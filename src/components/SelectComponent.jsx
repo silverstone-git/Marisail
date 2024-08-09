@@ -586,6 +586,7 @@ function SelectComponent({
               <Form.Check
                 type="radio"
                 key={index}
+                className="custom-radio"
                 aria-label={label}
                 name={selectedComponent[label]?.name}
                 checked={item === value}
