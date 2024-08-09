@@ -77,3 +77,14 @@ $secondary: #000;
     }
   }
 }
+
+.customDatePickerWidth {
+  width: 100%;
+  .react-datepicker-wrapper {
+    width: 100%;
+  }
+}
+
+.customDatePickerWidthText {
+  width: 7%;
+}

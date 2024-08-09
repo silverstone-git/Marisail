@@ -32,4 +32,4 @@ const Home = () => {
 
 Home.propTypes = {};
 
-export default Home;  
+export default Home;

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Container } from "react-bootstrap";
-import { Col, InputGroup, Form, Row } from "react-bootstrap";
+import { Col, InputGroup, Form, Row, Accordion } from "react-bootstrap";
 import SelectComponent from "../SelectComponent";
 import InputComponent from "../InputComponent";
 import "./engineAdvert.module.scss";
@@ -74,33 +74,33 @@ const EngineAdvert = () => {
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  {/* <Accordion defaultActiveKey="0">
+                  <Accordion defaultActiveKey="0">
                     <Accordion.Item eventKey="0">
                       <Accordion.Header>Last Survey Date</Accordion.Header>
-                      <Accordion.Body> */}
-                  <Form.Label style={{ marginLeft: 20 }}>
-                    Last Survey Date
-                  </Form.Label>
-                  <div>
-                    <InputGroup>
-                      <DatePicker
-                        className="form-control datepicker-input"
-                        selected={form.lastSurveyDate}
-                        onChange={(date) =>
-                          setForm({ ...form, lastSurveyDate: date })
-                        }
-                        dateFormat="dd/MM/yyyy"
-                        placeholderText="DD/MM/YYYY"
-                        style={{ width: "100%" }}
-                      />
-                      <InputGroup.Text>
-                        <i className="bi bi-calendar" />
-                      </InputGroup.Text>
-                    </InputGroup>
-                  </div>
-                  {/* </Accordion.Body>
+                      <Accordion.Body>
+                        <div>
+                          <InputGroup>
+                            <div className="customDatePickerWidth">
+                              <DatePicker
+                                className="form-control datepicker-input"
+                                selected={form.lastSurveyDate}
+                                onChange={(date) =>
+                                  setForm({ ...form, lastSurveyDate: date })
+                                }
+                                dateFormat="dd/MM/yyyy"
+                                placeholderText="DD/MM/YYYY"
+                              />
+                            </div>
+                            {/* <div className="customDatePickerWidthText">
+                          <InputGroup.Text>
+                              <i className="bi bi-calendar" />
+                            </InputGroup.Text>
+                          </div> */}
+                          </InputGroup>
+                        </div>
+                      </Accordion.Body>
                     </Accordion.Item>
-                  </Accordion> */}
+                  </Accordion>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <InputComponent
