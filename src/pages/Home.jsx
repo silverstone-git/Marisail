@@ -1,6 +1,7 @@
 import AppCarousel from '../components/AppCarousel';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import SponsorsRanking from '../components/Home/SponsorsRanking';
 
 const Home = () => {
   const [message, setMessage] = useState('');
@@ -16,14 +17,15 @@ const Home = () => {
   }, []);
   return (
     <>
-    <main
-      style={{
-        maxHeight: `100vh `,
-        overflow: 'hidden',
-      }}
-    >
-      <AppCarousel/>
-    </main>
+      <main
+        style={{
+          maxHeight: `100vh `,
+          overflow: 'hidden',
+        }}
+      ></main>
+      <section>
+        <SponsorsRanking></SponsorsRanking>
+      </section>
     </>
   );
 };
