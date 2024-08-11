@@ -122,6 +122,32 @@ function SelectComponent({
         "Carbon Fibre Composite",
       ],
     },
+    engineSerialNumber: {
+      name: "Engine Serial Number",
+      options: [
+        "Galvanized Steel",
+        "Powder-Coated Steel",
+        "Painted Steel",
+        "Stainless Steel",
+        "Standard Aluminum",
+        "Anodized Aluminum",
+        "Marine-Grade Aluminum",
+        "Carbon Fibre Composite",
+      ],
+    },
+    EngineSoundproofingKits: {
+      name: "Engine Serial Number",
+      options: [
+        "Galvanized Steel",
+        "Powder-Coated Steel",
+        "Painted Steel",
+        "Stainless Steel",
+        "Standard Aluminum",
+        "Anodized Aluminum",
+        "Marine-Grade Aluminum",
+        "Carbon Fibre Composite",
+      ],
+    },
     engineModelYear: {
       name: "Engine Model Year",
       options: [
