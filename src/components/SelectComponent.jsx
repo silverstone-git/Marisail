@@ -1,7 +1,10 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
 import Accordion from "react-bootstrap/Accordion";
-
+import {
+  
+  accordionItemes
+} from './appCarousel.module.scss';
 function SelectComponent({ label, setValue, value, setOpenKey, openKey }) {
   const lablesOptions = {
     MarisailID: {
@@ -557,8 +560,9 @@ function SelectComponent({ label, setValue, value, setOpenKey, openKey }) {
     <Accordion
       activeKey={openKey}
       onSelect={(eventKey) => setOpenKey(eventKey)}
+      className="myAcco"
     >
-      <Accordion.Item eventKey={label}>
+      <Accordion.Item eventKey={label}  className={accordionItemes}>
         <Accordion.Header>{lablesOptions[label]?.name}</Accordion.Header>
         <Accordion.Body>
           {lablesOptions[label]?.options.map((item) => {

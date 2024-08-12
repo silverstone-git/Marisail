@@ -138,16 +138,12 @@ const Trailers = () => {
   return (
     <>
       <Container className="mb-5">
-        {/* <Button onClick={() => console.log(form)}>fORM</Button> */}
-        <Card className="mt-4 shadow-sm " bg="light" border="light">
-          <Card.Header as="h6" className="myText">
-            Identification
-          </Card.Header>
-          <Card.Body className="pt-4">
-            <Form>
-              {/* Identification */}
-              <Row>
-                <Col xs={6} md={3}>
+        <Row>
+          <Col md={6} className="mt-4">
+            <h6 style={{ marginLeft: 20 }}>Identification</h6>
+            <Col md={12}>
+              <Form>
+                <Col xs={3} md={12} className="mb-2 myAcc">
                   <SelectComponent
                     label="MarisailID"
                     value={form.MarisailID}
@@ -157,7 +153,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                   />
                 </Col>
-                <Col xs={6} md={3}>
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     value={form.Make}
                     setValue={(val) => setForm({ ...form, Make: val })}
@@ -167,7 +163,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                   />
                 </Col>
-                <Col xs={6} md={3}>
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -176,7 +172,7 @@ const Trailers = () => {
                     label="Model"
                   />
                 </Col>
-                <Col xs={6} md={3}>
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -185,19 +181,14 @@ const Trailers = () => {
                     label="Year"
                   />
                 </Col>
-              </Row>
-              {/* Identification End*/}
-            </Form>
-          </Card.Body>
-        </Card>
-
-        <Card className="mt-3 shadow-sm " bg="light" border="light">
-          <Card.Header as="h6">Basics</Card.Header>
-          <Card.Body className="pt-4">
-            <Form>
-              {/* Basics */}
-              <Row className="mb-3">
-                <Col xs={6} md={3}>
+              </Form>
+            </Col>
+          </Col>
+          <Col md={6} className="mt-4">
+            <h6 style={{ marginLeft: 20 }}>General</h6>
+            <Col md={12}>
+              <Form>
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -206,7 +197,7 @@ const Trailers = () => {
                     label="Type"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -215,7 +206,7 @@ const Trailers = () => {
                     label="GVWR"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -224,7 +215,7 @@ const Trailers = () => {
                     label="LoadCapacity"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -233,7 +224,7 @@ const Trailers = () => {
                     label="Length"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -242,7 +233,7 @@ const Trailers = () => {
                     label="Width"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <InputComponent
                     label="Total Height"
                     value={form.TotalHeight}
@@ -251,7 +242,7 @@ const Trailers = () => {
                     }
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <InputComponent
                     label="Axle Height From Gound"
                     value={form.AxleHeightFromGound}
@@ -260,19 +251,14 @@ const Trailers = () => {
                     }
                   />
                 </Col>
-              </Row>
-              {/* Basics End*/}
-            </Form>
-          </Card.Body>
-        </Card>
-        {/* Construction Materials */}
-        <Card className="mt-3 shadow-sm " bg="light" border="light">
-          <Card.Header as="h6">Construction Materials</Card.Header>
-          <Card.Body className="pt-4">
-            <Form>
-              {/* Basics */}
-              <Row>
-                <Col xs={6} md={3} className="mb-3">
+              </Form>
+            </Col>
+          </Col>
+          <Col md={6} className="mt-4">
+            <h6 style={{ marginLeft: 20 }}>Construction Materials</h6>
+            <Col md={12}>
+              <Form>
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -281,7 +267,7 @@ const Trailers = () => {
                     label="FrameMaterial"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -290,7 +276,7 @@ const Trailers = () => {
                     label="FrameCoating"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -301,7 +287,7 @@ const Trailers = () => {
                     label="FrameCrossmemberType"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -310,7 +296,7 @@ const Trailers = () => {
                     label="FrameWeldType"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -324,7 +310,7 @@ const Trailers = () => {
                     label="MaximumAngleofApproach"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -333,7 +319,7 @@ const Trailers = () => {
                     label="FloorMaterial"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -342,7 +328,7 @@ const Trailers = () => {
                     label="SidesMaterial"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -351,18 +337,14 @@ const Trailers = () => {
                     label="RoofMaterial"
                   />
                 </Col>
-              </Row>
-            </Form>
-          </Card.Body>
-        </Card>
-        {/* Maintenance Features */}
-        <Card className="mt-3 shadow-sm " bg="light" border="light">
-          <Card.Header as="h6">Maintenance Features</Card.Header>
-          <Card.Body className="pt-4">
-            <Form>
-              {/* Basics */}
-              <Row>
-                <Col xs={6} md={3} className="mb-3">
+              </Form>
+            </Col>
+          </Col>
+          <Col md={6} className="mt-4">
+            <h6 style={{ marginLeft: 20 }}>Maintenance Features</h6>
+            <Col md={12}>
+              <Form>
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -371,7 +353,7 @@ const Trailers = () => {
                     label="GreasePoints"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -380,7 +362,7 @@ const Trailers = () => {
                     label="BearingType"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -391,19 +373,14 @@ const Trailers = () => {
                     label="MaintenanceSchedule"
                   />
                 </Col>
-              </Row>
-            </Form>
-          </Card.Body>
-        </Card>
-
-        {/* User Features */}
-        <Card className="mt-3 shadow-sm " bg="light" border="light">
-          <Card.Header as="h6">User Features</Card.Header>
-          <Card.Body className="pt-4">
-            <Form>
-              {/* Basics */}
-              <Row>
-                <Col xs={6} md={3} className="mb-3">
+              </Form>
+            </Col>
+          </Col>
+          <Col md={6} className="mt-4">
+            <h6 style={{ marginLeft: 20 }}>User Features</h6>
+            <Col md={12}>
+              <Form>
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -412,7 +389,7 @@ const Trailers = () => {
                     label="Storage"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -421,7 +398,7 @@ const Trailers = () => {
                     label="TieDownPoints"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -430,7 +407,7 @@ const Trailers = () => {
                     label="ToolBox"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -439,19 +416,14 @@ const Trailers = () => {
                     label="BumperType"
                   />
                 </Col>
-              </Row>
-            </Form>
-          </Card.Body>
-        </Card>
-
-        {/* Special Features */}
-        <Card className="mt-3 shadow-sm " bg="light" border="light">
-          <Card.Header as="h6">Special Features</Card.Header>
-          <Card.Body className="pt-4">
-            <Form>
-              {/* Basics */}
-              <Row>
-                <Col xs={6} md={3} className="mb-3">
+              </Form>
+            </Col>
+          </Col>
+          <Col md={6} className="mt-4">
+            <h6 style={{ marginLeft: 20 }}>Special Features</h6>
+            <Col md={12}>
+              <Form>
+                <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -461,7 +433,7 @@ const Trailers = () => {
                     id="HydraulicTilt"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -473,7 +445,7 @@ const Trailers = () => {
                     id="ExtendableTongue"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -485,7 +457,7 @@ const Trailers = () => {
                     id="AdjustableDeckHeight"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -497,17 +469,14 @@ const Trailers = () => {
                     id="AdjustableDeckHeight"
                   />
                 </Col>
-              </Row>
-            </Form>
-          </Card.Body>
-        </Card>
-        <Card className="mt-3 shadow-sm " bg="light" border="light">
-          <Card.Header as="h6">Additional Accessories</Card.Header>
-          <Card.Body className="pt-4">
-            <Form>
-              {/* Basics */}
-              <Row>
-                <Col xs={6} md={3} className="mb-3">
+              </Form>
+            </Col>
+          </Col>
+          <Col md={6} className="mt-4">
+            <h6 style={{ marginLeft: 20 }}>Additional Accessories</h6>
+            <Col md={12}>
+              <Form>
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -516,7 +485,7 @@ const Trailers = () => {
                     label="RampType"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -525,7 +494,7 @@ const Trailers = () => {
                     label="WinchPost"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -535,7 +504,7 @@ const Trailers = () => {
                     id="SplashGuards"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -544,7 +513,7 @@ const Trailers = () => {
                     label="Fenders"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -554,17 +523,14 @@ const Trailers = () => {
                     id="SideRails"
                   />
                 </Col>
-              </Row>
-            </Form>
-          </Card.Body>
-        </Card>
-        <Card className="mt-3 shadow-sm " bg="light" border="light">
-          <Card.Header as="h6">Customization Options</Card.Header>
-          <Card.Body className="pt-4">
-            <Form>
-              {/* Basics */}
-              <Row>
-                <Col xs={6} md={3} className="mb-3">
+              </Form>
+            </Col>
+          </Col>
+          <Col md={6} className="mt-4">
+            <h6 style={{ marginLeft: 20 }}>Customization Options</h6>
+            <Col md={12}>
+              <Form>
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -573,7 +539,7 @@ const Trailers = () => {
                     label="Color"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -582,7 +548,7 @@ const Trailers = () => {
                     label="Decals"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -591,7 +557,7 @@ const Trailers = () => {
                     label="StorageBox"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -602,7 +568,7 @@ const Trailers = () => {
                     label="LightingPackage"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -613,17 +579,14 @@ const Trailers = () => {
                     label="SuspensionUpgrade"
                   />
                 </Col>
-              </Row>
-            </Form>
-          </Card.Body>
-        </Card>
-        <Card className="mt-3 shadow-sm " bg="light" border="light">
-          <Card.Header as="h6">Axles & Suspension</Card.Header>
-          <Card.Body className="pt-4">
-            <Form>
-              {/* Basics */}
-              <Row>
-                <Col xs={6} md={3} className="mb-3">
+              </Form>
+            </Col>
+          </Col>
+          <Col md={6} className="mt-4">
+            <h6 style={{ marginLeft: 20 }}>Axles & Suspension</h6>
+            <Col md={12}>
+              <Form>
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -632,7 +595,7 @@ const Trailers = () => {
                     label="AxleType"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -641,7 +604,7 @@ const Trailers = () => {
                     label="AxleCapacity"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -650,7 +613,7 @@ const Trailers = () => {
                     label="AxleSealType"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -659,7 +622,7 @@ const Trailers = () => {
                     label="AxleHubSize"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -668,7 +631,7 @@ const Trailers = () => {
                     label="AxlePosition"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -680,7 +643,7 @@ const Trailers = () => {
                     id="DropAxleOption"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -691,7 +654,7 @@ const Trailers = () => {
                     label="SuspensionType"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -702,7 +665,7 @@ const Trailers = () => {
                     label="SuspensionCapacity"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -713,17 +676,14 @@ const Trailers = () => {
                     label="SuspensionAdjustment"
                   />
                 </Col>
-              </Row>
-            </Form>
-          </Card.Body>
-        </Card>
-        <Card className="mt-3 shadow-sm " bg="light" border="light">
-          <Card.Header as="h6">Tyres & Wheels</Card.Header>
-          <Card.Body className="pt-4">
-            <Form>
-              {/* Basics */}
-              <Row>
-                <Col xs={6} md={3} className="mb-3">
+              </Form>
+            </Col>
+          </Col>
+          <Col md={6} className="mt-4">
+            <h6 style={{ marginLeft: 20 }}>Tyres & Wheels</h6>
+            <Col md={12}>
+              <Form>
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -732,7 +692,7 @@ const Trailers = () => {
                     label="TyreSize"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -741,7 +701,7 @@ const Trailers = () => {
                     label="TyreLoadRange"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -750,7 +710,7 @@ const Trailers = () => {
                     label="TyreType"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -759,7 +719,7 @@ const Trailers = () => {
                     label="WheelType"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -770,7 +730,7 @@ const Trailers = () => {
                     label="WheelBoltPattern"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -781,17 +741,14 @@ const Trailers = () => {
                     label="HubLubricationSystem"
                   />
                 </Col>
-              </Row>
-            </Form>
-          </Card.Body>
-        </Card>
-        <Card className="mt-3 shadow-sm " bg="light" border="light">
-          <Card.Header as="h6">Brakes & Safety</Card.Header>
-          <Card.Body className="pt-4">
-            <Form>
-              {/* Basics */}
-              <Row>
-                <Col xs={6} md={3} className="mb-3">
+              </Form>
+            </Col>
+          </Col>
+          <Col md={6} className="mt-4">
+            <h6 style={{ marginLeft: 20 }}>Brakes & Safety</h6>
+            <Col md={12}>
+              <Form>
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -800,7 +757,7 @@ const Trailers = () => {
                     label="BrakeType"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -809,7 +766,7 @@ const Trailers = () => {
                     label="BrakeActuator"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -820,7 +777,7 @@ const Trailers = () => {
                     label="BrakeLineMaterial"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -831,7 +788,7 @@ const Trailers = () => {
                     label="BrakeDrumDiameter"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -842,7 +799,7 @@ const Trailers = () => {
                     label="BrakeFluidType"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -852,7 +809,7 @@ const Trailers = () => {
                     id="Brakes"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -861,7 +818,7 @@ const Trailers = () => {
                     label="CouplerSize"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -870,7 +827,7 @@ const Trailers = () => {
                     label="CouplerType"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -881,7 +838,7 @@ const Trailers = () => {
                     label="CouplerLockType"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -890,7 +847,7 @@ const Trailers = () => {
                     label="HitchClass"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -901,7 +858,7 @@ const Trailers = () => {
                     label="HitchReceiverSize"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -910,7 +867,7 @@ const Trailers = () => {
                     label="SafetyChains"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -922,17 +879,14 @@ const Trailers = () => {
                     id="BreakawaySystem"
                   />
                 </Col>
-              </Row>
-            </Form>
-          </Card.Body>
-        </Card>
-        <Card className="mt-3 shadow-sm " bg="light" border="light">
-          <Card.Header as="h6">Winch & Winch Accessories</Card.Header>
-          <Card.Body className="pt-4">
-            <Form>
-              {/* Basics */}
-              <Row>
-                <Col xs={6} md={3} className="mb-3">
+              </Form>
+            </Col>
+          </Col>
+          <Col md={6} className="mt-4">
+            <h6 style={{ marginLeft: 20 }}>Winch & Winch Accessories</h6>
+            <Col md={12}>
+              <Form>
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -941,7 +895,7 @@ const Trailers = () => {
                     label="WinchType"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -950,7 +904,7 @@ const Trailers = () => {
                     label="WinchCapacity"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -961,7 +915,7 @@ const Trailers = () => {
                     label="WinchRopeLength"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -972,7 +926,7 @@ const Trailers = () => {
                     label="WinchDrumMaterial"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -983,7 +937,7 @@ const Trailers = () => {
                     label="WinchGearRatio"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -994,7 +948,7 @@ const Trailers = () => {
                     label="WinchRemoteControl"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1005,7 +959,7 @@ const Trailers = () => {
                     label="WinchBrakeType"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1016,7 +970,7 @@ const Trailers = () => {
                     label="WinchCableType"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1027,7 +981,7 @@ const Trailers = () => {
                     label="WinchStrapLength"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1038,7 +992,7 @@ const Trailers = () => {
                     label="WinchHandleLength"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1047,17 +1001,14 @@ const Trailers = () => {
                     label="WinchMounting"
                   />
                 </Col>
-              </Row>
-            </Form>
-          </Card.Body>
-        </Card>
-        <Card className="mt-3 shadow-sm " bg="light" border="light">
-          <Card.Header as="h6">Lighting & Electrical</Card.Header>
-          <Card.Body className="pt-4">
-            <Form>
-              {/* Basics */}
-              <Row>
-                <Col xs={6} md={3} className="mb-3">
+              </Form>
+            </Col>
+          </Col>
+          <Col md={6} className="mt-4">
+            <h6 style={{ marginLeft: 20 }}>Lighting & Electrical</h6>
+            <Col md={12}>
+              <Form>
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1066,7 +1017,7 @@ const Trailers = () => {
                     label="Lighting"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1077,7 +1028,7 @@ const Trailers = () => {
                     label="LightMountingPosition"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1086,7 +1037,7 @@ const Trailers = () => {
                     label="LightType"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1097,7 +1048,7 @@ const Trailers = () => {
                     label="ElectricalConnectorType"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1108,7 +1059,7 @@ const Trailers = () => {
                     label="ElectricalWiringType"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1117,7 +1068,7 @@ const Trailers = () => {
                     label="BatteryType"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1128,17 +1079,14 @@ const Trailers = () => {
                     label="BatteryChargerType"
                   />
                 </Col>
-              </Row>
-            </Form>
-          </Card.Body>
-        </Card>
-        <Card className="mt-3 shadow-sm " bg="light" border="light">
-          <Card.Header as="h6">Accessories</Card.Header>
-          <Card.Body className="pt-4">
-            <Form>
-              {/* Basics */}
-              <Row>
-                <Col xs={6} md={3} className="mb-3">
+              </Form>
+            </Col>
+          </Col>
+          <Col md={6} className="mt-4">
+            <h6 style={{ marginLeft: 20 }}>Accessories</h6>
+            <Col md={12}>
+              <Form>
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1149,7 +1097,7 @@ const Trailers = () => {
                     label="SpareTyreCarrier"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1158,7 +1106,7 @@ const Trailers = () => {
                     label="SpareTyreSize"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1169,7 +1117,7 @@ const Trailers = () => {
                     label="SpareTyreMountingLocation"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1178,7 +1126,7 @@ const Trailers = () => {
                     label="JackType"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1187,7 +1135,7 @@ const Trailers = () => {
                     label="JackWheelType"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1196,7 +1144,7 @@ const Trailers = () => {
                     label="JackCapacity"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1207,17 +1155,14 @@ const Trailers = () => {
                     label="JackLiftHeight"
                   />
                 </Col>
-              </Row>
-            </Form>
-          </Card.Body>
-        </Card>
-        <Card className="mt-3 shadow-sm " bg="light" border="light">
-          <Card.Header as="h6">Loading & Transport Features</Card.Header>
-          <Card.Body className="pt-4">
-            <Form>
-              {/* Basics */}
-              <Row>
-                <Col xs={6} md={3} className="mb-3">
+              </Form>
+            </Col>
+          </Col>
+          <Col md={6} className="mt-4">
+            <h6 style={{ marginLeft: 20 }}>Loading & Transport Features</h6>
+            <Col md={12}>
+              <Form>
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1226,7 +1171,7 @@ const Trailers = () => {
                     label="LoadingSystem"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1235,7 +1180,7 @@ const Trailers = () => {
                     label="Bunks"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1244,7 +1189,7 @@ const Trailers = () => {
                     label="BunkMaterial"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1253,7 +1198,7 @@ const Trailers = () => {
                     label="BunkWidth"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1264,7 +1209,7 @@ const Trailers = () => {
                     label="BunkHeightAdjustment"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1275,7 +1220,7 @@ const Trailers = () => {
                     label="BunkMountingBracketMaterial"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1284,7 +1229,7 @@ const Trailers = () => {
                     label="Rollers"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1295,7 +1240,7 @@ const Trailers = () => {
                     label="RollerMaterial"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1306,17 +1251,14 @@ const Trailers = () => {
                     label="RollerAxleDiameter"
                   />
                 </Col>
-              </Row>
-            </Form>
-          </Card.Body>
-        </Card>
-        <Card className="mt-3 shadow-sm " bg="light" border="light">
-          <Card.Header as="h6">Security Features</Card.Header>
-          <Card.Body className="pt-4">
-            <Form>
-              {/* Basics */}
-              <Row>
-                <Col xs={6} md={3} className="mb-3">
+              </Form>
+            </Col>
+          </Col>
+          <Col md={6} className="mt-4">
+            <h6 style={{ marginLeft: 20 }}>Security Features</h6>
+            <Col md={12}>
+              <Form>
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1325,7 +1267,7 @@ const Trailers = () => {
                     label="WheelLocks"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1334,7 +1276,7 @@ const Trailers = () => {
                     label="LockType"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1343,7 +1285,7 @@ const Trailers = () => {
                     label="AlarmSystem"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1354,19 +1296,16 @@ const Trailers = () => {
                     label="GPSTrackingDevice"
                   />
                 </Col>
-              </Row>
-            </Form>
-          </Card.Body>
-        </Card>
-        <Card className="mt-3 shadow-sm " bg="light" border="light">
-          <Card.Header as="h6">
-            Environmental & Corrosion Resistance
-          </Card.Header>
-          <Card.Body className="pt-4">
-            <Form>
-              {/* Basics */}
-              <Row>
-                <Col xs={6} md={3} className="mb-3">
+              </Form>
+            </Col>
+          </Col>
+          <Col md={6} className="mt-4">
+            <h6 style={{ marginLeft: 20 }}>
+              Environmental & Corrosion Resistance
+            </h6>
+            <Col md={12}>
+              <Form>
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1377,7 +1316,7 @@ const Trailers = () => {
                     label="CorrosionProtection"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1388,17 +1327,14 @@ const Trailers = () => {
                     label="RustInhibitors"
                   />
                 </Col>
-              </Row>
-            </Form>
-          </Card.Body>
-        </Card>
-        <Card className="mt-3 shadow-sm " bg="light" border="light">
-          <Card.Header as="h6">Performance & Handling</Card.Header>
-          <Card.Body className="pt-4">
-            <Form>
-              {/* Basics */}
-              <Row>
-                <Col xs={6} md={3} className="mb-3">
+              </Form>
+            </Col>
+          </Col>
+          <Col md={6} className="mt-4">
+            <h6 style={{ marginLeft: 20 }}>Performance & Handling</h6>
+            <Col md={12}>
+              <Form>
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1409,7 +1345,7 @@ const Trailers = () => {
                     label="MaximumSpeedRating"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1418,17 +1354,14 @@ const Trailers = () => {
                     label="TurningRadius"
                   />
                 </Col>
-              </Row>
-            </Form>
-          </Card.Body>
-        </Card>
-        <Card className="mt-3 shadow-sm " bg="light" border="light">
-          <Card.Header as="h6">Tongue</Card.Header>
-          <Card.Body className="pt-4">
-            <Form>
-              {/* Basics */}
-              <Row>
-                <Col xs={6} md={3} className="mb-3">
+              </Form>
+            </Col>
+          </Col>
+          <Col md={6} className="mt-4">
+            <h6 style={{ marginLeft: 20 }}>Tongue</h6>
+            <Col md={12}>
+              <Form>
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1439,7 +1372,7 @@ const Trailers = () => {
                     label="TongueMaterial"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1448,7 +1381,7 @@ const Trailers = () => {
                     label="TongueShape"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1459,7 +1392,7 @@ const Trailers = () => {
                     label="TongueJackWheelSize"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1470,7 +1403,7 @@ const Trailers = () => {
                     label="TongueJackType"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1479,7 +1412,7 @@ const Trailers = () => {
                     label="TongueWeight"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1490,17 +1423,14 @@ const Trailers = () => {
                     label="TongueWeightRatio"
                   />
                 </Col>
-              </Row>
-            </Form>
-          </Card.Body>
-        </Card>
-        <Card className="mt-3 shadow-sm " bg="light" border="light">
-          <Card.Header as="h6">Documentation</Card.Header>
-          <Card.Body className="pt-4">
-            <Form>
-              {/* Basics */}
-              <Row>
-                <Col xs={6} md={3} className="mb-3">
+              </Form>
+            </Col>
+          </Col>
+          <Col md={6} className="mt-4">
+            <h6 style={{ marginLeft: 20 }}>Documentation</h6>
+            <Col md={12}>
+              <Form>
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1509,7 +1439,7 @@ const Trailers = () => {
                     label="OwnerManual"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1518,17 +1448,14 @@ const Trailers = () => {
                     label="Warranty"
                   />
                 </Col>
-              </Row>
-            </Form>
-          </Card.Body>
-        </Card>
-        <Card className="mt-3 shadow-sm " bg="light" border="light">
-          <Card.Header as="h6">Regulatory Compliance</Card.Header>
-          <Card.Body className="pt-4">
-            <Form>
-              {/* Basics */}
-              <Row>
-                <Col xs={6} md={3} className="mb-3">
+              </Form>
+            </Col>
+          </Col>
+          <Col md={6} className="mt-4">
+            <h6 style={{ marginLeft: 20 }}>Regulatory Compliance</h6>
+            <Col md={12}>
+              <Form>
+                <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1538,7 +1465,7 @@ const Trailers = () => {
                     id="DOTCompliance"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1550,7 +1477,7 @@ const Trailers = () => {
                     id="NATMCertification"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1562,7 +1489,7 @@ const Trailers = () => {
                     id="EUTypeApproval"
                   />
                 </Col>
-                <Col xs={6} md={3} className="mb-3">
+                <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -1572,11 +1499,12 @@ const Trailers = () => {
                     id="ADRCompliance"
                   />
                 </Col>
-              </Row>
-            </Form>
-          </Card.Body>
-        </Card>
+              </Form>
+            </Col>
+          </Col>
+        </Row>
       </Container>
+      ;
     </>
   );
 };

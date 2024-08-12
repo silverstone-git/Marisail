@@ -3,3 +3,6 @@
 
 
 
+.myAcco.accordion .accordion-item {
+    border: none !important;
+}
