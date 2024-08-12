@@ -6,8 +6,8 @@ import Row from "react-bootstrap/Row";
 import SelectComponent from "../components/SelectComponent";
 import InputComponent from "../components/InputComponent";
 import CheckComponent from "../components/CheckComponent";
-import './trailers.css'
- 
+import "./trailers.css";
+
 const Trailers = () => {
   const [form, setForm] = useState({
     MarisailID: "",
@@ -140,7 +140,9 @@ const Trailers = () => {
       <Container className="mb-5">
         {/* <Button onClick={() => console.log(form)}>fORM</Button> */}
         <Card className="mt-4 shadow-sm " bg="light" border="light">
-          <Card.Header as="h6"  className='myText'>Identification</Card.Header>
+          <Card.Header as="h6" className="myText">
+            Identification
+          </Card.Header>
           <Card.Body className="pt-4">
             <Form>
               {/* Identification */}
@@ -195,7 +197,7 @@ const Trailers = () => {
             <Form>
               {/* Basics */}
               <Row className="mb-3">
-                <Col xs={6} md={4}>
+                <Col xs={6} md={3}>
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -204,7 +206,7 @@ const Trailers = () => {
                     label="Type"
                   />
                 </Col>
-                <Col xs={6} md={4}>
+                <Col xs={6} md={3} className="mb-3">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -213,7 +215,7 @@ const Trailers = () => {
                     label="GVWR"
                   />
                 </Col>
-                <Col xs={6} md={4}>
+                <Col xs={6} md={3} className="mb-3">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -222,10 +224,7 @@ const Trailers = () => {
                     label="LoadCapacity"
                   />
                 </Col>
-              </Row>
-
-              <Row className="mb-3">
-                <Col xs={6} md={3}>
+                <Col xs={6} md={3} className="mb-3">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -234,7 +233,7 @@ const Trailers = () => {
                     label="Length"
                   />
                 </Col>
-                <Col xs={6} md={3}>
+                <Col xs={6} md={3} className="mb-3">
                   <SelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -243,7 +242,7 @@ const Trailers = () => {
                     label="Width"
                   />
                 </Col>
-                <Col xs={6} md={3}>
+                <Col xs={6} md={3} className="mb-3">
                   <InputComponent
                     label="Total Height"
                     value={form.TotalHeight}
@@ -252,7 +251,7 @@ const Trailers = () => {
                     }
                   />
                 </Col>
-                <Col xs={6} md={3}>
+                <Col xs={6} md={3} className="mb-3">
                   <InputComponent
                     label="Axle Height From Gound"
                     value={form.AxleHeightFromGound}
