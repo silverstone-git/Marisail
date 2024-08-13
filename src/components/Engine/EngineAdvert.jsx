@@ -1,10 +1,11 @@
-import { useState } from "react";
 import { Container } from "react-bootstrap";
 import { Col, Form, Row } from "react-bootstrap";
 import SelectComponent from "../SelectComponent";
 import InputComponent from "../InputComponent";
-import MultipleSelectComponent from "../MultipleSelectComponent"
+import MultipleSelectComponent from "../MultipleSelectComponent";
 import DatePickerComponent from "../DatePickerComponent";
+import React, { useEffect, useState } from "react";
+import axios from 'axios';
 import "./engineAdvert.module.scss";
 import "react-datepicker/dist/react-datepicker.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -23,21 +24,43 @@ const EngineAdvert = () => {
     certification: "",
     engineModel: "",
     manufacturerWarranty: "",
-    engineSerialNumber:"",
-    engineSoundproofingKits:"",
-    crankcaseDesign:"",
-    flywheelSAE14:"",
-    engineMountingOrientation:"",
-    testField:[]
+    engineSerialNumber: "",
+    engineSoundproofingKits: "",
+    crankcaseDesign: "",
+    flywheelSAE14: "",
+    engineMountingOrientation: "",
+    engineSuspension: "",
+    engineSuspension: "",
+    mountingBracketMaterial: "",
+    alignmentRequirements: "",
+    engineBlock: "",
+    scheduledMaintenancePlan: "",
+    serviceInterval: "",
+    maintenanceLogRequirements: "",
+    availabilityOfSpareParts: "",
+    operationMode: ""
   });
   const [openKey, setOpenKey] = useState(null);
+
+  const [message, setMessage] = useState("");
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:3001/api/sponsors")
+  //     .then((response) => {
+  //       console.log("001 Response from API--", response);
+  //       setMessage(response);
+  //     })
+  //     .catch((error) => {
+  //       console.error("There was an error fetching the message!", error);
+  //     });
+  // }, []);
 
   return (
     <>
       <Container className="mb-5">
         <Row>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>Make and Model</h6>
+            <h6 style={{ marginLeft: 10 }}>Make and Model</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
@@ -84,7 +107,7 @@ const EngineAdvert = () => {
             </Col>
           </Col>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>Condition</h6>
+            <h6 style={{ marginLeft: 10 }}>Condition</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
@@ -136,7 +159,9 @@ const EngineAdvert = () => {
                       selected={form.lastSurveyDate}
                       value={form.lastSurveyDate}
                       type="advertEngine"
-                      setValue={(val) => setForm({ ...form, lastSurveyDate: val })}
+                      setValue={(val) =>
+                        setForm({ ...form, lastSurveyDate: val })
+                      }
                     />
                   </div>
                 </Col>
@@ -160,7 +185,7 @@ const EngineAdvert = () => {
             </Col>
           </Col>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>General</h6>
+            <h6 style={{ marginLeft: 10 }}>General</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
@@ -287,7 +312,7 @@ const EngineAdvert = () => {
             </Col>
           </Col>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>Transmission</h6>
+            <h6 style={{ marginLeft: 10 }}>Transmission</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
@@ -324,9 +349,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.flywheelSAE14}
-                    setValue={(val) =>
-                      setForm({ ...form, flywheelSAE14: val })
-                    }
+                    setValue={(val) => setForm({ ...form, flywheelSAE14: val })}
                     label="flywheelSAE14"
                   />
                 </Col>
@@ -367,7 +390,7 @@ const EngineAdvert = () => {
             </Col>
           </Col>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>Installation and Mounting</h6>
+            <h6 style={{ marginLeft: 10 }}>Installation and Mounting</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
@@ -431,9 +454,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.engineBlock}
-                    setValue={(val) =>
-                      setForm({ ...form, engineBlock: val })
-                    }
+                    setValue={(val) => setForm({ ...form, engineBlock: val })}
                     label="engineBlock"
                   />
                 </Col>
@@ -441,7 +462,7 @@ const EngineAdvert = () => {
             </Col>
           </Col>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>Service & Maintenance</h6>
+            <h6 style={{ marginLeft: 10 }}>Service & Maintenance</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
@@ -498,9 +519,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.operationMode}
-                    setValue={(val) =>
-                      setForm({ ...form, operationMode: val })
-                    }
+                    setValue={(val) => setForm({ ...form, operationMode: val })}
                     label="operationMode"
                   />
                 </Col>
@@ -515,6 +534,10 @@ const EngineAdvert = () => {
             </Col>
           </Col>
         </Row>
+        <p  style={{textAlign: 'center'}}>
+          <input type="submit" style={{backgroundColor: '#971e28', color: '#fff', padding: '8px 32px', border: '0px none', borderRadius: 30, textTransform: 'uppercase',
+          marginBottom: 8, width: '50%', cursor: 'pointer', transition: 'all .5s ease'}} name="ae-submit" id="ae-submit" value="Submit"/>
+        </p>
       </Container>
     </>
   );

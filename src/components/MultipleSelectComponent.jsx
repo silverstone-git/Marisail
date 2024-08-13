@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Form, Accordion } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 const MultipleSelectComponent = ({
   label,
@@ -43,4 +44,9 @@ const MultipleSelectComponent = ({
   );
 };
 
+MultipleSelectComponent.propTypes = {
+  label: PropTypes.string.isRequired,
+  setOpenKey: PropTypes.func.isRequired,
+  openKey: PropTypes.string
+};
 export default MultipleSelectComponent;
