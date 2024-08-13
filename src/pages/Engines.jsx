@@ -6,7 +6,7 @@ const Engines = ({ type }) => {
   return (
     <main
       style={{
-        maxHeight: `100vh`,
+        minHeight: `100vh`,
         overflow: "hidden",
       }}
     >

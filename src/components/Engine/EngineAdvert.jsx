@@ -23,6 +23,11 @@ const EngineAdvert = () => {
     certification: "",
     engineModel: "",
     manufacturerWarranty: "",
+    engineSerialNumber:"",
+    engineSoundproofingKits:"",
+    crankcaseDesign:"",
+    flywheelSAE14:"",
+    engineMountingOrientation:"",
     testField:[]
   });
   const [openKey, setOpenKey] = useState(null);
@@ -31,6 +36,53 @@ const EngineAdvert = () => {
     <>
       <Container className="mb-5">
         <Row>
+          <Col md={6} className="mt-4">
+            <h6 style={{ marginLeft: 20 }}>Make and Model</h6>
+            <Col md={12}>
+              <Form>
+                <Col xs={3} md={12} className="mb-2">
+                  <MultipleSelectComponent
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    label={`Engine Make`}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <MultipleSelectComponent
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    label={`Engine Model`}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.engineModelYear}
+                    setValue={(val) =>
+                      setForm({ ...form, engineModelYear: val })
+                    }
+                    label="engineModelYear"
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <MultipleSelectComponent
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    label={`Engine Type`}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <MultipleSelectComponent
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    label={`Type Designation`}
+                  />
+                </Col>
+              </Form>
+            </Col>
+          </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 20 }}>Condition</h6>
             <Col md={12}>
@@ -104,13 +156,6 @@ const EngineAdvert = () => {
                     }
                   />
                 </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <MultipleSelectComponent
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    label={`Test Field`}
-                  />
-                </Col>
               </Form>
             </Col>
           </Col>
@@ -119,57 +164,24 @@ const EngineAdvert = () => {
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
+                  <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.marisailVesselId}
-                    setValue={(val) =>
-                      setForm({ ...form, marisailVesselId: val })
-                    }
-                    label="marisailVesselId"
+                    label={`Marisail Vessel ID`}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
+                  <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.engineMake}
-                    setValue={(val) => setForm({ ...form, engineMake: val })}
-                    label="engineMake"
+                    label={`Engine Classification`}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
+                  <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.engineClassification}
-                    setValue={(val) =>
-                      setForm({ ...form, engineClassification: val })
-                    }
-                    label="engineClassification"
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.certification}
-                    setValue={(val) => setForm({ ...form, certification: val })}
-                    label="certification"
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.engineModel}
-                    setValue={(val) => setForm({ ...form, engineModel: val })}
-                    label="engineModel"
+                    label={`Certification`}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -189,11 +201,314 @@ const EngineAdvert = () => {
                     type="advertEngine"
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.engineModelYear}
+                    value={form.engineSerialNumber}
                     setValue={(val) =>
-                      setForm({ ...form, engineModelYear: val })
+                      setForm({ ...form, engineSerialNumber: val })
                     }
-                    label="engineModelYear"
+                    label="engineSerialNumber"
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <MultipleSelectComponent
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    label={`CE Design Category`}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <MultipleSelectComponent
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    label={`Number Drives`}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <MultipleSelectComponent
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    label={`Number Engines`}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <MultipleSelectComponent
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    label={`Range (Miles)`}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <MultipleSelectComponent
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    label={`Cruising Speed (Knots)`}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <MultipleSelectComponent
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    label={`Drive Type`}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <MultipleSelectComponent
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    label={`Engine Hours`}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <MultipleSelectComponent
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    label={`Ignition System (Starting)`}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <MultipleSelectComponent
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    label={`Noise Level (dB)`}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.engineSoundproofingKits}
+                    setValue={(val) =>
+                      setForm({ ...form, engineSoundproofingKits: val })
+                    }
+                    label="EngineSoundproofingKits"
+                  />
+                </Col>
+              </Form>
+            </Col>
+          </Col>
+          <Col md={6} className="mt-4">
+            <h6 style={{ marginLeft: 20 }}>Transmission</h6>
+            <Col md={12}>
+              <Form>
+                <Col xs={3} md={12} className="mb-2">
+                  <MultipleSelectComponent
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    label={`Transmission Type`}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <MultipleSelectComponent
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    label={`Gear Shift`}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <MultipleSelectComponent
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    label={`Gear Ratio`}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <MultipleSelectComponent
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    label={`Gear Shift Type`}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.flywheelSAE14}
+                    setValue={(val) =>
+                      setForm({ ...form, flywheelSAE14: val })
+                    }
+                    label="flywheelSAE14"
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <MultipleSelectComponent
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    label={`Silumin Flywheel Housing`}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <MultipleSelectComponent
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    label={`Camshaft`}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <MultipleSelectComponent
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    label={`Crankshaft Alloy`}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.crankcaseDesign}
+                    setValue={(val) =>
+                      setForm({ ...form, crankcaseDesign: val })
+                    }
+                    label="crankcaseDesign"
+                  />
+                </Col>
+              </Form>
+            </Col>
+          </Col>
+          <Col md={6} className="mt-4">
+            <h6 style={{ marginLeft: 20 }}>Installation and Mounting</h6>
+            <Col md={12}>
+              <Form>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.engineMountingOrientation}
+                    setValue={(val) =>
+                      setForm({ ...form, engineMountingOrientation: val })
+                    }
+                    label="engineMountingOrientation"
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.engineSuspension}
+                    setValue={(val) =>
+                      setForm({ ...form, engineSuspension: val })
+                    }
+                    label="engineSuspension"
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <MultipleSelectComponent
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    label={`Engine Mounting Type`}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.mountingBracketMaterial}
+                    setValue={(val) =>
+                      setForm({ ...form, mountingBracketMaterial: val })
+                    }
+                    label="mountingBracketMaterial"
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.alignmentRequirements}
+                    setValue={(val) =>
+                      setForm({ ...form, alignmentRequirements: val })
+                    }
+                    label="alignmentRequirements"
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.engineBlock}
+                    setValue={(val) =>
+                      setForm({ ...form, engineBlock: val })
+                    }
+                    label="engineBlock"
+                  />
+                </Col>
+              </Form>
+            </Col>
+          </Col>
+          <Col md={6} className="mt-4">
+            <h6 style={{ marginLeft: 20 }}>Service & Maintenance</h6>
+            <Col md={12}>
+              <Form>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.scheduledMaintenancePlan}
+                    setValue={(val) =>
+                      setForm({ ...form, scheduledMaintenancePlan: val })
+                    }
+                    label="scheduledMaintenancePlan"
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.serviceInterval}
+                    setValue={(val) =>
+                      setForm({ ...form, serviceInterval: val })
+                    }
+                    label="serviceInterval"
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.maintenanceLogRequirements}
+                    setValue={(val) =>
+                      setForm({ ...form, maintenanceLogRequirements: val })
+                    }
+                    label="maintenanceLogRequirements"
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.availabilityOfSpareParts}
+                    setValue={(val) =>
+                      setForm({ ...form, availabilityOfSpareParts: val })
+                    }
+                    label="availabilityOfSpareParts"
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.operationMode}
+                    setValue={(val) =>
+                      setForm({ ...form, operationMode: val })
+                    }
+                    label="operationMode"
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <MultipleSelectComponent
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    label={`lastServiceDate`}
                   />
                 </Col>
               </Form>
