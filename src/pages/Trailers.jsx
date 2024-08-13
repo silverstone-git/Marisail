@@ -7,6 +7,7 @@ import SelectComponent from "../components/SelectComponent";
 import InputComponent from "../components/InputComponent";
 import CheckComponent from "../components/CheckComponent";
 import "./trailers.css";
+import axios from "axios";
 
 const Trailers = () => {
   const [form, setForm] = useState({
@@ -134,6 +135,14 @@ const Trailers = () => {
     ADRCompliance: "",
   });
   const [openKey, setOpenKey] = useState(null);
+
+  const handleSubmit = () => {
+    try {
+      console.log("This is Form >>>>>>>>", form);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -1510,7 +1519,15 @@ const Trailers = () => {
           </Col>
         </Row>
       </Container>
-      ;
+      <div className="d-flex justify-content-end p-4">
+        <button
+          type="button"
+          className="btn btn-success p-3"
+          onClick={handleSubmit}
+        >
+          Submit
+        </button>
+      </div>
     </>
   );
 };
