@@ -29,6 +29,16 @@ const EngineAdvert = () => {
     crankcaseDesign: "",
     flywheelSAE14: "",
     engineMountingOrientation: "",
+    engineSuspension: "",
+    engineSuspension: "",
+    mountingBracketMaterial: "",
+    alignmentRequirements: "",
+    engineBlock: "",
+    scheduledMaintenancePlan: "",
+    serviceInterval: "",
+    maintenanceLogRequirements: "",
+    availabilityOfSpareParts: "",
+    operationMode: ""
   });
   const [openKey, setOpenKey] = useState(null);
 
