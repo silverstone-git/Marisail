@@ -1,23 +1,30 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
 import Accordion from "react-bootstrap/Accordion";
-function SelectComponent({ label, setValue, value, setOpenKey, openKey }) {
-  const lablesOptions = {
-    MarisailID: {
-      name: "Marisail ID",
+
+function SelectComponent({
+  label,
+  setValue,
+  value,
+  setOpenKey,
+  openKey,
+  type,
+}) {
+  const advertEngineOptions = {
+    Condition: {
+      name: "Condition",
       options: [
-        "Ifor Williams",
-        "Load Rite",
-        "SeaTrail",
-        "Karavan",
-        "Venture",
-        "EZ Loader",
-        "Wesco",
-        "Road King",
+        "Condition 1",
+        "Condition 2",
+        "Condition 3",
+        "Condition 4",
+        "Condition 5",
+        "Condition 6",
+        "Condition 7",
       ],
     },
-    Make: {
-      name: "Make",
+    UsedCondition: {
+      name: "Used Condition",
       options: [
         "P5",
         "P6e",
@@ -33,8 +40,8 @@ function SelectComponent({ label, setValue, value, setOpenKey, openKey }) {
         "TB4021",
       ],
     },
-    Model: {
-      name: "Model",
+    Seller: {
+      name: "Seller",
       options: [
         "Basic",
         "Deluxe",
@@ -46,12 +53,20 @@ function SelectComponent({ label, setValue, value, setOpenKey, openKey }) {
         "Super-Heavy-Duty",
       ],
     },
-    Year: {
-      name: "Year",
+    offeredBy: {
+      name: "Offered By (Dealer)",
       options: ["2022", "2023", "2024", "2025"],
     },
-    Type: {
-      name: "Type",
+    lastSurveyDate: {
+      name: "Last Survey Date?",
+      options: ["2022", "2023", "2024", "2025"],
+    },
+    brokerValuation: {
+      name: "Broker Valuation",
+      options: ["2022", "2023", "2024", "2025"],
+    },
+    marisailVesselId: {
+      name: "Marisail Vessel ID",
       options: [
         "Single-axle",
         "Tandem-axle",
@@ -63,12 +78,11 @@ function SelectComponent({ label, setValue, value, setOpenKey, openKey }) {
         "Box",
         "Car Hauler",
         "Boat Trailer",
-        "Equipment Trailer,",
+        "Equipment Trailer",
       ],
     },
-    GVWR: {
-      name: "Gross Vehicle Weight Rating",
-      subtitle: "(GVWR)",
+    engineMake: {
+      name: "Engine Make",
       options: [
         "2,000 lbs",
         "3,500 lbs",
@@ -77,8 +91,8 @@ function SelectComponent({ label, setValue, value, setOpenKey, openKey }) {
         "10,000 lbs",
       ],
     },
-    LoadCapacity: {
-      name: "Load Capacity",
+    engineClassification: {
+      name: "Engine Classification",
       options: [
         "1,500 lbs",
         "2,500 lbs",
@@ -87,16 +101,16 @@ function SelectComponent({ label, setValue, value, setOpenKey, openKey }) {
         "8,500 lbs",
       ],
     },
-    Length: {
-      name: "Length",
+    certification: {
+      name: "Certification",
       options: ["12 ft", "14 ft", "16 ft", "18 ft", "20 ft", "24 ft"],
     },
-    Width: {
-      name: "Width",
+    engineModel: {
+      name: "Engine Model",
       options: ["6 ft", "6.5 ft", "7 ft", "8 ft", "8.5 ft"],
     },
-    FrameMaterial: {
-      name: "Frame Material",
+    manufacturerWarranty: {
+      name: "Manufacturer Warranty",
       options: [
         "Galvanized Steel",
         "Powder-Coated Steel",
@@ -108,8 +122,34 @@ function SelectComponent({ label, setValue, value, setOpenKey, openKey }) {
         "Carbon Fibre Composite",
       ],
     },
-    FrameCoating: {
-      name: "Frame Coating",
+    engineSerialNumber: {
+      name: "Engine Serial Number",
+      options: [
+        "Galvanized Steel",
+        "Powder-Coated Steel",
+        "Painted Steel",
+        "Stainless Steel",
+        "Standard Aluminum",
+        "Anodized Aluminum",
+        "Marine-Grade Aluminum",
+        "Carbon Fibre Composite",
+      ],
+    },
+    EngineSoundproofingKits: {
+      name: "Engine Serial Number",
+      options: [
+        "Galvanized Steel",
+        "Powder-Coated Steel",
+        "Painted Steel",
+        "Stainless Steel",
+        "Standard Aluminum",
+        "Anodized Aluminum",
+        "Marine-Grade Aluminum",
+        "Carbon Fibre Composite",
+      ],
+    },
+    engineModelYear: {
+      name: "Engine Model Year",
       options: [
         "Galvanized",
         "Powder-Coated",
@@ -551,21 +591,212 @@ function SelectComponent({ label, setValue, value, setOpenKey, openKey }) {
       name: "Warranty",
       options: ["1 Year", "2 Years", "5 Years"],
     },
+    crankcaseDesign: {
+      name: "Crankcase Design",
+      options: [
+        "Galvanized Steel",
+        "Powder-Coated Steel",
+        "Painted Steel",
+        "Stainless Steel",
+        "Standard Aluminum",
+        "Anodized Aluminum",
+        "Marine-Grade Aluminum",
+        "Carbon Fibre Composite",
+      ],
+    },
+    flywheelSAE14: {
+      name: "Flywheel SAE 14",
+      options: [
+        "Galvanized Steel",
+        "Powder-Coated Steel",
+        "Painted Steel",
+        "Stainless Steel",
+        "Standard Aluminum",
+        "Anodized Aluminum",
+        "Marine-Grade Aluminum",
+        "Carbon Fibre Composite",
+      ],
+    },
+    engineMountingOrientation: {
+      name: "Engine Mounting Orientation",
+      options: [
+        "Galvanized Steel",
+        "Powder-Coated Steel",
+        "Painted Steel",
+        "Stainless Steel",
+        "Standard Aluminum",
+        "Anodized Aluminum",
+        "Marine-Grade Aluminum",
+        "Carbon Fibre Composite",
+      ],
+    },
+    engineSuspension: {
+      name: "Engine Suspension",
+      options: [
+        "Galvanized Steel",
+        "Powder-Coated Steel",
+        "Painted Steel",
+        "Stainless Steel",
+        "Standard Aluminum",
+        "Anodized Aluminum",
+        "Marine-Grade Aluminum",
+        "Carbon Fibre Composite",
+      ],
+    },
+    engineMountingType: {
+      name: "Engine Mounting Type",
+      options: [
+        "Galvanized Steel",
+        "Powder-Coated Steel",
+        "Painted Steel",
+        "Stainless Steel",
+        "Standard Aluminum",
+        "Anodized Aluminum",
+        "Marine-Grade Aluminum",
+        "Carbon Fibre Composite",
+      ],
+    },
+    mountingBracketMaterial: {
+      name: "Mounting Bracket Material",
+      options: [
+        "Galvanized Steel",
+        "Powder-Coated Steel",
+        "Painted Steel",
+        "Stainless Steel",
+        "Standard Aluminum",
+        "Anodized Aluminum",
+        "Marine-Grade Aluminum",
+        "Carbon Fibre Composite",
+      ],
+    },
+    alignmentRequirements: {
+      name: "Alignment Requirements",
+      options: [
+        "Galvanized Steel",
+        "Powder-Coated Steel",
+        "Painted Steel",
+        "Stainless Steel",
+        "Standard Aluminum",
+        "Anodized Aluminum",
+        "Marine-Grade Aluminum",
+        "Carbon Fibre Composite",
+      ],
+    },
+    engineBlock: {
+      name: "Engine Block",
+      options: [
+        "Galvanized Steel",
+        "Powder-Coated Steel",
+        "Painted Steel",
+        "Stainless Steel",
+        "Standard Aluminum",
+        "Anodized Aluminum",
+        "Marine-Grade Aluminum",
+        "Carbon Fibre Composite",
+      ],
+    },
+    scheduledMaintenancePlan: {
+      name: "Scheduled Maintenance Plan",
+      options: [
+        "Galvanized Steel",
+        "Powder-Coated Steel",
+        "Painted Steel",
+        "Stainless Steel",
+        "Standard Aluminum",
+        "Anodized Aluminum",
+        "Marine-Grade Aluminum",
+        "Carbon Fibre Composite",
+      ],
+    },
+    serviceInterval: {
+      name: "Service Interval",
+      options: [
+        "Galvanized Steel",
+        "Powder-Coated Steel",
+        "Painted Steel",
+        "Stainless Steel",
+        "Standard Aluminum",
+        "Anodized Aluminum",
+        "Marine-Grade Aluminum",
+        "Carbon Fibre Composite",
+      ],
+    },
+    maintenanceLogRequirements: {
+      name: "Maintenance Log Requirements",
+      options: [
+        "Galvanized Steel",
+        "Powder-Coated Steel",
+        "Painted Steel",
+        "Stainless Steel",
+        "Standard Aluminum",
+        "Anodized Aluminum",
+        "Marine-Grade Aluminum",
+        "Carbon Fibre Composite",
+      ],
+    },
+    operationMode: {
+      name: "Operation Mode",
+      options: [
+        "Galvanized Steel",
+        "Powder-Coated Steel",
+        "Painted Steel",
+        "Stainless Steel",
+        "Standard Aluminum",
+        "Anodized Aluminum",
+        "Marine-Grade Aluminum",
+        "Carbon Fibre Composite",
+      ],
+    },
+    availabilityOfSpareParts: {
+      name: "Availability of Spare Parts",
+      options: [
+        "Galvanized Steel",
+        "Powder-Coated Steel",
+        "Painted Steel",
+        "Stainless Steel",
+        "Standard Aluminum",
+        "Anodized Aluminum",
+        "Marine-Grade Aluminum",
+        "Carbon Fibre Composite",
+      ],
+    },
+    lastServiceDate: {
+      name: "Last Service Date",
+      options: [
+        "Galvanized Steel",
+        "Powder-Coated Steel",
+        "Painted Steel",
+        "Stainless Steel",
+        "Standard Aluminum",
+        "Anodized Aluminum",
+        "Marine-Grade Aluminum",
+        "Carbon Fibre Composite",
+      ],
+    },
   };
+  let selectedComponent = "";
+  if (type == "advertEngine") {
+    selectedComponent = advertEngineOptions;
+  } else {
+    selectedComponent;
+  }
+
   return (
     <Accordion
       activeKey={openKey}
       onSelect={(eventKey) => setOpenKey(eventKey)}
     >
       <Accordion.Item eventKey={label}>
-        <Accordion.Header>{lablesOptions[label]?.name}</Accordion.Header>
-        <Accordion.Body>
-          {lablesOptions[label]?.options.map((item) => {
+        <Accordion.Header>{selectedComponent[label]?.name}</Accordion.Header>
+        <Accordion.Body style={{ maxHeight: 200, overflowY: "auto" }}>
+          {selectedComponent[label]?.options.map((item, index) => {
             return (
               <Form.Check
                 type="radio"
-                aria-label="radio 1"
-                name={lablesOptions[label]?.name}
+                key={index}
+                className="custom-radio"
+                aria-label={label}
+                name={selectedComponent[label]?.name}
                 checked={item === value}
                 onChange={(e) => setValue(item)}
                 label={item}

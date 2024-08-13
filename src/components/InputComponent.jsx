@@ -1,11 +1,35 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
+import Accordion from "react-bootstrap/Accordion";
 
-function InputComponent({ label, value, setValue }) {
+function InputComponent({
+  label,
+  value,
+  setValue,
+  formType,
+  type,
+  setOpenKey,
+  openKey,
+}) {
   return (
-    <Form.Group controlId="formGridState"> 
-      <Form.Control  value={value} onChange={setValue} type="text"  placeholder={label}/>
-    </Form.Group>
+    <Accordion
+      activeKey={openKey}
+      onSelect={(eventKey) => setOpenKey(eventKey)}
+    >
+      <Accordion.Item eventKey={label}>
+        <Accordion.Header>{label}</Accordion.Header>
+        <Accordion.Body>
+          <Form.Group controlId="formGridState">
+            <Form.Control
+              value={value}
+              onChange={setValue}
+              type={formType}
+              placeholder={''}
+            />
+          </Form.Group>
+        </Accordion.Body>
+       </Accordion.Item>
+     </Accordion>
   );
 }
 
