@@ -4,7 +4,7 @@ import { Card } from 'react-bootstrap';
 
 const SponsorsRanking = () => {
   const [sponsors, setSponsors] = useState({ ok: false, result: [] });
-  /* const fetchSponsors = async (URL = 'http://localhost:3001/sponsors') => {
+  /* const fetchSponsors = async (URL = 'http://localhost:3001/api/home/sponsors') => {
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
