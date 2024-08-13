@@ -50,7 +50,7 @@ const EngineAdvert = () => {
       <Container className="mb-5">
         <Row>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>Make and Model</h6>
+            <h6 style={{ marginLeft: 10 }}>Make and Model</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
@@ -97,7 +97,7 @@ const EngineAdvert = () => {
             </Col>
           </Col>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>Condition</h6>
+            <h6 style={{ marginLeft: 10 }}>Condition</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
@@ -175,7 +175,7 @@ const EngineAdvert = () => {
             </Col>
           </Col>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>General</h6>
+            <h6 style={{ marginLeft: 10 }}>General</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
@@ -302,7 +302,7 @@ const EngineAdvert = () => {
             </Col>
           </Col>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>Transmission</h6>
+            <h6 style={{ marginLeft: 10 }}>Transmission</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
@@ -380,7 +380,7 @@ const EngineAdvert = () => {
             </Col>
           </Col>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>Installation and Mounting</h6>
+            <h6 style={{ marginLeft: 10 }}>Installation and Mounting</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
@@ -452,7 +452,7 @@ const EngineAdvert = () => {
             </Col>
           </Col>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>Service & Maintenance</h6>
+            <h6 style={{ marginLeft: 10 }}>Service & Maintenance</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
