@@ -467,12 +467,12 @@ const Trailers = () => {
                   <CheckComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    label="Adjustable Deck Height"
+                    label="Detachable Side Panels"
                     setValue={(val) =>
                       setForm({ ...form, DetachableSidePanels: val })
                     }
-                    name="Adjustable Deck Height"
-                    id="AdjustableDeckHeight"
+                    name="Detachable Side Panels"
+                    id="DetachableSidePanels"
                   />
                 </Col>
               </Form>
