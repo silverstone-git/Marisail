@@ -1346,7 +1346,7 @@ function SelectComponent({
                 aria-label="radio 1"
                 name={selectedComponent[label]?.name}
                 checked={item === value}
-                onChange={(e) => setValue(item)}
+                onChange={() => setValue(item)}
                 label={item}
               />
             );
@@ -1360,10 +1360,9 @@ function SelectComponent({
 SelectComponent.propTypes = {
   label: PropTypes.string.isRequired,
   setValue: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   setOpenKey: PropTypes.func.isRequired,
   openKey: PropTypes.string,
-  formType: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired
 };
 export default SelectComponent;

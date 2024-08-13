@@ -29,21 +29,33 @@ const EngineAdvert = () => {
     crankcaseDesign: "",
     flywheelSAE14: "",
     engineMountingOrientation: "",
+    engineSuspension: "",
+    engineSuspension: "",
+    mountingBracketMaterial: "",
+    alignmentRequirements: "",
+    engineBlock: "",
+    scheduledMaintenancePlan: "",
+    serviceInterval: "",
+    maintenanceLogRequirements: "",
+    availabilityOfSpareParts: "",
+    operationMode: ""
   });
   const [openKey, setOpenKey] = useState(null);
 
-  const [message, setMessage] = useState("");
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:3001/api/sponsors")
-  //     .then((response) => {
-  //       console.log("001 Response from API--", response);
-  //       setMessage(response);
-  //     })
-  //     .catch((error) => {
-  //       console.error("There was an error fetching the message!", error);
-  //     });
-  // }, []);
+  const [sponsors, setSponsors] = useState("");
+
+  const fetchSponsors = async (URL = 'http://localhost:3001/api/advert_engine/all') => {
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      setSponsors(toJson);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    fetchSponsors();
+  }, []);
 
   return (
     <>
