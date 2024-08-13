@@ -140,7 +140,7 @@ const Trailers = () => {
       <Container className="mb-5">
         <Row>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>Identification</h6>
+            <h6 style={{ marginLeft: 10 }}>Identification</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2 myAcc">
@@ -185,7 +185,7 @@ const Trailers = () => {
             </Col>
           </Col>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>General</h6>
+            <h6 style={{ marginLeft: 10 }}>General</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
@@ -236,6 +236,9 @@ const Trailers = () => {
                 <Col xs={3} md={12} className="mb-2">
                   <InputComponent
                     label="Total Height"
+                    formType={"number"}
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
                     value={form.TotalHeight}
                     setValue={(e) =>
                       setForm({ ...form, TotalHeight: e.target.value })
@@ -245,6 +248,9 @@ const Trailers = () => {
                 <Col xs={3} md={12} className="mb-2">
                   <InputComponent
                     label="Axle Height From Gound"
+                    formType={"number"}
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
                     value={form.AxleHeightFromGound}
                     setValue={(e) =>
                       setForm({ ...form, AxleHeightFromGound: e.target.value })
@@ -255,7 +261,7 @@ const Trailers = () => {
             </Col>
           </Col>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>Construction Materials</h6>
+            <h6 style={{ marginLeft: 10 }}>Construction Materials</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
@@ -341,7 +347,7 @@ const Trailers = () => {
             </Col>
           </Col>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>Maintenance Features</h6>
+            <h6 style={{ marginLeft: 10 }}>Maintenance Features</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
@@ -377,7 +383,7 @@ const Trailers = () => {
             </Col>
           </Col>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>User Features</h6>
+            <h6 style={{ marginLeft: 10 }}>User Features</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
@@ -420,7 +426,7 @@ const Trailers = () => {
             </Col>
           </Col>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>Special Features</h6>
+            <h6 style={{ marginLeft: 10 }}>Special Features</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
@@ -473,7 +479,7 @@ const Trailers = () => {
             </Col>
           </Col>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>Additional Accessories</h6>
+            <h6 style={{ marginLeft: 10 }}>Additional Accessories</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
@@ -527,7 +533,7 @@ const Trailers = () => {
             </Col>
           </Col>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>Customization Options</h6>
+            <h6 style={{ marginLeft: 10 }}>Customization Options</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
@@ -583,7 +589,7 @@ const Trailers = () => {
             </Col>
           </Col>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>Axles & Suspension</h6>
+            <h6 style={{ marginLeft: 10 }}>Axles & Suspension</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
@@ -680,7 +686,7 @@ const Trailers = () => {
             </Col>
           </Col>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>Tyres & Wheels</h6>
+            <h6 style={{ marginLeft: 10 }}>Tyres & Wheels</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
@@ -745,7 +751,7 @@ const Trailers = () => {
             </Col>
           </Col>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>Brakes & Safety</h6>
+            <h6 style={{ marginLeft: 10 }}>Brakes & Safety</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
@@ -883,7 +889,7 @@ const Trailers = () => {
             </Col>
           </Col>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>Winch & Winch Accessories</h6>
+            <h6 style={{ marginLeft: 10 }}>Winch & Winch Accessories</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
@@ -1005,7 +1011,7 @@ const Trailers = () => {
             </Col>
           </Col>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>Lighting & Electrical</h6>
+            <h6 style={{ marginLeft: 10 }}>Lighting & Electrical</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
@@ -1083,7 +1089,7 @@ const Trailers = () => {
             </Col>
           </Col>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>Accessories</h6>
+            <h6 style={{ marginLeft: 10 }}>Accessories</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
@@ -1159,7 +1165,7 @@ const Trailers = () => {
             </Col>
           </Col>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>Loading & Transport Features</h6>
+            <h6 style={{ marginLeft: 10 }}>Loading & Transport Features</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
@@ -1255,7 +1261,7 @@ const Trailers = () => {
             </Col>
           </Col>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>Security Features</h6>
+            <h6 style={{ marginLeft: 10 }}>Security Features</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
@@ -1300,7 +1306,7 @@ const Trailers = () => {
             </Col>
           </Col>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>
+            <h6 style={{ marginLeft: 10 }}>
               Environmental & Corrosion Resistance
             </h6>
             <Col md={12}>
@@ -1331,7 +1337,7 @@ const Trailers = () => {
             </Col>
           </Col>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>Performance & Handling</h6>
+            <h6 style={{ marginLeft: 10 }}>Performance & Handling</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
@@ -1358,7 +1364,7 @@ const Trailers = () => {
             </Col>
           </Col>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>Tongue</h6>
+            <h6 style={{ marginLeft: 10 }}>Tongue</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
@@ -1427,7 +1433,7 @@ const Trailers = () => {
             </Col>
           </Col>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>Documentation</h6>
+            <h6 style={{ marginLeft: 10 }}>Documentation</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
@@ -1452,7 +1458,7 @@ const Trailers = () => {
             </Col>
           </Col>
           <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 20 }}>Regulatory Compliance</h6>
+            <h6 style={{ marginLeft: 10 }}>Regulatory Compliance</h6>
             <Col md={12}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
