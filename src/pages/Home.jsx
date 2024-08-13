@@ -14,7 +14,7 @@ const Home = () => {
         setMessage(response);
         return response.data;
       })
-      .then((data) => setSponsors(data))
+      /* .then((data) => setSponsors(data)) */
       .catch((error) => {
         console.error('There was an error fetching the message!', error);
       });
@@ -28,7 +28,7 @@ const Home = () => {
         }}
       ></main>
       <section>
-        <SponsorsRanking {...{ sponsors }}></SponsorsRanking>
+        {/* <SponsorsRanking {...{ sponsors }}></SponsorsRanking> */}
       </section>
     </>
   );
