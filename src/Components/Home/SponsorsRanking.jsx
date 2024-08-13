@@ -27,7 +27,7 @@ const SponsorsRanking = () => {
             </Col>
           ))} */}
         <Col className={'col col-2 mb-3'}>
-          <Card className='text-center py-2'>'sponsors here'</Card>
+          <Card className='text-center py-2'>sponsors here</Card>
         </Col>
       </Row>
     </Container>
