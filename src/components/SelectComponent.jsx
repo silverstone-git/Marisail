@@ -1,6 +1,6 @@
-import React from "react";
 import Form from "react-bootstrap/Form";
 import Accordion from "react-bootstrap/Accordion";
+import PropTypes from "prop-types";
 
 function SelectComponent({
   label,
@@ -1338,10 +1338,11 @@ function SelectComponent({
       <Accordion.Item eventKey={label}>
         <Accordion.Header>{selectedComponent[label]?.name}</Accordion.Header>
         <Accordion.Body>
-          {selectedComponent[label]?.options.map((item) => {
+          {selectedComponent[label]?.options.map((item,index) => {
             return (
               <Form.Check
                 type="radio"
+                key={index}
                 aria-label="radio 1"
                 name={selectedComponent[label]?.name}
                 checked={item === value}
@@ -1356,4 +1357,13 @@ function SelectComponent({
   );
 }
 
+SelectComponent.propTypes = {
+  label: PropTypes.string.isRequired,
+  setValue: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  setOpenKey: PropTypes.func.isRequired,
+  openKey: PropTypes.string,
+  formType: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired
+};
 export default SelectComponent;
