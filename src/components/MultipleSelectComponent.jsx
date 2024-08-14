@@ -6,10 +6,9 @@ const MultipleSelectComponent = ({
   label,
   setOpenKey,
   openKey,
+  options
 }) => {
   const [selectedOptions, setSelectedOptions] = useState([]);
-  const options = ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5"];
-
   const handleCheckboxChange = (option) => {
     if (selectedOptions.includes(option)) {
       setSelectedOptions(selectedOptions.filter((item) => item !== option));
@@ -17,7 +16,7 @@ const MultipleSelectComponent = ({
       setSelectedOptions([...selectedOptions, option]);
     }
   };
-
+  
   return (
     <Accordion
       activeKey={openKey}
@@ -47,6 +46,7 @@ const MultipleSelectComponent = ({
 MultipleSelectComponent.propTypes = {
   label: PropTypes.string.isRequired,
   setOpenKey: PropTypes.func.isRequired,
-  openKey: PropTypes.string
+  openKey: PropTypes.string,
+  options: PropTypes.string.isRequired,
 };
 export default MultipleSelectComponent;

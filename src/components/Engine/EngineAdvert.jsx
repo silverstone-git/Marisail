@@ -4,8 +4,7 @@ import SelectComponent from "../SelectComponent";
 import InputComponent from "../InputComponent";
 import MultipleSelectComponent from "../MultipleSelectComponent";
 import DatePickerComponent from "../DatePickerComponent";
-import React, { useEffect, useState } from "react";
-import axios from 'axios';
+import { useEffect, useState } from "react";
 import "./engineAdvert.module.scss";
 import "react-datepicker/dist/react-datepicker.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -30,7 +29,6 @@ const EngineAdvert = () => {
     flywheelSAE14: "",
     engineMountingOrientation: "",
     engineSuspension: "",
-    engineSuspension: "",
     mountingBracketMaterial: "",
     alignmentRequirements: "",
     engineBlock: "",
@@ -41,20 +39,19 @@ const EngineAdvert = () => {
     operationMode: ""
   });
   const [openKey, setOpenKey] = useState(null);
+  const [engineMake, setEngineMake] = useState("");
 
-  const [sponsors, setSponsors] = useState("");
-
-  const fetchSponsors = async (URL = 'http://localhost:3001/api/advert_engine/all') => {
+  const fetchEngineMake = async (URL = 'http://localhost:3001/api/advert_engine/engine_make') => {
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      setSponsors(toJson);
+      setEngineMake(toJson.result);
     } catch (err) {
       console.log(err);
     }
   };
   useEffect(() => {
-    fetchSponsors();
+    fetchEngineMake();
   }, []);
 
   return (
@@ -70,6 +67,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Engine Make`}
+                    options={engineMake}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -77,6 +75,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Engine Model`}
+                    options={engineMake}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -96,6 +95,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Engine Type`}
+                    options={engineMake}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -103,6 +103,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Type Designation`}
+                    options={engineMake}
                   />
                 </Col>
               </Form>
@@ -195,6 +196,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Marisail Vessel ID`}
+                    options={engineMake}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -202,6 +204,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Engine Classification`}
+                    options={engineMake}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -209,6 +212,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Certification`}
+                    options={engineMake}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -240,6 +244,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`CE Design Category`}
+                    options={engineMake}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -247,6 +252,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Number Drives`}
+                    options={engineMake}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -254,6 +260,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Number Engines`}
+                    options={engineMake}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -261,6 +268,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Range (Miles)`}
+                    options={engineMake}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -268,6 +276,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Cruising Speed (Knots)`}
+                    options={engineMake}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -275,6 +284,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Drive Type`}
+                    options={engineMake}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -282,6 +292,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Engine Hours`}
+                    options={engineMake}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -289,6 +300,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Ignition System (Starting)`}
+                    options={engineMake}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -296,6 +308,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Noise Level (dB)`}
+                    options={engineMake}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -322,12 +335,14 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Transmission Type`}
+                    options={engineMake}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
+                    options={engineMake}
                     label={`Gear Shift`}
                   />
                 </Col>
@@ -336,6 +351,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Gear Ratio`}
+                    options={engineMake}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -343,6 +359,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Gear Shift Type`}
+                    options={engineMake}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -360,6 +377,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Silumin Flywheel Housing`}
+                    options={engineMake}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -367,12 +385,14 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Camshaft`}
+                    options={engineMake}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
+                    options={engineMake}
                     label={`Crankshaft Alloy`}
                   />
                 </Col>
@@ -424,6 +444,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Engine Mounting Type`}
+                    options={engineMake}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -530,6 +551,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`lastServiceDate`}
+                    options={engineMake}
                   />
                 </Col>
               </Form>
