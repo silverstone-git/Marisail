@@ -36,12 +36,39 @@ const EngineAdvert = () => {
     serviceInterval: "",
     maintenanceLogRequirements: "",
     availabilityOfSpareParts: "",
-    operationMode: ""
+    operationMode: "",
   });
   const [openKey, setOpenKey] = useState(null);
   const [engineMake, setEngineMake] = useState("");
-
-  const fetchEngineMake = async (URL = 'http://localhost:3001/api/advert_engine/engine_make') => {
+  const handleSubmit = (e) => {
+    setOpenKey("Broker Valuation");
+    try {
+      e.preventDefault();
+      const formIsValid = e.target.checkValidity();
+      if (formIsValid) {
+        console.log("Form submit--", form);
+      } else {
+        alert("Please fill out all required fields.");
+      }
+      // const mandatoryFields = ['engineMake', 'engineModel', 'engineType', 'typeDesignation'];
+      // let allFieldsValid = true;
+      // mandatoryFields.forEach(field => {
+      //   if (!form[field] || form[field].length === 0) {
+      //     allFieldsValid = false;
+      //   }
+      // });
+      // if (allFieldsValid) {
+      //   console.log("Form submit--", form);
+      // } else {
+      //   alert("Please fill out all mandatory fields.");
+      // }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const fetchEngineMake = async (
+    URL = "http://localhost:3001/api/advert_engine/engine_make"
+  ) => {
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
@@ -57,11 +84,11 @@ const EngineAdvert = () => {
   return (
     <>
       <Container className="mb-5">
-        <Row>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>Make and Model</h6>
-            <Col md={12}>
-              <Form>
+        <Form onSubmit={handleSubmit}>
+          <Row>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Make and Model</h6>
+              <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
                   <MultipleSelectComponent
                     openKey={openKey}
@@ -110,13 +137,11 @@ const EngineAdvert = () => {
                     isMandatory={true}
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>Condition</h6>
-            <Col md={12}>
-              <Form>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Condition</h6>
+              <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     type="advertEngine"
@@ -188,13 +213,11 @@ const EngineAdvert = () => {
                     }
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>General</h6>
-            <Col md={12}>
-              <Form>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>General</h6>
+              <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
                   <MultipleSelectComponent
                     openKey={openKey}
@@ -339,13 +362,11 @@ const EngineAdvert = () => {
                     label="EngineSoundproofingKits"
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>Transmission</h6>
-            <Col md={12}>
-              <Form>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Transmission</h6>
+              <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
                   <MultipleSelectComponent
                     openKey={openKey}
@@ -431,13 +452,11 @@ const EngineAdvert = () => {
                     label="crankcaseDesign"
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>Installation and Mounting</h6>
-            <Col md={12}>
-              <Form>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Installation and Mounting</h6>
+              <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     type="advertEngine"
@@ -505,13 +524,11 @@ const EngineAdvert = () => {
                     label="engineBlock"
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>Service & Maintenance</h6>
-            <Col md={12}>
-              <Form>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Service & Maintenance</h6>
+              <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     type="advertEngine"
@@ -574,23 +591,44 @@ const EngineAdvert = () => {
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    label={`lastServiceDate`}
+                    label={`Last Service Date`}
                     options={engineMake}
                     isMandatory={true}
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-        </Row>
-        <p style={{textAlign: 'center'}}>
+          </Row>
+          <p style={{ textAlign: "center" }}>
+            <button
+              type="submit"
+              style={{
+                backgroundColor: "#971e28",
+                color: "#fff",
+                padding: "8px 32px",
+                border: "0px none",
+                borderRadius: 30,
+                textTransform: "uppercase",
+                marginBottom: 8,
+                width: "50%",
+                cursor: "pointer",
+                transition: "all .5s ease",
+              }}
+              name="ae-submit"
+              id="ae-submit"
+            >
+              Submit
+            </button>
+          </p>
+          {/* <p style={{textAlign: 'center'}}>
           <input type="submit" 
             style={{backgroundColor: '#971e28', color: '#fff', padding: '8px 32px', border: '0px none',
             borderRadius: 30, textTransform: 'uppercase', marginBottom: 8, width: '50%', cursor: 'pointer',
             transition: 'all .5s ease'}}
             name="ae-submit" id="ae-submit" value="Submit"
           />
-        </p>
+        </p> */}
+        </Form>
       </Container>
     </>
   );

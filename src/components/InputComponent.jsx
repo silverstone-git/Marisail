@@ -24,6 +24,8 @@ function InputComponent({
               onChange={setValue}
               type={formType}
               placeholder={''}
+              required={true}
+              name={label}
             />
           </Form.Group>
         </Accordion.Body>
