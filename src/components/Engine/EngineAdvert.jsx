@@ -361,6 +361,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     options={engineMake}
                     label={`Gear Shift`}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -369,6 +370,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     label={`Gear Ratio`}
                     options={engineMake}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -377,6 +379,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     label={`Gear Shift Type`}
                     options={engineMake}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -395,6 +398,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     label={`Silumin Flywheel Housing`}
                     options={engineMake}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -403,6 +407,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     label={`Camshaft`}
                     options={engineMake}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -411,6 +416,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     options={engineMake}
                     label={`Crankshaft Alloy`}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">

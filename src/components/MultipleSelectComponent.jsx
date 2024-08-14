@@ -17,20 +17,19 @@ const MultipleSelectComponent = ({
       setSelectedOptions([...selectedOptions, option]);
     }
   };
-
+  
   return (
     <Accordion
       activeKey={openKey}
       onSelect={(eventKey) => setOpenKey(eventKey)}
     >
-      <span className="text-danger">*</span>
       <Accordion.Item eventKey={label}>
         <Accordion.Header>
           {label}
-          {isMandatory && <span className="text-danger">*</span>}
+          {isMandatory && <span className="text-danger">&nbsp;*</span>}
         </Accordion.Header>
         <Accordion.Body style={{ maxHeight: 200, overflowY: "auto" }}>
-          {options.map((item, index) => {
+          {options && options.map((item, index) => {
             return (
               <Form.Check
                 type="checkbox"
