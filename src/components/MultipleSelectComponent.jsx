@@ -6,10 +6,10 @@ const MultipleSelectComponent = ({
   label,
   setOpenKey,
   openKey,
+  options,
+  isMandatory,
 }) => {
   const [selectedOptions, setSelectedOptions] = useState([]);
-  const options = ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5"];
-
   const handleCheckboxChange = (option) => {
     if (selectedOptions.includes(option)) {
       setSelectedOptions(selectedOptions.filter((item) => item !== option));
@@ -17,16 +17,19 @@ const MultipleSelectComponent = ({
       setSelectedOptions([...selectedOptions, option]);
     }
   };
-
+  
   return (
     <Accordion
       activeKey={openKey}
       onSelect={(eventKey) => setOpenKey(eventKey)}
     >
       <Accordion.Item eventKey={label}>
-        <Accordion.Header>{label}</Accordion.Header>
+        <Accordion.Header>
+          {label}
+          {isMandatory && <span className="text-danger">&nbsp;*</span>}
+        </Accordion.Header>
         <Accordion.Body style={{ maxHeight: 200, overflowY: "auto" }}>
-          {options.map((item, index) => {
+          {options && options.map((item, index) => {
             return (
               <Form.Check
                 type="checkbox"
@@ -47,6 +50,8 @@ const MultipleSelectComponent = ({
 MultipleSelectComponent.propTypes = {
   label: PropTypes.string.isRequired,
   setOpenKey: PropTypes.func.isRequired,
-  openKey: PropTypes.string
+  openKey: PropTypes.string,
+  options: PropTypes.string.isRequired,
+  isMandatory: PropTypes.bool.isRequired,
 };
 export default MultipleSelectComponent;

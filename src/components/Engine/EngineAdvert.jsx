@@ -4,8 +4,7 @@ import SelectComponent from "../SelectComponent";
 import InputComponent from "../InputComponent";
 import MultipleSelectComponent from "../MultipleSelectComponent";
 import DatePickerComponent from "../DatePickerComponent";
-import React, { useEffect, useState } from "react";
-import axios from 'axios';
+import { useEffect, useState } from "react";
 import "./engineAdvert.module.scss";
 import "react-datepicker/dist/react-datepicker.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -30,7 +29,6 @@ const EngineAdvert = () => {
     flywheelSAE14: "",
     engineMountingOrientation: "",
     engineSuspension: "",
-    engineSuspension: "",
     mountingBracketMaterial: "",
     alignmentRequirements: "",
     engineBlock: "",
@@ -38,38 +36,66 @@ const EngineAdvert = () => {
     serviceInterval: "",
     maintenanceLogRequirements: "",
     availabilityOfSpareParts: "",
-    operationMode: ""
+    operationMode: "",
   });
   const [openKey, setOpenKey] = useState(null);
-
-  const [sponsors, setSponsors] = useState("");
-
-  const fetchSponsors = async (URL = 'http://localhost:3001/api/advert_engine/all') => {
+  const [engineMake, setEngineMake] = useState("");
+  const handleSubmit = (e) => {
+    setOpenKey("Broker Valuation");
+    try {
+      e.preventDefault();
+      const formIsValid = e.target.checkValidity();
+      if (formIsValid) {
+        console.log("Form submit--", form);
+      } else {
+        alert("Please fill out all required fields.");
+      }
+      // const mandatoryFields = ['engineMake', 'engineModel', 'engineType', 'typeDesignation'];
+      // let allFieldsValid = true;
+      // mandatoryFields.forEach(field => {
+      //   if (!form[field] || form[field].length === 0) {
+      //     allFieldsValid = false;
+      //   }
+      // });
+      // if (allFieldsValid) {
+      //   console.log("Form submit--", form);
+      // } else {
+      //   alert("Please fill out all mandatory fields.");
+      // }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const fetchEngineMake = async (
+    URL = "http://localhost:3001/api/advert_engine/engine_make"
+  ) => {
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      setSponsors(toJson);
+      setEngineMake(toJson.result);
     } catch (err) {
       console.log(err);
     }
   };
   useEffect(() => {
-    fetchSponsors();
+    fetchEngineMake();
   }, []);
 
   return (
     <>
       <Container className="mb-5">
-        <Row>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>Make and Model</h6>
-            <Col md={12}>
-              <Form>
+        <Form onSubmit={handleSubmit}>
+          <Row>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Make and Model</h6>
+              <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Engine Make`}
+                    options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -77,6 +103,8 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Engine Model`}
+                    options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -96,6 +124,8 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Engine Type`}
+                    options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -103,15 +133,15 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Type Designation`}
+                    options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>Condition</h6>
-            <Col md={12}>
-              <Form>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Condition</h6>
+              <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     type="advertEngine"
@@ -183,18 +213,18 @@ const EngineAdvert = () => {
                     }
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>General</h6>
-            <Col md={12}>
-              <Form>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>General</h6>
+              <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Marisail Vessel ID`}
+                    options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -202,6 +232,8 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Engine Classification`}
+                    options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -209,6 +241,8 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Certification`}
+                    options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -240,6 +274,8 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`CE Design Category`}
+                    options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -247,6 +283,8 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Number Drives`}
+                    options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -254,6 +292,8 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Number Engines`}
+                    options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -261,6 +301,8 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Range (Miles)`}
+                    options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -268,6 +310,8 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Cruising Speed (Knots)`}
+                    options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -275,6 +319,8 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Drive Type`}
+                    options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -282,6 +328,8 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Engine Hours`}
+                    options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -289,6 +337,8 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Ignition System (Starting)`}
+                    options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -296,6 +346,8 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Noise Level (dB)`}
+                    options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -310,25 +362,27 @@ const EngineAdvert = () => {
                     label="EngineSoundproofingKits"
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>Transmission</h6>
-            <Col md={12}>
-              <Form>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Transmission</h6>
+              <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Transmission Type`}
+                    options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
+                    options={engineMake}
                     label={`Gear Shift`}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -336,6 +390,8 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Gear Ratio`}
+                    options={engineMake}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -343,6 +399,8 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Gear Shift Type`}
+                    options={engineMake}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -360,6 +418,8 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Silumin Flywheel Housing`}
+                    options={engineMake}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -367,13 +427,17 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Camshaft`}
+                    options={engineMake}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
+                    options={engineMake}
                     label={`Crankshaft Alloy`}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -388,13 +452,11 @@ const EngineAdvert = () => {
                     label="crankcaseDesign"
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>Installation and Mounting</h6>
-            <Col md={12}>
-              <Form>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Installation and Mounting</h6>
+              <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     type="advertEngine"
@@ -424,6 +486,8 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Engine Mounting Type`}
+                    options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -460,13 +524,11 @@ const EngineAdvert = () => {
                     label="engineBlock"
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>Service & Maintenance</h6>
-            <Col md={12}>
-              <Form>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Service & Maintenance</h6>
+              <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     type="advertEngine"
@@ -529,17 +591,44 @@ const EngineAdvert = () => {
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    label={`lastServiceDate`}
+                    label={`Last Service Date`}
+                    options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-        </Row>
-        <p  style={{textAlign: 'center'}}>
-          <input type="submit" style={{backgroundColor: '#971e28', color: '#fff', padding: '8px 32px', border: '0px none', borderRadius: 30, textTransform: 'uppercase',
-          marginBottom: 8, width: '50%', cursor: 'pointer', transition: 'all .5s ease'}} name="ae-submit" id="ae-submit" value="Submit"/>
-        </p>
+          </Row>
+          <p style={{ textAlign: "center" }}>
+            <button
+              type="submit"
+              style={{
+                backgroundColor: "#971e28",
+                color: "#fff",
+                padding: "8px 32px",
+                border: "0px none",
+                borderRadius: 30,
+                textTransform: "uppercase",
+                marginBottom: 8,
+                width: "50%",
+                cursor: "pointer",
+                transition: "all .5s ease",
+              }}
+              name="ae-submit"
+              id="ae-submit"
+            >
+              Submit
+            </button>
+          </p>
+          {/* <p style={{textAlign: 'center'}}>
+          <input type="submit" 
+            style={{backgroundColor: '#971e28', color: '#fff', padding: '8px 32px', border: '0px none',
+            borderRadius: 30, textTransform: 'uppercase', marginBottom: 8, width: '50%', cursor: 'pointer',
+            transition: 'all .5s ease'}}
+            name="ae-submit" id="ae-submit" value="Submit"
+          />
+        </p> */}
+        </Form>
       </Container>
     </>
   );

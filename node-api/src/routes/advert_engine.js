@@ -15,14 +15,14 @@ advertEngineRouter.get("/main/", (req, res) => {
     res.json({ message: "advert engine main page route" });
 });
 
-advertEngineRouter.get("/all/", async (req, res) => {
+advertEngineRouter.get("/engine_make/", async (req, res) => {
   let connection;
   try {
     connection = await dbConnection.getConnection();
     const [rows] = await connection.query(
-      "SELECT * FROM engine_general ORDER BY engine_make DESC LIMIT 30"
+      "SELECT DISTINCT engine_make FROM engine_general ORDER BY engine_make ASC LIMIT 10"
     );
-    return res.status(200).json({ ok: true, result: rows });
+    return res.status(200).json({ ok: true, result: rows.map(row => row.engine_make) });
   } catch (err) {
     return res.status(500).json({ ok: false, message: err.message });
   } finally {
