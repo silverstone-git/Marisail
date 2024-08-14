@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Form, Accordion } from "react-bootstrap";
 import PropTypes from "prop-types";
 
@@ -8,13 +7,14 @@ const MultipleSelectComponent = ({
   openKey,
   options,
   isMandatory,
+  value,
+  setValue
 }) => {
-  const [selectedOptions, setSelectedOptions] = useState([]);
   const handleCheckboxChange = (option) => {
-    if (selectedOptions.includes(option)) {
-      setSelectedOptions(selectedOptions.filter((item) => item !== option));
+    if (value.includes(option)) {
+      setValue(value.filter((item) => item !== option));
     } else {
-      setSelectedOptions([...selectedOptions, option]);
+      setValue([...value, option]);
     }
   };
   
@@ -35,7 +35,7 @@ const MultipleSelectComponent = ({
                 type="checkbox"
                 className="custom-checkbox"
                 key={index}
-                checked={selectedOptions.includes(item)}
+                checked={value.includes(item)}
                 onChange={() => handleCheckboxChange(item)}
                 label={item}
               />
@@ -46,12 +46,13 @@ const MultipleSelectComponent = ({
     </Accordion>
   );
 };
-
 MultipleSelectComponent.propTypes = {
   label: PropTypes.string.isRequired,
   setOpenKey: PropTypes.func.isRequired,
   openKey: PropTypes.string,
-  options: PropTypes.string.isRequired,
+  options: PropTypes.array.isRequired,
   isMandatory: PropTypes.bool.isRequired,
+  value: PropTypes.array,
+  setValue: PropTypes.func
 };
 export default MultipleSelectComponent;

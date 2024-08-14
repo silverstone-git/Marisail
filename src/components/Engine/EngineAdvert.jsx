@@ -18,7 +18,7 @@ const EngineAdvert = () => {
     lastSurveyDate: null,
     brokerValuation: "",
     marisailVesselId: "",
-    engineMake: "",
+    engineMake: [],
     engineClassification: "",
     certification: "",
     engineModel: "",
@@ -39,7 +39,8 @@ const EngineAdvert = () => {
     operationMode: "",
   });
   const [openKey, setOpenKey] = useState(null);
-  const [engineMake, setEngineMake] = useState("");
+  const [engineMakeOptions, setEngineMakeOptions] = useState("");
+
   const handleSubmit = (e) => {
     setOpenKey("Broker Valuation");
     try {
@@ -50,7 +51,7 @@ const EngineAdvert = () => {
       } else {
         alert("Please fill out all required fields.");
       }
-      // const mandatoryFields = ['engineMake', 'engineModel', 'engineType', 'typeDesignation'];
+      // const mandatoryFields = ['engineMakeOptions', 'engineModel', 'engineType', 'typeDesignation'];
       // let allFieldsValid = true;
       // mandatoryFields.forEach(field => {
       //   if (!form[field] || form[field].length === 0) {
@@ -72,7 +73,7 @@ const EngineAdvert = () => {
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      setEngineMake(toJson.result);
+      setEngineMakeOptions(toJson.result);
     } catch (err) {
       console.log(err);
     }
@@ -94,8 +95,12 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Engine Make`}
-                    options={engineMake}
                     isMandatory={true}
+                    options={engineMakeOptions}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -103,8 +108,12 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Engine Model`}
-                    options={engineMake}
                     isMandatory={true}
+                    options={engineMakeOptions}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -124,8 +133,12 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Engine Type`}
-                    options={engineMake}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -133,8 +146,12 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Type Designation`}
-                    options={engineMake}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
                   />
                 </Col>
               </Col>
@@ -223,8 +240,12 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Marisail Vessel ID`}
-                    options={engineMake}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -232,8 +253,12 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Engine Classification`}
-                    options={engineMake}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -241,8 +266,12 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Certification`}
-                    options={engineMake}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -274,8 +303,12 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`CE Design Category`}
-                    options={engineMake}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -283,8 +316,12 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Number Drives`}
-                    options={engineMake}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -292,8 +329,12 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Number Engines`}
-                    options={engineMake}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -301,8 +342,12 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Range (Miles)`}
-                    options={engineMake}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -310,8 +355,12 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Cruising Speed (Knots)`}
-                    options={engineMake}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -319,8 +368,12 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Drive Type`}
-                    options={engineMake}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -328,8 +381,12 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Engine Hours`}
-                    options={engineMake}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -337,8 +394,12 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Ignition System (Starting)`}
-                    options={engineMake}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -346,8 +407,12 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Noise Level (dB)`}
-                    options={engineMake}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -372,17 +437,25 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Transmission Type`}
-                    options={engineMake}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    options={engineMake}
+                    options={engineMakeOptions}
                     label={`Gear Shift`}
                     isMandatory={false}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -390,8 +463,12 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Gear Ratio`}
-                    options={engineMake}
+                    options={engineMakeOptions}
                     isMandatory={false}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -399,8 +476,12 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Gear Shift Type`}
-                    options={engineMake}
+                    options={engineMakeOptions}
                     isMandatory={false}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -418,8 +499,12 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Silumin Flywheel Housing`}
-                    options={engineMake}
+                    options={engineMakeOptions}
                     isMandatory={false}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -427,17 +512,25 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Camshaft`}
-                    options={engineMake}
+                    options={engineMakeOptions}
                     isMandatory={false}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    options={engineMake}
+                    options={engineMakeOptions}
                     label={`Crankshaft Alloy`}
                     isMandatory={false}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -486,8 +579,12 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Engine Mounting Type`}
-                    options={engineMake}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -592,8 +689,12 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Last Service Date`}
-                    options={engineMake}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
                   />
                 </Col>
               </Col>
