@@ -68,6 +68,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     label={`Engine Make`}
                     options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -76,6 +77,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     label={`Engine Model`}
                     options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -96,6 +98,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     label={`Engine Type`}
                     options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -104,6 +107,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     label={`Type Designation`}
                     options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
               </Form>
@@ -197,6 +201,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     label={`Marisail Vessel ID`}
                     options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -205,6 +210,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     label={`Engine Classification`}
                     options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -213,6 +219,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     label={`Certification`}
                     options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -245,6 +252,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     label={`CE Design Category`}
                     options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -253,6 +261,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     label={`Number Drives`}
                     options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -261,6 +270,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     label={`Number Engines`}
                     options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -269,6 +279,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     label={`Range (Miles)`}
                     options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -277,6 +288,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     label={`Cruising Speed (Knots)`}
                     options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -285,6 +297,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     label={`Drive Type`}
                     options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -293,6 +306,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     label={`Engine Hours`}
                     options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -301,6 +315,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     label={`Ignition System (Starting)`}
                     options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -309,6 +324,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     label={`Noise Level (dB)`}
                     options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -336,6 +352,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     label={`Transmission Type`}
                     options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -445,6 +462,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     label={`Engine Mounting Type`}
                     options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -552,15 +570,20 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     label={`lastServiceDate`}
                     options={engineMake}
+                    isMandatory={true}
                   />
                 </Col>
               </Form>
             </Col>
           </Col>
         </Row>
-        <p  style={{textAlign: 'center'}}>
-          <input type="submit" style={{backgroundColor: '#971e28', color: '#fff', padding: '8px 32px', border: '0px none', borderRadius: 30, textTransform: 'uppercase',
-          marginBottom: 8, width: '50%', cursor: 'pointer', transition: 'all .5s ease'}} name="ae-submit" id="ae-submit" value="Submit"/>
+        <p style={{textAlign: 'center'}}>
+          <input type="submit" 
+            style={{backgroundColor: '#971e28', color: '#fff', padding: '8px 32px', border: '0px none',
+            borderRadius: 30, textTransform: 'uppercase', marginBottom: 8, width: '50%', cursor: 'pointer',
+            transition: 'all .5s ease'}}
+            name="ae-submit" id="ae-submit" value="Submit"
+          />
         </p>
       </Container>
     </>
