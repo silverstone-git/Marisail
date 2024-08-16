@@ -115,7 +115,7 @@ const EngineAdvert = () => {
                   placeholder="Add new option"
                   className="me-2"
                 />
-                <Button variant="primary" onClick={handleAddOption}>+</Button>
+                <Button variant="primary" style={{borderRadius:'0rem'}} onClick={handleAddOption}>+</Button>
               </Col>
               <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
