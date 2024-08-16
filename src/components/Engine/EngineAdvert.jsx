@@ -1,5 +1,5 @@
 import { Container } from "react-bootstrap";
-import { Col, Form, Row } from "react-bootstrap";
+import { Col, Form, Row, Button } from "react-bootstrap";
 import SelectComponent from "../SelectComponent";
 import InputComponent from "../InputComponent";
 import MultipleSelectComponent from "../MultipleSelectComponent";
@@ -40,7 +40,25 @@ const EngineAdvert = () => {
   });
   const [openKey, setOpenKey] = useState(null);
   const [engineMakeOptions, setEngineMakeOptions] = useState("");
+  const [newOption, setNewOption] = useState("");
+  const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  };
+  const handleAddOption = () => {
+    if (newOption.trim() !== "") {
+      const capitalizedOption = capitalizeFirstLetter(newOption.trim());
 
+      // Check if the option already exists
+      if (engineMakeOptions.includes(capitalizedOption)) {
+        alert(`"${capitalizedOption}" already exists in the options.`);
+      } else {
+        const updatedOptions = [...engineMakeOptions, capitalizedOption];
+        const sortedOptions = updatedOptions.sort((a, b) => a.localeCompare(b));
+        setEngineMakeOptions(sortedOptions);
+        setNewOption("");
+      }
+    }
+  };
   const handleSubmit = (e) => {
     setOpenKey("Broker Valuation");
     try {
@@ -88,7 +106,17 @@ const EngineAdvert = () => {
         <Form onSubmit={handleSubmit}>
           <Row>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: 10 }}>Make and Model</h6>
+              <h6 style={{ marginLeft: 10 }}>Make and Model</h6> 
+              <Col md={12} className="d-flex align-items-center mb-2">
+                <Form.Control
+                  type="text"
+                  value={newOption}
+                  onChange={(e) => setNewOption(e.target.value)}
+                  placeholder="Add new option"
+                  className="me-2"
+                />
+                <Button variant="primary" onClick={handleAddOption}>+</Button>
+              </Col>
               <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
                   <MultipleSelectComponent
