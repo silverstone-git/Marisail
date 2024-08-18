@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { Form, Accordion } from "react-bootstrap";
+import { Form, Accordion, Button, Col } from "react-bootstrap";
 import PropTypes from "prop-types";
+import { useState } from "react";
 
 const MultipleSelectComponent = ({
   label,
@@ -8,16 +8,27 @@ const MultipleSelectComponent = ({
   openKey,
   options,
   isMandatory,
+  value,
+  setValue,
+  onAddOption
 }) => {
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [newOption, setNewOption] = useState("");
+
   const handleCheckboxChange = (option) => {
-    if (selectedOptions.includes(option)) {
-      setSelectedOptions(selectedOptions.filter((item) => item !== option));
+    if (value.includes(option)) {
+      setValue(value.filter((item) => item !== option));
     } else {
-      setSelectedOptions([...selectedOptions, option]);
+      setValue([...value, option]);
     }
   };
-  
+
+  const handleAddOptionClick = () => {
+    if (newOption.trim() !== "") {
+      onAddOption(newOption);
+      setNewOption("");
+    }
+  };
+
   return (
     <Accordion
       activeKey={openKey}
@@ -29,13 +40,30 @@ const MultipleSelectComponent = ({
           {isMandatory && <span className="text-danger">&nbsp;*</span>}
         </Accordion.Header>
         <Accordion.Body style={{ maxHeight: 200, overflowY: "auto" }}>
+          {/* Add input and button for new option */}
+          <Col md={12} className="d-flex align-items-center mt-3">
+            <Form.Control
+              type="text"
+              value={newOption}
+              onChange={(e) => setNewOption(e.target.value)}
+              placeholder={`Add new ${label}`}
+              className="me-2"
+            />
+            <Button
+              variant="primary"
+              style={{ borderRadius: '0rem' }}
+              onClick={handleAddOptionClick}
+            >
+              +
+            </Button>
+          </Col>
           {options && options.map((item, index) => {
             return (
               <Form.Check
                 type="checkbox"
                 className="custom-checkbox"
                 key={index}
-                checked={selectedOptions.includes(item)}
+                checked={value.includes(item)}
                 onChange={() => handleCheckboxChange(item)}
                 label={item}
               />
@@ -51,7 +79,11 @@ MultipleSelectComponent.propTypes = {
   label: PropTypes.string.isRequired,
   setOpenKey: PropTypes.func.isRequired,
   openKey: PropTypes.string,
-  options: PropTypes.string.isRequired,
+  options: PropTypes.array.isRequired,
   isMandatory: PropTypes.bool.isRequired,
+  value: PropTypes.array,
+  setValue: PropTypes.func,
+  onAddOption: PropTypes.func.isRequired
 };
+
 export default MultipleSelectComponent;

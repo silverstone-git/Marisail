@@ -3,6 +3,7 @@ import { Col, Form, Row } from "react-bootstrap";
 import SelectComponent from "../SelectComponent";
 import InputComponent from "../InputComponent";
 import MultipleSelectComponent from "../MultipleSelectComponent";
+import { ENGINE_ADVERT } from "../../services/constsnts"
 import DatePickerComponent from "../DatePickerComponent";
 import { useEffect, useState } from "react";
 import "./engineAdvert.module.scss";
@@ -18,7 +19,7 @@ const EngineAdvert = () => {
     lastSurveyDate: null,
     brokerValuation: "",
     marisailVesselId: "",
-    engineMake: "",
+    engineMake: [],
     engineClassification: "",
     certification: "",
     engineModel: "",
@@ -39,7 +40,37 @@ const EngineAdvert = () => {
     operationMode: "",
   });
   const [openKey, setOpenKey] = useState(null);
-  const [engineMake, setEngineMake] = useState("");
+  const [engineMakeOptions, setEngineMakeOptions] = useState([]);
+  const [engineModelOptions, setEngineModelOptions] = useState([]);
+
+  const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  };
+
+  const handleAddOption = (newOption, label) => {
+    if (newOption.trim() !== "") {
+      const capitalizedOption = capitalizeFirstLetter(newOption.trim());
+
+      if (label === ENGINE_ADVERT.ENGINE_MAKE) {
+        if (engineMakeOptions.includes(capitalizedOption)) {
+          alert(`"${capitalizedOption}" already exists in the options.`);
+        } else {
+          const updatedOptions = [...engineMakeOptions, capitalizedOption];
+          const sortedOptions = updatedOptions.sort((a, b) => a.localeCompare(b));
+          setEngineMakeOptions(sortedOptions);
+        }
+      } else if (label === ENGINE_ADVERT.ENGINE_MODEL) {
+        if (engineModelOptions.includes(capitalizedOption)) {
+          alert(`"${capitalizedOption}" already exists in the options.`);
+        } else {
+          const updatedOptions = [...engineModelOptions, capitalizedOption];
+          const sortedOptions = updatedOptions.sort((a, b) => a.localeCompare(b));
+          setEngineModelOptions(sortedOptions);
+        } //[TODO] Need to handle for other options as well
+      }
+    }
+  };
+
   const handleSubmit = (e) => {
     setOpenKey("Broker Valuation");
     try {
@@ -50,7 +81,7 @@ const EngineAdvert = () => {
       } else {
         alert("Please fill out all required fields.");
       }
-      // const mandatoryFields = ['engineMake', 'engineModel', 'engineType', 'typeDesignation'];
+      // const mandatoryFields = ['engineMakeOptions', 'engineModel', 'engineType', 'typeDesignation'];
       // let allFieldsValid = true;
       // mandatoryFields.forEach(field => {
       //   if (!form[field] || form[field].length === 0) {
@@ -72,13 +103,25 @@ const EngineAdvert = () => {
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      setEngineMake(toJson.result);
+      setEngineMakeOptions(toJson.result);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const fetchEngineModel = async (
+    URL = "http://localhost:3001/api/advert_engine/engine_model"
+  ) => {
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      setEngineModelOptions(toJson.result);
     } catch (err) {
       console.log(err);
     }
   };
   useEffect(() => {
     fetchEngineMake();
+    fetchEngineModel();
   }, []);
 
   return (
@@ -93,18 +136,28 @@ const EngineAdvert = () => {
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    label={`Engine Make`}
-                    options={engineMake}
+                    label={ENGINE_ADVERT.ENGINE_MAKE}
                     isMandatory={true}
+                    options={engineMakeOptions}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
+                    onAddOption={(newOption) => handleAddOption(newOption, ENGINE_ADVERT.ENGINE_MAKE)}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    label={`Engine Model`}
-                    options={engineMake}
+                    label={ENGINE_ADVERT.ENGINE_MODEL}
                     isMandatory={true}
+                    options={engineModelOptions}
+                    value={form.engineModel}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineModel: newValues })
+                    }
+                    onAddOption={(newOption) => handleAddOption(newOption, ENGINE_ADVERT.ENGINE_MODEL)}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -123,18 +176,28 @@ const EngineAdvert = () => {
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    label={`Engine Type`}
-                    options={engineMake}
+                    label={ENGINE_ADVERT.ENGINE_TYPE}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
+                    onAddOption={(newOption) => handleAddOption(newOption, ENGINE_ADVERT.ENGINE_TYPE)}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    label={`Type Designation`}
-                    options={engineMake}
+                    label={ENGINE_ADVERT.TYPE_DESIGNATION}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
+                    onAddOption={(newOption) => handleAddOption(newOption, ENGINE_ADVERT.TYPE_DESIGNATION)}
                   />
                 </Col>
               </Col>
@@ -223,26 +286,41 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={`Marisail Vessel ID`}
-                    options={engineMake}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
+                    onAddOption={(newOption) => handleAddOption(newOption, ENGINE_ADVERT.MARISAIL_VESSEL_ID)}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    label={`Engine Classification`}
-                    options={engineMake}
+                    label={ENGINE_ADVERT.ENGINE_CLASSIFICATION}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
+                    onAddOption={(newOption) => handleAddOption(newOption, ENGINE_ADVERT.ENGINE_CLASSIFICATION)}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    label={`Certification`}
-                    options={engineMake}
+                    label={ENGINE_ADVERT.CERTIFICATION}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
+                    onAddOption={(newOption) => handleAddOption(newOption, ENGINE_ADVERT.CERTIFICATION)}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -273,81 +351,126 @@ const EngineAdvert = () => {
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    label={`CE Design Category`}
-                    options={engineMake}
+                    label={ENGINE_ADVERT.CE_DESIGN_CATEGORY}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
+                    onAddOption={(newOption) => handleAddOption(newOption, ENGINE_ADVERT.CE_DESIGN_CATEGORY)}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    label={`Number Drives`}
-                    options={engineMake}
+                    label={ENGINE_ADVERT.NUMBER_DRIVES}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
+                    onAddOption={(newOption) => handleAddOption(newOption, ENGINE_ADVERT.NUMBER_DRIVES)}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    label={`Number Engines`}
-                    options={engineMake}
+                    label={ENGINE_ADVERT.NUMBER_ENGINES}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
+                    onAddOption={(newOption) => handleAddOption(newOption, ENGINE_ADVERT.NUMBER_ENGINES)}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    label={`Range (Miles)`}
-                    options={engineMake}
+                    label={ENGINE_ADVERT.RANGE_MILES}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
+                    onAddOption={(newOption) => handleAddOption(newOption, ENGINE_ADVERT.RANGE_MILES)}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    label={`Cruising Speed (Knots)`}
-                    options={engineMake}
+                    label={ENGINE_ADVERT.CRUISING_SPEED}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
+                    onAddOption={(newOption) => handleAddOption(newOption, ENGINE_ADVERT.CRUISING_SPEED)}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    label={`Drive Type`}
-                    options={engineMake}
+                    label={ENGINE_ADVERT.DRIVE_TYPE}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
+                    onAddOption={(newOption) => handleAddOption(newOption, ENGINE_ADVERT.DRIVE_TYPE)}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    label={`Engine Hours`}
-                    options={engineMake}
+                    label={ENGINE_ADVERT.ENGINE_HOURS}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
+                    onAddOption={(newOption) => handleAddOption(newOption, ENGINE_ADVERT.ENGINE_HOURS)}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    label={`Ignition System (Starting)`}
-                    options={engineMake}
+                    label={ENGINE_ADVERT.IGNITION_SYSTEM}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
+                    onAddOption={(newOption) => handleAddOption(newOption, ENGINE_ADVERT.IGNITION_SYSTEM)}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    label={`Noise Level (dB)`}
-                    options={engineMake}
+                    label={ENGINE_ADVERT.NOISE_LEVEL}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
+                    onAddOption={(newOption) => handleAddOption(newOption, ENGINE_ADVERT.NOISE_LEVEL)}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -371,36 +494,56 @@ const EngineAdvert = () => {
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    label={`Transmission Type`}
-                    options={engineMake}
+                    label={ENGINE_ADVERT.TRANSMISSION_TYPE}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
+                    onAddOption={(newOption) => handleAddOption(newOption, ENGINE_ADVERT.TRANSMISSION_TYPE)}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    options={engineMake}
-                    label={`Gear Shift`}
+                    options={engineMakeOptions}
+                    label={ENGINE_ADVERT.GEAR_SHIFT}
                     isMandatory={false}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
+                    onAddOption={(newOption) => handleAddOption(newOption, ENGINE_ADVERT.GEAR_SHIFT)}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    label={`Gear Ratio`}
-                    options={engineMake}
+                    label={ENGINE_ADVERT.GEAR_RATIO}
+                    options={engineMakeOptions}
                     isMandatory={false}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
+                    onAddOption={(newOption) => handleAddOption(newOption, ENGINE_ADVERT.GEAR_RATIO)}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    label={`Gear Shift Type`}
-                    options={engineMake}
+                    label={ENGINE_ADVERT.GEAR_SHIFT_TYPE}
+                    options={engineMakeOptions}
                     isMandatory={false}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
+                    onAddOption={(newOption) => handleAddOption(newOption,ENGINE_ADVERT.GEAR_SHIFT_TYPE)}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -417,27 +560,42 @@ const EngineAdvert = () => {
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    label={`Silumin Flywheel Housing`}
-                    options={engineMake}
+                    label={ENGINE_ADVERT.SILUMIN_FLYWHEEL_HOUSING}
+                    options={engineMakeOptions}
                     isMandatory={false}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
+                    onAddOption={(newOption) => handleAddOption(newOption, ENGINE_ADVERT.SILUMIN_FLYWHEEL_HOUSING)}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    label={`Camshaft`}
-                    options={engineMake}
+                    label={ENGINE_ADVERT.CAMSHAFT}
+                    options={engineMakeOptions}
                     isMandatory={false}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
+                    onAddOption={(newOption) => handleAddOption(newOption, ENGINE_ADVERT.CAMSHAFT)}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    options={engineMake}
-                    label={`Crankshaft Alloy`}
+                    options={engineMakeOptions}
+                    label={ENGINE_ADVERT.CRANKSHAFT_ALLOY}
                     isMandatory={false}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
+                    onAddOption={(newOption) => handleAddOption(newOption, ENGINE_ADVERT.CRANKSHAFT_ALLOY)}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -485,9 +643,14 @@ const EngineAdvert = () => {
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    label={`Engine Mounting Type`}
-                    options={engineMake}
+                    label={ENGINE_ADVERT.ENGINE_MOUNTING_TYPE}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
+                    onAddOption={(newOption) => handleAddOption(newOption, ENGINE_ADVERT.ENGINE_MOUNTING_TYPE)}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -591,9 +754,14 @@ const EngineAdvert = () => {
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    label={`Last Service Date`}
-                    options={engineMake}
+                    label={ENGINE_ADVERT.LAST_SERVICE_DATE}
+                    options={engineMakeOptions}
                     isMandatory={true}
+                    value={form.engineMake}
+                    setValue={(newValues) =>
+                      setForm({ ...form, engineMake: newValues })
+                    }
+                    onAddOption={(newOption) => handleAddOption(newOption, ENGINE_ADVERT.LAST_SERVICE_DATE)}
                   />
                 </Col>
               </Col>
