@@ -1,5 +1,6 @@
-import { Form, Accordion } from "react-bootstrap";
+import { Form, Accordion, Button, Col } from "react-bootstrap";
 import PropTypes from "prop-types";
+import { useState } from "react";
 
 const MultipleSelectComponent = ({
   label,
@@ -8,8 +9,11 @@ const MultipleSelectComponent = ({
   options,
   isMandatory,
   value,
-  setValue
+  setValue,
+  onAddOption
 }) => {
+  const [newOption, setNewOption] = useState("");
+
   const handleCheckboxChange = (option) => {
     if (value.includes(option)) {
       setValue(value.filter((item) => item !== option));
@@ -17,7 +21,14 @@ const MultipleSelectComponent = ({
       setValue([...value, option]);
     }
   };
-  
+
+  const handleAddOptionClick = () => {
+    if (newOption.trim() !== "") {
+      onAddOption(newOption);
+      setNewOption("");
+    }
+  };
+
   return (
     <Accordion
       activeKey={openKey}
@@ -29,6 +40,23 @@ const MultipleSelectComponent = ({
           {isMandatory && <span className="text-danger">&nbsp;*</span>}
         </Accordion.Header>
         <Accordion.Body style={{ maxHeight: 200, overflowY: "auto" }}>
+          {/* Add input and button for new option */}
+          <Col md={12} className="d-flex align-items-center mt-3">
+            <Form.Control
+              type="text"
+              value={newOption}
+              onChange={(e) => setNewOption(e.target.value)}
+              placeholder={`Add new ${label}`}
+              className="me-2"
+            />
+            <Button
+              variant="primary"
+              style={{ borderRadius: '0rem' }}
+              onClick={handleAddOptionClick}
+            >
+              +
+            </Button>
+          </Col>
           {options && options.map((item, index) => {
             return (
               <Form.Check
@@ -46,6 +74,7 @@ const MultipleSelectComponent = ({
     </Accordion>
   );
 };
+
 MultipleSelectComponent.propTypes = {
   label: PropTypes.string.isRequired,
   setOpenKey: PropTypes.func.isRequired,
@@ -53,6 +82,8 @@ MultipleSelectComponent.propTypes = {
   options: PropTypes.array.isRequired,
   isMandatory: PropTypes.bool.isRequired,
   value: PropTypes.array,
-  setValue: PropTypes.func
+  setValue: PropTypes.func,
+  onAddOption: PropTypes.func.isRequired
 };
+
 export default MultipleSelectComponent;
