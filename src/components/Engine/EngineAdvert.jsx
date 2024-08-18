@@ -40,6 +40,8 @@ const EngineAdvert = () => {
   });
   const [openKey, setOpenKey] = useState(null);
   const [engineMakeOptions, setEngineMakeOptions] = useState("");
+  const [engineModelOptions, setEngineModelOptions] = useState("");
+
   const [newOption, setNewOption] = useState("");
   const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
@@ -55,6 +57,7 @@ const EngineAdvert = () => {
         const updatedOptions = [...engineMakeOptions, capitalizedOption];
         const sortedOptions = updatedOptions.sort((a, b) => a.localeCompare(b));
         setEngineMakeOptions(sortedOptions);
+        // setEngineModelOptions(sortedOptions);
         setNewOption("");
       }
     }
@@ -96,8 +99,20 @@ const EngineAdvert = () => {
       console.log(err);
     }
   };
+  const fetchEngineModel = async (
+    URL = "http://localhost:3001/api/advert_engine/engine_model"
+  ) => {
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      setEngineModelOptions(toJson.result);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   useEffect(() => {
     fetchEngineMake();
+    fetchEngineModel();
   }, []);
 
   return (
@@ -137,10 +152,10 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     label={`Engine Model`}
                     isMandatory={true}
-                    options={engineMakeOptions}
-                    value={form.engineMake}
+                    options={engineModelOptions}
+                    value={form.engineModel}
                     setValue={(newValues) =>
-                      setForm({ ...form, engineMake: newValues })
+                      setForm({ ...form, engineModel: newValues })
                     }
                   />
                 </Col>
