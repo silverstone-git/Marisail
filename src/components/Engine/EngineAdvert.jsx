@@ -70,7 +70,13 @@ const EngineAdvert = () => {
     valvePerCylinder:"",
     boreXStroke:"",
     bore:"",
-    stroke:""
+    stroke:"",
+    idleRPM:"",
+    ratedSpeedRPM:"",
+    rpmAtMaxPower:"",
+    maximumTorque:"",
+    maximumTorqueAtSpeed:"",
+    torqueAtRatedSpeed:""
   });
   const [openKey, setOpenKey] = useState(null);
   const [engineMakeOptions, setEngineMakeOptions] = useState([]);
@@ -1567,6 +1573,90 @@ const EngineAdvert = () => {
                   />
                 </Col>
               </Col>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>RPM</h6>
+              <Col md={12}>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.idleRPM}
+                    setValue={(val) =>
+                      setForm({ ...form, idleRPM: val })
+                    }
+                    label="Idle RPM"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.ratedSpeedRPM}
+                    setValue={(val) => setForm({ ...form, ratedSpeedRPM: val })}
+                    label="Rated Speed (RPM)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.rpmAtMaxPower}
+                    setValue={(val) =>
+                      setForm({ ...form, rpmAtMaxPower: val })
+                    }
+                    label="RPM at Max Power"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+              </Col>
+            </Col>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Torque</h6>
+              <Col md={12}>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.maximumTorque}
+                    setValue={(val) =>
+                      setForm({ ...form, maximumTorque: val })
+                    }
+                    label="Maximum Torque (Nm)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.maximumTorqueAtSpeed}
+                    setValue={(val) => setForm({ ...form, maximumTorqueAtSpeed: val })}
+                    label="Maximum Torque At Speed (RPM)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.torqueAtRatedSpeed}
+                    setValue={(val) =>
+                      setForm({ ...form, torqueAtRatedSpeed: val })
+                    }
+                    label="Torque At Rated Speed (Nm)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+              </Col>
+            </Col>
             </Col>
           </Row>
           <p style={{ textAlign: "center" }}>
