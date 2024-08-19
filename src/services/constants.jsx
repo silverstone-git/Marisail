@@ -23,5 +23,13 @@ export const ENGINE_ADVERT = {
   CAMSHAFT: "Camshaft",
   CRANKSHAFT_ALLOY: "Crankshaft Alloy",
   ENGINE_MOUNTING_TYPE: "Engine Mounting Type",
-  LAST_SERVICE_DATE: "Last Service Date"
+  LAST_SERVICE_DATE: "Last Service Date",
+  ENGINE_MANAGEMENT_SYSTEM: "Engine Management System (EMS)",
+  ENGINE_CONTROL_SYSTEM: "Engine Control System",
+  TURBO_CHARGER: "Turbocharger",
+  TURBO_CHARGING: "Turbocharging",
+  HEAT_EXCHANGER: "Heat Exchanger",
+  SEA_WATER_PUMP: "Sea Water Pump",
+  AUXILIARY_POWER_TAKEOFF: "Auxiliary Power Take-Off (PTO)",
+  REMOTE_CONTROL_SYSTEMS: "Remote Control Systems"
 };
