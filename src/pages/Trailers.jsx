@@ -3,9 +3,9 @@ import { Button, Card, Container } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-import SelectComponent from "../components/SelectComponent";
-import InputComponent from "../components/InputComponent";
-import CheckComponent from "../components/CheckComponent";
+import SelectComponent from "../Components/SelectComponent";
+import InputComponent from "../Components/InputComponent";
+import CheckComponent from "../Components/CheckComponent";
 import "./trailers.css";
 
 const Trailers = () => {

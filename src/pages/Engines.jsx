@@ -1,8 +1,8 @@
-import EngineAdvert from "../components/Engine/EngineAdvert";
-import EngineSearch from "../components/Engine/EngineSearch";
-import PropTypes from 'prop-types';
+import EngineAdvert from "../Components/Engine/EngineAdvert";
+import EngineSearch from "../Components/Engine/EngineSearch";
+import PropTypes from "prop-types";
 
-const Engines = ({ type }) => {  
+const Engines = ({ type }) => {
   return (
     <main
       style={{

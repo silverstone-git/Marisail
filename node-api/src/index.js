@@ -2,6 +2,7 @@ import { Router } from "express";
 import homeRouter from "./routes/home.js";
 import berthRouter from "./routes/berths.js";
 import advertEngineRouter from "./routes/advert_engine.js";
+import searchEngineRouter from "./routes/search_engine.js";
 
 const router = Router();
 
@@ -13,6 +14,7 @@ router.use("/berth", berthRouter);
 
 router.use("/advert_engine", advertEngineRouter);
 
+router.use("/search_engine", searchEngineRouter);
 
 // Export the router
 export default router;
