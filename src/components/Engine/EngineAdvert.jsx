@@ -47,7 +47,22 @@ const EngineAdvert = () => {
     lengthFromFrontEndOfFlywheelHousing:"",
     engineWeight:"",
     dryWeight:"",
-    exclOilWeight:""
+    exclOilWeight:"",
+    nominalRating:"",
+    enginePerformance: "",
+    maxPowerOutput:"",
+    maxSpeedKnots:"",
+    supercharged:"",
+    grossPowerFullLoadKW:"",
+    grossPowerFullLoadHpMetric:"",
+    GrossPowerPropellerCurveKw:"",
+    GrossPowerPropellerCurveHpMetric:"",
+    grossTorque:"",
+    powerToWeightRatio:"",
+    engineEfficiency:"",
+    engineSpeedRange:"",
+    maximumContinuousRating:"",
+    continuousPower:""
   });
   const [openKey, setOpenKey] = useState(null);
   const [engineMakeOptions, setEngineMakeOptions] = useState([]);
@@ -1240,6 +1255,211 @@ const EngineAdvert = () => {
                     value={form.weightWithKeelCooling}
                     setValue={(val) => setForm({ ...form, weightWithKeelCooling: val })}
                     label="Weight With Keel Cooling"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+              </Col>
+            </Col>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Performance</h6>
+              <Col md={12}>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.nominalRating}
+                    setValue={(val) =>
+                      setForm({ ...form, nominalRating: val })
+                    }
+                    label="Nominal Rating (Kw) (HP)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.enginePerformance}
+                    setValue={(val) => setForm({ ...form, enginePerformance: val })}
+                    label="Engine Performance"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.maxPowerOutput}
+                    setValue={(val) => setForm({ ...form, maxPowerOutput: val })}
+                    label="Max Power Output"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.maxPowerBHP}
+                    setValue={(val) => setForm({ ...form, maxPowerBHP: val })}
+                    label="Max. Power (BHP)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.maxSpeedKnots}
+                    setValue={(val) => setForm({ ...form, maxSpeedKnots: val })}
+                    label="Max. Speed (Knots)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.supercharged}
+                    setValue={(val) => setForm({ ...form, supercharged: val })}
+                    label="Supercharged"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.valveTrain}
+                    setValue={(val) => setForm({ ...form, valveTrain: val })}
+                    label="Valve Train"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.grossPowerFullLoadKW}
+                    setValue={(val) => setForm({ ...form, grossPowerFullLoadKW: val })}
+                    label="Gross Power, Full Load (Kw)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.grossPowerFullLoadHpMetric}
+                    setValue={(val) => setForm({ ...form, grossPowerFullLoadHpMetric: val })}
+                    label="Gross Power, Full Load (Hp, Metric)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.GrossPowerPropellerCurveKw}
+                    setValue={(val) => setForm({ ...form, GrossPowerPropellerCurveKw: val })}
+                    label="Gross Power, Propeller Curve (Kw)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.GrossPowerPropellerCurveHpMetric}
+                    setValue={(val) => setForm({ ...form, GrossPowerPropellerCurveHpMetric: val })}
+                    label="Gross Power, Propeller Curve (Hp, Metric)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.grossTorque}
+                    setValue={(val) => setForm({ ...form, grossTorque: val })}
+                    label="Gross Torque (Nm)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.continuousPower}
+                    setValue={(val) => setForm({ ...form, continuousPower: val })}
+                    label="Continuous Power (kW/HP)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.maximumContinuousRating}
+                    setValue={(val) => setForm({ ...form, maximumContinuousRating: val })}
+                    label="Maximum Continuous Rating (MCR)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.engineSpeedRange}
+                    setValue={(val) => setForm({ ...form, engineSpeedRange: val })}
+                    label="Engine Speed Range (RPM)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.supercharged}
+                    setValue={(val) => setForm({ ...form, supercharged: val })}
+                    label="Supercharged"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.engineEfficiency}
+                    setValue={(val) => setForm({ ...form, engineEfficiency: val })}
+                    label="Engine Efficiency"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.powerToWeightRatio}
+                    setValue={(val) => setForm({ ...form, powerToWeightRatio: val })}
+                    label="Power-to-Weight Ratio"
                     options={engineModelYearOptions}
                   />
                 </Col>
