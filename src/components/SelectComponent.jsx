@@ -562,12 +562,7 @@ function SelectComponent({
     },
   };
   
-  let selectedComponent = "";
-  if (type == "advertEngine") {
-    selectedComponent = advertEngineOptions;
-  } else {
-    selectedComponent = trailersOptions;
-  }
+  let selectedComponent = trailersOptions;
   return (
     <Accordion
       activeKey={openKey}
@@ -601,7 +596,7 @@ SelectComponent.propTypes = {
   value: PropTypes.string,
   setOpenKey: PropTypes.func.isRequired,
   openKey: PropTypes.string,
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string,
   options: PropTypes.array.isRequired
 };
 export default SelectComponent;
