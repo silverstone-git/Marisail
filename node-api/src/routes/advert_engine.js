@@ -45,4 +45,49 @@ advertEngineRouter.get("/engine_model/", async (req, res) => {
   }
 });
 
+advertEngineRouter.get("/engine_modelyear/", async (req, res) => {
+  let connection;
+  try {
+    connection = await dbConnection.getConnection();
+    const [rows] = await connection.query(
+      "SELECT DISTINCT engine_modelyear FROM engine_general ORDER BY engine_modelyear ASC LIMIT 10"
+    );
+    return res.status(200).json({ ok: true, result: rows.map(row => row.engine_modelyear) });
+  } catch (err) {
+    return res.status(500).json({ ok: false, message: err.message });
+  } finally {
+    connection.release();
+  }
+});
+
+advertEngineRouter.get("/unit_injectors/", async (req, res) => {
+  let connection;
+  try {
+    connection = await dbConnection.getConnection();
+    const [rows] = await connection.query(
+      "SELECT DISTINCT unit_injectors FROM engine_equipment ORDER BY unit_injectors ASC LIMIT 10"
+    );
+    return res.status(200).json({ ok: true, result: rows.map(row => row.unit_injectors) });
+  } catch (err) {
+    return res.status(500).json({ ok: false, message: err.message });
+  } finally {
+    connection.release();
+  }
+});
+
+advertEngineRouter.get("/conditions/", async (req, res) => {
+  let connection;
+  try {
+    connection = await dbConnection.getConnection();
+    const [rows] = await connection.query(
+      "SELECT DISTINCT condition_1 FROM engine_general ORDER BY condition_1 ASC LIMIT 10"
+    );
+    return res.status(200).json({ ok: true, result: rows.map(row => row.condition_1) });
+  } catch (err) {
+    return res.status(500).json({ ok: false, message: err.message });
+  } finally {
+    connection.release();
+  }
+});
+
 export default advertEngineRouter;
