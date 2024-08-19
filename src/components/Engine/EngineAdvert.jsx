@@ -111,7 +111,24 @@ const EngineAdvert = () => {
     steeringControlType:"",
     trimSystem:"",
     trimTabMaterial:"",
-    trimTabType:""
+    trimTabType:"",
+    electronicFuelinjection:"",
+    fuelPreFilter:"",
+    fuelFilter:"",
+    fuelFilterType:"",
+    fuelReserve:"",
+    fuelSystem:"",
+    fuelTankCapacity:"",
+    fuelType:"",
+    lowestSpecificFuelConsumption:"",
+    recommendedFuel:"",
+    fuelConsumptionAtCruisingSpeed:"",
+    fuelConsumptionRate:"",
+    fuelConsumtpionAtFullLoad:"",
+    fuelInjectionSystemType:"",
+    fuelDeliveryPressure:"",
+    fuelTankMaterial:"",
+    fuelLineDiameter:""
   });
   const [openKey, setOpenKey] = useState(null);
   const [engineMakeOptions, setEngineMakeOptions] = useState([]);
@@ -2296,6 +2313,230 @@ const EngineAdvert = () => {
                       setForm({ ...form, trimTabType: val })
                     }
                     label="Trim Tab Type"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+              </Col>
+            </Col>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Fuel System</h6>
+              <Col md={12}>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.electronicFuelinjection}
+                    setValue={(val) => setForm({ ...form, electronicFuelinjection: val })}
+                    label="Electronic Fuel Injection (EFI)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.fuelPreFilter}
+                    setValue={(val) =>
+                      setForm({ ...form, fuelPreFilter: val })
+                    }
+                    label="Fuel Pre-Filter"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.fuelFilter}
+                    setValue={(val) =>
+                      setForm({ ...form, fuelFilter : val })
+                    }
+                    label="Fuel Filter"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.fuelFilterType}
+                    setValue={(val) =>
+                      setForm({ ...form, fuelFilterType: val })
+                    }
+                    label="Fuel Filter Type"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.fuelReserve}
+                    setValue={(val) =>
+                      setForm({ ...form, fuelReserve: val })
+                    }
+                    label="Fuel Reserve (Holding Tank) (Litres)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.fuelSystem}
+                    setValue={(val) =>
+                      setForm({ ...form, fuelSystem: val })
+                    }
+                    label="Fuel System"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.fuelTankCapacity}
+                    setValue={(val) =>
+                      setForm({ ...form, fuelTankCapacity: val })
+                    }
+                    label="Fuel Tank Capacity (Litres)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.fuelType}
+                    setValue={(val) =>
+                      setForm({ ...form, fuelType: val })
+                    }
+                    label="Fuel Type"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.lowestSpecificFuelConsumption}
+                    setValue={(val) =>
+                      setForm({ ...form, lowestSpecificFuelConsumption: val })
+                    }
+                    label="Lowest Specific Fuel Consumption (G/Kwh)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.recommendedFuel}
+                    setValue={(val) =>
+                      setForm({ ...form, recommendedFuel: val })
+                    }
+                    label="Recommended Fuel"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.fuelConsumptionAtCruisingSpeed}
+                    setValue={(val) =>
+                      setForm({ ...form, fuelConsumptionAtCruisingSpeed: val })
+                    }
+                    label="Fuel Consumption At Cruising Speed (Litres)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.fuelConsumptionRate}
+                    setValue={(val) =>
+                      setForm({ ...form, fuelConsumptionRate: val })
+                    }
+                    label="Fuel Consumption Rate"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.fuelConsumtpionAtFullLoad}
+                    setValue={(val) =>
+                      setForm({ ...form, fuelConsumtpionAtFullLoad: val })
+                    }
+                    label="Fuel Consumption At Full Load (G/Kwh)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.fuelInjectionSystemType}
+                    setValue={(val) =>
+                      setForm({ ...form, fuelInjectionSystemType: val })
+                    }
+                    label="Fuel Injection System Type"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.fuelDeliveryPressure}
+                    setValue={(val) =>
+                      setForm({ ...form, fuelDeliveryPressure: val })
+                    }
+                    label="Fuel Delivery Pressure"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.fuelTankMaterial}
+                    setValue={(val) =>
+                      setForm({ ...form, fuelTankMaterial: val })
+                    }
+                    label="Fuel Tank Material"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.fuelLineDiameter}
+                    setValue={(val) =>
+                      setForm({ ...form, fuelLineDiameter: val })
+                    }
+                    label="Fuel Line Diameter"
                     options={engineModelYearOptions}
                   />
                 </Col>
