@@ -40,6 +40,14 @@ const EngineAdvert = () => {
     maintenanceLogRequirements: "",
     availabilityOfSpareParts: "",
     operationMode: "",
+    displacement:"",
+    length:"",
+    width:"",
+    height:"",
+    lengthFromFrontEndOfFlywheelHousing:"",
+    engineWeight:"",
+    dryWeight:"",
+    exclOilWeight:""
   });
   const [openKey, setOpenKey] = useState(null);
   const [engineMakeOptions, setEngineMakeOptions] = useState([]);
@@ -281,7 +289,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, condition: val })}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    options={engineModelYearOptions}
+                    options={conditionOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1115,6 +1123,123 @@ const EngineAdvert = () => {
                     value={form.remoteControlSystems}
                     setValue={(val) => setForm({ ...form, remoteControlSystems : val })}
                     label={ENGINE_ADVERT.REMOTE_CONTROL_SYSTEMS}
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+              </Col>
+            </Col>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Dimensions</h6>
+              <Col md={12}>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.displacement}
+                    setValue={(val) =>
+                      setForm({ ...form, displacement: val })
+                    }
+                    label="Displacement"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.length}
+                    setValue={(val) => setForm({ ...form, length: val })}
+                    label="Length (mm)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.width}
+                    setValue={(val) => setForm({ ...form, width: val })}
+                    label="Width (mm)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.height}
+                    setValue={(val) => setForm({ ...form, height: val })}
+                    label="Height (mm)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.lengthFromFrontEndOfFlywheelHousing}
+                    setValue={(val) => setForm({ ...form, lengthFromFrontEndOfFlywheelHousing: val })}
+                    label="Length From Front End To Edge Of Flywheel Housing (mm)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.engineWeight}
+                    setValue={(val) => setForm({ ...form, engineWeight: val })}
+                    label="Engine Weight"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.dryWeight}
+                    setValue={(val) => setForm({ ...form, dryWeight: val })}
+                    label="Dry Weight (Kg)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.exclOilWeight}
+                    setValue={(val) => setForm({ ...form, exclOilWeight: val })}
+                    label="Weight (Excl Oil And Coolant)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.weightWithHeatExchanger}
+                    setValue={(val) => setForm({ ...form, weightWithHeatExchanger: val })}
+                    label="Weight With Heat Exchanger"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.weightWithKeelCooling}
+                    setValue={(val) => setForm({ ...form, weightWithKeelCooling: val })}
+                    label="Weight With Keel Cooling"
                     options={engineModelYearOptions}
                   />
                 </Col>
