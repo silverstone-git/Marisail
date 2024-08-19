@@ -93,7 +93,25 @@ const EngineAdvert = () => {
     openCoolingSystem:"",
     closedCoolingSystem:"",
     coolingSystem:"",
-    afterCooled:""
+    afterCooled:"",
+    propulsion:"",
+    bowthruster:"",
+    propulsionSystem:"",
+    propulsionSystemType:"",
+    propellerDiameter:"",
+    propellerMaterial:"",
+    propellerPitch:"",
+    propellerType:"",
+    propellerShaftDiameter:"",
+    gearboxType:"",
+    transmissionCooling:"",
+    propellerBladeMaterial:"",
+    propellerShaftMaterial:"",
+    steeringSystem:"",
+    steeringControlType:"",
+    trimSystem:"",
+    trimTabMaterial:"",
+    trimTabType:""
   });
   const [openKey, setOpenKey] = useState(null);
   const [engineMakeOptions, setEngineMakeOptions] = useState([]);
@@ -2041,6 +2059,243 @@ const EngineAdvert = () => {
                       setForm({ ...form, rawWaterpumpType: val })
                     }
                     label="Raw Water Pump Type"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+              </Col>
+            </Col>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Propulsion System</h6>
+              <Col md={12}>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.propulsion}
+                    setValue={(val) => setForm({ ...form, propulsion: val })}
+                    label="Propulsion"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.bowthruster}
+                    setValue={(val) =>
+                      setForm({ ...form, bowthruster: val })
+                    }
+                    label="Bowthruster"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.propulsionSystem}
+                    setValue={(val) =>
+                      setForm({ ...form, propulsionSystem : val })
+                    }
+                    label="Propulsion System"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.propulsionSystemType}
+                    setValue={(val) =>
+                      setForm({ ...form, propulsionSystemType: val })
+                    }
+                    label="Propulsion System Type"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.propellerDiameter}
+                    setValue={(val) =>
+                      setForm({ ...form, propellerDiameter: val })
+                    }
+                    label="Propeller Diameter"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.propellerMaterial}
+                    setValue={(val) =>
+                      setForm({ ...form, propellerMaterial: val })
+                    }
+                    label="Propeller Material"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.propellerPitch}
+                    setValue={(val) =>
+                      setForm({ ...form, propellerPitch: val })
+                    }
+                    label="Propeller Pitch"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.propellerType}
+                    setValue={(val) =>
+                      setForm({ ...form, propellerType: val })
+                    }
+                    label="Propeller Type"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.propellerShaftDiameter}
+                    setValue={(val) =>
+                      setForm({ ...form, propellerShaftDiameter: val })
+                    }
+                    label="Propeller Shaft Diameter"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.gearboxType}
+                    setValue={(val) =>
+                      setForm({ ...form, gearboxType: val })
+                    }
+                    label="Gearbox Type"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.transmissionCooling}
+                    setValue={(val) =>
+                      setForm({ ...form, transmissionCooling: val })
+                    }
+                    label="Transmission Cooling"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.propellerBladeMaterial}
+                    setValue={(val) =>
+                      setForm({ ...form, propellerBladeMaterial: val })
+                    }
+                    label="Propeller Blade Material"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.propellerShaftMaterial}
+                    setValue={(val) =>
+                      setForm({ ...form, propellerShaftMaterial: val })
+                    }
+                    label="Propeller Shaft Material"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.steeringSystem}
+                    setValue={(val) =>
+                      setForm({ ...form, steeringSystem: val })
+                    }
+                    label="Steering System"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.steeringControlType}
+                    setValue={(val) =>
+                      setForm({ ...form, steeringControlType: val })
+                    }
+                    label="Steering Control Type"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.trimSystem}
+                    setValue={(val) =>
+                      setForm({ ...form, trimSystem: val })
+                    }
+                    label="Trim System"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.trimTabMaterial}
+                    setValue={(val) =>
+                      setForm({ ...form, trimTabMaterial: val })
+                    }
+                    label="Trim Tab Material"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.trimTabType}
+                    setValue={(val) =>
+                      setForm({ ...form, trimTabType: val })
+                    }
+                    label="Trim Tab Type"
                     options={engineModelYearOptions}
                   />
                 </Col>
