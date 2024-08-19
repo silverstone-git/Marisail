@@ -23,6 +23,8 @@ const EngineAdvert = () => {
     engineClassification: "",
     certification: "",
     engineModel: "",
+    engineType: "",
+    typeDesignation: "",
     manufacturerWarranty: "",
     engineSerialNumber: "",
     engineSoundproofingKits: "",
@@ -45,6 +47,8 @@ const EngineAdvert = () => {
   const [unitInjectorsOptions, setUnitInjectorsOptions] = useState([]);
   const [engineModelYearOptions, setEngineModelYearOptions] = useState([]);
   const [conditionOptions, setConditionOptions] = useState([]);
+  const [engineTypeOptions, setEngineTypeOptions] = useState([]);
+  const [typeDesignationOptions, setTypeDesignationOptions] = useState([]);
 
   const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
@@ -155,12 +159,36 @@ const EngineAdvert = () => {
       console.log(err);
     }
   };
+  const fetchEngineType = async (
+    URL = "http://localhost:3001/api/advert_engine/engine_type"
+  ) => {
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      setEngineTypeOptions(toJson.result);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const fetchTypeDesignation = async (
+    URL = "http://localhost:3001/api/advert_engine/type_designation"
+  ) => {
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      setTypeDesignationOptions(toJson.result);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   useEffect(() => {
     fetchEngineMake();
     fetchEngineModel();
     fetchUnitInjectors();
     fetchEngineModelYear();
+    fetchEngineType();
     fetchCondition();
+    fetchTypeDesignation();
   }, []);
 
   return (
@@ -208,7 +236,7 @@ const EngineAdvert = () => {
                     setValue={(val) =>
                       setForm({ ...form, engineModelYear: val })
                     }
-                    label="engineModelYear"
+                    label="Engine Model Year"
                     options={engineModelYearOptions}
                   />
                 </Col>
@@ -217,11 +245,11 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={ENGINE_ADVERT.ENGINE_TYPE}
-                    options={engineMakeOptions}
+                    options={engineTypeOptions}
                     isMandatory={true}
-                    value={form.engineMake}
+                    value={form.engineType}
                     setValue={(newValues) =>
-                      setForm({ ...form, engineMake: newValues })
+                      setForm({ ...form, engineType: newValues })
                     }
                     onAddOption={(newOption) => handleAddOption(newOption, ENGINE_ADVERT.ENGINE_TYPE)}
                   />
@@ -231,11 +259,11 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     label={ENGINE_ADVERT.TYPE_DESIGNATION}
-                    options={engineMakeOptions}
+                    options={typeDesignationOptions}
                     isMandatory={true}
-                    value={form.engineMake}
+                    value={form.typeDesignation}
                     setValue={(newValues) =>
-                      setForm({ ...form, engineMake: newValues })
+                      setForm({ ...form, typeDesignation: newValues })
                     }
                     onAddOption={(newOption) => handleAddOption(newOption, ENGINE_ADVERT.TYPE_DESIGNATION)}
                   />
@@ -261,7 +289,7 @@ const EngineAdvert = () => {
                     type="advertEngine"
                     value={form.usedCondition}
                     setValue={(val) => setForm({ ...form, usedCondition: val })}
-                    label="UsedCondition"
+                    label="Used Condition"
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     options={engineModelYearOptions}
@@ -285,7 +313,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     value={form.offeredBy}
                     setValue={(val) => setForm({ ...form, offeredBy: val })}
-                    label="offeredBy"
+                    label="Offered By"
                     options={engineModelYearOptions}
                   />
                 </Col>
@@ -376,7 +404,7 @@ const EngineAdvert = () => {
                     setValue={(val) =>
                       setForm({ ...form, manufacturerWarranty: val })
                     }
-                    label="manufacturerWarranty"
+                    label="Manufacturer Warranty"
                     options={engineModelYearOptions}
                   />
                 </Col>
@@ -389,7 +417,7 @@ const EngineAdvert = () => {
                     setValue={(val) =>
                       setForm({ ...form, engineSerialNumber: val })
                     }
-                    label="engineSerialNumber"
+                    label="Engine Serial Number"
                     options={engineModelYearOptions}
                   />
                 </Col>
@@ -528,7 +556,7 @@ const EngineAdvert = () => {
                     setValue={(val) =>
                       setForm({ ...form, engineSoundproofingKits: val })
                     }
-                    label="EngineSoundproofingKits"
+                    label="Engine Soundproofing Kits"
                     options={engineModelYearOptions}
                   />
                 </Col>
@@ -600,7 +628,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     value={form.flywheelSAE14}
                     setValue={(val) => setForm({ ...form, flywheelSAE14: val })}
-                    label="flywheelSAE14"
+                    label="Flywheel SAE 14"
                     options={engineModelYearOptions}
                   />
                 </Col>
@@ -655,7 +683,7 @@ const EngineAdvert = () => {
                     setValue={(val) =>
                       setForm({ ...form, crankcaseDesign: val })
                     }
-                    label="crankcaseDesign"
+                    label="Crankcase Design"
                     options={engineModelYearOptions}
                   />
                 </Col>
@@ -673,7 +701,7 @@ const EngineAdvert = () => {
                     setValue={(val) =>
                       setForm({ ...form, engineMountingOrientation: val })
                     }
-                    label="engineMountingOrientation"
+                    label="Engine Mounting Orientation"
                     options={engineModelYearOptions}
                   />
                 </Col>
@@ -686,7 +714,7 @@ const EngineAdvert = () => {
                     setValue={(val) =>
                       setForm({ ...form, engineSuspension: val })
                     }
-                    label="engineSuspension"
+                    label="Engine Suspension"
                     options={engineModelYearOptions}
                   />
                 </Col>
@@ -713,7 +741,7 @@ const EngineAdvert = () => {
                     setValue={(val) =>
                       setForm({ ...form, mountingBracketMaterial: val })
                     }
-                    label="mountingBracketMaterial"
+                    label="Mounting Bracket Material"
                     options={engineModelYearOptions}
                   />
                 </Col>
@@ -726,7 +754,7 @@ const EngineAdvert = () => {
                     setValue={(val) =>
                       setForm({ ...form, alignmentRequirements: val })
                     }
-                    label="alignmentRequirements"
+                    label="Alignment Requirements"
                     options={engineModelYearOptions}
                   />
                 </Col>
@@ -737,7 +765,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     value={form.engineBlock}
                     setValue={(val) => setForm({ ...form, engineBlock: val })}
-                    label="engineBlock"
+                    label="Engine Block"
                     options={engineModelYearOptions}
                   />
                 </Col>
@@ -755,7 +783,7 @@ const EngineAdvert = () => {
                     setValue={(val) =>
                       setForm({ ...form, scheduledMaintenancePlan: val })
                     }
-                    label="scheduledMaintenancePlan"
+                    label="Scheduled Maintenance Plan"
                     options={engineModelYearOptions}
                   />
                 </Col>
@@ -768,7 +796,7 @@ const EngineAdvert = () => {
                     setValue={(val) =>
                       setForm({ ...form, serviceInterval: val })
                     }
-                    label="serviceInterval"
+                    label="Service Interval"
                     options={engineModelYearOptions}
                   />
                 </Col>
@@ -781,7 +809,7 @@ const EngineAdvert = () => {
                     setValue={(val) =>
                       setForm({ ...form, maintenanceLogRequirements: val })
                     }
-                    label="maintenanceLogRequirements"
+                    label="Maintenance Log Requirements"
                     options={engineModelYearOptions}
                   />
                 </Col>
@@ -794,7 +822,7 @@ const EngineAdvert = () => {
                     setValue={(val) =>
                       setForm({ ...form, availabilityOfSpareParts: val })
                     }
-                    label="availabilityOfSpareParts"
+                    label="Availability Of Spare Parts"
                     options={engineModelYearOptions}
                   />
                 </Col>
@@ -805,7 +833,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     value={form.operationMode}
                     setValue={(val) => setForm({ ...form, operationMode: val })}
-                    label="operationMode"
+                    label="Operation Mode"
                     options={engineModelYearOptions}
                   />
                 </Col>
@@ -865,7 +893,7 @@ const EngineAdvert = () => {
                     setValue={(val) =>
                       setForm({ ...form, unitInjectors: val })
                     }
-                    label="unitInjectors"
+                    label="Unit Injectors"
                     options={unitInjectorsOptions}
                   />
                 </Col>
@@ -904,7 +932,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     value={form.starterMotor}
                     setValue={(val) => setForm({ ...form, starterMotor: val })}
-                    label="starterMotor"
+                    label="Starter Motor"
                     options={engineModelYearOptions}
                   />
                 </Col>
@@ -915,7 +943,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     value={form.protectionCovers}
                     setValue={(val) => setForm({ ...form, protectionCovers: val })}
-                    label="protectionCovers"
+                    label="Protection Covers"
                     options={engineModelYearOptions}
                   />
                 </Col>
@@ -926,7 +954,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     value={form.closedCrankcaseVentilation}
                     setValue={(val) => setForm({ ...form, closedCrankcaseVentilation: val })}
-                    label="closedCrankcaseVentilation"
+                    label="Closed Crankcase Ventilation"
                     options={engineModelYearOptions}
                   />
                 </Col>
@@ -951,7 +979,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     value={form.heatExchangerWithExpansionTank}
                     setValue={(val) => setForm({ ...form, heatExchangerWithExpansionTank: val })}
-                    label="heatExchangerWithExpansionTank"
+                    label="Heat Exchanger With Expansion Tank"
                     options={engineModelYearOptions}
                   />
                 </Col>
@@ -976,7 +1004,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     value={form.seaWaterCooledChargeAirCooler}
                     setValue={(val) => setForm({ ...form, seaWaterCooledChargeAirCooler: val })}
-                    label="seaWaterCooledChargeAirCooler"
+                    label="Sea Water Cooled Charge Air Cooler"
                     options={engineModelYearOptions}
                   />
                 </Col>
@@ -987,7 +1015,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     value={form.workingPrinciple}
                     setValue={(val) => setForm({ ...form, workingPrinciple: val })}
-                    label="workingPrinciple"
+                    label="Working Principle"
                     options={engineModelYearOptions}
                   />
                 </Col>
@@ -998,7 +1026,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     value={form.compressionRatio}
                     setValue={(val) => setForm({ ...form, compressionRatio: val })}
-                    label="compressionRatio"
+                    label="Compression Ratio"
                     options={engineModelYearOptions}
                   />
                 </Col>
@@ -1009,7 +1037,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     value={form.workingPrinciple}
                     setValue={(val) => setForm({ ...form, workingPrinciple: val })}
-                    label="workingPrinciple"
+                    label="Working Principle"
                     options={engineModelYearOptions}
                   />
                 </Col>
@@ -1020,7 +1048,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     value={form.PistonSpeedAt1500Rpm}
                     setValue={(val) => setForm({ ...form, PistonSpeedAt1500Rpm: val })}
-                    label="PistonSpeedAt1500Rpm"
+                    label="Piston Speed At 1500Rpm"
                     options={engineModelYearOptions}
                   />
                 </Col>
@@ -1031,7 +1059,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     value={form.PistonSpeedAt1800Rpm}
                     setValue={(val) => setForm({ ...form, PistonSpeedAt1800Rpm: val })}
-                    label="PistonSpeedAt1800Rpm"
+                    label="Piston Speed At 1800Rpm"
                     options={engineModelYearOptions}
                   />
                 </Col>
@@ -1042,7 +1070,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     value={form.firingOrder}
                     setValue={(val) => setForm({ ...form, firingOrder : val })}
-                    label="firingOrder"
+                    label="Firing Order"
                     options={engineModelYearOptions}
                   />
                 </Col>
@@ -1053,7 +1081,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     value={form.pistons}
                     setValue={(val) => setForm({ ...form, pistons : val })}
-                    label="pistons"
+                    label="Pistons"
                     options={engineModelYearOptions}
                   />
                 </Col>
@@ -1064,7 +1092,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     value={form.connectionRods}
                     setValue={(val) => setForm({ ...form, connectionRods : val })}
-                    label="connectionRods"
+                    label="Connection Rods"
                     options={engineModelYearOptions}
                   />
                 </Col>
@@ -1075,7 +1103,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     value={form.auxiliaryPowerTakeOff}
                     setValue={(val) => setForm({ ...form, auxiliaryPowerTakeOff : val })}
-                    label="auxiliaryPowerTakeOff"
+                    label="Auxiliary Power Take Off (PTO)"
                     options={engineModelYearOptions}
                   />
                 </Col>
