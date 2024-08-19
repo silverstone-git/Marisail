@@ -62,7 +62,15 @@ const EngineAdvert = () => {
     engineEfficiency:"",
     engineSpeedRange:"",
     maximumContinuousRating:"",
-    continuousPower:""
+    continuousPower:"",
+    cylinderConfiguration:"",
+    numberCylinders:"",
+    cylindersAndArrangement:"",
+    numberValves:"",
+    valvePerCylinder:"",
+    boreXStroke:"",
+    bore:"",
+    stroke:""
   });
   const [openKey, setOpenKey] = useState(null);
   const [engineMakeOptions, setEngineMakeOptions] = useState([]);
@@ -1460,6 +1468,101 @@ const EngineAdvert = () => {
                     value={form.powerToWeightRatio}
                     setValue={(val) => setForm({ ...form, powerToWeightRatio: val })}
                     label="Power-to-Weight Ratio"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+              </Col>
+            </Col>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Cylinders</h6>
+              <Col md={12}>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.cylinderConfiguration}
+                    setValue={(val) =>
+                      setForm({ ...form, cylinderConfiguration: val })
+                    }
+                    label="Cylinder Configuration"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.numberCylinders}
+                    setValue={(val) => setForm({ ...form, numberCylinders: val })}
+                    label="Number Cylinders"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.cylindersAndArrangement}
+                    setValue={(val) => setForm({ ...form, cylindersAndArrangement: val })}
+                    label="Cylinders And Arrangement"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.numberValves}
+                    setValue={(val) => setForm({ ...form, numberValves: val })}
+                    label="Number Valves"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.valvePerCylinder}
+                    setValue={(val) => setForm({ ...form, valvePerCylinder: val })}
+                    label="Valve per Cylinder"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.boreXStroke}
+                    setValue={(val) => setForm({ ...form, boreXStroke: val })}
+                    label="Bore X Stroke"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.bore}
+                    setValue={(val) => setForm({ ...form, bore: val })}
+                    label="Bore"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.stroke}
+                    setValue={(val) => setForm({ ...form, stroke: val })}
+                    label="Stroke"
                     options={engineModelYearOptions}
                   />
                 </Col>
