@@ -3,7 +3,7 @@ import { Col, Form, Row } from "react-bootstrap";
 import SelectComponent from "../SelectComponent";
 import InputComponent from "../InputComponent";
 import MultipleSelectComponent from "../MultipleSelectComponent";
-import { ENGINE_ADVERT } from "../../services/constsnts"
+import { ENGINE_ADVERT } from "../../services/constants"
 import DatePickerComponent from "../DatePickerComponent";
 import { useEffect, useState } from "react";
 import "./engineAdvert.module.scss";
