@@ -41,5 +41,7 @@ export const ENGINE_ADVERT = {
   BROKER_VALUATION:"Broker Valuation",
   MANUFACTURER_WARRANTY:"Manufacturer Warranty",
   ENGINE_SERIAL_NUMBER:"Engine Serial Number",
-  ENGINE_SOUNDPROOFING_KITS:"Engine Soundproofing Kits"
+  ENGINE_SOUNDPROOFING_KITS:"Engine Soundproofing Kits",
+  FLYWHEEL_SAE14:"Flywheel SAE 14",
+  CRANKCASE_DESIGN:"Crankcase Design"
 };

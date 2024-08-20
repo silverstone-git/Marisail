@@ -420,7 +420,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, typeDesignation: val })
                     }
                     label={ENGINE_ADVERT.TYPE_DESIGNATION}
-                    options={engineTypeOptions}
+                    options={typeDesignationOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -737,70 +737,51 @@ const EngineAdvert = () => {
               <h6 style={{ marginLeft: 10 }}>Transmission</h6>
               <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
-                  <MultipleSelectComponent
+                  <SelectComponent
+                    type="advertEngine"
                     openKey={openKey}
                     setOpenKey={setOpenKey}
+                    value={form.transmissionType}
+                    setValue={(val) => setForm({ ...form, transmissionType: val })}
                     label={ENGINE_ADVERT.TRANSMISSION_TYPE}
-                    options={engineMakeOptions}
+                    options={defaultOptions}
                     isMandatory={true}
-                    value={form.engineMake}
-                    setValue={(newValues) =>
-                      setForm({ ...form, engineMake: newValues })
-                    }
-                    onAddOption={(newOption) =>
-                      handleAddOption(
-                        newOption,
-                        ENGINE_ADVERT.TRANSMISSION_TYPE
-                      )
-                    }
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <MultipleSelectComponent
+                  <SelectComponent
+                    type="advertEngine"
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    options={engineMakeOptions}
+                    value={form.gearShift}
+                    setValue={(val) => setForm({ ...form, gearShift: val })}
                     label={ENGINE_ADVERT.GEAR_SHIFT}
                     isMandatory={false}
-                    value={form.engineMake}
-                    setValue={(newValues) =>
-                      setForm({ ...form, engineMake: newValues })
-                    }
-                    onAddOption={(newOption) =>
-                      handleAddOption(newOption, ENGINE_ADVERT.GEAR_SHIFT)
-                    }
+                    options={defaultOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <MultipleSelectComponent
+                  <SelectComponent
+                    type="advertEngine"
                     openKey={openKey}
                     setOpenKey={setOpenKey}
+                    value={form.gearRatio}
+                    setValue={(val) => setForm({ ...form, gearRatio: val })}
                     label={ENGINE_ADVERT.GEAR_RATIO}
-                    options={engineMakeOptions}
                     isMandatory={false}
-                    value={form.engineMake}
-                    setValue={(newValues) =>
-                      setForm({ ...form, engineMake: newValues })
-                    }
-                    onAddOption={(newOption) =>
-                      handleAddOption(newOption, ENGINE_ADVERT.GEAR_RATIO)
-                    }
+                    options={defaultOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <MultipleSelectComponent
+                  <SelectComponent
+                    type="advertEngine"
                     openKey={openKey}
                     setOpenKey={setOpenKey}
+                    value={form.gearShiftType}
+                    setValue={(val) => setForm({ ...form, gearShiftType: val })}
                     label={ENGINE_ADVERT.GEAR_SHIFT_TYPE}
-                    options={engineMakeOptions}
                     isMandatory={false}
-                    value={form.engineMake}
-                    setValue={(newValues) =>
-                      setForm({ ...form, engineMake: newValues })
-                    }
-                    onAddOption={(newOption) =>
-                      handleAddOption(newOption, ENGINE_ADVERT.GEAR_SHIFT_TYPE)
-                    }
+                    options={defaultOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -810,59 +791,45 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     value={form.flywheelSAE14}
                     setValue={(val) => setForm({ ...form, flywheelSAE14: val })}
-                    label="Flywheel SAE 14"
-                    options={engineModelYearOptions}
+                    label={ENGINE_ADVERT.FLYWHEEL_SAE14}
+                    isMandatory={false}
+                    options={defaultOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <MultipleSelectComponent
+                  <SelectComponent
+                    type="advertEngine"
                     openKey={openKey}
                     setOpenKey={setOpenKey}
+                    value={form.siluminFlywheelHousing}
+                    setValue={(val) => setForm({ ...form, siluminFlywheelHousing: val })}
                     label={ENGINE_ADVERT.SILUMIN_FLYWHEEL_HOUSING}
-                    options={engineMakeOptions}
+                    options={defaultOptions}
                     isMandatory={false}
-                    value={form.engineMake}
-                    setValue={(newValues) =>
-                      setForm({ ...form, engineMake: newValues })
-                    }
-                    onAddOption={(newOption) =>
-                      handleAddOption(
-                        newOption,
-                        ENGINE_ADVERT.SILUMIN_FLYWHEEL_HOUSING
-                      )
-                    }
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <MultipleSelectComponent
+                  <SelectComponent
+                    type="advertEngine"
                     openKey={openKey}
                     setOpenKey={setOpenKey}
+                    value={form.camShaft}
+                    setValue={(val) => setForm({ ...form, camShaft: val })}
                     label={ENGINE_ADVERT.CAMSHAFT}
-                    options={engineMakeOptions}
+                    options={defaultOptions}
                     isMandatory={false}
-                    value={form.engineMake}
-                    setValue={(newValues) =>
-                      setForm({ ...form, engineMake: newValues })
-                    }
-                    onAddOption={(newOption) =>
-                      handleAddOption(newOption, ENGINE_ADVERT.CAMSHAFT)
-                    }
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <MultipleSelectComponent
+                  <SelectComponent
+                    type="advertEngine"
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    options={engineMakeOptions}
+                    value={form.camShaftAlloy}
+                    setValue={(val) => setForm({ ...form, camShaftAlloy: val })}
                     label={ENGINE_ADVERT.CRANKSHAFT_ALLOY}
+                    options={defaultOptions}
                     isMandatory={false}
-                    value={form.engineMake}
-                    setValue={(newValues) =>
-                      setForm({ ...form, engineMake: newValues })
-                    }
-                    onAddOption={(newOption) =>
-                      handleAddOption(newOption, ENGINE_ADVERT.CRANKSHAFT_ALLOY)
-                    }
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -874,8 +841,8 @@ const EngineAdvert = () => {
                     setValue={(val) =>
                       setForm({ ...form, crankcaseDesign: val })
                     }
-                    label="Crankcase Design"
-                    options={engineModelYearOptions}
+                    label={ENGINE_ADVERT.CRANKCASE_DESIGN}
+                    options={defaultOptions}
                   />
                 </Col>
               </Col>
