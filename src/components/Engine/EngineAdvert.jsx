@@ -171,6 +171,9 @@ const EngineAdvert = () => {
     engineMonitoringSystems:"",
     overheatProtection:"",
     lowOilPressureAlarm:"",
+    location:"",
+    distance:"",
+    globalAddressLookup:""
   });
   const [openKey, setOpenKey] = useState(null);
   const [engineMakeOptions, setEngineMakeOptions] = useState([]);
@@ -3120,6 +3123,44 @@ const EngineAdvert = () => {
                     value={form.emergencyStopSystem}
                     setValue={(val) => setForm({ ...form, emergencyStopSystem: val })}
                     label="Emergency Stop System"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+              </Col>
+            </Col>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Location</h6>
+              <Col md={12}>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.location}
+                    setValue={(val) => setForm({ ...form, location: val })}
+                    label="Location"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.distance}
+                    setValue={(val) => setForm({ ...form, distance: val })}
+                    label="Distance"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.globalAddressLookup}
+                    setValue={(val) => setForm({ ...form, globalAddressLookup: val })}
+                    label="Global Address Lookup"
                     options={engineModelYearOptions}
                   />
                 </Col>
