@@ -202,10 +202,6 @@ const Trailers = () => {
     TongueWeight: false,
   };
 
-  const errorDisplay = () => {
-    return <div style={{ color: "red" }}>Filed Required</div>;
-  };
-
   const checkRequired = () => {
     Object.entries(requiredField).forEach(([key, value]) => {
       form[key].trim() === ""
@@ -268,8 +264,8 @@ const Trailers = () => {
                     header="Identification"
                     openKey={openKey}
                     setOpenKey={setOpenKey}
+                    isMandatory={error["Make"]}
                   />
-                  <div className="ms-2">{error["Make"] && errorDisplay()}</div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -279,8 +275,8 @@ const Trailers = () => {
                     value={form.Model}
                     setValue={(val) => setForm({ ...form, Model: val })}
                     label="Model"
+                    isMandatory={error["Model"]}
                   />
-                  <div className="ms-2">{error["Model"] && errorDisplay()}</div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -290,8 +286,8 @@ const Trailers = () => {
                     value={form.Year}
                     setValue={(val) => setForm({ ...form, Year: val })}
                     label="Year"
+                    isMandatory={error["Year"]}
                   />
-                  <div className="ms-2">{error["Year"] && errorDisplay()}</div>
                 </Col>
               </Form>
             </Col>
@@ -308,8 +304,8 @@ const Trailers = () => {
                     value={form.Type}
                     setValue={(val) => setForm({ ...form, Type: val })}
                     label="Type"
+                    isMandatory={error["Type"]}
                   />
-                  <div className="ms-2">{error["Type"] && errorDisplay()}</div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -319,8 +315,8 @@ const Trailers = () => {
                     value={form.GVWR}
                     setValue={(val) => setForm({ ...form, GVWR: val })}
                     label="GVWR"
+                    isMandatory={error["GVWR"]}
                   />
-                  <div className="ms-2">{error["GVWR"] && errorDisplay()}</div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -330,10 +326,8 @@ const Trailers = () => {
                     value={form.LoadCapacity}
                     setValue={(val) => setForm({ ...form, LoadCapacity: val })}
                     label="LoadCapacity"
+                    isMandatory={error["LoadCapacity"]}
                   />
-                  <div className="ms-2">
-                    {error["LoadCapacity"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -343,10 +337,8 @@ const Trailers = () => {
                     value={form.Length}
                     setValue={(val) => setForm({ ...form, Length: val })}
                     label="Length"
+                    isMandatory={error["Length"]}
                   />
-                  <div className="ms-2">
-                    {error["Length"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -356,8 +348,8 @@ const Trailers = () => {
                     value={form.Width}
                     setValue={(val) => setForm({ ...form, Width: val })}
                     label="Width"
+                    isMandatory={error["Width"]}
                   />
-                  <div className="ms-2">{error["Width"] && errorDisplay()}</div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <InputComponent
@@ -369,10 +361,8 @@ const Trailers = () => {
                     setValue={(e) =>
                       setForm({ ...form, TotalHeight: e.target.value })
                     }
+                    isMandatory={error["TotalHeight"]}
                   />
-                  <div className="ms-2">
-                    {error["TotalHeight"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <InputComponent
@@ -384,10 +374,8 @@ const Trailers = () => {
                     setValue={(e) =>
                       setForm({ ...form, AxleHeightFromGound: e.target.value })
                     }
+                    isMandatory={error["AxleHeightFromGound"]}
                   />
-                  <div className="ms-2">
-                    {error["AxleHeightFromGound"] && errorDisplay()}
-                  </div>
                 </Col>
               </Form>
             </Col>
@@ -404,10 +392,8 @@ const Trailers = () => {
                     value={form.FrameMaterial}
                     setValue={(val) => setForm({ ...form, FrameMaterial: val })}
                     label="FrameMaterial"
+                    isMandatory={error["FrameMaterial"]}
                   />
-                  <div className="ms-2">
-                    {error["FrameMaterial"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -417,10 +403,8 @@ const Trailers = () => {
                     value={form.FrameCoating}
                     setValue={(val) => setForm({ ...form, FrameCoating: val })}
                     label="FrameCoating"
+                    isMandatory={error["FrameCoating"]}
                   />
-                  <div className="ms-2">
-                    {error["FrameCoating"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -432,10 +416,8 @@ const Trailers = () => {
                       setForm({ ...form, FrameCrossmemberType: val })
                     }
                     label="FrameCrossmemberType"
+                    isMandatory={error["FrameCrossmemberType"]}
                   />
-                  <div className="ms-2">
-                    {error["FrameCrossmemberType"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -470,10 +452,8 @@ const Trailers = () => {
                     value={form.FloorMaterial}
                     setValue={(val) => setForm({ ...form, FloorMaterial: val })}
                     label="FloorMaterial"
+                    isMandatory={error["FloorMaterial"]}
                   />
-                  <div className="ms-2">
-                    {error["FloorMaterial"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -483,10 +463,8 @@ const Trailers = () => {
                     value={form.SidesMaterial}
                     setValue={(val) => setForm({ ...form, SidesMaterial: val })}
                     label="SidesMaterial"
+                    isMandatory={error["SidesMaterial"]}
                   />
-                  <div className="ms-2">
-                    {error["SidesMaterial"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -496,10 +474,8 @@ const Trailers = () => {
                     value={form.RoofMaterial}
                     setValue={(val) => setForm({ ...form, RoofMaterial: val })}
                     label="RoofMaterial"
+                    isMandatory={error["RoofMaterial"]}
                   />
-                  <div className="ms-2">
-                    {error["RoofMaterial"] && errorDisplay()}
-                  </div>
                 </Col>
               </Form>
             </Col>
@@ -565,10 +541,8 @@ const Trailers = () => {
                     value={form.TieDownPoints}
                     setValue={(val) => setForm({ ...form, TieDownPoints: val })}
                     label="TieDownPoints"
+                    isMandatory={error["TieDownPoints"]}
                   />
-                  <div className="ms-2">
-                    {error["TieDownPoints"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -605,10 +579,8 @@ const Trailers = () => {
                     setValue={(val) => setForm({ ...form, HydraulicTilt: val })}
                     name="Hydraulic Tilt"
                     id="HydraulicTilt"
+                    isMandatory={error["HydraulicTilt"]}
                   />
-                  <div className="ms-2">
-                    {error["HydraulicTilt"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
@@ -620,10 +592,8 @@ const Trailers = () => {
                     }
                     name="Extendable Tongue"
                     id="ExtendableTongue"
+                    isMandatory={error["ExtendableTongue"]}
                   />
-                  <div className="ms-2">
-                    {error["ExtendableTongue"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
@@ -664,10 +634,8 @@ const Trailers = () => {
                     value={form.RampType}
                     setValue={(val) => setForm({ ...form, RampType: val })}
                     label="RampType"
+                    isMandatory={error["RampType"]}
                   />
-                  <div className="ms-2">
-                    {error["RampType"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -677,10 +645,8 @@ const Trailers = () => {
                     value={form.WinchPost}
                     setValue={(val) => setForm({ ...form, WinchPost: val })}
                     label="WinchPost"
+                    isMandatory={error["WinchPost"]}
                   />
-                  <div className="ms-2">
-                    {error["WinchPost"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
@@ -690,10 +656,8 @@ const Trailers = () => {
                     setValue={(val) => setForm({ ...form, SplashGuards: val })}
                     name="Splash Guards"
                     id="SplashGuards"
+                    isMandatory={error["SplashGuards"]}
                   />
-                  <div className="ms-2">
-                    {error["SplashGuards"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -703,10 +667,8 @@ const Trailers = () => {
                     value={form.Fenders}
                     setValue={(val) => setForm({ ...form, Fenders: val })}
                     label="Fenders"
+                    isMandatory={error["Fenders"]}
                   />
-                  <div className="ms-2">
-                    {error["Fenders"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
@@ -716,10 +678,8 @@ const Trailers = () => {
                     setValue={(val) => setForm({ ...form, SideRails: val })}
                     name="Side Rails"
                     id="SideRails"
+                    isMandatory={error["SideRails"]}
                   />
-                  <div className="ms-2">
-                    {error["SideRails"] && errorDisplay()}
-                  </div>
                 </Col>
               </Form>
             </Col>
@@ -736,8 +696,8 @@ const Trailers = () => {
                     value={form.Color}
                     setValue={(val) => setForm({ ...form, Color: val })}
                     label="Color"
+                    isMandatory={error["Color"]}
                   />
-                  <div className="ms-2">{error["Color"] && errorDisplay()}</div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -798,10 +758,8 @@ const Trailers = () => {
                     value={form.AxleType}
                     setValue={(val) => setForm({ ...form, AxleType: val })}
                     label="AxleType"
+                    isMandatory={error["AxleType"]}
                   />
-                  <div className="ms-2">
-                    {error["AxleType"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -811,10 +769,8 @@ const Trailers = () => {
                     value={form.AxleCapacity}
                     setValue={(val) => setForm({ ...form, AxleCapacity: val })}
                     label="AxleCapacity"
+                    isMandatory={error["AxleCapacity"]}
                   />
-                  <div className="ms-2">
-                    {error["AxleCapacity"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -834,10 +790,8 @@ const Trailers = () => {
                     value={form.AxleHubSize}
                     setValue={(val) => setForm({ ...form, AxleHubSize: val })}
                     label="AxleHubSize"
+                    isMandatory={error["AxleHubSize"]}
                   />
-                  <div className="ms-2">
-                    {error["AxleHubSize"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -847,10 +801,8 @@ const Trailers = () => {
                     value={form.AxlePosition}
                     setValue={(val) => setForm({ ...form, AxlePosition: val })}
                     label="AxlePosition"
+                    isMandatory={error["AxlePosition"]}
                   />
-                  <div className="ms-2">
-                    {error["AxlePosition"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
@@ -874,10 +826,8 @@ const Trailers = () => {
                       setForm({ ...form, SuspensionType: val })
                     }
                     label="SuspensionType"
+                    isMandatory={error["SuspensionType"]}
                   />
-                  <div className="ms-2">
-                    {error["SuspensionType"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -889,10 +839,8 @@ const Trailers = () => {
                       setForm({ ...form, SuspensionCapacity: val })
                     }
                     label="SuspensionCapacity"
+                    isMandatory={error["SuspensionCapacity"]}
                   />
-                  <div className="ms-2">
-                    {error["SuspensionCapacity"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -921,10 +869,8 @@ const Trailers = () => {
                     value={form.TyreSize}
                     setValue={(val) => setForm({ ...form, TyreSize: val })}
                     label="TyreSize"
+                    isMandatory={error["TyreSize"]}
                   />
-                  <div className="ms-2">
-                    {error["TyreSize"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -934,10 +880,8 @@ const Trailers = () => {
                     value={form.TyreLoadRange}
                     setValue={(val) => setForm({ ...form, TyreLoadRange: val })}
                     label="TyreLoadRange"
+                    isMandatory={error["TyreLoadRange"]}
                   />
-                  <div className="ms-2">
-                    {error["TyreLoadRange"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -947,10 +891,8 @@ const Trailers = () => {
                     value={form.TyreType}
                     setValue={(val) => setForm({ ...form, TyreType: val })}
                     label="TyreType"
+                    isMandatory={error["TyreType"]}
                   />
-                  <div className="ms-2">
-                    {error["TyreType"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -960,10 +902,8 @@ const Trailers = () => {
                     value={form.WheelType}
                     setValue={(val) => setForm({ ...form, WheelType: val })}
                     label="WheelType"
+                    isMandatory={error["WheelType"]}
                   />
-                  <div className="ms-2">
-                    {error["WheelType"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1004,10 +944,8 @@ const Trailers = () => {
                     value={form.BrakeType}
                     setValue={(val) => setForm({ ...form, BrakeType: val })}
                     label="BrakeType"
+                    isMandatory={error["BrakeType"]}
                   />
-                  <div className="ms-2">
-                    {error["BrakeType"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1017,10 +955,8 @@ const Trailers = () => {
                     value={form.BrakeActuator}
                     setValue={(val) => setForm({ ...form, BrakeActuator: val })}
                     label="BrakeActuator"
+                    isMandatory={error["BrakeActuator"]}
                   />
-                  <div className="ms-2">
-                    {error["BrakeActuator"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1076,10 +1012,8 @@ const Trailers = () => {
                     value={form.CouplerSize}
                     setValue={(val) => setForm({ ...form, CouplerSize: val })}
                     label="CouplerSize"
+                    isMandatory={error["CouplerSize"]}
                   />
-                  <div className="ms-2">
-                    {error["CouplerSize"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1123,10 +1057,8 @@ const Trailers = () => {
                       setForm({ ...form, HitchReceiverSize: val })
                     }
                     label="HitchReceiverSize"
+                    isMandatory={error["HitchReceiverSize"]}
                   />
-                  <div className="ms-2">
-                    {error["HitchReceiverSize"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1165,10 +1097,8 @@ const Trailers = () => {
                     value={form.WinchType}
                     setValue={(val) => setForm({ ...form, WinchType: val })}
                     label="WinchType"
+                    isMandatory={error["WinchType"]}
                   />
-                  <div className="ms-2">
-                    {error["WinchType"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1178,10 +1108,8 @@ const Trailers = () => {
                     value={form.WinchCapacity}
                     setValue={(val) => setForm({ ...form, WinchCapacity: val })}
                     label="WinchCapacity"
+                    isMandatory={error["WinchCapacity"]}
                   />
-                  <div className="ms-2">
-                    {error["WinchCapacity"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1193,10 +1121,8 @@ const Trailers = () => {
                       setForm({ ...form, WinchRopeLength: val })
                     }
                     label="WinchRopeLength"
+                    isMandatory={error["WinchRopeLength"]}
                   />
-                  <div className="ms-2">
-                    {error["WinchRopeLength"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1307,10 +1233,8 @@ const Trailers = () => {
                     value={form.Lighting}
                     setValue={(val) => setForm({ ...form, Lighting: val })}
                     label="Lighting"
+                    isMandatory={error["Lighting"]}
                   />
-                  <div className="ms-2">
-                    {error["Lighting"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1332,10 +1256,8 @@ const Trailers = () => {
                     value={form.LightType}
                     setValue={(val) => setForm({ ...form, LightType: val })}
                     label="LightType"
+                    isMandatory={error["LightType"]}
                   />
-                  <div className="ms-2">
-                    {error["LightType"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1347,10 +1269,8 @@ const Trailers = () => {
                       setForm({ ...form, ElectricalConnectorType: val })
                     }
                     label="ElectricalConnectorType"
+                    isMandatory={error["ElectricalConnectorType"]}
                   />
-                  <div className="ms-2">
-                    {error["ElectricalConnectorType"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1362,10 +1282,8 @@ const Trailers = () => {
                       setForm({ ...form, ElectricalWiringType: val })
                     }
                     label="ElectricalWiringType"
+                    isMandatory={error["ElectricalWiringType"]}
                   />
-                  <div className="ms-2">
-                    {error["ElectricalWiringType"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1375,10 +1293,8 @@ const Trailers = () => {
                     value={form.BatteryType}
                     setValue={(val) => setForm({ ...form, BatteryType: val })}
                     label="BatteryType"
+                    isMandatory={error["BatteryType"]}
                   />
-                  <div className="ms-2">
-                    {error["BatteryType"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1390,10 +1306,8 @@ const Trailers = () => {
                       setForm({ ...form, BatteryChargerType: val })
                     }
                     label="BatteryChargerType"
+                    isMandatory={error["BatteryChargerType"]}
                   />
-                  <div className="ms-2">
-                    {error["BatteryChargerType"] && errorDisplay()}
-                  </div>
                 </Col>
               </Form>
             </Col>
@@ -1412,10 +1326,8 @@ const Trailers = () => {
                       setForm({ ...form, SpareTyreCarrier: val })
                     }
                     label="SpareTyreCarrier"
+                    isMandatory={error["SpareTyreCarrier"]}
                   />
-                  <div className="ms-2">
-                    {error["SpareTyreCarrier"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1425,10 +1337,8 @@ const Trailers = () => {
                     value={form.SpareTyreSize}
                     setValue={(val) => setForm({ ...form, SpareTyreSize: val })}
                     label="SpareTyreSize"
+                    isMandatory={error["SpareTyreSize"]}
                   />
-                  <div className="ms-2">
-                    {error["SpareTyreSize"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1470,10 +1380,8 @@ const Trailers = () => {
                     value={form.JackCapacity}
                     setValue={(val) => setForm({ ...form, JackCapacity: val })}
                     label="JackCapacity"
+                    isMandatory={error["JackCapacity"]}
                   />
-                  <div className="ms-2">
-                    {error["JackCapacity"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1502,10 +1410,8 @@ const Trailers = () => {
                     value={form.LoadingSystem}
                     setValue={(val) => setForm({ ...form, LoadingSystem: val })}
                     label="LoadingSystem"
+                    isMandatory={error["LoadingSystem"]}
                   />
-                  <div className="ms-2">
-                    {error["LoadingSystem"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1610,10 +1516,8 @@ const Trailers = () => {
                     value={form.WheelLocks}
                     setValue={(val) => setForm({ ...form, WheelLocks: val })}
                     label="WheelLocks"
+                    isMandatory={error["WheelLocks"]}
                   />
-                  <div className="ms-2">
-                    {error["WheelLocks"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1623,10 +1527,8 @@ const Trailers = () => {
                     value={form.LockType}
                     setValue={(val) => setForm({ ...form, LockType: val })}
                     label="LockType"
+                    isMandatory={error["LockType"]}
                   />
-                  <div className="ms-2">
-                    {error["LockType"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1636,10 +1538,8 @@ const Trailers = () => {
                     value={form.AlarmSystem}
                     setValue={(val) => setForm({ ...form, AlarmSystem: val })}
                     label="AlarmSystem"
+                    isMandatory={error["AlarmSystem"]}
                   />
-                  <div className="ms-2">
-                    {error["AlarmSystem"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1651,10 +1551,8 @@ const Trailers = () => {
                       setForm({ ...form, GPSTrackingDevice: val })
                     }
                     label="GPSTrackingDevice"
+                    isMandatory={error["GPSTrackingDevice"]}
                   />
-                  <div className="ms-2">
-                    {error["GPSTrackingDevice"] && errorDisplay()}
-                  </div>
                 </Col>
               </Form>
             </Col>
@@ -1675,10 +1573,8 @@ const Trailers = () => {
                       setForm({ ...form, CorrosionProtection: val })
                     }
                     label="CorrosionProtection"
+                    isMandatory={error["CorrosionProtection"]}
                   />
-                  <div className="ms-2">
-                    {error["CorrosionProtection"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1709,10 +1605,8 @@ const Trailers = () => {
                       setForm({ ...form, MaximumSpeedRating: val })
                     }
                     label="MaximumSpeedRating"
+                    isMandatory={error["MaximumSpeedRating"]}
                   />
-                  <div className="ms-2">
-                    {error["MaximumSpeedRating"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1722,10 +1616,8 @@ const Trailers = () => {
                     value={form.TurningRadius}
                     setValue={(val) => setForm({ ...form, TurningRadius: val })}
                     label="TurningRadius"
+                    isMandatory={error["TurningRadius"]}
                   />
-                  <div className="ms-2">
-                    {error["TurningRadius"] && errorDisplay()}
-                  </div>
                 </Col>
               </Form>
             </Col>
@@ -1766,10 +1658,8 @@ const Trailers = () => {
                       setForm({ ...form, TongueJackWheelSize: val })
                     }
                     label="TongueJackWheelSize"
+                    isMandatory={error["TongueJackWheelSize"]}
                   />
-                  <div className="ms-2">
-                    {error["TongueJackWheelSize"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1791,10 +1681,8 @@ const Trailers = () => {
                     value={form.TongueWeight}
                     setValue={(val) => setForm({ ...form, TongueWeight: val })}
                     label="TongueWeight"
+                    isMandatory={error["TongueWeight"]}
                   />
-                  <div className="ms-2">
-                    {error["TongueWeight"] && errorDisplay()}
-                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
