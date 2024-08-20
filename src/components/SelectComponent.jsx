@@ -22,12 +22,13 @@ function SelectComponent({
         <Accordion.Header>{label}
         {isMandatory && <span className="text-danger">&nbsp;*</span>}
         </Accordion.Header>
-        <Accordion.Body>
+        <Accordion.Body style={{ maxHeight: 200, overflowY: "auto" }}>
           {options.map((item,index) => {
             return (
               <Form.Check
                 type="radio"
                 key={index}
+                className="custom-checkbox"
                 aria-label="radio 1"
                 name={label}
                 checked={item === value}
