@@ -31,5 +31,12 @@ export const ENGINE_ADVERT = {
   HEAT_EXCHANGER: "Heat Exchanger",
   SEA_WATER_PUMP: "Sea Water Pump",
   AUXILIARY_POWER_TAKEOFF: "Auxiliary Power Take-Off (PTO)",
-  REMOTE_CONTROL_SYSTEMS: "Remote Control Systems"
+  REMOTE_CONTROL_SYSTEMS: "Remote Control Systems",
+  ENGINE_MODEL_YEAR:"Engine Model Year",
+  CONDITION:"Condition",
+  USED_CONDITION:"Used Condition",
+  SELLER:"Seller",
+  OFFERED_BY:"Offered By",
+  LAST_SURVEY_DATE:"Last Survey Date",
+  BROKER_VALUATION:"Broker Valuation"
 };

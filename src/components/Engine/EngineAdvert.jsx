@@ -338,6 +338,20 @@ const EngineAdvert = () => {
               <h6 style={{ marginLeft: 10 }}>Make and Model</h6>
               <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.engineMake}
+                    setValue={(val) =>
+                      setForm({ ...form, engineMake: val })
+                    }
+                    label={ENGINE_ADVERT.ENGINE_MAKE}
+                    options={engineMakeOptions}
+                    isMandatory={true}
+                  />
+                </Col>
+                {/* <Col xs={3} md={12} className="mb-2">
                   <MultipleSelectComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -352,21 +366,19 @@ const EngineAdvert = () => {
                       handleAddOption(newOption, ENGINE_ADVERT.ENGINE_MAKE)
                     }
                   />
-                </Col>
+                </Col> */}
                 <Col xs={3} md={12} className="mb-2">
-                  <MultipleSelectComponent
+                  <SelectComponent
+                    type="advertEngine"
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    label={ENGINE_ADVERT.ENGINE_MODEL}
-                    isMandatory={true}
-                    options={engineModelOptions}
                     value={form.engineModel}
-                    setValue={(newValues) =>
-                      setForm({ ...form, engineModel: newValues })
+                    setValue={(val) =>
+                      setForm({ ...form, engineModel: val })
                     }
-                    onAddOption={(newOption) =>
-                      handleAddOption(newOption, ENGINE_ADVERT.ENGINE_MODEL)
-                    }
+                    label={ENGINE_ADVERT.ENGINE_MODEL}
+                    options={engineModelOptions}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -378,40 +390,37 @@ const EngineAdvert = () => {
                     setValue={(val) =>
                       setForm({ ...form, engineModelYear: val })
                     }
-                    label="Engine Model Year"
+                    label={ENGINE_ADVERT.ENGINE_MODEL_YEAR}
                     options={engineModelYearOptions}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <MultipleSelectComponent
+                  <SelectComponent
+                    type="advertEngine"
                     openKey={openKey}
                     setOpenKey={setOpenKey}
+                    value={form.engineType}
+                    setValue={(val) =>
+                      setForm({ ...form, engineType: val })
+                    }
                     label={ENGINE_ADVERT.ENGINE_TYPE}
                     options={engineTypeOptions}
                     isMandatory={true}
-                    value={form.engineType}
-                    setValue={(newValues) =>
-                      setForm({ ...form, engineType: newValues })
-                    }
-                    onAddOption={(newOption) =>
-                      handleAddOption(newOption, ENGINE_ADVERT.ENGINE_TYPE)
-                    }
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <MultipleSelectComponent
+                  <SelectComponent
+                    type="advertEngine"
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    label={ENGINE_ADVERT.TYPE_DESIGNATION}
-                    options={typeDesignationOptions}
-                    isMandatory={true}
                     value={form.typeDesignation}
-                    setValue={(newValues) =>
-                      setForm({ ...form, typeDesignation: newValues })
+                    setValue={(val) =>
+                      setForm({ ...form, typeDesignation: val })
                     }
-                    onAddOption={(newOption) =>
-                      handleAddOption(newOption, ENGINE_ADVERT.TYPE_DESIGNATION)
-                    }
+                    label={ENGINE_ADVERT.TYPE_DESIGNATION}
+                    options={engineTypeOptions}
+                    isMandatory={true}
                   />
                 </Col>
               </Col>
@@ -422,12 +431,13 @@ const EngineAdvert = () => {
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     type="advertEngine"
-                    label="Condition"
+                    label={ENGINE_ADVERT.CONDITION}
                     value={form.condition}
                     setValue={(val) => setForm({ ...form, condition: val })}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     options={conditionOptions}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -435,10 +445,11 @@ const EngineAdvert = () => {
                     type="advertEngine"
                     value={form.usedCondition}
                     setValue={(val) => setForm({ ...form, usedCondition: val })}
-                    label="Used Condition"
+                    label={ENGINE_ADVERT.USED_CONDITION}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     options={engineModelYearOptions}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -448,8 +459,9 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     value={form.seller}
                     setValue={(val) => setForm({ ...form, seller: val })}
-                    label="Seller"
+                    label={ENGINE_ADVERT.SELLER}
                     options={engineModelYearOptions}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -459,8 +471,9 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     value={form.offeredBy}
                     setValue={(val) => setForm({ ...form, offeredBy: val })}
-                    label="Offered By"
+                    label={ENGINE_ADVERT.OFFERED_BY}
                     options={engineModelYearOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -468,24 +481,26 @@ const EngineAdvert = () => {
                     <DatePickerComponent
                       openKey={openKey}
                       setOpenKey={setOpenKey}
-                      label={"Last Survey Date"}
+                      label={ENGINE_ADVERT.LAST_SURVEY_DATE}
                       selected={form.lastSurveyDate}
                       value={form.lastSurveyDate}
                       type="advertEngine"
                       setValue={(val) =>
                         setForm({ ...form, lastSurveyDate: val })
                       }
+                      isMandatory={true}
                     />
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <InputComponent
-                    label={"Broker Valuation"}
+                    label={ENGINE_ADVERT.BROKER_VALUATION}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     formType={"number"}
                     type="advertEngine"
                     value={form.brokerValuation}
+                    isMandatory={true}
                     setValue={(e) =>
                       setForm({
                         ...form,

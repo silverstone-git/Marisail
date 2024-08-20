@@ -1,6 +1,7 @@
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Accordion } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 function DatePickerComponent({
     label,
@@ -9,6 +10,7 @@ function DatePickerComponent({
     type,
     setOpenKey,
     openKey,
+    isMandatory
 }) {
     return (
         <Accordion
@@ -16,7 +18,9 @@ function DatePickerComponent({
             onSelect={(eventKey) => setOpenKey(eventKey)}
         >
             <Accordion.Item eventKey={label}>
-                <Accordion.Header>{label}</Accordion.Header>
+                <Accordion.Header>{label}
+                {isMandatory && <span className="text-danger">&nbsp;*</span>}
+                </Accordion.Header>
                 <Accordion.Body>
                     <DatePicker
                         selected={value}
@@ -30,5 +34,15 @@ function DatePickerComponent({
         </Accordion>
     );
 }
+
+DatePickerComponent.propTypes = {
+  label: PropTypes.string.isRequired,
+  setValue: PropTypes.func.isRequired,
+  value: PropTypes.string,
+  setOpenKey: PropTypes.func.isRequired,
+  openKey: PropTypes.string,
+  type: PropTypes.string,
+  isMandatory: PropTypes.bool.isRequired,
+};
 
 export default DatePickerComponent;

@@ -9,6 +9,7 @@ function InputComponent({
   formType,
   setOpenKey,
   openKey,
+  isMandatory
 }) {
   return (
     <Accordion
@@ -16,7 +17,9 @@ function InputComponent({
       onSelect={(eventKey) => setOpenKey(eventKey)}
     >
       <Accordion.Item eventKey={label}>
-        <Accordion.Header>{label}</Accordion.Header>
+        <Accordion.Header>{label}
+        {isMandatory && <span className="text-danger">&nbsp;*</span>}
+        </Accordion.Header>
         <Accordion.Body>
           <Form.Group controlId="formGridState">
             <Form.Control
@@ -39,5 +42,6 @@ InputComponent.propTypes = {
   setOpenKey: PropTypes.func.isRequired,
   openKey: PropTypes.string,
   formType: PropTypes.string.isRequired,
+  isMandatory: PropTypes.bool.isRequired,
 };
 export default InputComponent;
