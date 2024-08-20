@@ -144,7 +144,17 @@ const EngineAdvert = () => {
     oilChangeInterval:"",
     oilCoolingMethod:"",
     lubricationOilPressure:"",
-    oilFilterBypassValve:""
+    oilFilterBypassValve:"",
+    alternator:"",
+    alternatorOutput:"",
+    batteryType:"",
+    batteryVoltage:"",
+    generatorOutputKw:"",
+    generatorOutputAmps:"",
+    starterMotorVoltage:"",
+    engineControlUnitModel:"",
+    batteryChargingSystem:"",
+    integratedGenerator:""
   });
   const [openKey, setOpenKey] = useState(null);
   const [engineMakeOptions, setEngineMakeOptions] = useState([]);
@@ -2765,6 +2775,133 @@ const EngineAdvert = () => {
                       setForm({ ...form, oilFilterBypassValve: val })
                     }
                     label="Oil Filter Bypass Valve"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+              </Col>
+            </Col>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Electrical System</h6>
+              <Col md={12}>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.alternator}
+                    setValue={(val) => setForm({ ...form, alternator: val })}
+                    label="Alternator"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.alternatorOutput}
+                    setValue={(val) => setForm({ ...form, alternatorOutput: val })}
+                    label="Alternator Output"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.batteryType}
+                    setValue={(val) => setForm({ ...form, batteryType: val })}
+                    label="Battery Type"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.batteryVoltage}
+                    setValue={(val) => setForm({ ...form, batteryVoltage: val })}
+                    label="Battery Voltage"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.generatorOutputKw}
+                    setValue={(val) =>
+                      setForm({ ...form, generatorOutputKw : val })
+                    }
+                    label="Generator Output (kW)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.generatorOutputAmps}
+                    setValue={(val) =>
+                      setForm({ ...form, generatorOutputAmps : val })
+                    }
+                    label="Generator Output (Amps)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.starterMotorVoltage}
+                    setValue={(val) =>
+                      setForm({ ...form, starterMotorVoltage: val })
+                    }
+                    label="Starter Motor Voltage"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.engineControlUnitModel}
+                    setValue={(val) =>
+                      setForm({ ...form, engineControlUnitModel: val })
+                    }
+                    label="Engine Control Unit (ECU) Model"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.batteryChargingSystem}
+                    setValue={(val) =>
+                      setForm({ ...form, batteryChargingSystem: val })
+                    }
+                    label="Battery Charging System"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.integratedGenerator}
+                    setValue={(val) =>
+                      setForm({ ...form, integratedGenerator: val })
+                    }
+                    label="Integrated Generator"
                     options={engineModelYearOptions}
                   />
                 </Col>
