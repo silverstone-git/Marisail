@@ -38,5 +38,8 @@ export const ENGINE_ADVERT = {
   SELLER:"Seller",
   OFFERED_BY:"Offered By",
   LAST_SURVEY_DATE:"Last Survey Date",
-  BROKER_VALUATION:"Broker Valuation"
+  BROKER_VALUATION:"Broker Valuation",
+  MANUFACTURER_WARRANTY:"Manufacturer Warranty",
+  ENGINE_SERIAL_NUMBER:"Engine Serial Number",
+  ENGINE_SOUNDPROOFING_KITS:"Engine Soundproofing Kits"
 };
