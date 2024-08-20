@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Card, Container } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -7,9 +7,10 @@ import SelectComponent from "../components/SelectComponent";
 import InputComponent from "../components/InputComponent";
 import CheckComponent from "../components/CheckComponent";
 import "./trailers.css";
-import axios from "axios";
 
 const Trailers = () => {
+  const [trailerOptions, setTrailerOptions] = useState(["1", "2", "3"]);
+  const [error, setErrors] = useState({});
   const [form, setForm] = useState({
     MarisailID: "",
     Make: "",
@@ -134,15 +135,110 @@ const Trailers = () => {
     EUTypeApproval: "",
     ADRCompliance: "",
   });
+
   const [openKey, setOpenKey] = useState(null);
+
+  const requiredField = {
+    Make: false,
+    Model: false,
+    Year: false,
+    Type: false,
+    GVWR: false,
+    LoadCapacity: false,
+    Length: false,
+    Width: false,
+    TotalHeight: false,
+    AxleHeightFromGound: false,
+    FrameMaterial: false,
+    FrameCoating: false,
+    FrameCrossmemberType: false,
+    FloorMaterial: false,
+    SidesMaterial: false,
+    RoofMaterial: false,
+    TieDownPoints: false,
+    HydraulicTilt: false,
+    ExtendableTongue: false,
+    RampType: false,
+    WinchPost: false,
+    SplashGuards: false,
+    Fenders: false,
+    SideRails: false,
+    Color: false,
+    AxleType: false,
+    AxleCapacity: false,
+    AxleHubSize: false,
+    AxlePosition: false,
+    SuspensionType: false,
+    SuspensionCapacity: false,
+    TyreSize: false,
+    TyreLoadRange: false,
+    TyreType: false,
+    WheelType: false,
+    BrakeType: false,
+    BrakeActuator: false,
+    CouplerSize: false,
+    HitchReceiverSize: false,
+    WinchType: false,
+    WinchCapacity: false,
+    WinchRopeLength: false,
+    Lighting: false,
+    LightType: false,
+    ElectricalConnectorType: false,
+    ElectricalWiringType: false,
+    BatteryType: false,
+    BatteryChargerType: false,
+    SpareTyreCarrier: false,
+    SpareTyreSize: false,
+    JackCapacity: false,
+    LoadingSystem: false,
+    WheelLocks: false,
+    LockType: false,
+    AlarmSystem: false,
+    GPSTrackingDevice: false,
+    CorrosionProtection: false,
+    MaximumSpeedRating: false,
+    TurningRadius: false,
+    TongueJackWheelSize: false,
+    TongueWeight: false,
+  };
+
+  const errorDisplay = () => {
+    return <div style={{ color: "red" }}>Filed Required</div>;
+  };
+
+  const checkRequired = () => {
+    Object.entries(requiredField).forEach(([key, value]) => {
+      form[key].trim() === ""
+        ? (requiredField[key] = true)
+        : (requiredField[key] = false);
+    });
+    setErrors(requiredField);
+  };
+
+  const fetchTrailers = async (
+    URL = "http://localhost:3001/api/advert_engine/engine_make"
+  ) => {
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      setTrailerOptions(toJson.result);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const handleSubmit = () => {
     try {
+      checkRequired();
       console.log("This is Form >>>>>>>>", form);
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    fetchTrailers();
+  }, []);
 
   return (
     <>
@@ -150,7 +246,7 @@ const Trailers = () => {
         <Row>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Identification</h6>
-            <Col md={12}>
+            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2 myAcc">
                   <SelectComponent
@@ -160,10 +256,12 @@ const Trailers = () => {
                     header="Identification"
                     openKey={openKey}
                     setOpenKey={setOpenKey}
+                    options={trailerOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     value={form.Make}
                     setValue={(val) => setForm({ ...form, Make: val })}
                     label="Make"
@@ -171,76 +269,95 @@ const Trailers = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                   />
+                  <div className="ms-2">{error["Make"] && errorDisplay()}</div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.Model}
                     setValue={(val) => setForm({ ...form, Model: val })}
                     label="Model"
                   />
+                  <div className="ms-2">{error["Model"] && errorDisplay()}</div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.Year}
                     setValue={(val) => setForm({ ...form, Year: val })}
                     label="Year"
                   />
+                  <div className="ms-2">{error["Year"] && errorDisplay()}</div>
                 </Col>
               </Form>
             </Col>
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>General</h6>
-            <Col md={12}>
+            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.Type}
                     setValue={(val) => setForm({ ...form, Type: val })}
                     label="Type"
                   />
+                  <div className="ms-2">{error["Type"] && errorDisplay()}</div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.GVWR}
                     setValue={(val) => setForm({ ...form, GVWR: val })}
                     label="GVWR"
                   />
+                  <div className="ms-2">{error["GVWR"] && errorDisplay()}</div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.LoadCapacity}
                     setValue={(val) => setForm({ ...form, LoadCapacity: val })}
                     label="LoadCapacity"
                   />
+                  <div className="ms-2">
+                    {error["LoadCapacity"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.Length}
                     setValue={(val) => setForm({ ...form, Length: val })}
                     label="Length"
                   />
+                  <div className="ms-2">
+                    {error["Length"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.Width}
                     setValue={(val) => setForm({ ...form, Width: val })}
                     label="Width"
                   />
+                  <div className="ms-2">{error["Width"] && errorDisplay()}</div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <InputComponent
@@ -253,6 +370,9 @@ const Trailers = () => {
                       setForm({ ...form, TotalHeight: e.target.value })
                     }
                   />
+                  <div className="ms-2">
+                    {error["TotalHeight"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <InputComponent
@@ -265,34 +385,46 @@ const Trailers = () => {
                       setForm({ ...form, AxleHeightFromGound: e.target.value })
                     }
                   />
+                  <div className="ms-2">
+                    {error["AxleHeightFromGound"] && errorDisplay()}
+                  </div>
                 </Col>
               </Form>
             </Col>
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Construction Materials</h6>
-            <Col md={12}>
+            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.FrameMaterial}
                     setValue={(val) => setForm({ ...form, FrameMaterial: val })}
                     label="FrameMaterial"
                   />
+                  <div className="ms-2">
+                    {error["FrameMaterial"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.FrameCoating}
                     setValue={(val) => setForm({ ...form, FrameCoating: val })}
                     label="FrameCoating"
                   />
+                  <div className="ms-2">
+                    {error["FrameCoating"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.FrameCrossmemberType}
@@ -301,9 +433,13 @@ const Trailers = () => {
                     }
                     label="FrameCrossmemberType"
                   />
+                  <div className="ms-2">
+                    {error["FrameCrossmemberType"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.FrameWeldType}
@@ -313,6 +449,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.MaximumAngleofApproach}
@@ -327,40 +464,53 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.FloorMaterial}
                     setValue={(val) => setForm({ ...form, FloorMaterial: val })}
                     label="FloorMaterial"
                   />
+                  <div className="ms-2">
+                    {error["FloorMaterial"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.SidesMaterial}
                     setValue={(val) => setForm({ ...form, SidesMaterial: val })}
                     label="SidesMaterial"
                   />
+                  <div className="ms-2">
+                    {error["SidesMaterial"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.RoofMaterial}
                     setValue={(val) => setForm({ ...form, RoofMaterial: val })}
                     label="RoofMaterial"
                   />
+                  <div className="ms-2">
+                    {error["RoofMaterial"] && errorDisplay()}
+                  </div>
                 </Col>
               </Form>
             </Col>
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Maintenance Features</h6>
-            <Col md={12}>
+            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.GreasePoints}
@@ -370,6 +520,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.BearingType}
@@ -379,6 +530,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.MaintenanceSchedule}
@@ -393,10 +545,11 @@ const Trailers = () => {
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>User Features</h6>
-            <Col md={12}>
+            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.Storage}
@@ -406,15 +559,20 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.TieDownPoints}
                     setValue={(val) => setForm({ ...form, TieDownPoints: val })}
                     label="TieDownPoints"
                   />
+                  <div className="ms-2">
+                    {error["TieDownPoints"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.ToolBox}
@@ -424,6 +582,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.BumperType}
@@ -436,7 +595,7 @@ const Trailers = () => {
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Special Features</h6>
-            <Col md={12}>
+            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
@@ -447,6 +606,9 @@ const Trailers = () => {
                     name="Hydraulic Tilt"
                     id="HydraulicTilt"
                   />
+                  <div className="ms-2">
+                    {error["HydraulicTilt"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
@@ -459,6 +621,9 @@ const Trailers = () => {
                     name="Extendable Tongue"
                     id="ExtendableTongue"
                   />
+                  <div className="ms-2">
+                    {error["ExtendableTongue"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
@@ -489,25 +654,33 @@ const Trailers = () => {
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Additional Accessories</h6>
-            <Col md={12}>
+            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.RampType}
                     setValue={(val) => setForm({ ...form, RampType: val })}
                     label="RampType"
                   />
+                  <div className="ms-2">
+                    {error["RampType"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.WinchPost}
                     setValue={(val) => setForm({ ...form, WinchPost: val })}
                     label="WinchPost"
                   />
+                  <div className="ms-2">
+                    {error["WinchPost"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
@@ -518,15 +691,22 @@ const Trailers = () => {
                     name="Splash Guards"
                     id="SplashGuards"
                   />
+                  <div className="ms-2">
+                    {error["SplashGuards"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.Fenders}
                     setValue={(val) => setForm({ ...form, Fenders: val })}
                     label="Fenders"
                   />
+                  <div className="ms-2">
+                    {error["Fenders"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
@@ -537,25 +717,31 @@ const Trailers = () => {
                     name="Side Rails"
                     id="SideRails"
                   />
+                  <div className="ms-2">
+                    {error["SideRails"] && errorDisplay()}
+                  </div>
                 </Col>
               </Form>
             </Col>
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Customization Options</h6>
-            <Col md={12}>
+            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.Color}
                     setValue={(val) => setForm({ ...form, Color: val })}
                     label="Color"
                   />
+                  <div className="ms-2">{error["Color"] && errorDisplay()}</div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.Decals}
@@ -565,6 +751,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.StorageBox}
@@ -574,6 +761,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.LightingPackage}
@@ -585,6 +773,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.SuspensionUpgrade}
@@ -599,28 +788,37 @@ const Trailers = () => {
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Axles & Suspension</h6>
-            <Col md={12}>
+            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.AxleType}
                     setValue={(val) => setForm({ ...form, AxleType: val })}
                     label="AxleType"
                   />
+                  <div className="ms-2">
+                    {error["AxleType"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.AxleCapacity}
                     setValue={(val) => setForm({ ...form, AxleCapacity: val })}
                     label="AxleCapacity"
                   />
+                  <div className="ms-2">
+                    {error["AxleCapacity"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.AxleSealType}
@@ -630,21 +828,29 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.AxleHubSize}
                     setValue={(val) => setForm({ ...form, AxleHubSize: val })}
                     label="AxleHubSize"
                   />
+                  <div className="ms-2">
+                    {error["AxleHubSize"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.AxlePosition}
                     setValue={(val) => setForm({ ...form, AxlePosition: val })}
                     label="AxlePosition"
                   />
+                  <div className="ms-2">
+                    {error["AxlePosition"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
@@ -660,6 +866,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.SuspensionType}
@@ -668,9 +875,13 @@ const Trailers = () => {
                     }
                     label="SuspensionType"
                   />
+                  <div className="ms-2">
+                    {error["SuspensionType"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.SuspensionCapacity}
@@ -679,9 +890,13 @@ const Trailers = () => {
                     }
                     label="SuspensionCapacity"
                   />
+                  <div className="ms-2">
+                    {error["SuspensionCapacity"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.SuspensionAdjustment}
@@ -696,46 +911,63 @@ const Trailers = () => {
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Tyres & Wheels</h6>
-            <Col md={12}>
+            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.TyreSize}
                     setValue={(val) => setForm({ ...form, TyreSize: val })}
                     label="TyreSize"
                   />
+                  <div className="ms-2">
+                    {error["TyreSize"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.TyreLoadRange}
                     setValue={(val) => setForm({ ...form, TyreLoadRange: val })}
                     label="TyreLoadRange"
                   />
+                  <div className="ms-2">
+                    {error["TyreLoadRange"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.TyreType}
                     setValue={(val) => setForm({ ...form, TyreType: val })}
                     label="TyreType"
                   />
+                  <div className="ms-2">
+                    {error["TyreType"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.WheelType}
                     setValue={(val) => setForm({ ...form, WheelType: val })}
                     label="WheelType"
                   />
+                  <div className="ms-2">
+                    {error["WheelType"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.WheelBoltPattern}
@@ -747,6 +979,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.HubLubricationSystem}
@@ -761,28 +994,37 @@ const Trailers = () => {
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Brakes & Safety</h6>
-            <Col md={12}>
+            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.BrakeType}
                     setValue={(val) => setForm({ ...form, BrakeType: val })}
                     label="BrakeType"
                   />
+                  <div className="ms-2">
+                    {error["BrakeType"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.BrakeActuator}
                     setValue={(val) => setForm({ ...form, BrakeActuator: val })}
                     label="BrakeActuator"
                   />
+                  <div className="ms-2">
+                    {error["BrakeActuator"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.BrakeLineMaterial}
@@ -794,6 +1036,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.BrakeDrumDiameter}
@@ -805,6 +1048,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.BrakeFluidType}
@@ -826,15 +1070,20 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.CouplerSize}
                     setValue={(val) => setForm({ ...form, CouplerSize: val })}
                     label="CouplerSize"
                   />
+                  <div className="ms-2">
+                    {error["CouplerSize"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.CouplerType}
@@ -844,6 +1093,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.CouplerLockType}
@@ -855,6 +1105,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.HitchClass}
@@ -864,6 +1115,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.HitchReceiverSize}
@@ -872,9 +1124,13 @@ const Trailers = () => {
                     }
                     label="HitchReceiverSize"
                   />
+                  <div className="ms-2">
+                    {error["HitchReceiverSize"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.SafetyChains}
@@ -899,28 +1155,37 @@ const Trailers = () => {
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Winch & Winch Accessories</h6>
-            <Col md={12}>
+            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.WinchType}
                     setValue={(val) => setForm({ ...form, WinchType: val })}
                     label="WinchType"
                   />
+                  <div className="ms-2">
+                    {error["WinchType"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.WinchCapacity}
                     setValue={(val) => setForm({ ...form, WinchCapacity: val })}
                     label="WinchCapacity"
                   />
+                  <div className="ms-2">
+                    {error["WinchCapacity"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.WinchRopeLength}
@@ -929,9 +1194,13 @@ const Trailers = () => {
                     }
                     label="WinchRopeLength"
                   />
+                  <div className="ms-2">
+                    {error["WinchRopeLength"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.WinchDrumMaterial}
@@ -943,6 +1212,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.WinchGearRatio}
@@ -954,6 +1224,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.WinchRemoteControl}
@@ -965,6 +1236,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.WinchBrakeType}
@@ -976,6 +1248,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.WinchCableType}
@@ -987,6 +1260,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.WinchStrapLength}
@@ -998,6 +1272,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.WinchHandleLength}
@@ -1009,6 +1284,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.WinchMounting}
@@ -1021,19 +1297,24 @@ const Trailers = () => {
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Lighting & Electrical</h6>
-            <Col md={12}>
+            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.Lighting}
                     setValue={(val) => setForm({ ...form, Lighting: val })}
                     label="Lighting"
                   />
+                  <div className="ms-2">
+                    {error["Lighting"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.LightMountingPosition}
@@ -1045,15 +1326,20 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.LightType}
                     setValue={(val) => setForm({ ...form, LightType: val })}
                     label="LightType"
                   />
+                  <div className="ms-2">
+                    {error["LightType"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.ElectricalConnectorType}
@@ -1062,9 +1348,13 @@ const Trailers = () => {
                     }
                     label="ElectricalConnectorType"
                   />
+                  <div className="ms-2">
+                    {error["ElectricalConnectorType"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.ElectricalWiringType}
@@ -1073,18 +1363,26 @@ const Trailers = () => {
                     }
                     label="ElectricalWiringType"
                   />
+                  <div className="ms-2">
+                    {error["ElectricalWiringType"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.BatteryType}
                     setValue={(val) => setForm({ ...form, BatteryType: val })}
                     label="BatteryType"
                   />
+                  <div className="ms-2">
+                    {error["BatteryType"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.BatteryChargerType}
@@ -1093,16 +1391,20 @@ const Trailers = () => {
                     }
                     label="BatteryChargerType"
                   />
+                  <div className="ms-2">
+                    {error["BatteryChargerType"] && errorDisplay()}
+                  </div>
                 </Col>
               </Form>
             </Col>
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Accessories</h6>
-            <Col md={12}>
+            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.SpareTyreCarrier}
@@ -1111,18 +1413,26 @@ const Trailers = () => {
                     }
                     label="SpareTyreCarrier"
                   />
+                  <div className="ms-2">
+                    {error["SpareTyreCarrier"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.SpareTyreSize}
                     setValue={(val) => setForm({ ...form, SpareTyreSize: val })}
                     label="SpareTyreSize"
                   />
+                  <div className="ms-2">
+                    {error["SpareTyreSize"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.SpareTyreMountingLocation}
@@ -1134,6 +1444,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.JackType}
@@ -1143,6 +1454,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.JackWheelType}
@@ -1152,15 +1464,20 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.JackCapacity}
                     setValue={(val) => setForm({ ...form, JackCapacity: val })}
                     label="JackCapacity"
                   />
+                  <div className="ms-2">
+                    {error["JackCapacity"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.JackLiftHeight}
@@ -1175,19 +1492,24 @@ const Trailers = () => {
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Loading & Transport Features</h6>
-            <Col md={12}>
+            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.LoadingSystem}
                     setValue={(val) => setForm({ ...form, LoadingSystem: val })}
                     label="LoadingSystem"
                   />
+                  <div className="ms-2">
+                    {error["LoadingSystem"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.Bunks}
@@ -1197,6 +1519,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.BunkMaterial}
@@ -1206,6 +1529,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.BunkWidth}
@@ -1215,6 +1539,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.BunkHeightAdjustment}
@@ -1226,6 +1551,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.BunkMountingBracketMaterial}
@@ -1237,6 +1563,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.Rollers}
@@ -1246,6 +1573,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.RollerMaterial}
@@ -1257,6 +1585,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.RollerAxleDiameter}
@@ -1271,37 +1600,50 @@ const Trailers = () => {
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Security Features</h6>
-            <Col md={12}>
+            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.WheelLocks}
                     setValue={(val) => setForm({ ...form, WheelLocks: val })}
                     label="WheelLocks"
                   />
+                  <div className="ms-2">
+                    {error["WheelLocks"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.LockType}
                     setValue={(val) => setForm({ ...form, LockType: val })}
                     label="LockType"
                   />
+                  <div className="ms-2">
+                    {error["LockType"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.AlarmSystem}
                     setValue={(val) => setForm({ ...form, AlarmSystem: val })}
                     label="AlarmSystem"
                   />
+                  <div className="ms-2">
+                    {error["AlarmSystem"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.GPSTrackingDevice}
@@ -1310,6 +1652,9 @@ const Trailers = () => {
                     }
                     label="GPSTrackingDevice"
                   />
+                  <div className="ms-2">
+                    {error["GPSTrackingDevice"] && errorDisplay()}
+                  </div>
                 </Col>
               </Form>
             </Col>
@@ -1318,10 +1663,11 @@ const Trailers = () => {
             <h6 style={{ marginLeft: 10 }}>
               Environmental & Corrosion Resistance
             </h6>
-            <Col md={12}>
+            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.CorrosionProtection}
@@ -1330,9 +1676,13 @@ const Trailers = () => {
                     }
                     label="CorrosionProtection"
                   />
+                  <div className="ms-2">
+                    {error["CorrosionProtection"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.RustInhibitors}
@@ -1347,10 +1697,11 @@ const Trailers = () => {
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Performance & Handling</h6>
-            <Col md={12}>
+            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.MaximumSpeedRating}
@@ -1359,25 +1710,33 @@ const Trailers = () => {
                     }
                     label="MaximumSpeedRating"
                   />
+                  <div className="ms-2">
+                    {error["MaximumSpeedRating"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.TurningRadius}
                     setValue={(val) => setForm({ ...form, TurningRadius: val })}
                     label="TurningRadius"
                   />
+                  <div className="ms-2">
+                    {error["TurningRadius"] && errorDisplay()}
+                  </div>
                 </Col>
               </Form>
             </Col>
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Tongue</h6>
-            <Col md={12}>
+            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.TongueMaterial}
@@ -1389,6 +1748,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.TongueShape}
@@ -1398,6 +1758,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.TongueJackWheelSize}
@@ -1406,9 +1767,13 @@ const Trailers = () => {
                     }
                     label="TongueJackWheelSize"
                   />
+                  <div className="ms-2">
+                    {error["TongueJackWheelSize"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.TongueJackType}
@@ -1420,15 +1785,20 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.TongueWeight}
                     setValue={(val) => setForm({ ...form, TongueWeight: val })}
                     label="TongueWeight"
                   />
+                  <div className="ms-2">
+                    {error["TongueWeight"] && errorDisplay()}
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.TongueWeightRatio}
@@ -1443,10 +1813,11 @@ const Trailers = () => {
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Documentation</h6>
-            <Col md={12}>
+            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.OwnerManual}
@@ -1456,6 +1827,7 @@ const Trailers = () => {
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
+                    options={trailerOptions}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.Warranty}
@@ -1468,7 +1840,7 @@ const Trailers = () => {
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Regulatory Compliance</h6>
-            <Col md={12}>
+            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
@@ -1518,16 +1890,30 @@ const Trailers = () => {
             </Col>
           </Col>
         </Row>
+        <div className="d-flex justify-content-center p-4 pt-5">
+          <button
+            type="button"
+            className="btn btn-success p-3"
+            style={{
+              backgroundColor: "#971e28",
+              color: "#fff",
+              padding: "8px 32px",
+              border: "0px none",
+              borderRadius: 30,
+              textTransform: "uppercase",
+              marginBottom: 8,
+              width: "50%",
+              cursor: "pointer",
+              transition: "all .5s ease",
+            }}
+            name="Trailers-submit"
+            id="Trailers-submit"
+            onClick={handleSubmit}
+          >
+            Submit
+          </button>
+        </div>
       </Container>
-      <div className="d-flex justify-content-end p-4">
-        <button
-          type="button"
-          className="btn btn-success p-3"
-          onClick={handleSubmit}
-        >
-          Submit
-        </button>
-      </div>
     </>
   );
 };
