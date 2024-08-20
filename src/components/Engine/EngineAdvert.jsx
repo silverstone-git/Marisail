@@ -154,7 +154,19 @@ const EngineAdvert = () => {
     starterMotorVoltage:"",
     engineControlUnitModel:"",
     batteryChargingSystem:"",
-    integratedGenerator:""
+    integratedGenerator:"",
+    complianceWithIMOStandards:"",
+    emissionCompliance:"",
+    exhaustSystem:"",
+    exhaustSystemType:"",
+    exhaustGasAfterTreatment:"",
+    exhaustGasStatus:"",
+    exhaustValveTiming:"",
+    intakeValveTiming:"",
+    emissionControlTechnology:"",
+    noxEmissions:"",
+    coxEmissions:"",
+    soxEmissions:"",
   });
   const [openKey, setOpenKey] = useState(null);
   const [engineMakeOptions, setEngineMakeOptions] = useState([]);
@@ -2902,6 +2914,159 @@ const EngineAdvert = () => {
                       setForm({ ...form, integratedGenerator: val })
                     }
                     label="Integrated Generator"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+              </Col>
+            </Col>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Emmissions & Environment</h6>
+              <Col md={12}>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.emissionCompliance}
+                    setValue={(val) => setForm({ ...form, emissionCompliance: val })}
+                    label="Emission Compliance"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.exhaustSystem}
+                    setValue={(val) => setForm({ ...form, exhaustSystem: val })}
+                    label="Exhaust System"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.exhaustSystemType}
+                    setValue={(val) => setForm({ ...form, exhaustSystemType: val })}
+                    label="Exhaust System Type"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.exhaustGasAfterTreatment}
+                    setValue={(val) => setForm({ ...form, exhaustGasAfterTreatment: val })}
+                    label="Exhaust Gas After Treatment"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.exhaustGasStatus}
+                    setValue={(val) =>
+                      setForm({ ...form, exhaustGasStatus : val })
+                    }
+                    label="Exhaust Gas Status"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.exhaustValveTiming}
+                    setValue={(val) =>
+                      setForm({ ...form, exhaustValveTiming : val })
+                    }
+                    label="Exhaust Valve Timing"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.intakeValveTiming}
+                    setValue={(val) =>
+                      setForm({ ...form, intakeValveTiming : val })
+                    }
+                    label="Intake Valve Timing"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.emissionControlTechnology}
+                    setValue={(val) =>
+                      setForm({ ...form, emissionControlTechnology: val })
+                    }
+                    label="Emission Control Technology"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.noxEmissions}
+                    setValue={(val) =>
+                      setForm({ ...form, noxEmissions: val })
+                    }
+                    label="NOx Emissions (g/kWh)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.soxEmissions}
+                    setValue={(val) =>
+                      setForm({ ...form, soxEmissions: val })
+                    }
+                    label="SOx Emissions (g/kWh)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.coxEmissions}
+                    setValue={(val) =>
+                      setForm({ ...form, coxEmissions: val })
+                    }
+                    label="COx Emissions (g/kWh)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.complianceWithIMOStandards}
+                    setValue={(val) =>
+                      setForm({ ...form, complianceWithIMOStandards: val })
+                    }
+                    label="Compliance With IMO Standards"
                     options={engineModelYearOptions}
                   />
                 </Col>
