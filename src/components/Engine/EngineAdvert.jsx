@@ -1698,6 +1698,7 @@ const EngineAdvert = () => {
                     }
                     label="Cylinder Configuration"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1711,6 +1712,7 @@ const EngineAdvert = () => {
                     }
                     label="Number Cylinders"
                     options={defaultOptions}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1724,6 +1726,7 @@ const EngineAdvert = () => {
                     }
                     label="Cylinders And Arrangement"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1735,6 +1738,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, numberValves: val })}
                     label="Number Valves"
                     options={defaultOptions}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1748,6 +1752,7 @@ const EngineAdvert = () => {
                     }
                     label="Valve per Cylinder"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1759,6 +1764,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, boreXStroke: val })}
                     label="Bore X Stroke"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1770,6 +1776,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, bore: val })}
                     label="Bore"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1781,6 +1788,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, stroke: val })}
                     label="Stroke"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
               </Col>
@@ -1797,6 +1805,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, idleRPM: val })}
                     label="Idle RPM"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1808,6 +1817,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, ratedSpeedRPM: val })}
                     label="Rated Speed (RPM)"
                     options={defaultOptions}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1819,6 +1829,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, rpmAtMaxPower: val })}
                     label="RPM at Max Power"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
               </Col>
@@ -1835,6 +1846,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, maximumTorque: val })}
                     label="Maximum Torque (Nm)"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1848,6 +1860,7 @@ const EngineAdvert = () => {
                     }
                     label="Maximum Torque At Speed (RPM)"
                     options={defaultOptions}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1861,6 +1874,7 @@ const EngineAdvert = () => {
                     }
                     label="Torque At Rated Speed (Nm)"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
               </Col>
@@ -1877,6 +1891,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, afterCooled: val })}
                     label="Aftercooled"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1890,6 +1905,7 @@ const EngineAdvert = () => {
                     }
                     label="Cooling System"
                     options={defaultOptions}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1903,6 +1919,7 @@ const EngineAdvert = () => {
                     }
                     label="Closed Cooling System"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1916,6 +1933,7 @@ const EngineAdvert = () => {
                     }
                     label="Open Cooling System"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1929,6 +1947,7 @@ const EngineAdvert = () => {
                     }
                     label="Intercooled"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1942,6 +1961,7 @@ const EngineAdvert = () => {
                     }
                     label="Recommended Coolant"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1955,6 +1975,7 @@ const EngineAdvert = () => {
                     }
                     label="Type Of Cooling"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1968,6 +1989,7 @@ const EngineAdvert = () => {
                     }
                     label="Heat Exchanger Material"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1981,6 +2003,7 @@ const EngineAdvert = () => {
                     }
                     label="Heat Dissipation Rate"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1994,6 +2017,7 @@ const EngineAdvert = () => {
                     }
                     label="Engine Lubrication"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2007,6 +2031,7 @@ const EngineAdvert = () => {
                     }
                     label="Lubrication System"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2020,6 +2045,7 @@ const EngineAdvert = () => {
                     }
                     label="Cooling Capacity (L/min)"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2033,6 +2059,7 @@ const EngineAdvert = () => {
                     }
                     label="Cooling Fluid Type"
                     options={defaultOptions}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2046,6 +2073,7 @@ const EngineAdvert = () => {
                     }
                     label="Cooling System Pressure"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2059,6 +2087,7 @@ const EngineAdvert = () => {
                     }
                     label="Air Filter Type"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2072,6 +2101,7 @@ const EngineAdvert = () => {
                     }
                     label="Circulation Pump Type"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2085,6 +2115,7 @@ const EngineAdvert = () => {
                     }
                     label="Raw Water Pump Type"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
               </Col>
@@ -2101,6 +2132,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, propulsion: val })}
                     label="Propulsion"
                     options={defaultOptions}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2114,6 +2146,7 @@ const EngineAdvert = () => {
                     }
                     label="Bowthruster"
                     options={defaultOptions}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2127,6 +2160,7 @@ const EngineAdvert = () => {
                     }
                     label="Propulsion System"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2140,6 +2174,7 @@ const EngineAdvert = () => {
                     }
                     label="Propulsion System Type"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2153,6 +2188,7 @@ const EngineAdvert = () => {
                     }
                     label="Propeller Diameter"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2166,6 +2202,7 @@ const EngineAdvert = () => {
                     }
                     label="Propeller Material"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2178,6 +2215,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, propellerPitch: val })
                     }
                     label="Propeller Pitch"
+                    isMandatory={false}
                     options={defaultOptions}
                   />
                 </Col>
@@ -2192,6 +2230,7 @@ const EngineAdvert = () => {
                     }
                     label="Propeller Type"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2205,6 +2244,7 @@ const EngineAdvert = () => {
                     }
                     label="Propeller Shaft Diameter"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2218,6 +2258,7 @@ const EngineAdvert = () => {
                     }
                     label="Gearbox Type"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2231,6 +2272,7 @@ const EngineAdvert = () => {
                     }
                     label="Transmission Cooling"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2244,6 +2286,7 @@ const EngineAdvert = () => {
                     }
                     label="Propeller Blade Material"
                     options={defaultOptions}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2257,6 +2300,7 @@ const EngineAdvert = () => {
                     }
                     label="Propeller Shaft Material"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2269,6 +2313,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, steeringSystem: val })
                     }
                     label="Steering System"
+                    isMandatory={false}
                     options={defaultOptions}
                   />
                 </Col>
@@ -2282,6 +2327,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, steeringControlType: val })
                     }
                     label="Steering Control Type"
+                    isMandatory={false}
                     options={defaultOptions}
                   />
                 </Col>
@@ -2295,6 +2341,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, trimSystem: val })
                     }
                     label="Trim System"
+                    isMandatory={false}
                     options={defaultOptions}
                   />
                 </Col>
@@ -2309,6 +2356,7 @@ const EngineAdvert = () => {
                     }
                     label="Trim Tab Material"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2321,6 +2369,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, trimTabType: val })
                     }
                     label="Trim Tab Type"
+                    isMandatory={false}
                     options={defaultOptions}
                   />
                 </Col>
@@ -2338,6 +2387,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, electronicFuelinjection: val })}
                     label="Electronic Fuel Injection (EFI)"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2350,6 +2400,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, fuelPreFilter: val })
                     }
                     label="Fuel Pre-Filter"
+                    isMandatory={false}
                     options={defaultOptions}
                   />
                 </Col>
@@ -2364,6 +2415,7 @@ const EngineAdvert = () => {
                     }
                     label="Fuel Filter"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2377,6 +2429,7 @@ const EngineAdvert = () => {
                     }
                     label="Fuel Filter Type"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2390,6 +2443,7 @@ const EngineAdvert = () => {
                     }
                     label="Fuel Reserve (Holding Tank) (Litres)"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2402,6 +2456,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, fuelSystem: val })
                     }
                     label="Fuel System"
+                    isMandatory={true}
                     options={defaultOptions}
                   />
                 </Col>
@@ -2416,6 +2471,7 @@ const EngineAdvert = () => {
                     }
                     label="Fuel Tank Capacity (Litres)"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2428,6 +2484,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, fuelType: val })
                     }
                     label="Fuel Type"
+                    isMandatory={true}
                     options={defaultOptions}
                   />
                 </Col>
@@ -2442,6 +2499,7 @@ const EngineAdvert = () => {
                     }
                     label="Lowest Specific Fuel Consumption (G/Kwh)"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2455,6 +2513,7 @@ const EngineAdvert = () => {
                     }
                     label="Recommended Fuel"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2468,6 +2527,7 @@ const EngineAdvert = () => {
                     }
                     label="Fuel Consumption At Cruising Speed (Litres)"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2481,6 +2541,7 @@ const EngineAdvert = () => {
                     }
                     label="Fuel Consumption Rate"
                     options={defaultOptions}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2494,6 +2555,7 @@ const EngineAdvert = () => {
                     }
                     label="Fuel Consumption At Full Load (G/Kwh)"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2507,6 +2569,7 @@ const EngineAdvert = () => {
                     }
                     label="Fuel Injection System Type"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2520,6 +2583,7 @@ const EngineAdvert = () => {
                     }
                     label="Fuel Delivery Pressure"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2533,6 +2597,7 @@ const EngineAdvert = () => {
                     }
                     label="Fuel Tank Material"
                     options={defaultOptions}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2546,6 +2611,7 @@ const EngineAdvert = () => {
                     }
                     label="Fuel Line Diameter"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
               </Col>
@@ -2562,6 +2628,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, fuelConsumption: val })}
                     label="Fuel Consumption At 3/4 Load (G/Kwh)"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2575,6 +2642,7 @@ const EngineAdvert = () => {
                     }
                     label="Fuel Consumption At 1/2 Load (G/Kwh)"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2588,6 +2656,7 @@ const EngineAdvert = () => {
                     }
                     label="Fuel Consumption, Propeller Curve (L/H)"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2601,6 +2670,7 @@ const EngineAdvert = () => {
                     }
                     label="Heat Rejection To Coolant (Kw)"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
               </Col>
@@ -2617,6 +2687,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, oilFilter: val })}
                     label="Oil Filter"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2628,6 +2699,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, oilFilterType: val })}
                     label="Oil Filter Type"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2641,6 +2713,7 @@ const EngineAdvert = () => {
                     }
                     label="Centrifugal Oil Cleaner"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2654,6 +2727,7 @@ const EngineAdvert = () => {
                     }
                     label="Oil Cooler"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2667,6 +2741,7 @@ const EngineAdvert = () => {
                     }
                     label="Oil Filler"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2680,6 +2755,7 @@ const EngineAdvert = () => {
                     }
                     label="Oil Dipstick"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2693,6 +2769,7 @@ const EngineAdvert = () => {
                     }
                     label="Recommended Oil"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2706,6 +2783,7 @@ const EngineAdvert = () => {
                     }
                     label="Oil Capacity"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2719,6 +2797,7 @@ const EngineAdvert = () => {
                     }
                     label="Oil Change Interval"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2732,6 +2811,7 @@ const EngineAdvert = () => {
                     }
                     label="Oil Cooling Method"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2745,6 +2825,7 @@ const EngineAdvert = () => {
                     }
                     label="Lubrication Oil Pressure"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2758,6 +2839,7 @@ const EngineAdvert = () => {
                     }
                     label="Oil Filter Bypass Valve"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
               </Col>
@@ -2773,6 +2855,7 @@ const EngineAdvert = () => {
                     value={form.alternator}
                     setValue={(val) => setForm({ ...form, alternator: val })}
                     label="Alternator"
+                    isMandatory={false}
                     options={defaultOptions}
                   />
                 </Col>
@@ -2784,6 +2867,7 @@ const EngineAdvert = () => {
                     value={form.alternatorOutput}
                     setValue={(val) => setForm({ ...form, alternatorOutput: val })}
                     label="Alternator Output"
+                    isMandatory={false}
                     options={defaultOptions}
                   />
                 </Col>
@@ -2795,6 +2879,7 @@ const EngineAdvert = () => {
                     value={form.batteryType}
                     setValue={(val) => setForm({ ...form, batteryType: val })}
                     label="Battery Type"
+                    isMandatory={false}
                     options={defaultOptions}
                   />
                 </Col>
@@ -2807,6 +2892,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, batteryVoltage: val })}
                     label="Battery Voltage"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2820,6 +2906,7 @@ const EngineAdvert = () => {
                     }
                     label="Generator Output (kW)"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2833,6 +2920,7 @@ const EngineAdvert = () => {
                     }
                     label="Generator Output (Amps)"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2846,6 +2934,7 @@ const EngineAdvert = () => {
                     }
                     label="Starter Motor Voltage"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2859,6 +2948,7 @@ const EngineAdvert = () => {
                     }
                     label="Engine Control Unit (ECU) Model"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2872,6 +2962,7 @@ const EngineAdvert = () => {
                     }
                     label="Battery Charging System"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2885,6 +2976,7 @@ const EngineAdvert = () => {
                     }
                     label="Integrated Generator"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
               </Col>
@@ -2901,6 +2993,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, emissionCompliance: val })}
                     label="Emission Compliance"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2911,6 +3004,7 @@ const EngineAdvert = () => {
                     value={form.exhaustSystem}
                     setValue={(val) => setForm({ ...form, exhaustSystem: val })}
                     label="Exhaust System"
+                    isMandatory={false}
                     options={defaultOptions}
                   />
                 </Col>
@@ -2922,6 +3016,7 @@ const EngineAdvert = () => {
                     value={form.exhaustSystemType}
                     setValue={(val) => setForm({ ...form, exhaustSystemType: val })}
                     label="Exhaust System Type"
+                    isMandatory={false}
                     options={defaultOptions}
                   />
                 </Col>
@@ -2934,6 +3029,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, exhaustGasAfterTreatment: val })}
                     label="Exhaust Gas After Treatment"
                     options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2946,6 +3042,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, exhaustGasStatus : val })
                     }
                     label="Exhaust Gas Status"
+                    isMandatory={false}
                     options={defaultOptions}
                   />
                 </Col>
@@ -2959,6 +3056,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, exhaustValveTiming : val })
                     }
                     label="Exhaust Valve Timing"
+                    isMandatory={false}
                     options={defaultOptions}
                   />
                 </Col>
@@ -2972,6 +3070,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, intakeValveTiming : val })
                     }
                     label="Intake Valve Timing"
+                    isMandatory={false}
                     options={defaultOptions}
                   />
                 </Col>
@@ -2985,6 +3084,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, emissionControlTechnology: val })
                     }
                     label="Emission Control Technology"
+                    isMandatory={false}
                     options={defaultOptions}
                   />
                 </Col>
@@ -2998,6 +3098,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, noxEmissions: val })
                     }
                     label="NOx Emissions (g/kWh)"
+                    isMandatory={false}
                     options={defaultOptions}
                   />
                 </Col>
@@ -3011,6 +3112,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, soxEmissions: val })
                     }
                     label="SOx Emissions (g/kWh)"
+                    isMandatory={false}
                     options={defaultOptions}
                   />
                 </Col>
@@ -3024,6 +3126,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, coxEmissions: val })
                     }
                     label="COx Emissions (g/kWh)"
+                    isMandatory={false}
                     options={defaultOptions}
                   />
                 </Col>
@@ -3037,6 +3140,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, complianceWithIMOStandards: val })
                     }
                     label="Compliance With IMO Standards"
+                    isMandatory={false}
                     options={defaultOptions}
                   />
                 </Col>
@@ -3053,6 +3157,7 @@ const EngineAdvert = () => {
                     value={form.engineMonitoringSystems}
                     setValue={(val) => setForm({ ...form, engineMonitoringSystems: val })}
                     label="Engine Monitoring Systems"
+                    isMandatory={false}
                     options={defaultOptions}
                   />
                 </Col>
@@ -3064,6 +3169,7 @@ const EngineAdvert = () => {
                     value={form.overheatProtection}
                     setValue={(val) => setForm({ ...form, overheatProtection: val })}
                     label="Overheat Protection"
+                    isMandatory={false}
                     options={defaultOptions}
                   />
                 </Col>
@@ -3075,6 +3181,7 @@ const EngineAdvert = () => {
                     value={form.lowOilPressureAlarm}
                     setValue={(val) => setForm({ ...form, lowOilPressureAlarm: val })}
                     label="Low Oil Pressure Alarm"
+                    isMandatory={false}
                     options={defaultOptions}
                   />
                 </Col>
@@ -3086,6 +3193,7 @@ const EngineAdvert = () => {
                     value={form.emergencyStopSystem}
                     setValue={(val) => setForm({ ...form, emergencyStopSystem: val })}
                     label="Emergency Stop System"
+                    isMandatory={false}
                     options={defaultOptions}
                   />
                 </Col>
@@ -3102,6 +3210,7 @@ const EngineAdvert = () => {
                     value={form.location}
                     setValue={(val) => setForm({ ...form, location: val })}
                     label="Location"
+                    isMandatory={false}
                     options={defaultOptions}
                   />
                 </Col>
@@ -3113,6 +3222,7 @@ const EngineAdvert = () => {
                     value={form.distance}
                     setValue={(val) => setForm({ ...form, distance: val })}
                     label="Distance"
+                    isMandatory={false}
                     options={defaultOptions}
                   />
                 </Col>
@@ -3124,6 +3234,7 @@ const EngineAdvert = () => {
                     value={form.globalAddressLookup}
                     setValue={(val) => setForm({ ...form, globalAddressLookup: val })}
                     label="Global Address Lookup"
+                    isMandatory={false}
                     options={defaultOptions}
                   />
                 </Col>
