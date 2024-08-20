@@ -524,18 +524,6 @@ const EngineAdvert = () => {
                     type="advertEngine"
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.certification}
-                    setValue={(val) => setForm({ ...form, certification: val })}
-                    label={ENGINE_ADVERT.CERTIFICATION}
-                    options={defaultOptions}
-                    isMandatory={true}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
                     value={form.manufacturerWarranty}
                     setValue={(val) =>
                       setForm({ ...form, manufacturerWarranty: val })
@@ -1280,20 +1268,6 @@ const EngineAdvert = () => {
                     type="advertEngine"
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.heatExchanger}
-                    setValue={(val) =>
-                      setForm({ ...form, heatExchanger: val })
-                    }
-                    label={ENGINE_ADVERT.HEAT_EXCHANGER}
-                    options={defaultOptions}
-                    isMandatory={false}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
                     value={form.heatExchangerWithExpansionTank}
                     setValue={(val) =>
                       setForm({ ...form, heatExchangerWithExpansionTank: val })
@@ -1864,181 +1838,6 @@ const EngineAdvert = () => {
                     label={ENGINE_ADVERT.LAST_SERVICE_DATE}
                     options={defaultOptions}
                     isMandatory={true}
-                  />
-                </Col>
-              </Col>
-            </Col>
-            <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: 10 }}>Dimensions</h6>
-              <Col md={12}>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.displacement}
-                    setValue={(val) => setForm({ ...form, displacement: val })}
-                    label="Displacement"
-                    isMandatory={true}
-                    options={defaultOptions}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.length}
-                    setValue={(val) => setForm({ ...form, length: val })}
-                    label="Length (mm)"
-                    isMandatory={true}
-                    options={defaultOptions}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.width}
-                    setValue={(val) => setForm({ ...form, width: val })}
-                    label="Width (mm)"
-                    isMandatory={true}
-                    options={defaultOptions}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.height}
-                    setValue={(val) => setForm({ ...form, height: val })}
-                    label="Height (mm)"
-                    isMandatory={true}
-                    options={defaultOptions}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.lengthFromFrontEndOfFlywheelHousing}
-                    setValue={(val) =>
-                      setForm({
-                        ...form,
-                        lengthFromFrontEndOfFlywheelHousing: val,
-                      })
-                    }
-                    label="Length From Front End To Edge Of Flywheel Housing (mm)"
-                    options={defaultOptions}
-                    isMandatory={false}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.engineWeight}
-                    setValue={(val) => setForm({ ...form, engineWeight: val })}
-                    label="Engine Weight"
-                    options={defaultOptions}
-                    isMandatory={true}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.dryWeight}
-                    setValue={(val) => setForm({ ...form, dryWeight: val })}
-                    label="Dry Weight (Kg)"
-                    options={defaultOptions}
-                    isMandatory={true}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.exclOilWeight}
-                    setValue={(val) => setForm({ ...form, exclOilWeight: val })}
-                    label="Weight (Excl Oil And Coolant)"
-                    options={defaultOptions}
-                    isMandatory={false}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.weightWithHeatExchanger}
-                    setValue={(val) =>
-                      setForm({ ...form, weightWithHeatExchanger: val })
-                    }
-                    label="Weight With Heat Exchanger"
-                    options={defaultOptions}
-                    isMandatory={false}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.weightWithKeelCooling}
-                    setValue={(val) =>
-                      setForm({ ...form, weightWithKeelCooling: val })
-                    }
-                    label="Weight With Keel Cooling"
-                    options={defaultOptions}
-                    isMandatory={false}
-                  />
-                </Col>
-              </Col>
-            </Col>
-            <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: 10 }}>RPM</h6>
-              <Col md={12}>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.idleRPM}
-                    setValue={(val) => setForm({ ...form, idleRPM: val })}
-                    label="Idle RPM"
-                    options={defaultOptions}
-                    isMandatory={false}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.ratedSpeedRPM}
-                    setValue={(val) => setForm({ ...form, ratedSpeedRPM: val })}
-                    label="Rated Speed (RPM)"
-                    options={defaultOptions}
-                    isMandatory={true}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.rpmAtMaxPower}
-                    setValue={(val) => setForm({ ...form, rpmAtMaxPower: val })}
-                    label="RPM at Max Power"
-                    options={defaultOptions}
-                    isMandatory={false}
                   />
                 </Col>
               </Col>
@@ -2943,6 +2742,181 @@ const EngineAdvert = () => {
                       setForm({ ...form, integratedGenerator: val })
                     }
                     label="Integrated Generator"
+                    options={defaultOptions}
+                    isMandatory={false}
+                  />
+                </Col>
+              </Col>
+            </Col>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Dimensions</h6>
+              <Col md={12}>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.displacement}
+                    setValue={(val) => setForm({ ...form, displacement: val })}
+                    label="Displacement"
+                    isMandatory={true}
+                    options={defaultOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.length}
+                    setValue={(val) => setForm({ ...form, length: val })}
+                    label="Length (mm)"
+                    isMandatory={true}
+                    options={defaultOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.width}
+                    setValue={(val) => setForm({ ...form, width: val })}
+                    label="Width (mm)"
+                    isMandatory={true}
+                    options={defaultOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.height}
+                    setValue={(val) => setForm({ ...form, height: val })}
+                    label="Height (mm)"
+                    isMandatory={true}
+                    options={defaultOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.lengthFromFrontEndOfFlywheelHousing}
+                    setValue={(val) =>
+                      setForm({
+                        ...form,
+                        lengthFromFrontEndOfFlywheelHousing: val,
+                      })
+                    }
+                    label="Length From Front End To Edge Of Flywheel Housing (mm)"
+                    options={defaultOptions}
+                    isMandatory={false}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.engineWeight}
+                    setValue={(val) => setForm({ ...form, engineWeight: val })}
+                    label="Engine Weight"
+                    options={defaultOptions}
+                    isMandatory={true}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.dryWeight}
+                    setValue={(val) => setForm({ ...form, dryWeight: val })}
+                    label="Dry Weight (Kg)"
+                    options={defaultOptions}
+                    isMandatory={true}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.exclOilWeight}
+                    setValue={(val) => setForm({ ...form, exclOilWeight: val })}
+                    label="Weight (Excl Oil And Coolant)"
+                    options={defaultOptions}
+                    isMandatory={false}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.weightWithHeatExchanger}
+                    setValue={(val) =>
+                      setForm({ ...form, weightWithHeatExchanger: val })
+                    }
+                    label="Weight With Heat Exchanger"
+                    options={defaultOptions}
+                    isMandatory={false}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.weightWithKeelCooling}
+                    setValue={(val) =>
+                      setForm({ ...form, weightWithKeelCooling: val })
+                    }
+                    label="Weight With Keel Cooling"
+                    options={defaultOptions}
+                    isMandatory={false}
+                  />
+                </Col>
+              </Col>
+            </Col>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>RPM</h6>
+              <Col md={12}>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.idleRPM}
+                    setValue={(val) => setForm({ ...form, idleRPM: val })}
+                    label="Idle RPM"
+                    options={defaultOptions}
+                    isMandatory={false}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.ratedSpeedRPM}
+                    setValue={(val) => setForm({ ...form, ratedSpeedRPM: val })}
+                    label="Rated Speed (RPM)"
+                    options={defaultOptions}
+                    isMandatory={true}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.rpmAtMaxPower}
+                    setValue={(val) => setForm({ ...form, rpmAtMaxPower: val })}
+                    label="RPM at Max Power"
                     options={defaultOptions}
                     isMandatory={false}
                   />
