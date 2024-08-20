@@ -182,9 +182,22 @@ const EngineAdvert = () => {
   const [unitInjectorsOptions, setUnitInjectorsOptions] = useState([]);
   const [engineModelYearOptions, setEngineModelYearOptions] = useState([]);
   const [conditionOptions, setConditionOptions] = useState([]);
+  const [usedConditionOptions, setUsedConditionOptions] = useState([]);
   const [engineTypeOptions, setEngineTypeOptions] = useState([]);
   const [typeDesignationOptions, setTypeDesignationOptions] = useState([]);
   const [defaultOptions, setDefaultOptions] = useState(["No data found"]);
+  const [sellerOptions, setSellerOptions] = useState([]);
+  const [offeredByOptions, setOfferedByOptions] = useState([]);
+  const [certificationOptions, setCertificationOptions] = useState([]);
+  const [engineSerialNumberOptions, setEngineSerialNumberOptions] = useState(
+    []
+  );
+  const [ceDesignCategoryOptions, setCEDesignCategoryOptions] = useState([]);
+  const [numberDrivesOptions, setNumberDrivesOptions] = useState([]);
+  const [numberEnginesOptions, setNumberEnginesOptions] = useState([]);
+  const [engineRangeOptions, setEngineRangeOptions] = useState([]);
+  const [cruisingSpeedOptions, setCruisingSpeedOptions] = useState([]);
+  const [driveTypeOptions, setDriveTypeOptions] = useState([]);
 
   const handleSubmit = (e) => {
     setOpenKey("Broker Valuation");
@@ -223,7 +236,6 @@ const EngineAdvert = () => {
       console.log(err);
     }
   };
-  console.log("001 Engine Make--",form.engineMake);
   const fetchEngineModel = async (engineMake) => {
     const URL = `http://localhost:3001/api/advert_engine/engine_model?engine_make=${encodeURIComponent(
       engineMake
@@ -249,7 +261,7 @@ const EngineAdvert = () => {
       console.log(err);
     }
   };
- 
+
   const fetchEngineType = async (engineMake, engineModel, engineModelYear) => {
     const URL = `http://localhost:3001/api/advert_engine/engine_type?engine_make=${encodeURIComponent(
       engineMake
@@ -286,7 +298,44 @@ const EngineAdvert = () => {
       console.log(err);
     }
   };
- 
+
+  const fetchCondition = async (
+    engineMake,
+    engineModel,
+    engineModelYear,
+    engineType,
+    typeDesignation
+  ) => {
+    const URL = `http://localhost:3001/api/advert_engine/conditions?engine_make=${encodeURIComponent(
+      engineMake
+    )}&engine_model=${encodeURIComponent(
+      engineModel
+    )}&engine_modelyear=${encodeURIComponent(
+      engineModelYear
+    )}&engine_type=${encodeURIComponent(
+      engineType
+    )}&type_designation=${encodeURIComponent(typeDesignation)}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      setConditionOptions(toJson.condition);
+      setUsedConditionOptions(toJson.usedCondition);
+      setSellerOptions(toJson.seller);
+      setOfferedByOptions(toJson.offeredBy);
+      setCertificationOptions(toJson.engineCertification);
+      setEngineSerialNumberOptions(toJson.engineSerial);
+
+      setCEDesignCategoryOptions(toJson.ceCategory);
+      setNumberDrivesOptions(toJson.numberDrive);
+      setNumberEnginesOptions(toJson.numberEngine);
+      setEngineRangeOptions(toJson.engineRange);
+      setCruisingSpeedOptions(toJson.cruiseSpeed);
+      setDriveTypeOptions(toJson.driveType);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const fetchUnitInjectors = async (
     URL = "http://localhost:3001/api/advert_engine/unit_injectors"
   ) => {
@@ -298,26 +347,8 @@ const EngineAdvert = () => {
       console.log(err);
     }
   };
- 
-  const fetchCondition = async (
-    URL = "http://localhost:3001/api/advert_engine/conditions"
-  ) => {
-    try {
-      const res = await fetch(URL);
-      const toJson = await res.json();
-      setConditionOptions(toJson.result);
-    } catch (err) {
-      console.log(err);
-    }
-  };
   useEffect(() => {
     fetchEngineMake();
-    // fetchEngineModel();
-    // fetchEngineModelYear();
-    // fetchEngineType();
-    // fetchTypeDesignation();
-    // fetchUnitInjectors();
-    // fetchCondition();
   }, []);
 
   return (
@@ -396,7 +427,15 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.engineType}
-                    setValue={(val) => setForm({ ...form, engineType: val })}
+                    setValue={(val) => {
+                      setForm({ ...form, engineType: val });
+                      fetchTypeDesignation(
+                        form.engineMake,
+                        form.engineModel,
+                        form.engineModelYear,
+                        val
+                      );
+                    }}
                     label={ENGINE_ADVERT.ENGINE_TYPE}
                     options={engineTypeOptions}
                     isMandatory={true}
@@ -408,9 +447,16 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.typeDesignation}
-                    setValue={(val) =>
-                      setForm({ ...form, typeDesignation: val })
-                    }
+                    setValue={(val) => {
+                      setForm({ ...form, typeDesignation: val });
+                      fetchCondition(
+                        form.engineMake,
+                        form.engineModel,
+                        form.engineModelYear,
+                        form.engineType,
+                        val
+                      );
+                    }}
                     label={ENGINE_ADVERT.TYPE_DESIGNATION}
                     options={typeDesignationOptions}
                     isMandatory={true}
@@ -426,7 +472,9 @@ const EngineAdvert = () => {
                     type="advertEngine"
                     label={ENGINE_ADVERT.CONDITION}
                     value={form.condition}
-                    setValue={(val) => setForm({ ...form, condition: val })}
+                    setValue={(val) => {
+                      setForm({ ...form, condition: val });
+                    }}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     options={conditionOptions}
@@ -441,7 +489,7 @@ const EngineAdvert = () => {
                     label={ENGINE_ADVERT.USED_CONDITION}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    options={engineModelYearOptions}
+                    options={usedConditionOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -453,7 +501,7 @@ const EngineAdvert = () => {
                     value={form.seller}
                     setValue={(val) => setForm({ ...form, seller: val })}
                     label={ENGINE_ADVERT.SELLER}
-                    options={engineModelYearOptions}
+                    options={sellerOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -465,7 +513,7 @@ const EngineAdvert = () => {
                     value={form.offeredBy}
                     setValue={(val) => setForm({ ...form, offeredBy: val })}
                     label={ENGINE_ADVERT.OFFERED_BY}
-                    options={engineModelYearOptions}
+                    options={offeredByOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -531,7 +579,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, engineClassification: val })
                     }
                     label={ENGINE_ADVERT.ENGINE_CLASSIFICATION}
-                    options={defaultOptions}
+                    options={certificationOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -543,7 +591,7 @@ const EngineAdvert = () => {
                     value={form.certification}
                     setValue={(val) => setForm({ ...form, certification: val })}
                     label={ENGINE_ADVERT.CERTIFICATION}
-                    options={defaultOptions}
+                    options={certificationOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -571,7 +619,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, engineSerialNumber: val })
                     }
                     label={ENGINE_ADVERT.ENGINE_SERIAL_NUMBER}
-                    options={engineModelYearOptions}
+                    options={engineSerialNumberOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -585,7 +633,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, ceDesignCategory: val })
                     }
                     label={ENGINE_ADVERT.CE_DESIGN_CATEGORY}
-                    options={defaultOptions}
+                    options={ceDesignCategoryOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -597,7 +645,7 @@ const EngineAdvert = () => {
                     value={form.numberDrives}
                     setValue={(val) => setForm({ ...form, numberDrives: val })}
                     label={ENGINE_ADVERT.NUMBER_DRIVES}
-                    options={defaultOptions}
+                    options={numberDrivesOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -609,7 +657,7 @@ const EngineAdvert = () => {
                     value={form.numberEngines}
                     setValue={(val) => setForm({ ...form, numberEngines: val })}
                     label={ENGINE_ADVERT.NUMBER_ENGINES}
-                    options={defaultOptions}
+                    options={numberEnginesOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -621,7 +669,7 @@ const EngineAdvert = () => {
                     value={form.rangeMiles}
                     setValue={(val) => setForm({ ...form, rangeMiles: val })}
                     label={ENGINE_ADVERT.RANGE_MILES}
-                    options={defaultOptions}
+                    options={engineRangeOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -633,7 +681,7 @@ const EngineAdvert = () => {
                     value={form.cruisingSpeed}
                     setValue={(val) => setForm({ ...form, cruisingSpeed: val })}
                     label={ENGINE_ADVERT.CRUISING_SPEED}
-                    options={defaultOptions}
+                    options={cruisingSpeedOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -645,7 +693,7 @@ const EngineAdvert = () => {
                     value={form.driveType}
                     setValue={(val) => setForm({ ...form, driveType: val })}
                     label={ENGINE_ADVERT.DRIVE_TYPE}
-                    options={defaultOptions}
+                    options={driveTypeOptions}
                     isMandatory={true}
                   />
                 </Col>
