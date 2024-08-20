@@ -9,7 +9,7 @@ import CheckComponent from "../components/CheckComponent";
 import "./trailers.css";
 
 const Trailers = () => {
-  const [trailerOptions, setTrailerOptions] = useState(["1", "2", "3"]);
+  const [trailerOptions, setTrailerOptions] = useState([]);
   const [error, setErrors] = useState({});
   const [form, setForm] = useState({
     MarisailID: "",
