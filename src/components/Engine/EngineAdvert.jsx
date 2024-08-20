@@ -132,7 +132,19 @@ const EngineAdvert = () => {
     fuelConsumption:"",
     fuelConsumptionHalfLoad:"",
     fuelConsumptionPropellerCurve:"",
-    heatRejectionToCoolant:""
+    heatRejectionToCoolant:"",
+    oilFilter:"",
+    oilFilterType:"",
+    centrifugalOilCleaner:"",
+    oilCooler:"",
+    oilFiller:"",
+    oilDipstick:"",
+    recommendedOil:"",
+    oilCapacity:"",
+    oilChangeInterval:"",
+    oilCoolingMethod:"",
+    lubricationOilPressure:"",
+    oilFilterBypassValve:""
   });
   const [openKey, setOpenKey] = useState(null);
   const [engineMakeOptions, setEngineMakeOptions] = useState([]);
@@ -2596,6 +2608,163 @@ const EngineAdvert = () => {
                       setForm({ ...form, heatRejectionToCoolant: val })
                     }
                     label="Heat Rejection To Coolant (Kw)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+              </Col>
+            </Col>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Oil</h6>
+              <Col md={12}>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.oilFilter}
+                    setValue={(val) => setForm({ ...form, oilFilter: val })}
+                    label="Oil Filter"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.oilFilterType}
+                    setValue={(val) => setForm({ ...form, oilFilterType: val })}
+                    label="Oil Filter Type"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.centrifugalOilCleaner}
+                    setValue={(val) =>
+                      setForm({ ...form, centrifugalOilCleaner : val })
+                    }
+                    label="Centrifugal Oil Cleaner"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.oilCooler}
+                    setValue={(val) =>
+                      setForm({ ...form, oilCooler: val })
+                    }
+                    label="Oil Cooler"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.oilFiller}
+                    setValue={(val) =>
+                      setForm({ ...form, oilFiller: val })
+                    }
+                    label="Oil Filler"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.oilDipstick}
+                    setValue={(val) =>
+                      setForm({ ...form, oilDipstick: val })
+                    }
+                    label="Oil Dipstick"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.recommendedOil}
+                    setValue={(val) =>
+                      setForm({ ...form, recommendedOil: val })
+                    }
+                    label="Recommended Oil"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.oilCapacity}
+                    setValue={(val) =>
+                      setForm({ ...form, oilCapacity: val })
+                    }
+                    label="Oil Capacity"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.oilChangeInterval}
+                    setValue={(val) =>
+                      setForm({ ...form, oilChangeInterval: val })
+                    }
+                    label="Oil Change Interval"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.oilCoolingMethod}
+                    setValue={(val) =>
+                      setForm({ ...form, oilCoolingMethod: val })
+                    }
+                    label="Oil Cooling Method"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.lubricationOilPressure}
+                    setValue={(val) =>
+                      setForm({ ...form, lubricationOilPressure: val })
+                    }
+                    label="Lubrication Oil Pressure"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.oilFilterBypassValve}
+                    setValue={(val) =>
+                      setForm({ ...form, oilFilterBypassValve: val })
+                    }
+                    label="Oil Filter Bypass Valve"
                     options={engineModelYearOptions}
                   />
                 </Col>
