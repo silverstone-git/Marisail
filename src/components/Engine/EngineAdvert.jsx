@@ -128,7 +128,11 @@ const EngineAdvert = () => {
     fuelInjectionSystemType:"",
     fuelDeliveryPressure:"",
     fuelTankMaterial:"",
-    fuelLineDiameter:""
+    fuelLineDiameter:"",
+    fuelConsumption:"",
+    fuelConsumptionHalfLoad:"",
+    fuelConsumptionPropellerCurve:"",
+    heatRejectionToCoolant:""
   });
   const [openKey, setOpenKey] = useState(null);
   const [engineMakeOptions, setEngineMakeOptions] = useState([]);
@@ -2537,6 +2541,61 @@ const EngineAdvert = () => {
                       setForm({ ...form, fuelLineDiameter: val })
                     }
                     label="Fuel Line Diameter"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+              </Col>
+            </Col>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Fuel Consumption</h6>
+              <Col md={12}>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.fuelConsumption}
+                    setValue={(val) => setForm({ ...form, fuelConsumption: val })}
+                    label="Fuel Consumption At 3/4 Load (G/Kwh)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.fuelConsumptionHalfLoad}
+                    setValue={(val) =>
+                      setForm({ ...form, fuelConsumptionHalfLoad: val })
+                    }
+                    label="Fuel Consumption At 1/2 Load (G/Kwh)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.fuelConsumptionPropellerCurve}
+                    setValue={(val) =>
+                      setForm({ ...form, fuelConsumptionPropellerCurve : val })
+                    }
+                    label="Fuel Consumption, Propeller Curve (L/H)"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.heatRejectionToCoolant}
+                    setValue={(val) =>
+                      setForm({ ...form, heatRejectionToCoolant: val })
+                    }
+                    label="Heat Rejection To Coolant (Kw)"
                     options={engineModelYearOptions}
                   />
                 </Col>
