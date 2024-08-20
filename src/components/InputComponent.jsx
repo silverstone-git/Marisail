@@ -1,13 +1,12 @@
-import React from "react";
 import Form from "react-bootstrap/Form";
 import Accordion from "react-bootstrap/Accordion";
+import PropTypes from "prop-types";
 
 function InputComponent({
   label,
   value,
   setValue,
   formType,
-  type,
   setOpenKey,
   openKey,
 }) {
@@ -25,6 +24,7 @@ function InputComponent({
               onChange={setValue}
               type={formType}
               placeholder={''}
+              name={label}
             />
           </Form.Group>
         </Accordion.Body>
@@ -32,5 +32,12 @@ function InputComponent({
      </Accordion>
   );
 }
-
+InputComponent.propTypes = {
+  label: PropTypes.string.isRequired,
+  setValue: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  setOpenKey: PropTypes.func.isRequired,
+  openKey: PropTypes.string,
+  formType: PropTypes.string.isRequired,
+};
 export default InputComponent;
