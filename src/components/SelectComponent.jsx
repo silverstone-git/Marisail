@@ -562,7 +562,6 @@ function SelectComponent({
     },
   };
   
-  let selectedComponent = trailersOptions;
   return (
     <Accordion
       activeKey={openKey}

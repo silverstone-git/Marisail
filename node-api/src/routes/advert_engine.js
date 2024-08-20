@@ -90,4 +90,34 @@ advertEngineRouter.get("/conditions/", async (req, res) => {
   }
 });
 
+advertEngineRouter.get("/engine_type/", async (req, res) => {
+  let connection;
+  try {
+    connection = await dbConnection.getConnection();
+    const [rows] = await connection.query(
+      "SELECT DISTINCT engine_type FROM engine_general ORDER BY engine_type ASC LIMIT 10"
+    );
+    return res.status(200).json({ ok: true, result: rows.map(row => row.engine_type) });
+  } catch (err) {
+    return res.status(500).json({ ok: false, message: err.message });
+  } finally {
+    connection.release();
+  }
+});
+
+advertEngineRouter.get("/type_designation/", async (req, res) => {
+  let connection;
+  try {
+    connection = await dbConnection.getConnection();
+    const [rows] = await connection.query(
+      "SELECT DISTINCT type_designation FROM engine_general ORDER BY type_designation ASC LIMIT 10"
+    );
+    return res.status(200).json({ ok: true, result: rows.map(row => row.type_designation) });
+  } catch (err) {
+    return res.status(500).json({ ok: false, message: err.message });
+  } finally {
+    connection.release();
+  }
+});
+
 export default advertEngineRouter;
