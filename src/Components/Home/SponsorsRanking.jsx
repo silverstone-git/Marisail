@@ -1,37 +1,30 @@
-import { useEffect, useState } from 'react';
-import { Col, Container, Row, Table } from 'react-bootstrap';
-import { Card } from 'react-bootstrap';
+import PropTypes from 'prop-types';
+import { Card, Container } from 'react-bootstrap';
 
-const SponsorsRanking = () => {
-  const [sponsors, setSponsors] = useState({ ok: false, result: [] });
-  /* const fetchSponsors = async (URL = 'http://localhost:3001/api/home/sponsors') => {
-    try {
-      const res = await fetch(URL);
-      const toJson = await res.json();
-      setSponsors(toJson);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  useEffect(() => {
-    fetchSponsors();
-  }, []); */
-
+const SponsorsRanking = ({ sponsors }) => {
   return (
-    <Container className='py-4'>
-      <Row>
-        {/*  {sponsors.ok &&
+    <Container className='my-3'>
+      <h3>Our Sponsors</h3>
+
+      <Container
+        className='py-4'
+        style={{
+          display: 'grid',
+          gridTemplateColumns: ' repeat( auto-fill, minmax(180px, 1fr) )',
+        }}
+      >
+        {sponsors.ok &&
           sponsors.result.map((el, i) => (
-            <Col className={'col col-2 mb-3'} key={i}>
-              <Card className='text-center py-2'>{el.company_name}</Card>
-            </Col>
-          ))} */}
-        <Col className={'col col-2 mb-3'}>
-          <Card className='text-center py-2'>'sponsors here'</Card>
-        </Col>
-      </Row>
+            <Card key={i} className='text-center py-2 border-0'>
+              {el.company_name}
+            </Card>
+          ))}
+      </Container>
     </Container>
   );
+};
+SponsorsRanking.propTypes = {
+  sponsors: PropTypes.object.isRequired,
 };
 
 export default SponsorsRanking;
