@@ -167,6 +167,10 @@ const EngineAdvert = () => {
     noxEmissions:"",
     coxEmissions:"",
     soxEmissions:"",
+    emergencyStopSystem:"",
+    engineMonitoringSystems:"",
+    overheatProtection:"",
+    lowOilPressureAlarm:"",
   });
   const [openKey, setOpenKey] = useState(null);
   const [engineMakeOptions, setEngineMakeOptions] = useState([]);
@@ -3067,6 +3071,55 @@ const EngineAdvert = () => {
                       setForm({ ...form, complianceWithIMOStandards: val })
                     }
                     label="Compliance With IMO Standards"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+              </Col>
+            </Col>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Safety and Monitoring</h6>
+              <Col md={12}>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.engineMonitoringSystems}
+                    setValue={(val) => setForm({ ...form, engineMonitoringSystems: val })}
+                    label="Engine Monitoring Systems"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.overheatProtection}
+                    setValue={(val) => setForm({ ...form, overheatProtection: val })}
+                    label="Overheat Protection"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.lowOilPressureAlarm}
+                    setValue={(val) => setForm({ ...form, lowOilPressureAlarm: val })}
+                    label="Low Oil Pressure Alarm"
+                    options={engineModelYearOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.emergencyStopSystem}
+                    setValue={(val) => setForm({ ...form, emergencyStopSystem: val })}
+                    label="Emergency Stop System"
                     options={engineModelYearOptions}
                   />
                 </Col>
