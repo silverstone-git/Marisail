@@ -43,5 +43,15 @@ export const ENGINE_ADVERT = {
   ENGINE_SERIAL_NUMBER:"Engine Serial Number",
   ENGINE_SOUNDPROOFING_KITS:"Engine Soundproofing Kits",
   FLYWHEEL_SAE14:"Flywheel SAE 14",
-  CRANKCASE_DESIGN:"Crankcase Design"
+  CRANKCASE_DESIGN:"Crankcase Design",
+  ENGINE_BLOCK:"Engine Block",
+  ALIGNMENT_REQUIREMENTS:"Alignment Requirements",
+  MOUNTING_BRACKET_MATERIAL:"Mounting Bracket Material",
+  ENGINE_SUSPENSION:"Engine Suspension",
+  ENGINE_MOUNTING_ORIENTATION:"Engine Mounting Orientation",
+  SCHEDULED_MAINTENANCE_PLAN:"Scheduled Maintenance Plan",
+  OPERATION_MODE:"Operation Mode",
+  AVAILABILITY_SPARE_PARTS:"Availability Of Spare Parts",
+  MAINTENANCE_LOG_REQUIREMENTS:"Maintenance Log Requirements",
+  SERVICE_INTERVAL: "Service Interval"
 };

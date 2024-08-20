@@ -859,8 +859,9 @@ const EngineAdvert = () => {
                     setValue={(val) =>
                       setForm({ ...form, engineMountingOrientation: val })
                     }
-                    label="Engine Mounting Orientation"
-                    options={engineModelYearOptions}
+                    label={ENGINE_ADVERT.ENGINE_MOUNTING_ORIENTATION}
+                    options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -872,27 +873,23 @@ const EngineAdvert = () => {
                     setValue={(val) =>
                       setForm({ ...form, engineSuspension: val })
                     }
-                    label="Engine Suspension"
-                    options={engineModelYearOptions}
+                    label={ENGINE_ADVERT.ENGINE_SUSPENSION}
+                    options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <MultipleSelectComponent
+                  <SelectComponent
+                    type="advertEngine"
                     openKey={openKey}
                     setOpenKey={setOpenKey}
+                    value={form.engineMountingType}
+                    setValue={(val) =>
+                      setForm({ ...form, engineMountingType: val })
+                    }
                     label={ENGINE_ADVERT.ENGINE_MOUNTING_TYPE}
-                    options={engineMakeOptions}
-                    isMandatory={true}
-                    value={form.engineMake}
-                    setValue={(newValues) =>
-                      setForm({ ...form, engineMake: newValues })
-                    }
-                    onAddOption={(newOption) =>
-                      handleAddOption(
-                        newOption,
-                        ENGINE_ADVERT.ENGINE_MOUNTING_TYPE
-                      )
-                    }
+                    options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -904,8 +901,9 @@ const EngineAdvert = () => {
                     setValue={(val) =>
                       setForm({ ...form, mountingBracketMaterial: val })
                     }
-                    label="Mounting Bracket Material"
-                    options={engineModelYearOptions}
+                    label={ENGINE_ADVERT.MOUNTING_BRACKET_MATERIAL}
+                    options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -917,8 +915,9 @@ const EngineAdvert = () => {
                     setValue={(val) =>
                       setForm({ ...form, alignmentRequirements: val })
                     }
-                    label="Alignment Requirements"
-                    options={engineModelYearOptions}
+                    label={ENGINE_ADVERT.ALIGNMENT_REQUIREMENTS}
+                    options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -928,8 +927,9 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     value={form.engineBlock}
                     setValue={(val) => setForm({ ...form, engineBlock: val })}
-                    label="Engine Block"
-                    options={engineModelYearOptions}
+                    label={ENGINE_ADVERT.ENGINE_BLOCK}
+                    options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
               </Col>
@@ -946,8 +946,9 @@ const EngineAdvert = () => {
                     setValue={(val) =>
                       setForm({ ...form, scheduledMaintenancePlan: val })
                     }
-                    label="Scheduled Maintenance Plan"
-                    options={engineModelYearOptions}
+                    label={ENGINE_ADVERT.SCHEDULED_MAINTENANCE_PLAN}
+                    options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -959,8 +960,9 @@ const EngineAdvert = () => {
                     setValue={(val) =>
                       setForm({ ...form, serviceInterval: val })
                     }
-                    label="Service Interval"
-                    options={engineModelYearOptions}
+                    label={ENGINE_ADVERT.SERVICE_INTERVAL}
+                    options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -972,8 +974,9 @@ const EngineAdvert = () => {
                     setValue={(val) =>
                       setForm({ ...form, maintenanceLogRequirements: val })
                     }
-                    label="Maintenance Log Requirements"
-                    options={engineModelYearOptions}
+                    label={ENGINE_ADVERT.MAINTENANCE_LOG_REQUIREMENTS}
+                    options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -985,8 +988,9 @@ const EngineAdvert = () => {
                     setValue={(val) =>
                       setForm({ ...form, availabilityOfSpareParts: val })
                     }
-                    label="Availability Of Spare Parts"
-                    options={engineModelYearOptions}
+                    label={ENGINE_ADVERT.AVAILABILITY_SPARE_PARTS}
+                    options={defaultOptions}
+                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -996,27 +1000,21 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     value={form.operationMode}
                     setValue={(val) => setForm({ ...form, operationMode: val })}
-                    label="Operation Mode"
-                    options={engineModelYearOptions}
+                    label={ENGINE_ADVERT.OPERATION_MODE}
+                    options={defaultOptions}
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <MultipleSelectComponent
+                  <SelectComponent
+                    type="advertEngine"
                     openKey={openKey}
                     setOpenKey={setOpenKey}
+                    value={form.lastServiceDate}
+                    setValue={(val) => setForm({ ...form, lastServiceDate: val })}
                     label={ENGINE_ADVERT.LAST_SERVICE_DATE}
-                    options={engineMakeOptions}
+                    options={defaultOptions}
                     isMandatory={true}
-                    value={form.engineMake}
-                    setValue={(newValues) =>
-                      setForm({ ...form, engineMake: newValues })
-                    }
-                    onAddOption={(newOption) =>
-                      handleAddOption(
-                        newOption,
-                        ENGINE_ADVERT.LAST_SERVICE_DATE
-                      )
-                    }
                   />
                 </Col>
               </Col>
