@@ -325,6 +325,29 @@ const EngineAdvert = () => {
   const [circulationPumpTypeOptions, setCirculationPumpTypeOptions] = useState([]);
   const [rawWaterpumpTypeOptions, setRawWaterpumpTypeOptions] = useState([]);
 
+  const [alternatorOptions, setAlternatorOptions] = useState([]);
+  const [batteryTypeOptions, setBatteryTypeOptions] = useState([]);
+  const [batteryVoltageOptions, setBatteryVoltageOptions] = useState([]);
+  const [generatorOutputKwOptions, setGeneratorOutputKwOptions] = useState([]);
+  const [generatorOutputAmpsOptions, setGeneratorOutputAmpsOptions] = useState([]);
+  const [starterMotorVoltageOptions, setStarterMotorVoltageOptions] = useState([]);
+  const [engineControlUnitModelOptions, setEngineControlUnitModelOptions] = useState([]);
+  const [batteryChargingSystemOptions, setBatteryChargingSystemOptions] = useState([]);
+  const [integratedGeneratorOptions, setIntegratedGeneratorOptions] = useState([]);
+  const [alternatorOutputAMPS, setAlternatorOutputAMPS] = useState([]);
+  const [batteryVoltageNumberOptions, setBatteryVoltageNumber] = useState([]);
+
+  const [displacementOptions, setDisplacementOptions] = useState([]);
+  const [lengthOptions, setLengthOptions] = useState([]);
+  const [widthOptions, setWidthOptions] = useState([]);
+  const [heightOptions, setHeightOptions] = useState([]);
+  const [weightWithKeelCoolingOptions, setWeightWithKeelCoolingOptions] = useState([]);
+  const [exclOilWeightOptions, setExclOilWeightOptions] = useState([]);
+  const [dryWeightOptions, setDryWeightOptions] = useState([]);
+  const [engineWeightOptions, setEngineWeightOptions] = useState([]);
+  const [lengthFromFrontEndOfFlywheelHousingOptions, setLengthFromFrontEndOfFlywheelHousingOptions] = useState([]);
+  const [weightWithHeatExchangerOptions, setWeightWithHeatExchangerOptions] = useState([]);
+
   const handleSubmit = (e) => {
     setOpenKey("Broker Valuation");
     try {
@@ -499,16 +522,16 @@ const EngineAdvert = () => {
       setValvePerCylinderOptions(toJson.valvePerCylinder);
 
       //ElectricalFields
-      // (toJson.battery_voltagenumber);
-      // (toJson.integrated_generator);
-      // (toJson.Battery_ChargingSystem);
-      // (toJson.ECU_Model);
-      // (toJson.starter_MotorVoltage);
-      // (toJson.alternator_outputAMPS);
-      // (toJson.battery_voltage)
-      // (toJson.alternator);
-      // setAlternatorOutputOptions(toJson.alternator_output);
-      // (toJson.battery_type)
+      setBatteryVoltageNumber(toJson.battery_voltagenumber);
+      setIntegratedGeneratorOptions(toJson.integrated_generator);
+      setBatteryChargingSystemOptions(toJson.Battery_ChargingSystem);
+      setEngineControlUnitModelOptions(toJson.ECU_Model);
+      setStarterMotorVoltageOptions(toJson.starter_MotorVoltage);
+      setAlternatorOutputAMPS(toJson.alternator_outputAMPS);
+      setBatteryVoltageOptions(toJson.battery_voltage)
+      setAlternatorOptions(toJson.alternator);
+      setAlternatorOutputOptions(toJson.alternator_output);
+      setBatteryTypeOptions(toJson.battery_type)
       
       //CoolingFields
       setCoolingSystemOptions(toJson.cooling_system);
@@ -603,6 +626,18 @@ const EngineAdvert = () => {
       setConnectionRodsOptions(toJson.connection_rods);
       setAuxiliaryPowerTakeOffOptions(toJson.auxiliarypower_takeoff);
       setRemoteControlSystemsOptions(toJson.remote_controlsystems)
+
+      //DimensionFields
+      setDisplacementOptions(toJson.displacement);
+      setLengthOptions(toJson.length);
+      setWidthOptions(toJson.width);
+      setHeightOptions(toJson.height);
+      setLengthFromFrontEndOfFlywheelHousingOptions(toJson.Engine_length);
+      setEngineWeightOptions(toJson.engine_weight);
+      setDryWeightOptions(toJson.dry_weight)
+      setWeightWithKeelCoolingOptions(toJson.weight_keelcooling);
+      setExclOilWeightOptions(toJson.weight_excloil);
+      setWeightWithHeatExchangerOptions(toJson.weight_heatexchanger)
     } catch (err) {
       console.log(err);
     }
@@ -3182,7 +3217,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, alternator: val })}
                     label="Alternator"
                     isMandatory={false}
-                    options={defaultOptions}
+                    options={alternatorOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -3196,7 +3231,7 @@ const EngineAdvert = () => {
                     }
                     label="Alternator Output"
                     isMandatory={false}
-                    options={defaultOptions}
+                    options={alternatorOutputOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -3208,7 +3243,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, batteryType: val })}
                     label="Battery Type"
                     isMandatory={false}
-                    options={defaultOptions}
+                    options={batteryTypeOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -3221,7 +3256,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, batteryVoltage: val })
                     }
                     label="Battery Voltage"
-                    options={defaultOptions}
+                    options={batteryVoltageOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -3235,7 +3270,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, generatorOutputKw: val })
                     }
                     label="Generator Output (kW)"
-                    options={defaultOptions}
+                    options={generatorOutputKwOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -3249,7 +3284,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, generatorOutputAmps: val })
                     }
                     label="Generator Output (Amps)"
-                    options={defaultOptions}
+                    options={generatorOutputAmpsOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -3263,7 +3298,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, starterMotorVoltage: val })
                     }
                     label="Starter Motor Voltage"
-                    options={defaultOptions}
+                    options={starterMotorVoltageOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -3277,7 +3312,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, engineControlUnitModel: val })
                     }
                     label="Engine Control Unit (ECU) Model"
-                    options={defaultOptions}
+                    options={engineControlUnitModelOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -3291,7 +3326,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, batteryChargingSystem: val })
                     }
                     label="Battery Charging System"
-                    options={defaultOptions}
+                    options={batteryChargingSystemOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -3305,7 +3340,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, integratedGenerator: val })
                     }
                     label="Integrated Generator"
-                    options={defaultOptions}
+                    options={integratedGeneratorOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -3323,7 +3358,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, displacement: val })}
                     label="Displacement"
                     isMandatory={true}
-                    options={defaultOptions}
+                    options={displacementOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -3335,7 +3370,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, length: val })}
                     label="Length (mm)"
                     isMandatory={true}
-                    options={defaultOptions}
+                    options={lengthOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -3347,7 +3382,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, width: val })}
                     label="Width (mm)"
                     isMandatory={true}
-                    options={defaultOptions}
+                    options={widthOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -3359,7 +3394,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, height: val })}
                     label="Height (mm)"
                     isMandatory={true}
-                    options={defaultOptions}
+                    options={heightOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -3375,7 +3410,7 @@ const EngineAdvert = () => {
                       })
                     }
                     label="Length From Front End To Edge Of Flywheel Housing (mm)"
-                    options={defaultOptions}
+                    options={lengthFromFrontEndOfFlywheelHousingOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -3387,7 +3422,7 @@ const EngineAdvert = () => {
                     value={form.engineWeight}
                     setValue={(val) => setForm({ ...form, engineWeight: val })}
                     label="Engine Weight"
-                    options={defaultOptions}
+                    options={engineWeightOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -3399,7 +3434,7 @@ const EngineAdvert = () => {
                     value={form.dryWeight}
                     setValue={(val) => setForm({ ...form, dryWeight: val })}
                     label="Dry Weight (Kg)"
-                    options={defaultOptions}
+                    options={dryWeightOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -3411,7 +3446,7 @@ const EngineAdvert = () => {
                     value={form.exclOilWeight}
                     setValue={(val) => setForm({ ...form, exclOilWeight: val })}
                     label="Weight (Excl Oil And Coolant)"
-                    options={defaultOptions}
+                    options={exclOilWeightOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -3425,7 +3460,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, weightWithHeatExchanger: val })
                     }
                     label="Weight With Heat Exchanger"
-                    options={defaultOptions}
+                    options={weightWithHeatExchangerOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -3439,7 +3474,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, weightWithKeelCooling: val })
                     }
                     label="Weight With Keel Cooling"
-                    options={defaultOptions}
+                    options={weightWithKeelCoolingOptions}
                     isMandatory={false}
                   />
                 </Col>
