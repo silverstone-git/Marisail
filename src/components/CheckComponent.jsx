@@ -1,9 +1,17 @@
-import React from "react";
 import { Form } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Accordion from "react-bootstrap/Accordion";
+import PropTypes from "prop-types";
 
-function CheckComponent({ label, setValue, name, id, setOpenKey, openKey }) {
+function CheckComponent({
+  label,
+  setValue,
+  name,
+  id,
+  setOpenKey,
+  openKey,
+  isMandatory,
+}) {
   return (
     <Form.Group controlId="formGridState">
       <Accordion
@@ -11,7 +19,10 @@ function CheckComponent({ label, setValue, name, id, setOpenKey, openKey }) {
         onSelect={(eventKey) => setOpenKey(eventKey)}
       >
         <Accordion.Item eventKey={id}>
-          <Accordion.Header>{label}</Accordion.Header>
+          <Accordion.Header>
+            {label}
+            {isMandatory && <span className="text-danger">&nbsp;*</span>}
+          </Accordion.Header>
           <Accordion.Body>
             <Col sm={12}>
               <Form.Check
@@ -38,4 +49,14 @@ function CheckComponent({ label, setValue, name, id, setOpenKey, openKey }) {
   );
 }
 
+CheckComponent.propTypes = {
+  label: PropTypes.string.isRequired,
+  setOpenKey: PropTypes.func.isRequired,
+  openKey: PropTypes.string,
+  isMandatory: PropTypes.bool.isRequired,
+  value: PropTypes.array,
+  setValue: PropTypes.func,
+  name: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+};
 export default CheckComponent;

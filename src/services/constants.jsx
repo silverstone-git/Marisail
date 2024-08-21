@@ -67,4 +67,6 @@ export const ENGINE_ADVERT = {
   CLOSED_CRANKCASE_VENTILATION:"Closed Crankcase Ventilation",
   HEAT_EXCHANGER_WITH_EXPANSION_TANK:"Heat Exchanger With Expansion Tank",
   SEA_WATER_COOLED_CHARGE_AIR_COOLER:"Sea Water Cooled Charge Air Cooler",
+  MANUFACTURER_WARRANTY_ID: "manufacturerWarranty",
+  ENGINE_CLASSIFICATION_ID: "engineClassification"
 };

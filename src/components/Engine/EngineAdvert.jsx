@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import "./engineAdvert.module.scss";
 import "react-datepicker/dist/react-datepicker.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import CheckComponent from "../CheckComponent";
 
 const EngineAdvert = () => {
   const [form, setForm] = useState({
@@ -19,7 +20,8 @@ const EngineAdvert = () => {
     lastSurveyDate: null,
     brokerValuation: "",
     marisailVesselId: "",
-    engineMake: [],
+    engineMake: "",
+    engineModelYear: "",
     engineClassification: "",
     certification: "",
     engineModel: "",
@@ -77,113 +79,175 @@ const EngineAdvert = () => {
     maximumTorque: "",
     maximumTorqueAtSpeed: "",
     torqueAtRatedSpeed: "",
-    rawWaterpumpType:"",
-    circulationPumpType:"",
-    airFilterType:"",
-    coolingSystemPressure:"",
-    coolingFluidType:"",
-    coolingCapacity:"",
-    lubricationSystem:"",
-    engineLubrication:"",
-    heatDissipationRate:"",
-    heatExchangerMaterial:"",
-    typeOfCooling:"",
-    recommendedCoolant:"",
-    intercooled:"",
-    openCoolingSystem:"",
-    closedCoolingSystem:"",
-    coolingSystem:"",
-    afterCooled:"",
-    propulsion:"",
-    bowthruster:"",
-    propulsionSystem:"",
-    propulsionSystemType:"",
-    propellerDiameter:"",
-    propellerMaterial:"",
-    propellerPitch:"",
-    propellerType:"",
-    propellerShaftDiameter:"",
-    gearboxType:"",
-    transmissionCooling:"",
-    propellerBladeMaterial:"",
-    propellerShaftMaterial:"",
-    steeringSystem:"",
-    steeringControlType:"",
-    trimSystem:"",
-    trimTabMaterial:"",
-    trimTabType:"",
-    electronicFuelinjection:"",
-    fuelPreFilter:"",
-    fuelFilter:"",
-    fuelFilterType:"",
-    fuelReserve:"",
-    fuelSystem:"",
-    fuelTankCapacity:"",
-    fuelType:"",
-    lowestSpecificFuelConsumption:"",
-    recommendedFuel:"",
-    fuelConsumptionAtCruisingSpeed:"",
-    fuelConsumptionRate:"",
-    fuelConsumtpionAtFullLoad:"",
-    fuelInjectionSystemType:"",
-    fuelDeliveryPressure:"",
-    fuelTankMaterial:"",
-    fuelLineDiameter:"",
-    fuelConsumption:"",
-    fuelConsumptionHalfLoad:"",
-    fuelConsumptionPropellerCurve:"",
-    heatRejectionToCoolant:"",
-    oilFilter:"",
-    oilFilterType:"",
-    centrifugalOilCleaner:"",
-    oilCooler:"",
-    oilFiller:"",
-    oilDipstick:"",
-    recommendedOil:"",
-    oilCapacity:"",
-    oilChangeInterval:"",
-    oilCoolingMethod:"",
-    lubricationOilPressure:"",
-    oilFilterBypassValve:"",
-    alternator:"",
-    alternatorOutput:"",
-    batteryType:"",
-    batteryVoltage:"",
-    generatorOutputKw:"",
-    generatorOutputAmps:"",
-    starterMotorVoltage:"",
-    engineControlUnitModel:"",
-    batteryChargingSystem:"",
-    integratedGenerator:"",
-    complianceWithIMOStandards:"",
-    emissionCompliance:"",
-    exhaustSystem:"",
-    exhaustSystemType:"",
-    exhaustGasAfterTreatment:"",
-    exhaustGasStatus:"",
-    exhaustValveTiming:"",
-    intakeValveTiming:"",
-    emissionControlTechnology:"",
-    noxEmissions:"",
-    coxEmissions:"",
-    soxEmissions:"",
-    emergencyStopSystem:"",
-    engineMonitoringSystems:"",
-    overheatProtection:"",
-    lowOilPressureAlarm:"",
-    location:"",
-    distance:"",
-    globalAddressLookup:""
+    rawWaterpumpType: "",
+    circulationPumpType: "",
+    airFilterType: "",
+    coolingSystemPressure: "",
+    coolingFluidType: "",
+    coolingCapacity: "",
+    lubricationSystem: "",
+    engineLubrication: "",
+    heatDissipationRate: "",
+    heatExchangerMaterial: "",
+    typeOfCooling: "",
+    recommendedCoolant: "",
+    intercooled: "",
+    openCoolingSystem: "",
+    closedCoolingSystem: "",
+    coolingSystem: "",
+    afterCooled: "",
+    propulsion: "",
+    bowthruster: "",
+    propulsionSystem: "",
+    propulsionSystemType: "",
+    propellerDiameter: "",
+    propellerMaterial: "",
+    propellerPitch: "",
+    propellerType: "",
+    propellerShaftDiameter: "",
+    gearboxType: "",
+    transmissionCooling: "",
+    propellerBladeMaterial: "",
+    propellerShaftMaterial: "",
+    steeringSystem: "",
+    steeringControlType: "",
+    trimSystem: "",
+    trimTabMaterial: "",
+    trimTabType: "",
+    electronicFuelinjection: "",
+    fuelPreFilter: "",
+    fuelFilter: "",
+    fuelFilterType: "",
+    fuelReserve: "",
+    fuelSystem: "",
+    fuelTankCapacity: "",
+    fuelType: "",
+    lowestSpecificFuelConsumption: "",
+    recommendedFuel: "",
+    fuelConsumptionAtCruisingSpeed: "",
+    fuelConsumptionRate: "",
+    fuelConsumtpionAtFullLoad: "",
+    fuelInjectionSystemType: "",
+    fuelDeliveryPressure: "",
+    fuelTankMaterial: "",
+    fuelLineDiameter: "",
+    fuelConsumption: "",
+    fuelConsumptionHalfLoad: "",
+    fuelConsumptionPropellerCurve: "",
+    heatRejectionToCoolant: "",
+    oilFilter: "",
+    oilFilterType: "",
+    centrifugalOilCleaner: "",
+    oilCooler: "",
+    oilFiller: "",
+    oilDipstick: "",
+    recommendedOil: "",
+    oilCapacity: "",
+    oilChangeInterval: "",
+    oilCoolingMethod: "",
+    lubricationOilPressure: "",
+    oilFilterBypassValve: "",
+    alternator: "",
+    alternatorOutput: "",
+    batteryType: "",
+    batteryVoltage: "",
+    generatorOutputKw: "",
+    generatorOutputAmps: "",
+    starterMotorVoltage: "",
+    engineControlUnitModel: "",
+    batteryChargingSystem: "",
+    integratedGenerator: "",
+    complianceWithIMOStandards: "",
+    emissionCompliance: "",
+    exhaustSystem: "",
+    exhaustSystemType: "",
+    exhaustGasAfterTreatment: "",
+    exhaustGasStatus: "",
+    exhaustValveTiming: "",
+    intakeValveTiming: "",
+    emissionControlTechnology: "",
+    noxEmissions: "",
+    coxEmissions: "",
+    soxEmissions: "",
+    emergencyStopSystem: "",
+    engineMonitoringSystems: "",
+    overheatProtection: "",
+    lowOilPressureAlarm: "",
+    location: "",
+    distance: "",
+    globalAddressLookup: "",
   });
   const [openKey, setOpenKey] = useState(null);
+  const [engineIdOptions, setEngineIdOptions] = useState([]);
   const [engineMakeOptions, setEngineMakeOptions] = useState([]);
   const [engineModelOptions, setEngineModelOptions] = useState([]);
   const [unitInjectorsOptions, setUnitInjectorsOptions] = useState([]);
   const [engineModelYearOptions, setEngineModelYearOptions] = useState([]);
   const [conditionOptions, setConditionOptions] = useState([]);
+  const [usedConditionOptions, setUsedConditionOptions] = useState([]);
   const [engineTypeOptions, setEngineTypeOptions] = useState([]);
   const [typeDesignationOptions, setTypeDesignationOptions] = useState([]);
-  const [defaultOptions, setDefaultOptions] = useState(['No data found']);
+  const [defaultOptions, setDefaultOptions] = useState(["No data found"]);
+  const [sellerOptions, setSellerOptions] = useState([]);
+  const [offeredByOptions, setOfferedByOptions] = useState([]);
+  const [certificationOptions, setCertificationOptions] = useState([]);
+  const [engineSerialNumberOptions, setEngineSerialNumberOptions] = useState(
+    []
+  );
+  const [ceDesignCategoryOptions, setCEDesignCategoryOptions] = useState([]);
+  const [numberDrivesOptions, setNumberDrivesOptions] = useState([]);
+  const [numberEnginesOptions, setNumberEnginesOptions] = useState([]);
+  const [engineRangeOptions, setEngineRangeOptions] = useState([]);
+  const [cruisingSpeedOptions, setCruisingSpeedOptions] = useState([]);
+  const [driveTypeOptions, setDriveTypeOptions] = useState([]);
+
+  const [engineHoursOptions, setEngineHoursOptions] = useState([]);
+  const [ignitionSystemOptions, setIgnitionSystemOptions] = useState([]);
+  const [noiseLevelOptions, setNoiseLevelOptions] = useState([]);
+  const [engineSoundproofingKits, setEngineSoundproofingKits] = useState([]);
+
+  const [nominalRatingOptions, setNominalRatingOptions] = useState([]);
+  const [enginePerformanceOptions, setEnginePerformanceOptions] = useState([]);
+  const [maxPowerOutputOptions, setMaxPowerOutputOptions] = useState([]);
+  const [maxPowerBHPOptions, setMaxPowerBHPOptions] = useState([]);
+  const [maxSpeedKnotsOptions, setMaxSpeedKnotsOptions] = useState([]);
+  const [superchargedOptions, setSuperchargedOptions] = useState([]);
+  const [valveTrainOptions, setValveTrainOptions] = useState([]);
+  const [grossPowerFullLoadKwOptions, setGrossPowerFullLoadKwOptions] = useState([]);
+  const [grossPowerFullLoadOptions, setGrossPowerFullLoadOptions] = useState([]);
+  const [grossPowerPropellerCurveKwOptions, setGrossPowerPropellerCurveKwOptions] = useState([]);
+  const [grossPowerPropellerCurveOptions, setGrossPowerPropellerCurveOptions] = useState([]);
+  const [grossTorqueOptions, setGrossTorqueOptions] = useState([]);
+  const [continuousPowerOptions, setContinuousPowerOptions] = useState([]);
+  const [maxContinuousRatingOptions, setMaxContinuousRatingOptions] = useState([]);
+  const [engineSpeedRangeOptions, setEngineSpeedRangeOptions] = useState([]);
+
+  const [engineEfficiencyOptions, setEngineEfficiencyOptions] = useState([]);
+  const [powerToWeightRatioOptions, setPowerToWeightRatioOptions] = useState([]);
+  const [transmissionTypeOptions, setTransmissionTypeOptions] = useState([]);
+  const [gearShiftOptions, setGearShiftOptions] = useState([]);
+  const [gearRatioOptions, setGearRatioOptions] = useState([]);
+  const [flywheelOptions, setFlywheelOptions] = useState([]);
+  const [siluminFlywheelHousingOptions, setSiluminFlywheelHousingOptions] = useState([]);
+  const [camShaftOptions, setCamShaftOptions] = useState([]);
+  const [camShaftAlloyOptions, setCamShaftAlloyOptions] = useState([]);
+  const [crankcaseDesignOptions, setCrankcaseDesignOptions] = useState([]);
+
+  const [cylinderConfigurationOptions, setCylinderConfigurationOptions] = useState([]);
+  const [numberCylindersOptions, setNumberCylindersOptions] = useState([]);
+  const [cylindersArrangementOptions, setCylindersArrangementOptions] = useState([]);
+  const [gearShiftTypeOptions, setGearShiftTypeOptions] = useState([]);
+
+  const [numberValvesOptions, setNumberValvesOptions] = useState([]);
+  const [boreStrokeOptions, setBoreStrokeOptions] = useState([]);
+  const [boreOptions, setBoreOptions] = useState([]);
+  const [idleRPMOptions, setIdleRPMOptions] = useState([]);
+  const [rpmMaxPowerOptions, setRPMMaxPowerOptions] = useState([]);
+  const [ratedSpeedOptions, setRatedSpeedOptions] = useState([]);
+  const [maxTorqueOptions, setMaxTorqueOptions] = useState([]);
+  const [maxTorqueRPMOptions, setMaxTorqueRPMOptions] = useState([]);
+  const [torqueRatedSpeedOptions, setTorqueRatedSpeed] = useState([]);
+  const [valvePerCylinderOptions, setValvePerCylinderOptions] = useState([]);  
 
   const handleSubmit = (e) => {
     setOpenKey("Broker Valuation");
@@ -222,9 +286,10 @@ const EngineAdvert = () => {
       console.log(err);
     }
   };
-  const fetchEngineModel = async (
-    URL = "http://localhost:3001/api/advert_engine/engine_model"
-  ) => {
+  const fetchEngineModel = async (engineMake) => {
+    const URL = `http://localhost:3001/api/advert_engine/engine_model?engine_make=${encodeURIComponent(
+      engineMake
+    )}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
@@ -233,20 +298,11 @@ const EngineAdvert = () => {
       console.log(err);
     }
   };
-  const fetchUnitInjectors = async (
-    URL = "http://localhost:3001/api/advert_engine/unit_injectors"
-  ) => {
-    try {
-      const res = await fetch(URL);
-      const toJson = await res.json();
-      setUnitInjectorsOptions(toJson.result);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  const fetchEngineModelYear = async (
-    URL = "http://localhost:3001/api/advert_engine/engine_modelyear"
-  ) => {
+
+  const fetchEngineModelYear = async (engineMake, engineModel) => {
+    const URL = `http://localhost:3001/api/advert_engine/engine_modelyear?engine_make=${encodeURIComponent(
+      engineMake
+    )}&engine_model=${encodeURIComponent(engineModel)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
@@ -255,20 +311,13 @@ const EngineAdvert = () => {
       console.log(err);
     }
   };
-  const fetchCondition = async (
-    URL = "http://localhost:3001/api/advert_engine/conditions"
-  ) => {
-    try {
-      const res = await fetch(URL);
-      const toJson = await res.json();
-      setConditionOptions(toJson.result);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  const fetchEngineType = async (
-    URL = "http://localhost:3001/api/advert_engine/engine_type"
-  ) => {
+
+  const fetchEngineType = async (engineMake, engineModel, engineModelYear) => {
+    const URL = `http://localhost:3001/api/advert_engine/engine_type?engine_make=${encodeURIComponent(
+      engineMake
+    )}&engine_model=${encodeURIComponent(
+      engineModel
+    )}&engine_modelyear=${encodeURIComponent(engineModelYear)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
@@ -277,25 +326,108 @@ const EngineAdvert = () => {
       console.log(err);
     }
   };
+
   const fetchTypeDesignation = async (
-    URL = "http://localhost:3001/api/advert_engine/type_designation"
+    engineMake,
+    engineModel,
+    engineModelYear,
+    engineType
   ) => {
+    const URL = `http://localhost:3001/api/advert_engine/type_designation?engine_make=${encodeURIComponent(
+      engineMake
+    )}&engine_model=${encodeURIComponent(
+      engineModel
+    )}&engine_modelyear=${encodeURIComponent(
+      engineModelYear
+    )}&engine_type=${encodeURIComponent(engineType)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      setTypeDesignationOptions(toJson.result);
+      setTypeDesignationOptions(toJson.type_designation);
+      setEngineIdOptions(toJson.engineId);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fetchCondition = async (
+    engineMake,
+    engineModel,
+    engineModelYear,
+    engineType,
+    typeDesignation
+  ) => {
+    const URL = `http://localhost:3001/api/advert_engine/conditions?engine_make=${encodeURIComponent(
+      engineMake
+    )}&engine_model=${encodeURIComponent(
+      engineModel
+    )}&engine_modelyear=${encodeURIComponent(
+      engineModelYear
+    )}&engine_type=${encodeURIComponent(
+      engineType
+    )}&type_designation=${encodeURIComponent(
+      typeDesignation
+    )}&engine_ids=${encodeURIComponent(engineIdOptions)}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      setConditionOptions(toJson.condition);
+      setUsedConditionOptions(toJson.usedCondition);
+      setSellerOptions(toJson.seller);
+      setOfferedByOptions(toJson.offeredBy);
+      setCertificationOptions(toJson.engineCertification);
+      setEngineSerialNumberOptions(toJson.engineSerial);
+
+      setCEDesignCategoryOptions(toJson.ceCategory);
+      setNumberDrivesOptions(toJson.numberDrive);
+      setNumberEnginesOptions(toJson.numberEngine);
+      setEngineRangeOptions(toJson.engineRange);
+      setCruisingSpeedOptions(toJson.cruiseSpeed);
+      setDriveTypeOptions(toJson.driveType);
+      setEngineHoursOptions(toJson.engineHours);
+      setIgnitionSystemOptions(toJson.ignitionSystem);
+      setNoiseLevelOptions(toJson.cruiseSpeed);
+      setEngineSoundproofingKits(toJson.engineSoundProofingKit);
+
+      setNominalRatingOptions(toJson.nomialRating);
+      setEnginePerformanceOptions(toJson.enginePerformance);
+      setMaxPowerOutputOptions(toJson.maxPowerOutput);
+      setMaxPowerBHPOptions(toJson.maxPower);
+      setMaxSpeedKnotsOptions(toJson.maxSpeed);
+      setSuperchargedOptions(toJson.superCharged);
+      setValveTrainOptions(toJson.valveTrain);
+      setGrossTorqueOptions(toJson.grossTorque);
+
+      setGrossPowerFullLoadKwOptions(toJson.GP_fullLoadKW);
+      setGrossPowerFullLoadOptions(toJson.GP_fullLoadMetric);
+      setGrossPowerPropellerCurveKwOptions(toJson.GP_PropellerCurveKW);
+      setMaxContinuousRatingOptions(toJson.maxContinousRating);
+      setEngineSpeedRangeOptions(toJson.engineSpeedRange);
+
+      setGrossPowerPropellerCurveOptions(toJson.GP_PropellerCurveMetric);
+      setContinuousPowerOptions(toJson.continousPowerKWHP);
+      setEngineEfficiencyOptions(toJson.engineEfficiency);
+      setPowerToWeightRatioOptions(toJson.powerToWeightRatio);
+      setCylinderConfigurationOptions(toJson.cylinderConfiguration);
+      setNumberCylindersOptions(toJson.numberCylinders);
+      setCylindersArrangementOptions(toJson.cylindersArrangement);
+
+      setNumberValvesOptions(toJson.numberValves);
+      setBoreStrokeOptions(toJson.boreStroke);
+      setBoreOptions(toJson.bore);
+      setIdleRPMOptions(toJson.idleRPM);
+      setRPMMaxPowerOptions(toJson.rpmMaxPower);
+      setRatedSpeedOptions(toJson.ratedSpeed);
+      setMaxTorqueOptions(toJson.maxTorque);
+      setMaxTorqueRPMOptions(toJson.maxTorqueRPM);
+      setTorqueRatedSpeed(toJson.torqueRatedSpeed);
+      setValvePerCylinderOptions(toJson.valvePerCylinder)
     } catch (err) {
       console.log(err);
     }
   };
   useEffect(() => {
     fetchEngineMake();
-    fetchEngineModel();
-    fetchUnitInjectors();
-    fetchEngineModelYear();
-    fetchEngineType();
-    fetchCondition();
-    fetchTypeDesignation();
   }, []);
 
   return (
@@ -312,9 +444,11 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.engineMake}
-                    setValue={(val) =>
-                      setForm({ ...form, engineMake: val })
-                    }
+                    setValue={(val) => {
+                      setForm({ ...form, engineMake: val });
+                      fetchEngineModel(val);
+                      fetchEngineModelYear(val);
+                    }}
                     label={ENGINE_ADVERT.ENGINE_MAKE}
                     options={engineMakeOptions}
                     isMandatory={true}
@@ -342,9 +476,10 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.engineModel}
-                    setValue={(val) =>
-                      setForm({ ...form, engineModel: val })
-                    }
+                    setValue={(val) => {
+                      setForm({ ...form, engineModel: val });
+                      fetchEngineModelYear(form.engineMake, val);
+                    }}
                     label={ENGINE_ADVERT.ENGINE_MODEL}
                     options={engineModelOptions}
                     isMandatory={true}
@@ -356,9 +491,10 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.engineModelYear}
-                    setValue={(val) =>
-                      setForm({ ...form, engineModelYear: val })
-                    }
+                    setValue={(val) => {
+                      setForm({ ...form, engineModelYear: val });
+                      fetchEngineType(form.engineMake, form.engineModel, val);
+                    }}
                     label={ENGINE_ADVERT.ENGINE_MODEL_YEAR}
                     options={engineModelYearOptions}
                     isMandatory={true}
@@ -370,9 +506,15 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.engineType}
-                    setValue={(val) =>
-                      setForm({ ...form, engineType: val })
-                    }
+                    setValue={(val) => {
+                      setForm({ ...form, engineType: val });
+                      fetchTypeDesignation(
+                        form.engineMake,
+                        form.engineModel,
+                        form.engineModelYear,
+                        val
+                      );
+                    }}
                     label={ENGINE_ADVERT.ENGINE_TYPE}
                     options={engineTypeOptions}
                     isMandatory={true}
@@ -384,9 +526,16 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.typeDesignation}
-                    setValue={(val) =>
-                      setForm({ ...form, typeDesignation: val })
-                    }
+                    setValue={(val) => {
+                      setForm({ ...form, typeDesignation: val });
+                      fetchCondition(
+                        form.engineMake,
+                        form.engineModel,
+                        form.engineModelYear,
+                        form.engineType,
+                        val
+                      );
+                    }}
                     label={ENGINE_ADVERT.TYPE_DESIGNATION}
                     options={typeDesignationOptions}
                     isMandatory={true}
@@ -402,7 +551,9 @@ const EngineAdvert = () => {
                     type="advertEngine"
                     label={ENGINE_ADVERT.CONDITION}
                     value={form.condition}
-                    setValue={(val) => setForm({ ...form, condition: val })}
+                    setValue={(val) => {
+                      setForm({ ...form, condition: val });
+                    }}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     options={conditionOptions}
@@ -417,7 +568,7 @@ const EngineAdvert = () => {
                     label={ENGINE_ADVERT.USED_CONDITION}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    options={engineModelYearOptions}
+                    options={usedConditionOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -429,7 +580,7 @@ const EngineAdvert = () => {
                     value={form.seller}
                     setValue={(val) => setForm({ ...form, seller: val })}
                     label={ENGINE_ADVERT.SELLER}
-                    options={engineModelYearOptions}
+                    options={sellerOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -441,7 +592,7 @@ const EngineAdvert = () => {
                     value={form.offeredBy}
                     setValue={(val) => setForm({ ...form, offeredBy: val })}
                     label={ENGINE_ADVERT.OFFERED_BY}
-                    options={engineModelYearOptions}
+                    options={offeredByOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -489,21 +640,22 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.marisailVesselId}
-                    setValue={(val) => setForm({ ...form, marisailVesselId: val })}
+                    setValue={(val) =>
+                      setForm({ ...form, marisailVesselId: val })
+                    }
                     label={ENGINE_ADVERT.MARISAIL_VESSEL_ID}
                     options={defaultOptions}
                     isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
+                  <CheckComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.engineClassification}
-                    setValue={(val) => setForm({ ...form, engineClassification: val })}
                     label={ENGINE_ADVERT.ENGINE_CLASSIFICATION}
-                    options={defaultOptions}
+                    setValue={(val) => setForm({ ...form, engineClassification: val })}
+                    name={ENGINE_ADVERT.ENGINE_CLASSIFICATION}
+                    id={ENGINE_ADVERT.ENGINE_CLASSIFICATION_ID}
                     isMandatory={true}
                   />
                 </Col>
@@ -515,21 +667,18 @@ const EngineAdvert = () => {
                     value={form.certification}
                     setValue={(val) => setForm({ ...form, certification: val })}
                     label={ENGINE_ADVERT.CERTIFICATION}
-                    options={defaultOptions}
+                    options={certificationOptions}
                     isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
+                  <CheckComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.manufacturerWarranty}
-                    setValue={(val) =>
-                      setForm({ ...form, manufacturerWarranty: val })
-                    }
                     label={ENGINE_ADVERT.MANUFACTURER_WARRANTY}
-                    options={defaultOptions}
+                    setValue={(val) => setForm({ ...form, manufacturerWarranty: val })}
+                    name={ENGINE_ADVERT.MANUFACTURER_WARRANTY}
+                    id={ENGINE_ADVERT.MANUFACTURER_WARRANTY_ID}
                     isMandatory={false}
                   />
                 </Col>
@@ -543,7 +692,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, engineSerialNumber: val })
                     }
                     label={ENGINE_ADVERT.ENGINE_SERIAL_NUMBER}
-                    options={engineModelYearOptions}
+                    options={engineSerialNumberOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -557,7 +706,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, ceDesignCategory: val })
                     }
                     label={ENGINE_ADVERT.CE_DESIGN_CATEGORY}
-                    options={defaultOptions}
+                    options={ceDesignCategoryOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -567,11 +716,9 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.numberDrives}
-                    setValue={(val) =>
-                      setForm({ ...form, numberDrives: val })
-                    }
+                    setValue={(val) => setForm({ ...form, numberDrives: val })}
                     label={ENGINE_ADVERT.NUMBER_DRIVES}
-                    options={defaultOptions}
+                    options={numberDrivesOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -581,11 +728,9 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.numberEngines}
-                    setValue={(val) =>
-                      setForm({ ...form, numberEngines: val })
-                    }
+                    setValue={(val) => setForm({ ...form, numberEngines: val })}
                     label={ENGINE_ADVERT.NUMBER_ENGINES}
-                    options={defaultOptions}
+                    options={numberEnginesOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -595,11 +740,9 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.rangeMiles}
-                    setValue={(val) =>
-                      setForm({ ...form, rangeMiles: val })
-                    }
+                    setValue={(val) => setForm({ ...form, rangeMiles: val })}
                     label={ENGINE_ADVERT.RANGE_MILES}
-                    options={defaultOptions}
+                    options={engineRangeOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -609,11 +752,9 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.cruisingSpeed}
-                    setValue={(val) =>
-                      setForm({ ...form, cruisingSpeed: val })
-                    }
+                    setValue={(val) => setForm({ ...form, cruisingSpeed: val })}
                     label={ENGINE_ADVERT.CRUISING_SPEED}
-                    options={defaultOptions}
+                    options={cruisingSpeedOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -623,11 +764,9 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.driveType}
-                    setValue={(val) =>
-                      setForm({ ...form, driveType: val })
-                    }
+                    setValue={(val) => setForm({ ...form, driveType: val })}
                     label={ENGINE_ADVERT.DRIVE_TYPE}
-                    options={defaultOptions}
+                    options={driveTypeOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -637,11 +776,9 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.engineHours}
-                    setValue={(val) =>
-                      setForm({ ...form, engineHours: val })
-                    }
+                    setValue={(val) => setForm({ ...form, engineHours: val })}
                     label={ENGINE_ADVERT.ENGINE_HOURS}
-                    options={defaultOptions}
+                    options={engineHoursOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -655,7 +792,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, ignitionSystem: val })
                     }
                     label={ENGINE_ADVERT.IGNITION_SYSTEM}
-                    options={defaultOptions}
+                    options={ignitionSystemOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -665,11 +802,9 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.noiseLevel}
-                    setValue={(val) =>
-                      setForm({ ...form, noiseLevel: val })
-                    }
+                    setValue={(val) => setForm({ ...form, noiseLevel: val })}
                     label={ENGINE_ADVERT.NOISE_LEVEL}
-                    options={defaultOptions}
+                    options={noiseLevelOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -683,7 +818,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, engineSoundproofingKits: val })
                     }
                     label={ENGINE_ADVERT.ENGINE_SOUNDPROOFING_KITS}
-                    options={defaultOptions}
+                    options={engineSoundproofingKits}
                     isMandatory={false}
                   />
                 </Col>
@@ -700,7 +835,7 @@ const EngineAdvert = () => {
                     value={form.nominalRating}
                     setValue={(val) => setForm({ ...form, nominalRating: val })}
                     label="Nominal Rating (Kw) (HP)"
-                    options={defaultOptions}
+                    options={nominalRatingOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -714,7 +849,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, enginePerformance: val })
                     }
                     label="Engine Performance"
-                    options={defaultOptions}
+                    options={enginePerformanceOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -728,7 +863,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, maxPowerOutput: val })
                     }
                     label="Max Power Output"
-                    options={defaultOptions}
+                    options={maxPowerOutputOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -740,7 +875,7 @@ const EngineAdvert = () => {
                     value={form.maxPowerBHP}
                     setValue={(val) => setForm({ ...form, maxPowerBHP: val })}
                     label="Max. Power (BHP)"
-                    options={defaultOptions}
+                    options={maxPowerBHPOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -752,7 +887,7 @@ const EngineAdvert = () => {
                     value={form.maxSpeedKnots}
                     setValue={(val) => setForm({ ...form, maxSpeedKnots: val })}
                     label="Max. Speed (Knots)"
-                    options={defaultOptions}
+                    options={maxSpeedKnotsOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -764,7 +899,7 @@ const EngineAdvert = () => {
                     value={form.supercharged}
                     setValue={(val) => setForm({ ...form, supercharged: val })}
                     label="Supercharged"
-                    options={defaultOptions}
+                    options={superchargedOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -776,7 +911,7 @@ const EngineAdvert = () => {
                     value={form.valveTrain}
                     setValue={(val) => setForm({ ...form, valveTrain: val })}
                     label="Valve Train"
-                    options={defaultOptions}
+                    options={valveTrainOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -790,7 +925,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, grossPowerFullLoadKW: val })
                     }
                     label="Gross Power, Full Load (Kw)"
-                    options={defaultOptions}
+                    options={grossPowerFullLoadKwOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -804,7 +939,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, grossPowerFullLoadHpMetric: val })
                     }
                     label="Gross Power, Full Load (Hp, Metric)"
-                    options={defaultOptions}
+                    options={grossPowerFullLoadOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -818,7 +953,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, GrossPowerPropellerCurveKw: val })
                     }
                     label="Gross Power, Propeller Curve (Kw)"
-                    options={defaultOptions}
+                    options={grossPowerPropellerCurveKwOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -835,7 +970,7 @@ const EngineAdvert = () => {
                       })
                     }
                     label="Gross Power, Propeller Curve (Hp, Metric)"
-                    options={defaultOptions}
+                    options={grossPowerPropellerCurveOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -847,7 +982,7 @@ const EngineAdvert = () => {
                     value={form.grossTorque}
                     setValue={(val) => setForm({ ...form, grossTorque: val })}
                     label="Gross Torque (Nm)"
-                    options={defaultOptions}
+                    options={grossTorqueOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -861,7 +996,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, continuousPower: val })
                     }
                     label="Continuous Power (kW/HP)"
-                    options={defaultOptions}
+                    options={continuousPowerOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -875,7 +1010,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, maximumContinuousRating: val })
                     }
                     label="Maximum Continuous Rating (MCR)"
-                    options={defaultOptions}
+                    options={maxContinuousRatingOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -889,7 +1024,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, engineSpeedRange: val })
                     }
                     label="Engine Speed Range (RPM)"
-                    options={defaultOptions}
+                    options={engineSpeedRangeOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -903,7 +1038,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, engineEfficiency: val })
                     }
                     label="Engine Efficiency"
-                    options={defaultOptions}
+                    options={engineEfficiencyOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -917,7 +1052,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, powerToWeightRatio: val })
                     }
                     label="Power-to-Weight Ratio"
-                    options={defaultOptions}
+                    options={powerToWeightRatioOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -932,9 +1067,11 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.transmissionType}
-                    setValue={(val) => setForm({ ...form, transmissionType: val })}
+                    setValue={(val) =>
+                      setForm({ ...form, transmissionType: val })
+                    }
                     label={ENGINE_ADVERT.TRANSMISSION_TYPE}
-                    options={defaultOptions}
+                    options={transmissionTypeOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -947,7 +1084,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, gearShift: val })}
                     label={ENGINE_ADVERT.GEAR_SHIFT}
                     isMandatory={false}
-                    options={defaultOptions}
+                    options={gearShiftOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -959,7 +1096,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, gearRatio: val })}
                     label={ENGINE_ADVERT.GEAR_RATIO}
                     isMandatory={false}
-                    options={defaultOptions}
+                    options={gearRatioOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -971,7 +1108,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, gearShiftType: val })}
                     label={ENGINE_ADVERT.GEAR_SHIFT_TYPE}
                     isMandatory={false}
-                    options={defaultOptions}
+                    options={gearShiftTypeOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -983,7 +1120,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, flywheelSAE14: val })}
                     label={ENGINE_ADVERT.FLYWHEEL_SAE14}
                     isMandatory={false}
-                    options={defaultOptions}
+                    options={flywheelOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -992,9 +1129,11 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.siluminFlywheelHousing}
-                    setValue={(val) => setForm({ ...form, siluminFlywheelHousing: val })}
+                    setValue={(val) =>
+                      setForm({ ...form, siluminFlywheelHousing: val })
+                    }
                     label={ENGINE_ADVERT.SILUMIN_FLYWHEEL_HOUSING}
-                    options={defaultOptions}
+                    options={siluminFlywheelHousingOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -1006,7 +1145,7 @@ const EngineAdvert = () => {
                     value={form.camShaft}
                     setValue={(val) => setForm({ ...form, camShaft: val })}
                     label={ENGINE_ADVERT.CAMSHAFT}
-                    options={defaultOptions}
+                    options={camShaftOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -1018,7 +1157,7 @@ const EngineAdvert = () => {
                     value={form.camShaftAlloy}
                     setValue={(val) => setForm({ ...form, camShaftAlloy: val })}
                     label={ENGINE_ADVERT.CRANKSHAFT_ALLOY}
-                    options={defaultOptions}
+                    options={camShaftAlloyOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -1032,7 +1171,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, crankcaseDesign: val })
                     }
                     label={ENGINE_ADVERT.CRANKCASE_DESIGN}
-                    options={defaultOptions}
+                    options={crankcaseDesignOptions}
                   />
                 </Col>
               </Col>
@@ -1050,7 +1189,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, cylinderConfiguration: val })
                     }
                     label="Cylinder Configuration"
-                    options={defaultOptions}
+                    options={cylinderConfigurationOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -1064,7 +1203,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, numberCylinders: val })
                     }
                     label="Number Cylinders"
-                    options={defaultOptions}
+                    options={numberCylindersOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -1078,7 +1217,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, cylindersAndArrangement: val })
                     }
                     label="Cylinders And Arrangement"
-                    options={defaultOptions}
+                    options={cylindersArrangementOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -1090,7 +1229,7 @@ const EngineAdvert = () => {
                     value={form.numberValves}
                     setValue={(val) => setForm({ ...form, numberValves: val })}
                     label="Number Valves"
-                    options={defaultOptions}
+                    options={numberValvesOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -1104,7 +1243,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, valvePerCylinder: val })
                     }
                     label="Valve per Cylinder"
-                    options={defaultOptions}
+                    options={valvePerCylinderOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -1116,7 +1255,7 @@ const EngineAdvert = () => {
                     value={form.boreXStroke}
                     setValue={(val) => setForm({ ...form, boreXStroke: val })}
                     label="Bore X Stroke"
-                    options={defaultOptions}
+                    options={boreStrokeOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -1128,7 +1267,7 @@ const EngineAdvert = () => {
                     value={form.bore}
                     setValue={(val) => setForm({ ...form, bore: val })}
                     label="Bore"
-                    options={defaultOptions}
+                    options={boreOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -1140,7 +1279,7 @@ const EngineAdvert = () => {
                     value={form.stroke}
                     setValue={(val) => setForm({ ...form, stroke: val })}
                     label="Stroke"
-                    options={defaultOptions}
+                    options={boreStrokeOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -1155,7 +1294,9 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.engineManagementSystem}
-                    setValue={(val) => setForm({ ...form, engineManagementSystem: val })}
+                    setValue={(val) =>
+                      setForm({ ...form, engineManagementSystem: val })
+                    }
                     label={ENGINE_ADVERT.ENGINE_MANAGEMENT_SYSTEM}
                     options={defaultOptions}
                     isMandatory={false}
@@ -1167,7 +1308,9 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.engineControlSystem}
-                    setValue={(val) => setForm({ ...form, engineControlSystem: val })}
+                    setValue={(val) =>
+                      setForm({ ...form, engineControlSystem: val })
+                    }
                     label={ENGINE_ADVERT.ENGINE_CONTROL_SYSTEM}
                     options={defaultOptions}
                     isMandatory={false}
@@ -1203,7 +1346,9 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.turboChargingr}
-                    setValue={(val) => setForm({ ...form, turboChargingr: val })}
+                    setValue={(val) =>
+                      setForm({ ...form, turboChargingr: val })
+                    }
                     label={ENGINE_ADVERT.TURBO_CHARGING}
                     options={defaultOptions}
                     isMandatory={false}
@@ -1255,9 +1400,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.heatExchanger}
-                    setValue={(val) =>
-                      setForm({ ...form, heatExchanger: val })
-                    }
+                    setValue={(val) => setForm({ ...form, heatExchanger: val })}
                     label={ENGINE_ADVERT.HEAT_EXCHANGER}
                     options={defaultOptions}
                     isMandatory={false}
@@ -1283,9 +1426,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.seaWaterPump}
-                    setValue={(val) =>
-                      setForm({ ...form, seaWaterPump: val })
-                    }
+                    setValue={(val) => setForm({ ...form, seaWaterPump: val })}
                     label={ENGINE_ADVERT.SEA_WATER_PUMP}
                     options={defaultOptions}
                     isMandatory={false}
@@ -1430,6 +1571,251 @@ const EngineAdvert = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Propulsion System</h6>
+              <Col md={12}>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.propulsion}
+                    setValue={(val) => setForm({ ...form, propulsion: val })}
+                    label="Propulsion"
+                    options={defaultOptions}
+                    isMandatory={true}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.bowthruster}
+                    setValue={(val) => setForm({ ...form, bowthruster: val })}
+                    label="Bowthruster"
+                    options={defaultOptions}
+                    isMandatory={true}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.propulsionSystem}
+                    setValue={(val) =>
+                      setForm({ ...form, propulsionSystem: val })
+                    }
+                    label="Propulsion System"
+                    options={defaultOptions}
+                    isMandatory={false}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.propulsionSystemType}
+                    setValue={(val) =>
+                      setForm({ ...form, propulsionSystemType: val })
+                    }
+                    label="Propulsion System Type"
+                    options={defaultOptions}
+                    isMandatory={false}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.propellerDiameter}
+                    setValue={(val) =>
+                      setForm({ ...form, propellerDiameter: val })
+                    }
+                    label="Propeller Diameter"
+                    options={defaultOptions}
+                    isMandatory={false}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.propellerMaterial}
+                    setValue={(val) =>
+                      setForm({ ...form, propellerMaterial: val })
+                    }
+                    label="Propeller Material"
+                    options={defaultOptions}
+                    isMandatory={false}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.propellerPitch}
+                    setValue={(val) =>
+                      setForm({ ...form, propellerPitch: val })
+                    }
+                    label="Propeller Pitch"
+                    isMandatory={false}
+                    options={defaultOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.propellerType}
+                    setValue={(val) => setForm({ ...form, propellerType: val })}
+                    label="Propeller Type"
+                    options={defaultOptions}
+                    isMandatory={false}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.propellerShaftDiameter}
+                    setValue={(val) =>
+                      setForm({ ...form, propellerShaftDiameter: val })
+                    }
+                    label="Propeller Shaft Diameter"
+                    options={defaultOptions}
+                    isMandatory={false}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.gearboxType}
+                    setValue={(val) => setForm({ ...form, gearboxType: val })}
+                    label="Gearbox Type"
+                    options={defaultOptions}
+                    isMandatory={false}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.transmissionCooling}
+                    setValue={(val) =>
+                      setForm({ ...form, transmissionCooling: val })
+                    }
+                    label="Transmission Cooling"
+                    options={defaultOptions}
+                    isMandatory={false}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.propellerBladeMaterial}
+                    setValue={(val) =>
+                      setForm({ ...form, propellerBladeMaterial: val })
+                    }
+                    label="Propeller Blade Material"
+                    options={defaultOptions}
+                    isMandatory={true}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.propellerShaftMaterial}
+                    setValue={(val) =>
+                      setForm({ ...form, propellerShaftMaterial: val })
+                    }
+                    label="Propeller Shaft Material"
+                    options={defaultOptions}
+                    isMandatory={false}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.steeringSystem}
+                    setValue={(val) =>
+                      setForm({ ...form, steeringSystem: val })
+                    }
+                    label="Steering System"
+                    isMandatory={false}
+                    options={defaultOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.steeringControlType}
+                    setValue={(val) =>
+                      setForm({ ...form, steeringControlType: val })
+                    }
+                    label="Steering Control Type"
+                    isMandatory={false}
+                    options={defaultOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.trimSystem}
+                    setValue={(val) => setForm({ ...form, trimSystem: val })}
+                    label="Trim System"
+                    isMandatory={false}
+                    options={defaultOptions}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.trimTabMaterial}
+                    setValue={(val) =>
+                      setForm({ ...form, trimTabMaterial: val })
+                    }
+                    label="Trim Tab Material"
+                    options={defaultOptions}
+                    isMandatory={false}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.trimTabType}
+                    setValue={(val) => setForm({ ...form, trimTabType: val })}
+                    label="Trim Tab Type"
+                    isMandatory={false}
+                    options={defaultOptions}
+                  />
+                </Col>
+              </Col>
+            </Col>
+            <Col md={6} className="mt-4">
               <h6 style={{ marginLeft: 10 }}>Fuel System</h6>
               <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
@@ -1438,7 +1824,9 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.electronicFuelinjection}
-                    setValue={(val) => setForm({ ...form, electronicFuelinjection: val })}
+                    setValue={(val) =>
+                      setForm({ ...form, electronicFuelinjection: val })
+                    }
                     label="Electronic Fuel Injection (EFI)"
                     options={defaultOptions}
                     isMandatory={false}
@@ -1450,9 +1838,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.fuelPreFilter}
-                    setValue={(val) =>
-                      setForm({ ...form, fuelPreFilter: val })
-                    }
+                    setValue={(val) => setForm({ ...form, fuelPreFilter: val })}
                     label="Fuel Pre-Filter"
                     isMandatory={false}
                     options={defaultOptions}
@@ -1464,9 +1850,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.fuelFilter}
-                    setValue={(val) =>
-                      setForm({ ...form, fuelFilter : val })
-                    }
+                    setValue={(val) => setForm({ ...form, fuelFilter: val })}
                     label="Fuel Filter"
                     options={defaultOptions}
                     isMandatory={false}
@@ -1492,9 +1876,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.fuelReserve}
-                    setValue={(val) =>
-                      setForm({ ...form, fuelReserve: val })
-                    }
+                    setValue={(val) => setForm({ ...form, fuelReserve: val })}
                     label="Fuel Reserve (Holding Tank) (Litres)"
                     options={defaultOptions}
                     isMandatory={false}
@@ -1506,9 +1888,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.fuelSystem}
-                    setValue={(val) =>
-                      setForm({ ...form, fuelSystem: val })
-                    }
+                    setValue={(val) => setForm({ ...form, fuelSystem: val })}
                     label="Fuel System"
                     isMandatory={true}
                     options={defaultOptions}
@@ -1534,9 +1914,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.fuelType}
-                    setValue={(val) =>
-                      setForm({ ...form, fuelType: val })
-                    }
+                    setValue={(val) => setForm({ ...form, fuelType: val })}
                     label="Fuel Type"
                     isMandatory={true}
                     options={defaultOptions}
@@ -1664,6 +2042,239 @@ const EngineAdvert = () => {
                       setForm({ ...form, fuelLineDiameter: val })
                     }
                     label="Fuel Line Diameter"
+                    options={defaultOptions}
+                    isMandatory={false}
+                  />
+                </Col>
+              </Col>
+            </Col>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Cooling System</h6>
+              <Col md={12}>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.afterCooled}
+                    setValue={(val) => setForm({ ...form, afterCooled: val })}
+                    label="Aftercooled"
+                    options={defaultOptions}
+                    isMandatory={false}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.coolingSystem}
+                    setValue={(val) => setForm({ ...form, coolingSystem: val })}
+                    label="Cooling System"
+                    options={defaultOptions}
+                    isMandatory={true}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.closedCoolingSystem}
+                    setValue={(val) =>
+                      setForm({ ...form, closedCoolingSystem: val })
+                    }
+                    label="Closed Cooling System"
+                    options={defaultOptions}
+                    isMandatory={false}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.openCoolingSystem}
+                    setValue={(val) =>
+                      setForm({ ...form, openCoolingSystem: val })
+                    }
+                    label="Open Cooling System"
+                    options={defaultOptions}
+                    isMandatory={false}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.intercooled}
+                    setValue={(val) => setForm({ ...form, intercooled: val })}
+                    label="Intercooled"
+                    options={defaultOptions}
+                    isMandatory={false}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.recommendedCoolant}
+                    setValue={(val) =>
+                      setForm({ ...form, recommendedCoolant: val })
+                    }
+                    label="Recommended Coolant"
+                    options={defaultOptions}
+                    isMandatory={false}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.typeOfCooling}
+                    setValue={(val) => setForm({ ...form, typeOfCooling: val })}
+                    label="Type Of Cooling"
+                    options={defaultOptions}
+                    isMandatory={false}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.heatExchangerMaterial}
+                    setValue={(val) =>
+                      setForm({ ...form, heatExchangerMaterial: val })
+                    }
+                    label="Heat Exchanger Material"
+                    options={defaultOptions}
+                    isMandatory={false}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.heatDissipationRate}
+                    setValue={(val) =>
+                      setForm({ ...form, heatDissipationRate: val })
+                    }
+                    label="Heat Dissipation Rate"
+                    options={defaultOptions}
+                    isMandatory={false}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.engineLubrication}
+                    setValue={(val) =>
+                      setForm({ ...form, engineLubrication: val })
+                    }
+                    label="Engine Lubrication"
+                    options={defaultOptions}
+                    isMandatory={false}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.lubricationSystem}
+                    setValue={(val) =>
+                      setForm({ ...form, lubricationSystem: val })
+                    }
+                    label="Lubrication System"
+                    options={defaultOptions}
+                    isMandatory={false}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.coolingCapacity}
+                    setValue={(val) =>
+                      setForm({ ...form, coolingCapacity: val })
+                    }
+                    label="Cooling Capacity (L/min)"
+                    options={defaultOptions}
+                    isMandatory={false}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.coolingFluidType}
+                    setValue={(val) =>
+                      setForm({ ...form, coolingFluidType: val })
+                    }
+                    label="Cooling Fluid Type"
+                    options={defaultOptions}
+                    isMandatory={true}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.coolingSystemPressure}
+                    setValue={(val) =>
+                      setForm({ ...form, coolingSystemPressure: val })
+                    }
+                    label="Cooling System Pressure"
+                    options={defaultOptions}
+                    isMandatory={false}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.airFilterType}
+                    setValue={(val) => setForm({ ...form, airFilterType: val })}
+                    label="Air Filter Type"
+                    options={defaultOptions}
+                    isMandatory={false}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.circulationPumpType}
+                    setValue={(val) =>
+                      setForm({ ...form, circulationPumpType: val })
+                    }
+                    label="Circulation Pump Type"
+                    options={defaultOptions}
+                    isMandatory={false}
+                  />
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.rawWaterpumpType}
+                    setValue={(val) =>
+                      setForm({ ...form, rawWaterpumpType: val })
+                    }
+                    label="Raw Water Pump Type"
                     options={defaultOptions}
                     isMandatory={false}
                   />
@@ -1834,506 +2445,12 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.lastServiceDate}
-                    setValue={(val) => setForm({ ...form, lastServiceDate: val })}
+                    setValue={(val) =>
+                      setForm({ ...form, lastServiceDate: val })
+                    }
                     label={ENGINE_ADVERT.LAST_SERVICE_DATE}
                     options={defaultOptions}
                     isMandatory={true}
-                  />
-                </Col>
-              </Col>
-            </Col>
-            <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: 10 }}>Propulsion System</h6>
-              <Col md={12}>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.propulsion}
-                    setValue={(val) => setForm({ ...form, propulsion: val })}
-                    label="Propulsion"
-                    options={defaultOptions}
-                    isMandatory={true}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.bowthruster}
-                    setValue={(val) =>
-                      setForm({ ...form, bowthruster: val })
-                    }
-                    label="Bowthruster"
-                    options={defaultOptions}
-                    isMandatory={true}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.propulsionSystem}
-                    setValue={(val) =>
-                      setForm({ ...form, propulsionSystem : val })
-                    }
-                    label="Propulsion System"
-                    options={defaultOptions}
-                    isMandatory={false}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.propulsionSystemType}
-                    setValue={(val) =>
-                      setForm({ ...form, propulsionSystemType: val })
-                    }
-                    label="Propulsion System Type"
-                    options={defaultOptions}
-                    isMandatory={false}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.propellerDiameter}
-                    setValue={(val) =>
-                      setForm({ ...form, propellerDiameter: val })
-                    }
-                    label="Propeller Diameter"
-                    options={defaultOptions}
-                    isMandatory={false}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.propellerMaterial}
-                    setValue={(val) =>
-                      setForm({ ...form, propellerMaterial: val })
-                    }
-                    label="Propeller Material"
-                    options={defaultOptions}
-                    isMandatory={false}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.propellerPitch}
-                    setValue={(val) =>
-                      setForm({ ...form, propellerPitch: val })
-                    }
-                    label="Propeller Pitch"
-                    isMandatory={false}
-                    options={defaultOptions}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.propellerType}
-                    setValue={(val) =>
-                      setForm({ ...form, propellerType: val })
-                    }
-                    label="Propeller Type"
-                    options={defaultOptions}
-                    isMandatory={false}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.propellerShaftDiameter}
-                    setValue={(val) =>
-                      setForm({ ...form, propellerShaftDiameter: val })
-                    }
-                    label="Propeller Shaft Diameter"
-                    options={defaultOptions}
-                    isMandatory={false}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.gearboxType}
-                    setValue={(val) =>
-                      setForm({ ...form, gearboxType: val })
-                    }
-                    label="Gearbox Type"
-                    options={defaultOptions}
-                    isMandatory={false}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.transmissionCooling}
-                    setValue={(val) =>
-                      setForm({ ...form, transmissionCooling: val })
-                    }
-                    label="Transmission Cooling"
-                    options={defaultOptions}
-                    isMandatory={false}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.propellerBladeMaterial}
-                    setValue={(val) =>
-                      setForm({ ...form, propellerBladeMaterial: val })
-                    }
-                    label="Propeller Blade Material"
-                    options={defaultOptions}
-                    isMandatory={true}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.propellerShaftMaterial}
-                    setValue={(val) =>
-                      setForm({ ...form, propellerShaftMaterial: val })
-                    }
-                    label="Propeller Shaft Material"
-                    options={defaultOptions}
-                    isMandatory={false}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.steeringSystem}
-                    setValue={(val) =>
-                      setForm({ ...form, steeringSystem: val })
-                    }
-                    label="Steering System"
-                    isMandatory={false}
-                    options={defaultOptions}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.steeringControlType}
-                    setValue={(val) =>
-                      setForm({ ...form, steeringControlType: val })
-                    }
-                    label="Steering Control Type"
-                    isMandatory={false}
-                    options={defaultOptions}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.trimSystem}
-                    setValue={(val) =>
-                      setForm({ ...form, trimSystem: val })
-                    }
-                    label="Trim System"
-                    isMandatory={false}
-                    options={defaultOptions}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.trimTabMaterial}
-                    setValue={(val) =>
-                      setForm({ ...form, trimTabMaterial: val })
-                    }
-                    label="Trim Tab Material"
-                    options={defaultOptions}
-                    isMandatory={false}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.trimTabType}
-                    setValue={(val) =>
-                      setForm({ ...form, trimTabType: val })
-                    }
-                    label="Trim Tab Type"
-                    isMandatory={false}
-                    options={defaultOptions}
-                  />
-                </Col>
-              </Col>
-            </Col>
-            <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: 10 }}>Cooling System</h6>
-              <Col md={12}>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.afterCooled}
-                    setValue={(val) => setForm({ ...form, afterCooled: val })}
-                    label="Aftercooled"
-                    options={defaultOptions}
-                    isMandatory={false}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.coolingSystem}
-                    setValue={(val) =>
-                      setForm({ ...form, coolingSystem: val })
-                    }
-                    label="Cooling System"
-                    options={defaultOptions}
-                    isMandatory={true}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.closedCoolingSystem}
-                    setValue={(val) =>
-                      setForm({ ...form, closedCoolingSystem: val })
-                    }
-                    label="Closed Cooling System"
-                    options={defaultOptions}
-                    isMandatory={false}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.openCoolingSystem}
-                    setValue={(val) =>
-                      setForm({ ...form, openCoolingSystem: val })
-                    }
-                    label="Open Cooling System"
-                    options={defaultOptions}
-                    isMandatory={false}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.intercooled}
-                    setValue={(val) =>
-                      setForm({ ...form, intercooled: val })
-                    }
-                    label="Intercooled"
-                    options={defaultOptions}
-                    isMandatory={false}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.recommendedCoolant}
-                    setValue={(val) =>
-                      setForm({ ...form, recommendedCoolant: val })
-                    }
-                    label="Recommended Coolant"
-                    options={defaultOptions}
-                    isMandatory={false}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.typeOfCooling}
-                    setValue={(val) =>
-                      setForm({ ...form, typeOfCooling: val })
-                    }
-                    label="Type Of Cooling"
-                    options={defaultOptions}
-                    isMandatory={false}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.heatExchangerMaterial}
-                    setValue={(val) =>
-                      setForm({ ...form, heatExchangerMaterial: val })
-                    }
-                    label="Heat Exchanger Material"
-                    options={defaultOptions}
-                    isMandatory={false}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.heatDissipationRate}
-                    setValue={(val) =>
-                      setForm({ ...form, heatDissipationRate: val })
-                    }
-                    label="Heat Dissipation Rate"
-                    options={defaultOptions}
-                    isMandatory={false}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.engineLubrication}
-                    setValue={(val) =>
-                      setForm({ ...form, engineLubrication: val })
-                    }
-                    label="Engine Lubrication"
-                    options={defaultOptions}
-                    isMandatory={false}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.lubricationSystem}
-                    setValue={(val) =>
-                      setForm({ ...form, lubricationSystem: val })
-                    }
-                    label="Lubrication System"
-                    options={defaultOptions}
-                    isMandatory={false}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.coolingCapacity}
-                    setValue={(val) =>
-                      setForm({ ...form, coolingCapacity: val })
-                    }
-                    label="Cooling Capacity (L/min)"
-                    options={defaultOptions}
-                    isMandatory={false}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.coolingFluidType}
-                    setValue={(val) =>
-                      setForm({ ...form, coolingFluidType: val })
-                    }
-                    label="Cooling Fluid Type"
-                    options={defaultOptions}
-                    isMandatory={true}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.coolingSystemPressure}
-                    setValue={(val) =>
-                      setForm({ ...form, coolingSystemPressure: val })
-                    }
-                    label="Cooling System Pressure"
-                    options={defaultOptions}
-                    isMandatory={false}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.airFilterType}
-                    setValue={(val) =>
-                      setForm({ ...form, airFilterType: val })
-                    }
-                    label="Air Filter Type"
-                    options={defaultOptions}
-                    isMandatory={false}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.circulationPumpType}
-                    setValue={(val) =>
-                      setForm({ ...form, circulationPumpType: val })
-                    }
-                    label="Circulation Pump Type"
-                    options={defaultOptions}
-                    isMandatory={false}
-                  />
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.rawWaterpumpType}
-                    setValue={(val) =>
-                      setForm({ ...form, rawWaterpumpType: val })
-                    }
-                    label="Raw Water Pump Type"
-                    options={defaultOptions}
-                    isMandatory={false}
                   />
                 </Col>
               </Col>
@@ -2347,7 +2464,9 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.fuelConsumption}
-                    setValue={(val) => setForm({ ...form, fuelConsumption: val })}
+                    setValue={(val) =>
+                      setForm({ ...form, fuelConsumption: val })
+                    }
                     label="Fuel Consumption At 3/4 Load (G/Kwh)"
                     options={defaultOptions}
                     isMandatory={false}
@@ -2374,7 +2493,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     value={form.fuelConsumptionPropellerCurve}
                     setValue={(val) =>
-                      setForm({ ...form, fuelConsumptionPropellerCurve : val })
+                      setForm({ ...form, fuelConsumptionPropellerCurve: val })
                     }
                     label="Fuel Consumption, Propeller Curve (L/H)"
                     options={defaultOptions}
@@ -2406,7 +2525,9 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.engineMonitoringSystems}
-                    setValue={(val) => setForm({ ...form, engineMonitoringSystems: val })}
+                    setValue={(val) =>
+                      setForm({ ...form, engineMonitoringSystems: val })
+                    }
                     label="Engine Monitoring Systems"
                     isMandatory={false}
                     options={defaultOptions}
@@ -2418,7 +2539,9 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.overheatProtection}
-                    setValue={(val) => setForm({ ...form, overheatProtection: val })}
+                    setValue={(val) =>
+                      setForm({ ...form, overheatProtection: val })
+                    }
                     label="Overheat Protection"
                     isMandatory={false}
                     options={defaultOptions}
@@ -2430,7 +2553,9 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.lowOilPressureAlarm}
-                    setValue={(val) => setForm({ ...form, lowOilPressureAlarm: val })}
+                    setValue={(val) =>
+                      setForm({ ...form, lowOilPressureAlarm: val })
+                    }
                     label="Low Oil Pressure Alarm"
                     isMandatory={false}
                     options={defaultOptions}
@@ -2442,7 +2567,9 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.emergencyStopSystem}
-                    setValue={(val) => setForm({ ...form, emergencyStopSystem: val })}
+                    setValue={(val) =>
+                      setForm({ ...form, emergencyStopSystem: val })
+                    }
                     label="Emergency Stop System"
                     isMandatory={false}
                     options={defaultOptions}
@@ -2570,7 +2697,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     value={form.centrifugalOilCleaner}
                     setValue={(val) =>
-                      setForm({ ...form, centrifugalOilCleaner : val })
+                      setForm({ ...form, centrifugalOilCleaner: val })
                     }
                     label="Centrifugal Oil Cleaner"
                     options={defaultOptions}
@@ -2583,9 +2710,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.oilCooler}
-                    setValue={(val) =>
-                      setForm({ ...form, oilCooler: val })
-                    }
+                    setValue={(val) => setForm({ ...form, oilCooler: val })}
                     label="Oil Cooler"
                     options={defaultOptions}
                     isMandatory={false}
@@ -2597,9 +2722,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.oilFiller}
-                    setValue={(val) =>
-                      setForm({ ...form, oilFiller: val })
-                    }
+                    setValue={(val) => setForm({ ...form, oilFiller: val })}
                     label="Oil Filler"
                     options={defaultOptions}
                     isMandatory={false}
@@ -2611,9 +2734,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.oilDipstick}
-                    setValue={(val) =>
-                      setForm({ ...form, oilDipstick: val })
-                    }
+                    setValue={(val) => setForm({ ...form, oilDipstick: val })}
                     label="Oil Dipstick"
                     options={defaultOptions}
                     isMandatory={false}
@@ -2639,9 +2760,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.oilCapacity}
-                    setValue={(val) =>
-                      setForm({ ...form, oilCapacity: val })
-                    }
+                    setValue={(val) => setForm({ ...form, oilCapacity: val })}
                     label="Oil Capacity"
                     options={defaultOptions}
                     isMandatory={false}
@@ -2714,7 +2833,9 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.emissionCompliance}
-                    setValue={(val) => setForm({ ...form, emissionCompliance: val })}
+                    setValue={(val) =>
+                      setForm({ ...form, emissionCompliance: val })
+                    }
                     label="Emission Compliance"
                     options={defaultOptions}
                     isMandatory={false}
@@ -2738,7 +2859,9 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.exhaustSystemType}
-                    setValue={(val) => setForm({ ...form, exhaustSystemType: val })}
+                    setValue={(val) =>
+                      setForm({ ...form, exhaustSystemType: val })
+                    }
                     label="Exhaust System Type"
                     isMandatory={false}
                     options={defaultOptions}
@@ -2750,7 +2873,9 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.exhaustGasAfterTreatment}
-                    setValue={(val) => setForm({ ...form, exhaustGasAfterTreatment: val })}
+                    setValue={(val) =>
+                      setForm({ ...form, exhaustGasAfterTreatment: val })
+                    }
                     label="Exhaust Gas After Treatment"
                     options={defaultOptions}
                     isMandatory={false}
@@ -2763,7 +2888,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     value={form.exhaustGasStatus}
                     setValue={(val) =>
-                      setForm({ ...form, exhaustGasStatus : val })
+                      setForm({ ...form, exhaustGasStatus: val })
                     }
                     label="Exhaust Gas Status"
                     isMandatory={false}
@@ -2777,7 +2902,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     value={form.exhaustValveTiming}
                     setValue={(val) =>
-                      setForm({ ...form, exhaustValveTiming : val })
+                      setForm({ ...form, exhaustValveTiming: val })
                     }
                     label="Exhaust Valve Timing"
                     isMandatory={false}
@@ -2791,7 +2916,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     value={form.intakeValveTiming}
                     setValue={(val) =>
-                      setForm({ ...form, intakeValveTiming : val })
+                      setForm({ ...form, intakeValveTiming: val })
                     }
                     label="Intake Valve Timing"
                     isMandatory={false}
@@ -2818,9 +2943,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.noxEmissions}
-                    setValue={(val) =>
-                      setForm({ ...form, noxEmissions: val })
-                    }
+                    setValue={(val) => setForm({ ...form, noxEmissions: val })}
                     label="NOx Emissions (g/kWh)"
                     isMandatory={false}
                     options={defaultOptions}
@@ -2832,9 +2955,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.soxEmissions}
-                    setValue={(val) =>
-                      setForm({ ...form, soxEmissions: val })
-                    }
+                    setValue={(val) => setForm({ ...form, soxEmissions: val })}
                     label="SOx Emissions (g/kWh)"
                     isMandatory={false}
                     options={defaultOptions}
@@ -2846,9 +2967,7 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.coxEmissions}
-                    setValue={(val) =>
-                      setForm({ ...form, coxEmissions: val })
-                    }
+                    setValue={(val) => setForm({ ...form, coxEmissions: val })}
                     label="COx Emissions (g/kWh)"
                     isMandatory={false}
                     options={defaultOptions}
@@ -2891,7 +3010,9 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.alternatorOutput}
-                    setValue={(val) => setForm({ ...form, alternatorOutput: val })}
+                    setValue={(val) =>
+                      setForm({ ...form, alternatorOutput: val })
+                    }
                     label="Alternator Output"
                     isMandatory={false}
                     options={defaultOptions}
@@ -2915,7 +3036,9 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.batteryVoltage}
-                    setValue={(val) => setForm({ ...form, batteryVoltage: val })}
+                    setValue={(val) =>
+                      setForm({ ...form, batteryVoltage: val })
+                    }
                     label="Battery Voltage"
                     options={defaultOptions}
                     isMandatory={false}
@@ -2928,7 +3051,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     value={form.generatorOutputKw}
                     setValue={(val) =>
-                      setForm({ ...form, generatorOutputKw : val })
+                      setForm({ ...form, generatorOutputKw: val })
                     }
                     label="Generator Output (kW)"
                     options={defaultOptions}
@@ -2942,7 +3065,7 @@ const EngineAdvert = () => {
                     setOpenKey={setOpenKey}
                     value={form.generatorOutputAmps}
                     setValue={(val) =>
-                      setForm({ ...form, generatorOutputAmps : val })
+                      setForm({ ...form, generatorOutputAmps: val })
                     }
                     label="Generator Output (Amps)"
                     options={defaultOptions}
@@ -3174,7 +3297,9 @@ const EngineAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.globalAddressLookup}
-                    setValue={(val) => setForm({ ...form, globalAddressLookup: val })}
+                    setValue={(val) =>
+                      setForm({ ...form, globalAddressLookup: val })
+                    }
                     label="Global Address Lookup"
                     isMandatory={false}
                     options={defaultOptions}
