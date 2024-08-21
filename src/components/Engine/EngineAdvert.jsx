@@ -366,7 +366,19 @@ const EngineAdvert = () => {
   const [maintenanceLogRequirementsOptions, setMaintenanceLogRequirementsOptions] = useState([]);
   const [availabilityOfSparePartsOptions, setAvailabilityOfSparePartsOptions] = useState([]);
   const [lastServiceDateOptions, setLastServiceDateOptions] = useState([]);
-  const [operationModeOptions, setOperationModeOptions] = useState([]);  
+  const [operationModeOptions, setOperationModeOptions] = useState([]);
+
+  const [engineMountingOrientationOptions, setEngineMountingOrientationOptions] = useState([]);
+  const [engineSuspensionOptions, setEngineSuspensionOptions] = useState([]);
+  const [engineMountingTypeOptions, setEngineMountingTypeOptions] = useState([]);
+  const [mountingBracketMaterialOptions, setMountingBracketMaterialOptions] = useState([]);
+  const [alignmentRequirementsOptions, setAlignmentRequirementsOptions] = useState([]);
+  const [engineBlockOptions, setEngineBlockOptions] = useState([]);
+
+  const [engineMonitoringSystemsOptions, setEngineMonitoringSystemsOptions] = useState([]);
+  const [overheatProtectionOptions, setOverheatProtectionOptions] = useState([]);
+  const [lowOilPressureAlarmOptions, setLowOilPressureAlarmOptions] = useState([]);
+  const [emergencyStopSystemOptions, setEmergencyStopSystemOptions] = useState([]);
 
   const handleSubmit = (e) => {
     setOpenKey("Broker Valuation");
@@ -680,6 +692,20 @@ const EngineAdvert = () => {
       setAvailabilityOfSparePartsOptions(toJson.availability_spareparts);
       setOperationModeOptions(toJson.operation_mode);
       setLastServiceDateOptions(toJson.last_servicedate);
+
+      //MountingFields
+      setEngineMountingOrientationOptions(toJson.enginemounting_orientation);
+      setEngineSuspensionOptions(toJson.engine_suspension);
+      setEngineMountingTypeOptions(toJson.engine_mountingtype);
+      setMountingBracketMaterialOptions(toJson.mountingbracket_material);
+      setAlignmentRequirementsOptions(toJson.alignment_requirements);
+      setEngineBlockOptions(toJson.engine_block);
+
+      //SafetyFields
+      setEngineMonitoringSystemsOptions(toJson.engine_monitoringsystem);
+      setOverheatProtectionOptions(toJson.overheat_protection);
+      setLowOilPressureAlarmOptions(toJson.lowoil_pressurealarm);
+      setEmergencyStopSystemOptions(toJson.emergency_stopsystem);
     } catch (err) {
       console.log(err);
     }
@@ -2552,7 +2578,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, engineMountingOrientation: val })
                     }
                     label={ENGINE_ADVERT.ENGINE_MOUNTING_ORIENTATION}
-                    options={defaultOptions}
+                    options={engineMountingOrientationOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -2566,7 +2592,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, engineSuspension: val })
                     }
                     label={ENGINE_ADVERT.ENGINE_SUSPENSION}
-                    options={defaultOptions}
+                    options={engineSuspensionOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -2580,7 +2606,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, engineMountingType: val })
                     }
                     label={ENGINE_ADVERT.ENGINE_MOUNTING_TYPE}
-                    options={defaultOptions}
+                    options={engineMountingTypeOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -2594,7 +2620,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, mountingBracketMaterial: val })
                     }
                     label={ENGINE_ADVERT.MOUNTING_BRACKET_MATERIAL}
-                    options={defaultOptions}
+                    options={mountingBracketMaterialOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -2608,7 +2634,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, alignmentRequirements: val })
                     }
                     label={ENGINE_ADVERT.ALIGNMENT_REQUIREMENTS}
-                    options={defaultOptions}
+                    options={alignmentRequirementsOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -2620,7 +2646,7 @@ const EngineAdvert = () => {
                     value={form.engineBlock}
                     setValue={(val) => setForm({ ...form, engineBlock: val })}
                     label={ENGINE_ADVERT.ENGINE_BLOCK}
-                    options={defaultOptions}
+                    options={engineBlockOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -2788,7 +2814,7 @@ const EngineAdvert = () => {
                     }
                     label="Engine Monitoring Systems"
                     isMandatory={false}
-                    options={defaultOptions}
+                    options={engineMonitoringSystemsOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2802,7 +2828,7 @@ const EngineAdvert = () => {
                     }
                     label="Overheat Protection"
                     isMandatory={false}
-                    options={defaultOptions}
+                    options={overheatProtectionOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2816,7 +2842,7 @@ const EngineAdvert = () => {
                     }
                     label="Low Oil Pressure Alarm"
                     isMandatory={false}
-                    options={defaultOptions}
+                    options={lowOilPressureAlarmOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -2830,7 +2856,7 @@ const EngineAdvert = () => {
                     }
                     label="Emergency Stop System"
                     isMandatory={false}
-                    options={defaultOptions}
+                    options={emergencyStopSystemOptions}
                   />
                 </Col>
               </Col>
