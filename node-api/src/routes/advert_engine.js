@@ -216,7 +216,7 @@ advertEngineRouter.get("/conditions/", async (req, res) => {
       GP_fullloadKW,	GP_fullloadmetric,	GP_propellercurveKW,	GP_propellercurvemetric,	gross_torque,	continuouspower_KWHP,
       Max_Continuousrating,	Engine_speedrange,	engine_efficiency,	powertoweight_ratio,	cylinder_configuration,
       number_cylinders,	cylinders_arrangement,	number_valves,	valve_percylinder,	bore_stroke,	bore,	idle_rpm,
-      rated_speed,	rpm_maxpower,	max_torque,	max_torquerpm,	torque_ratedspeed, cylinder_arrangement, torque_ratespeed
+      rated_speed,	rpm_maxpower,	max_torque,	max_torquerpm,	torque_ratedspeed, cylinders_arrangement, torque_ratedspeed
       FROM engine_performance WHERE engine_id IN (${req.query.engine_ids})`
     );
     const [engineTransmissionFields] = await connection.query(
@@ -272,7 +272,7 @@ advertEngineRouter.get("/conditions/", async (req, res) => {
     );
     const [engineLocationFields] = await connection.query(
       `SELECT aut_updates,	automatic_updates
-      FROM engine_equipment WHERE engine_id IN (${req.query.engine_ids})`
+      FROM engine_location WHERE engine_id IN (${req.query.engine_ids})`
     );
     const [engineDimensionFields] = await connection.query(
       `SELECT displacement,	length,	width,	height,	Engine_length,	engine_weight,	dry_weight,	weight_excloil,
@@ -641,7 +641,7 @@ advertEngineRouter.get("/conditions/", async (req, res) => {
         (row) => row.number_cylinders
       ),
       cylindersArrangement: enginePerformanceFields.map(
-        (row) => row.cylinder_arrangement
+        (row) => row.cylinders_arrangement
       ),
       numberValves: enginePerformanceFields.map((row) => row.number_valves),
       boreStroke: enginePerformanceFields.map((row) => row.bore_stroke),
@@ -652,7 +652,7 @@ advertEngineRouter.get("/conditions/", async (req, res) => {
       maxTorque: enginePerformanceFields.map((row) => row.max_torque),
       maxTorqueRPM: enginePerformanceFields.map((row) => row.max_torquerpm),
       torqueRatedSpeed: enginePerformanceFields.map(
-        (row) => row.torque_ratespeed
+        (row) => row.torque_ratedspeed
       ),
       valvePerCylinder: enginePerformanceFields.map(
         (row) => row.valve_percylinder

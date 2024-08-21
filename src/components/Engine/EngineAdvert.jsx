@@ -380,6 +380,11 @@ const EngineAdvert = () => {
   const [lowOilPressureAlarmOptions, setLowOilPressureAlarmOptions] = useState([]);
   const [emergencyStopSystemOptions, setEmergencyStopSystemOptions] = useState([]);
 
+  const [fuelConsumptionOptions, setFuelConsumptionOptions] = useState([]);
+  const [fuelConsumptionHalfLoadOptions, setFuelConsumptionHalfLoadOptions] = useState([]);
+  const [fuelConsumptionPropellerCurveOptions, setFuelConsumptionPropellerCurveOptions] = useState([]);
+  const [heatRejectionToCoolantOptions, setHeatRejectionToCoolantOptions] = useState([]);
+
   const handleSubmit = (e) => {
     setOpenKey("Broker Valuation");
     try {
@@ -613,10 +618,10 @@ const EngineAdvert = () => {
       setDuelDeliveryPressureOptions(toJson.Fuel_deliverypressure)
       setFuelTankMaterialOptions(toJson.Fuel_tankmaterial);
       setFuelLineDiameterOptions(toJson.fuel_linediameter);
-      // (toJson.FC_3Quarterload)
-      // (toJson.FC_halfload)
-      // (toJson.FC_propellercurve)
-      // (toJson.heat_rejection)
+      setFuelConsumptionOptions(toJson.FC_3Quarterload)
+      setFuelConsumptionHalfLoadOptions(toJson.FC_halfload)
+      setFuelConsumptionPropellerCurveOptions(toJson.FC_propellercurve)
+      setHeatRejectionToCoolantOptions(toJson.heat_rejection)
       setRecommendedFuelOptions(toJson.recommended_fuel)
 
       //PropulsionFields
@@ -2752,7 +2757,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, fuelConsumption: val })
                     }
                     label="Fuel Consumption At 3/4 Load (G/Kwh)"
-                    options={defaultOptions}
+                    options={fuelConsumptionOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -2766,7 +2771,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, fuelConsumptionHalfLoad: val })
                     }
                     label="Fuel Consumption At 1/2 Load (G/Kwh)"
-                    options={defaultOptions}
+                    options={fuelConsumptionHalfLoadOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -2780,7 +2785,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, fuelConsumptionPropellerCurve: val })
                     }
                     label="Fuel Consumption, Propeller Curve (L/H)"
-                    options={defaultOptions}
+                    options={fuelConsumptionPropellerCurveOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -2794,7 +2799,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, heatRejectionToCoolant: val })
                     }
                     label="Heat Rejection To Coolant (Kw)"
-                    options={defaultOptions}
+                    options={heatRejectionToCoolantOptions}
                     isMandatory={false}
                   />
                 </Col>
