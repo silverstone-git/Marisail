@@ -385,6 +385,20 @@ const EngineAdvert = () => {
   const [fuelConsumptionPropellerCurveOptions, setFuelConsumptionPropellerCurveOptions] = useState([]);
   const [heatRejectionToCoolantOptions, setHeatRejectionToCoolantOptions] = useState([]);
 
+  const [oilFilterOptions, setOilFilterOptions] = useState([]);
+  const [oilFilterTypeOptions, setOilFilterTypeOptions] = useState([]);
+  const [centrifugalOilCleanerOptions, setCentrifugalOilCleanerOptions] = useState([]);
+  const [oilCoolerOptions, setOilCoolerOptions] = useState([]);
+  const [oilFillerOptions, setOilFillerOptions] = useState([]);
+  const [oilDipstickOptions, setOilDipstickOptions] = useState([]);
+  const [recommendedOilOptions, setRecommendedOilOptions] = useState([]);
+  const [oilCapacityOptions, setOilCapacityOptions] = useState([]);
+  const [oilChangeIntervalOptions, setOilChangeIntervalOptions] = useState([]);
+  const [oilCoolingMethodOptions, setOilCoolingMethodOptions] = useState([]);
+  const [lubricationOilPressureOptions, setLubricationOilPressureOptions] = useState([]);
+  const [oilFilterBypassValveOptions, setOilFilterBypassValveOptions] = useState([]);
+
+
   const handleSubmit = (e) => {
     setOpenKey("Broker Valuation");
     try {
@@ -507,6 +521,20 @@ const EngineAdvert = () => {
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
+
+      //OilFields
+      setOilFilterOptions(toJson.oil_filter);
+      setOilFilterTypeOptions(toJson.oil_filtertype);
+      setCentrifugalOilCleanerOptions(toJson.centrifugal_oilcleaner);
+      setOilCoolerOptions(toJson.oil_cooler);
+      setOilFillerOptions(toJson.oil_filler);
+      setOilDipstickOptions(toJson.oil_dipstick);
+      setRecommendedOilOptions(toJson.recommended_oil);
+      setOilCapacityOptions(toJson.oil_capacity);
+      setOilChangeIntervalOptions(toJson.oil_changeinterval);
+      setOilCoolingMethodOptions(toJson.oil_coolingmethod);
+      setLubricationOilPressureOptions(toJson.lubrication_oilpressure);
+      setOilFilterBypassValveOptions(toJson.oilfilter_bypassvalve)
       setConditionOptions(toJson.condition);
       setUsedConditionOptions(toJson.usedCondition);
       setSellerOptions(toJson.seller);
@@ -1461,6 +1489,7 @@ const EngineAdvert = () => {
                     }
                     label={ENGINE_ADVERT.CRANKCASE_DESIGN}
                     options={crankcaseDesignOptions}
+                    isMandatory={false}
                   />
                 </Col>
               </Col>
@@ -2963,7 +2992,7 @@ const EngineAdvert = () => {
                     value={form.oilFilter}
                     setValue={(val) => setForm({ ...form, oilFilter: val })}
                     label="Oil Filter"
-                    options={defaultOptions}
+                    options={oilFilterOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -2975,7 +3004,7 @@ const EngineAdvert = () => {
                     value={form.oilFilterType}
                     setValue={(val) => setForm({ ...form, oilFilterType: val })}
                     label="Oil Filter Type"
-                    options={defaultOptions}
+                    options={oilFilterTypeOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -2989,7 +3018,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, centrifugalOilCleaner: val })
                     }
                     label="Centrifugal Oil Cleaner"
-                    options={defaultOptions}
+                    options={centrifugalOilCleanerOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -3001,7 +3030,7 @@ const EngineAdvert = () => {
                     value={form.oilCooler}
                     setValue={(val) => setForm({ ...form, oilCooler: val })}
                     label="Oil Cooler"
-                    options={defaultOptions}
+                    options={oilCoolerOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -3013,7 +3042,7 @@ const EngineAdvert = () => {
                     value={form.oilFiller}
                     setValue={(val) => setForm({ ...form, oilFiller: val })}
                     label="Oil Filler"
-                    options={defaultOptions}
+                    options={oilFillerOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -3025,7 +3054,7 @@ const EngineAdvert = () => {
                     value={form.oilDipstick}
                     setValue={(val) => setForm({ ...form, oilDipstick: val })}
                     label="Oil Dipstick"
-                    options={defaultOptions}
+                    options={oilDipstickOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -3039,7 +3068,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, recommendedOil: val })
                     }
                     label="Recommended Oil"
-                    options={defaultOptions}
+                    options={recommendedOilOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -3051,7 +3080,7 @@ const EngineAdvert = () => {
                     value={form.oilCapacity}
                     setValue={(val) => setForm({ ...form, oilCapacity: val })}
                     label="Oil Capacity"
-                    options={defaultOptions}
+                    options={oilCapacityOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -3065,7 +3094,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, oilChangeInterval: val })
                     }
                     label="Oil Change Interval"
-                    options={defaultOptions}
+                    options={oilChangeIntervalOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -3079,7 +3108,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, oilCoolingMethod: val })
                     }
                     label="Oil Cooling Method"
-                    options={defaultOptions}
+                    options={oilCoolingMethodOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -3093,7 +3122,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, lubricationOilPressure: val })
                     }
                     label="Lubrication Oil Pressure"
-                    options={defaultOptions}
+                    options={lubricationOilPressureOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -3107,7 +3136,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, oilFilterBypassValve: val })
                     }
                     label="Oil Filter Bypass Valve"
-                    options={defaultOptions}
+                    options={oilFilterBypassValveOptions}
                     isMandatory={false}
                   />
                 </Col>
