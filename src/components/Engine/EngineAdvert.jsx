@@ -178,6 +178,7 @@ const EngineAdvert = () => {
     globalAddressLookup: "",
   });
   const [openKey, setOpenKey] = useState(null);
+  const [engineIdOptions, setEngineIdOptions] = useState([]);
   const [engineMakeOptions, setEngineMakeOptions] = useState([]);
   const [engineModelOptions, setEngineModelOptions] = useState([]);
   const [unitInjectorsOptions, setUnitInjectorsOptions] = useState([]);
@@ -342,7 +343,8 @@ const EngineAdvert = () => {
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      setTypeDesignationOptions(toJson.result);
+      setTypeDesignationOptions(toJson.type_designation);
+      setEngineIdOptions(toJson.engineId);
     } catch (err) {
       console.log(err);
     }
@@ -363,7 +365,9 @@ const EngineAdvert = () => {
       engineModelYear
     )}&engine_type=${encodeURIComponent(
       engineType
-    )}&type_designation=${encodeURIComponent(typeDesignation)}`;
+    )}&type_designation=${encodeURIComponent(
+      typeDesignation
+    )}&engine_ids=${encodeURIComponent(engineIdOptions)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();

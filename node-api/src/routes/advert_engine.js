@@ -122,25 +122,30 @@ advertEngineRouter.get("/type_designation/", async (req, res) => {
   let filterOptions = "";
   try {
     connection = await dbConnection.getConnection();
-    if (req.query.engine_make && req.query.engine_model && req.query.engine_modelyear && req.query.type_designation) {
-      filterOptions = ` WHERE engine_make = '${req.query.engine_make}' AND engine_model = '${req.query.engine_model}' AND engine_modelyear = '${req.query.engine_modelyear}' AND type_designation = '${req.query.type_designation}'`;
+    if (req.query.engine_make && req.query.engine_model && req.query.engine_modelyear && req.query.engine_type) {
+      filterOptions = ` WHERE engine_make = '${req.query.engine_make}' AND engine_model = '${req.query.engine_model}' AND engine_modelyear = '${req.query.engine_modelyear}' AND engine_type = '${req.query.engine_type}'`;
     } else if (req.query.engine_make && !req.query.engine_model && !req.query.engine_modelyear) {
       filterOptions = ` WHERE engine_make = '${req.query.engine_make}'`;
     }else if (!req.query.engine_make && req.query.engine_model && !req.query.engine_modelyear) {
       filterOptions = ` WHERE engine_model = '${req.query.engine_model}'`;
     }else if (!req.query.engine_make && !req.query.engine_model && req.query.engine_modelyear) {
       filterOptions = ` WHERE engine_modelyear = '${req.query.engine_modelyear}'`;
-    }else if (!req.query.engine_make && !req.query.engine_model && !req.query.engine_modelyear && req.query.type_designation) {
-      filterOptions = ` WHERE type_designation = '${req.query.type_designation}'`;
+    }else if (!req.query.engine_make && !req.query.engine_model && !req.query.engine_modelyear && req.query.engine_type) {
+      filterOptions = ` WHERE engine_type = '${req.query.type_designation}'`;
     }else{
       filterOptions = ``;
     }
     const [rows] = await connection.query(
       `SELECT DISTINCT type_designation FROM engine_general ${filterOptions} ORDER BY type_designation`
     );
+    const [engineId] = await connection.query(
+      `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
+    );
+    // console.log("Final Rows Filter Options------------------->",filterOptions);
+    // console.log("Final Rows Engine Id------------------->",engineId);
     return res
       .status(200)
-      .json({ ok: true, result: rows.map((row) => row.type_designation) });
+      .json({ ok: true, type_designation: rows.map((row) => row.type_designation), engineId: engineId.map((row) => row.engine_id) });
   } catch (err) {
     return res.status(500).json({ ok: false, message: err.message });
   } finally {
@@ -150,209 +155,81 @@ advertEngineRouter.get("/type_designation/", async (req, res) => {
 
 advertEngineRouter.get("/conditions/", async (req, res) => {
   let connection;
-  let filterOptions = "";
   try {
+    console.log("001 Engine Ids--",req.query.engine_ids);
+    
     connection = await dbConnection.getConnection();
-    if (req.query.engine_make && req.query.engine_model && req.query.engine_modelyear && req.query.type_designation) {
-      filterOptions = ` WHERE engine_make = '${req.query.engine_make}' AND engine_model = '${req.query.engine_model}' AND engine_modelyear = '${req.query.engine_modelyear}' AND type_designation = '${req.query.type_designation}'`;
-    } else if (req.query.engine_make && !req.query.engine_model && !req.query.engine_modelyear) {
-      filterOptions = ` WHERE engine_make = '${req.query.engine_make}'`;
-    }else if (!req.query.engine_make && req.query.engine_model && !req.query.engine_modelyear) {
-      filterOptions = ` WHERE engine_model = '${req.query.engine_model}'`;
-    }else if (!req.query.engine_make && !req.query.engine_model && req.query.engine_modelyear) {
-      filterOptions = ` WHERE engine_modelyear = '${req.query.engine_modelyear}'`;
-    }else if (!req.query.engine_make && !req.query.engine_model && !req.query.engine_modelyear && req.query.type_designation) {
-      filterOptions = ` WHERE type_designation = '${req.query.type_designation}'`;
-    }else{
-      filterOptions = ``;
-    }
-    const [conditions] = await connection.query(
-      `SELECT DISTINCT condition_1 FROM engine_general ${filterOptions} ORDER BY condition_1`
+    console.log("Engine general query--", `SELECT marisail_vesselid,	engine_make,	engine_classifiable,	engine_certification,	engine_model,	manufacture_warranty,
+      engine_modelyear,	engine_serial,	engine_type,	type_designation,	engine_year,	ce_category,	number_drives,
+      number_engines,	engine_range,	cruise_speed,	drive_type,	engine_hours,	ignition_system,	noiselevel_db,	enginesound_proofingkits
+      FROM engine_general WHERE engine_id IN (${req.query.engine_ids})`);
+    const [engineGeneralFields] = await connection.query(
+      `SELECT marisail_vesselid,	offered_by, seller, used_condition, condition_1, engine_make,	engine_classifiable,	engine_certification,	engine_model,	manufacture_warranty,
+      engine_modelyear,	engine_serial,	engine_type,	type_designation,	engine_year,	ce_category,	number_drives,
+      number_engines,	engine_range,	cruise_speed,	drive_type,	engine_hours,	ignition_system,	noiselevel_db,	enginesound_proofingkits
+      FROM engine_general WHERE engine_id IN (${req.query.engine_ids})`
     );
-    const [usedConditions] = await connection.query(
-      `SELECT DISTINCT used_condition FROM engine_general ${filterOptions} ORDER BY used_condition`
+    const [enginePerformanceFields] = await connection.query(
+      `SELECT nominal_rating,	engine_performance,	max_poweroutput,	max_power,	max_speed,	supercharged,	valve_train,
+      GP_fullloadKW,	GP_fullloadmetric,	GP_propellercurveKW,	GP_propellercurvemetric,	gross_torque,	continuouspower_KWHP,
+      Max_Continuousrating,	Engine_speedrange,	engine_efficiency,	powertoweight_ratio,	cylinder_configuration,
+      number_cylinders,	cylinders_arrangement,	number_valves,	valve_percylinder,	bore_stroke,	bore,	idle_rpm,
+      rated_speed,	rpm_maxpower,	max_torque,	max_torquerpm,	torque_ratedspeed, cylinder_arrangement, torque_ratespeed
+      FROM engine_performance WHERE engine_id IN (${req.query.engine_ids})`
     );
-    const [sellers] = await connection.query(
-      `SELECT DISTINCT seller FROM engine_general ${filterOptions} ORDER BY seller`
-    );
-    const [offeredBy] = await connection.query(
-      `SELECT DISTINCT offered_by FROM engine_general ${filterOptions} ORDER BY offered_by`
-    );
-    const [engineCertifications] = await connection.query(
-      `SELECT DISTINCT engine_certification FROM engine_general ${filterOptions} ORDER BY engine_certification`
-    );
-    const [engineSerial] = await connection.query(
-      `SELECT DISTINCT engine_serial FROM engine_general ${filterOptions} ORDER BY engine_serial`
-    );
-    const [ceCategory] = await connection.query(
-      `SELECT DISTINCT ce_category FROM engine_general ${filterOptions} ORDER BY ce_category`
-    );
-    const [numberDrives] = await connection.query(
-      `SELECT DISTINCT number_drives FROM engine_general ${filterOptions} ORDER BY number_drives`
-    );
-    const [numberEngines] = await connection.query(
-      `SELECT DISTINCT number_engines FROM engine_general ${filterOptions} ORDER BY number_engines`
-    );
-    const [engineRange] = await connection.query(
-      `SELECT DISTINCT engine_range FROM engine_general ${filterOptions} ORDER BY engine_range`
-    );
-    const [cruiseSpeed] = await connection.query(
-      `SELECT DISTINCT cruise_speed FROM engine_general ${filterOptions} ORDER BY cruise_speed`
-    );
-    const [driveType] = await connection.query(
-      `SELECT DISTINCT drive_type FROM engine_general ${filterOptions} ORDER BY drive_type`
-    );
-    const [engineHours] = await connection.query(
-      `SELECT DISTINCT engine_hours FROM engine_general ${filterOptions} ORDER BY engine_hours`
-    );
-    const [ignitionSystems] = await connection.query(
-      `SELECT DISTINCT ignition_system FROM engine_general ${filterOptions} ORDER BY ignition_system`
-    );
-    const [noiseLevel] = await connection.query(
-      `SELECT DISTINCT noiselevel_db FROM engine_general ${filterOptions} ORDER BY noiselevel_db`
-    );
-    const [engineSoundProofingKits] = await connection.query(
-      `SELECT DISTINCT enginesound_proofingkits FROM engine_general ${filterOptions} ORDER BY enginesound_proofingkits`
-    );
-    const [nomialRating] = await connection.query(
-      `SELECT DISTINCT nominal_rating FROM engine_performance ${filterOptions} ORDER BY nominal_rating`
-    );
-    const [enginePerformance] = await connection.query(
-      `SELECT DISTINCT engine_performance FROM engine_performance ${filterOptions} ORDER BY engine_performance`
-    );
-    const [maxPowerOutput] = await connection.query(
-      `SELECT DISTINCT max_poweroutput FROM engine_performance ${filterOptions} ORDER BY max_poweroutput`
-    );
-    const [maxPower] = await connection.query(
-      `SELECT DISTINCT max_power FROM engine_performance ${filterOptions} ORDER BY max_power`
-    );
-    const [maxSpeed] = await connection.query(
-      `SELECT DISTINCT max_speed FROM engine_performance ${filterOptions} ORDER BY max_speed`
-    );
-    const [superCharged] = await connection.query(
-      `SELECT DISTINCT supercharged FROM engine_performance ${filterOptions} ORDER BY supercharged`
-    );
-    const [valveTrain] = await connection.query(
-      `SELECT DISTINCT valve_train FROM engine_performance ${filterOptions} ORDER BY valve_train`
-    );
-    const [grossTorque] = await connection.query(
-      `SELECT DISTINCT gross_torque FROM engine_performance ${filterOptions} ORDER BY gross_torque`
-    );
-    const [GP_fullLoadKW] = await connection.query(
-      `SELECT DISTINCT GP_fullloadKW FROM engine_performance ${filterOptions} ORDER BY GP_fullloadKW`
-    );
-    const [GP_fullLoadMetric] = await connection.query(
-      `SELECT DISTINCT GP_fullloadmetric FROM engine_performance ${filterOptions} ORDER BY GP_fullloadmetric`
-    );
-    const [GP_PropellerCurveKW] = await connection.query(
-      `SELECT DISTINCT GP_propellercurveKW FROM engine_performance ${filterOptions} ORDER BY GP_propellercurveKW`
-    );
-    const [GP_PropellerCurveMetric] = await connection.query(
-      `SELECT DISTINCT GP_propellercurvemetric FROM engine_performance ${filterOptions} ORDER BY GP_propellercurvemetric`
-    );
-    const [continousPowerKWHP] = await connection.query(
-      `SELECT DISTINCT continouspower_KWHP FROM engine_performance ${filterOptions} ORDER BY continouspower_KWHP`
-    );
-    const [maxContinousRating] = await connection.query(
-      `SELECT DISTINCT Max_Continuousrating FROM engine_performance ${filterOptions} ORDER BY Max_Continuousrating`
-    );
-    const [engineSpeedRange] = await connection.query(
-      `SELECT DISTINCT Engine_speedrange FROM engine_performance ${filterOptions} ORDER BY Engine_speedrange`
-    );
-    const [engineEfficiency] = await connection.query(
-      `SELECT DISTINCT engine_efficiency FROM engine_performance ${filterOptions} ORDER BY engine_efficiency`
-    );
-    const [powerToWeightRatio] = await connection.query(
-      `SELECT DISTINCT powertoweight_ratio FROM engine_performance ${filterOptions} ORDER BY powertoweight_ratio`
-    );
-    const [cylinderConfiguration] = await connection.query(
-      `SELECT DISTINCT cylinder_configuration FROM engine_performance ${filterOptions} ORDER BY cylinder_configuration`
-    );
-    const [numberCylinders] = await connection.query(
-      `SELECT DISTINCT number_cylinders FROM engine_performance ${filterOptions} ORDER BY number_cylinders`
-    );
-    const [cylindersArrangement] = await connection.query(
-      `SELECT DISTINCT cylinder_arrangement FROM engine_performance ${filterOptions} ORDER BY cylinder_arrangement`
-    );
-    const [numberValves] = await connection.query(
-      `SELECT DISTINCT number_valves FROM engine_performance ${filterOptions} ORDER BY number_valves`
-    );
-    const [boreStroke] = await connection.query(
-      `SELECT DISTINCT bore_stroke FROM engine_performance ${filterOptions} ORDER BY bore_stroke`
-    );
-    const [bore] = await connection.query(
-      `SELECT DISTINCT bore FROM engine_performance ${filterOptions} ORDER BY bore`
-    );
-    const [idleRPM] = await connection.query(
-      `SELECT DISTINCT idle_rpm FROM engine_performance ${filterOptions} ORDER BY idle_rpm`
-    );
-    const [rpmMaxPower] = await connection.query(
-      `SELECT DISTINCT rpm_maxpower FROM engine_performance ${filterOptions} ORDER BY rpm_maxpower`
-    );
-    const [ratedSpeed] = await connection.query(
-      `SELECT DISTINCT rated_speed FROM engine_performance ${filterOptions} ORDER BY rated_speed`
-    );
-    const [maxTorque] = await connection.query(
-      `SELECT DISTINCT max_torque FROM engine_performance ${filterOptions} ORDER BY max_torque`
-    );
-    const [maxTorqueRPM] = await connection.query(
-      `SELECT DISTINCT max_torquerpm FROM engine_performance ${filterOptions} ORDER BY max_torquerpm`
-    );
-    const [torqueRatedSpeed] = await connection.query(
-      `SELECT DISTINCT torque_ratespeed FROM engine_performance ${filterOptions} ORDER BY torque_ratespeed`
-    );
-    const [valvePerCylinder] = await connection.query(
-      `SELECT DISTINCT valve_percylinder FROM engine_performance ${filterOptions} ORDER BY valve_percylinder`
-    );
+    console.log("001 Engine General----",engineGeneralFields);
+    console.log("001 Engine Performance----",enginePerformanceFields);
+
     return res
       .status(200)
       .json({ ok: true,
-        condition: conditions.map((row) => row.condition_1),
-        usedCondition: usedConditions.map((row) => row.used_condition),
-        seller: sellers.map((row) => row.seller),
-        offeredBy: offeredBy.map((row) => row.offered_by),
-        engineCertification: engineCertifications.map((row) => row.engine_certification),
-        engineSerial: engineSerial.map((row) => row.engine_serial),
-        ceCategory: ceCategory.map((row) => row.ce_category),
-        numberDrive: numberDrives.map((row) => row.number_drives),
-        numberEngine: numberEngines.map((row) => row.number_engines),
-        engineRange: engineRange.map((row) => row.engine_range),
-        cruiseSpeed: cruiseSpeed.map((row) => row.cruise_speed),
-        driveType: driveType.map((row) => row.drive_type),
-        engineHours: engineHours.map((row) => row.engine_hours),
-        ignitionSystem: ignitionSystems.map((row) => row.ignition_system),
-        noiseLevel: noiseLevel.map((row) => row.noiselevel_db),
-        engineSoundProofingKit: engineSoundProofingKits.map((row) => row.enginesound_proofingkits),
-        nomialRating: nomialRating.map((row) => row.nominal_rating),
-        enginePerformance: enginePerformance.map((row) => row.engine_performance),
-        maxPowerOutput: maxPowerOutput.map((row) => row.max_poweroutput),
-        maxPower: maxPower.map((row) => row.max_power),
-        maxSpeed: maxSpeed.map((row) => row.max_speed),
-        superCharged: superCharged.map((row) => row.supercharged),
-        valveTrain: valveTrain.map((row) => row.valve_train),
-        grossTorque: grossTorque.map((row) => row.gross_torque),
-        GP_fullLoadKW: GP_fullLoadKW.map((row) => row.GP_fullloadKW),
-        GP_fullLoadMetric: GP_fullLoadMetric.map((row) => row.GP_fullloadmetric),
-        GP_PropellerCurveKW: GP_PropellerCurveKW.map((row) => row.GP_propellercurveKW),
-        maxContinousRating: maxContinousRating.map((row) => row.Max_Continuousrating),
-        engineSpeedRange: engineSpeedRange.map((row) => row.Engine_speedrange),
-        GP_PropellerCurveMetric: GP_PropellerCurveMetric.map((row) => row.GP_propellercurvemetric),
-        continousPowerKWHP: continousPowerKWHP.map((row) => row.continouspower_KWHP),
-        engineEfficiency: engineEfficiency.map((row) => row.engine_efficiency),
-        powerToWeightRatio: powerToWeightRatio.map((row) => row.powertoweight_ratio),
-        cylinderConfiguration: cylinderConfiguration.map((row) => row.cylinder_configuration),
-        numberCylinders: numberCylinders.map((row) => row.number_cylinders),
-        cylindersArrangement: cylindersArrangement.map((row) => row.cylinder_arrangement),
-        numberValves: numberValves.map((row) => row.number_valves),
-        boreStroke: boreStroke.map((row) => row.bore_stroke),
-        bore: bore.map((row) => row.bore),
-        idleRPM: idleRPM.map((row) => row.idle_rpm),
-        rpmMaxPower: rpmMaxPower.map((row) => row.rpm_maxpower),
-        ratedSpeed: ratedSpeed.map((row) => row.rated_speed),
-        maxTorque: maxTorque.map((row) => row.max_torque),
-        maxTorqueRPM: maxTorqueRPM.map((row) => row.max_torquerpm),
-        torqueRatedSpeed: torqueRatedSpeed.map((row) => row.torque_ratespeed),
-        valvePerCylinder: valvePerCylinder.map((row) => row.valve_percylinder),
+        condition: engineGeneralFields.map((row) => row.condition_1),
+        usedCondition: engineGeneralFields.map((row) => row.used_condition),
+        seller: engineGeneralFields.map((row) => row.seller),
+        offeredBy: engineGeneralFields.map((row) => row.offered_by),
+        engineCertification: engineGeneralFields.map((row) => row.engine_certification),
+        engineClassifiable: engineGeneralFields.map((row) => row.engine_classifiable),
+        engineSerial: engineGeneralFields.map((row) => row.engine_serial),
+        ceCategory: engineGeneralFields.map((row) => row.ce_category),
+        numberDrive: engineGeneralFields.map((row) => row.number_drives),
+        numberEngine: engineGeneralFields.map((row) => row.number_engines),
+        engineRange: engineGeneralFields.map((row) => row.engine_range),
+        cruiseSpeed: engineGeneralFields.map((row) => row.cruise_speed),
+        driveType: engineGeneralFields.map((row) => row.drive_type),
+        engineHours: engineGeneralFields.map((row) => row.engine_hours),
+        ignitionSystem: engineGeneralFields.map((row) => row.ignition_system),
+        noiseLevel: engineGeneralFields.map((row) => row.noiselevel_db),
+        engineSoundProofingKit: engineGeneralFields.map((row) => row.enginesound_proofingkits),
+        nomialRating: enginePerformanceFields.map((row) => row.nominal_rating),
+        enginePerformance: enginePerformanceFields.map((row) => row.engine_performance),
+        maxPowerOutput: enginePerformanceFields.map((row) => row.max_poweroutput),
+        maxPower: enginePerformanceFields.map((row) => row.max_power),
+        maxSpeed: enginePerformanceFields.map((row) => row.max_speed),
+        superCharged: enginePerformanceFields.map((row) => row.supercharged),
+        valveTrain: enginePerformanceFields.map((row) => row.valve_train),
+        grossTorque: enginePerformanceFields.map((row) => row.gross_torque),
+        GP_fullLoadKW: enginePerformanceFields.map((row) => row.GP_fullloadKW),
+        GP_fullLoadMetric: enginePerformanceFields.map((row) => row.GP_fullloadmetric),
+        GP_PropellerCurveKW: enginePerformanceFields.map((row) => row.GP_propellercurveKW),
+        maxContinousRating: enginePerformanceFields.map((row) => row.Max_Continuousrating),
+        engineSpeedRange: enginePerformanceFields.map((row) => row.Engine_speedrange),
+        GP_PropellerCurveMetric: enginePerformanceFields.map((row) => row.GP_propellercurvemetric),
+        continousPowerKWHP: enginePerformanceFields.map((row) => row.continouspower_KWHP),
+        engineEfficiency: enginePerformanceFields.map((row) => row.engine_efficiency),
+        powerToWeightRatio: enginePerformanceFields.map((row) => row.powertoweight_ratio),
+        cylinderConfiguration: enginePerformanceFields.map((row) => row.cylinder_configuration),
+        numberCylinders: enginePerformanceFields.map((row) => row.number_cylinders),
+        cylindersArrangement: enginePerformanceFields.map((row) => row.cylinder_arrangement),
+        numberValves: enginePerformanceFields.map((row) => row.number_valves),
+        boreStroke: enginePerformanceFields.map((row) => row.bore_stroke),
+        bore: enginePerformanceFields.map((row) => row.bore),
+        idleRPM: enginePerformanceFields.map((row) => row.idle_rpm),
+        rpmMaxPower: enginePerformanceFields.map((row) => row.rpm_maxpower),
+        ratedSpeed: enginePerformanceFields.map((row) => row.rated_speed),
+        maxTorque: enginePerformanceFields.map((row) => row.max_torque),
+        maxTorqueRPM: enginePerformanceFields.map((row) => row.max_torquerpm),
+        torqueRatedSpeed: enginePerformanceFields.map((row) => row.torque_ratespeed),
+        valvePerCylinder: enginePerformanceFields.map((row) => row.valve_percylinder),
       });
   } catch (err) {
     return res.status(500).json({ ok: false, message: err.message });
