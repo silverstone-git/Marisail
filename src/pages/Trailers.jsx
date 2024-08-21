@@ -212,12 +212,75 @@ const Trailers = () => {
   };
 
   const fetchTrailers = async (
-    URL = "http://localhost:3001/api/advert_engine/engine_make"
+    URL = "http://localhost:3001/api/trailers/marisail_id"
   ) => {
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      setTrailerOptions(toJson.result);
+      setForm({ ...form, MarisailID: toJson.result });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fetchTrailerMake = async (trailerMake) => {
+    const URL = `http://localhost:3001/api/trailers/trailer_make?marisail_id=${encodeURIComponent(
+      trailerMake
+    )}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      setForm({ ...form, Make: toJson.result });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fetchTrailersIdMake = async (trailerId, trailerMake) => {
+    const URL = `http://localhost:3001/api/trailers/trailer_model?trailer_id=${encodeURIComponent(
+      trailerId
+    )}&trailer_make=${encodeURIComponent(trailerMake)}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      setForm({ ...form, Model: toJson.result });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fetchTrailerYear = async (trailerId, trailerMake, trailerModel) => {
+    const URL = `http://localhost:3001/api/trailers/trailer_year?trailer_id=${encodeURIComponent(
+      trailerId
+    )}&trailer_make=${encodeURIComponent(
+      trailerMake
+    )}&trailer_model=${encodeURIComponent(trailerModel)}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      setForm({ ...form, Year: toJson.result });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fetchTrailerAll = async (
+    trailerId,
+    trailerMake,
+    trailerModel,
+    trailerYear
+  ) => {
+    const URL = `http://localhost:3001/api/trailers/trailer_all?trailer_id=${encodeURIComponent(
+      trailerId
+    )}&trailer_make=${encodeURIComponent(
+      trailerMake
+    )}&trailer_model=${encodeURIComponent(
+      trailerModel
+    )}$trailer_year=${encodeURIComponent(trailerYear)}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      setTrailerOptions(toJson.trailerIdData);
     } catch (err) {
       console.log(err);
     }
@@ -248,7 +311,10 @@ const Trailers = () => {
                   <SelectComponent
                     label="MarisailID"
                     value={form.MarisailID}
-                    setValue={(val) => setForm({ ...form, MarisailID: val })}
+                    setValue={(val) => {
+                      setForm({ ...form, MarisailID: val });
+                      fetchTrailerMake(val);
+                    }}
                     header="Identification"
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -259,7 +325,10 @@ const Trailers = () => {
                   <SelectComponent
                     options={trailerOptions}
                     value={form.Make}
-                    setValue={(val) => setForm({ ...form, Make: val })}
+                    setValue={(val) => {
+                      setForm({ ...form, Make: val });
+                      fetchTrailersIdMake(form.MarisailID, val);
+                    }}
                     label="Make"
                     header="Identification"
                     openKey={openKey}
@@ -273,7 +342,10 @@ const Trailers = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.Model}
-                    setValue={(val) => setForm({ ...form, Model: val })}
+                    setValue={(val) => {
+                      setForm({ ...form, Model: val });
+                      fetchTrailerYear(form.MarisailID, form.Make, val);
+                    }}
                     label="Model"
                     isMandatory={error["Model"]}
                   />
@@ -284,7 +356,15 @@ const Trailers = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.Year}
-                    setValue={(val) => setForm({ ...form, Year: val })}
+                    setValue={(val) => {
+                      setForm({ ...form, Year: val });
+                      fetchTrailerAll(
+                        form.MarisailID,
+                        form.Make,
+                        form.Model,
+                        val
+                      );
+                    }}
                     label="Year"
                     isMandatory={error["Year"]}
                   />
