@@ -889,7 +889,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
             </Col>
-            <Col md={6} className="mt-4">
+            <Col md={6} style={{marginTop:40}}>
               <h6 style={{ marginLeft: 10 }}>General</h6>
               <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
@@ -1082,7 +1082,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
             </Col>
-            <Col md={6} className="mt-4">
+            <Col md={6} style={{marginTop:40}}>
               <h6 style={{ marginLeft: 10 }}>Performance</h6>
               <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
@@ -1316,7 +1316,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
             </Col>
-            <Col md={6} className="mt-4">
+            <Col md={6} style={{marginTop:40}}>
               <h6 style={{ marginLeft: 10 }}>Transmission</h6>
               <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
@@ -1434,7 +1434,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
             </Col>
-            <Col md={6} className="mt-4">
+            <Col md={6} style={{marginTop:40}}>
               <h6 style={{ marginLeft: 10 }}>Cylinders</h6>
               <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
@@ -1543,7 +1543,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
             </Col>
-            <Col md={6} className="mt-4">
+            <Col md={6} style={{marginTop:40}}>
               <h6 style={{ marginLeft: 10 }}>Equipment</h6>
               <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
@@ -1828,7 +1828,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
             </Col>
-            <Col md={6} className="mt-4">
+            <Col md={6} style={{marginTop:40}}>
               <h6 style={{ marginLeft: 10 }}>Propulsion System</h6>
               <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
@@ -2073,7 +2073,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
             </Col>
-            <Col md={6} className="mt-4">
+            <Col md={6} style={{marginTop:40}}>
               <h6 style={{ marginLeft: 10 }}>Fuel System</h6>
               <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
@@ -2306,7 +2306,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
             </Col>
-            <Col md={6} className="mt-4">
+            <Col md={6} style={{marginTop:40}}>
               <h6 style={{ marginLeft: 10 }}>Cooling System</h6>
               <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
@@ -2539,7 +2539,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
             </Col>
-            <Col md={6} className="mt-4">
+            <Col md={6} style={{marginTop:40}}>
               <h6 style={{ marginLeft: 10 }}>Installation and Mounting</h6>
               <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
@@ -2626,7 +2626,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
             </Col>
-            <Col md={6} className="mt-4">
+            <Col md={6} style={{marginTop:40}}>
               <h6 style={{ marginLeft: 10 }}>Service & Maintenance</h6>
               <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
@@ -2713,7 +2713,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
             </Col>
-            <Col md={6} className="mt-4">
+            <Col md={6} style={{marginTop:40}}>
               <h6 style={{ marginLeft: 10 }}>Fuel Consumption</h6>
               <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
@@ -2774,7 +2774,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
             </Col>
-            <Col md={6} className="mt-4">
+            <Col md={6} style={{marginTop:40}}>
               <h6 style={{ marginLeft: 10 }}>Safety and Monitoring</h6>
               <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
@@ -2835,7 +2835,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
             </Col>
-            <Col md={6} className="mt-4">
+            <Col md={6} style={{marginTop:40}}>
               <h6 style={{ marginLeft: 10 }}>Torque</h6>
               <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
@@ -2880,7 +2880,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
             </Col>
-            <Col md={6} className="mt-4">
+            <Col md={6} style={{marginTop:40}}>
               <h6 style={{ marginLeft: 10 }}>RPM</h6>
               <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
@@ -2921,7 +2921,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
             </Col>
-            <Col md={6} className="mt-4">
+            <Col md={6} style={{marginTop:40}}>
               <h6 style={{ marginLeft: 10 }}>Oil</h6>
               <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
@@ -3082,7 +3082,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
             </Col>
-            <Col md={6} className="mt-4">
+            <Col md={6} style={{marginTop:40}}>
               <h6 style={{ marginLeft: 10 }}>Emmissions & Environment</h6>
               <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
@@ -3247,7 +3247,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
             </Col>
-            <Col md={6} className="mt-4">
+            <Col md={6} style={{marginTop:40}}>
               <h6 style={{ marginLeft: 10 }}>Electrical System</h6>
               <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
@@ -3388,7 +3388,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
             </Col>
-            <Col md={6} className="mt-4">
+            <Col md={6} style={{marginTop:40}}>
               <h6 style={{ marginLeft: 10 }}>Dimensions</h6>
               <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
@@ -3522,7 +3522,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
             </Col>
-            <Col md={6} className="mt-4">
+            <Col md={6} style={{marginTop:40}}>
               <h6 style={{ marginLeft: 10 }}>Location</h6>
               <Col md={12}>
                 <Col xs={3} md={12} className="mb-2">
