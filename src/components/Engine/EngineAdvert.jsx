@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import "./engineAdvert.module.scss";
 import "react-datepicker/dist/react-datepicker.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import CheckComponent from "../CheckComponent";
 
 const EngineAdvert = () => {
   const [form, setForm] = useState({
@@ -199,6 +200,43 @@ const EngineAdvert = () => {
   const [cruisingSpeedOptions, setCruisingSpeedOptions] = useState([]);
   const [driveTypeOptions, setDriveTypeOptions] = useState([]);
 
+  const [engineHoursOptions, setEngineHoursOptions] = useState([]);
+  const [ignitionSystemOptions, setIgnitionSystemOptions] = useState([]);
+  const [noiseLevelOptions, setNoiseLevelOptions] = useState([]);
+  const [engineSoundproofingKits, setEngineSoundproofingKits] = useState([]);
+
+  const [nominalRatingOptions, setNominalRatingOptions] = useState([]);
+  const [enginePerformanceOptions, setEnginePerformanceOptions] = useState([]);
+  const [maxPowerOutputOptions, setMaxPowerOutputOptions] = useState([]);
+  const [maxPowerBHPOptions, setMaxPowerBHPOptions] = useState([]);
+  const [maxSpeedKnotsOptions, setMaxSpeedKnotsOptions] = useState([]);
+  const [superchargedOptions, setSuperchargedOptions] = useState([]);
+  const [valveTrainOptions, setValveTrainOptions] = useState([]);
+  const [grossPowerFullLoadKwOptions, setGrossPowerFullLoadKwOptions] = useState([]);
+  const [grossPowerFullLoadOptions, setGrossPowerFullLoadOptions] = useState([]);
+  const [grossPowerPropellerCurveKwOptions, setGrossPowerPropellerCurveKwOptions] = useState([]);
+  const [grossPowerPropellerCurveOptions, setGrossPowerPropellerCurveOptions] = useState([]);
+  const [grossTorqueOptions, setGrossTorqueOptions] = useState([]);
+  const [continuousPowerOptions, setContinuousPowerOptions] = useState([]);
+  const [maxContinuousRatingOptions, setMaxContinuousRatingOptions] = useState([]);
+  const [engineSpeedRangeOptions, setEngineSpeedRangeOptions] = useState([]);
+
+  const [engineEfficiencyOptions, setEngineEfficiencyOptions] = useState([]);
+  const [powerToWeightRatioOptions, setPowerToWeightRatioOptions] = useState([]);
+  const [transmissionTypeOptions, setTransmissionTypeOptions] = useState([]);
+  const [gearShiftOptions, setGearShiftOptions] = useState([]);
+  const [gearRatioOptions, setGearRatioOptions] = useState([]);
+  const [flywheelOptions, setFlywheelOptions] = useState([]);
+  const [siluminFlywheelHousingOptions, setSiluminFlywheelHousingOptions] = useState([]);
+  const [camShaftOptions, setCamShaftOptions] = useState([]);
+  const [camShaftAlloyOptions, setCamShaftAlloyOptions] = useState([]);
+  const [crankcaseDesignOptions, setCrankcaseDesignOptions] = useState([]);
+
+  const [cylinderConfigurationOptions, setCylinderConfigurationOptions] = useState([]);
+  const [numberCylindersOptions, setNumberCylindersOptions] = useState([]);
+  const [cylindersArrangementOptions, setCylindersArrangementOptions] = useState([]);
+  const [gearShiftTypeOptions, setGearShiftTypeOptions] = useState([]);
+
   const handleSubmit = (e) => {
     setOpenKey("Broker Valuation");
     try {
@@ -331,18 +369,33 @@ const EngineAdvert = () => {
       setEngineRangeOptions(toJson.engineRange);
       setCruisingSpeedOptions(toJson.cruiseSpeed);
       setDriveTypeOptions(toJson.driveType);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+      setEngineHoursOptions(toJson.engineHours);
+      setIgnitionSystemOptions(toJson.ignitionSystem);
+      setNoiseLevelOptions(toJson.cruiseSpeed);
+      setEngineSoundproofingKits(toJson.engineSoundProofingKit);
 
-  const fetchUnitInjectors = async (
-    URL = "http://localhost:3001/api/advert_engine/unit_injectors"
-  ) => {
-    try {
-      const res = await fetch(URL);
-      const toJson = await res.json();
-      setUnitInjectorsOptions(toJson.result);
+      setNominalRatingOptions(toJson.nomialRating);
+      setEnginePerformanceOptions(toJson.enginePerformance);
+      setMaxPowerOutputOptions(toJson.maxPowerOutput);
+      setMaxPowerBHPOptions(toJson.maxPower);
+      setMaxSpeedKnotsOptions(toJson.maxSpeed);
+      setSuperchargedOptions(toJson.superCharged);
+      setValveTrainOptions(toJson.valveTrain);
+      setGrossTorqueOptions(toJson.grossTorque);
+
+      setGrossPowerFullLoadKwOptions(toJson.GP_fullLoadKW);
+      setGrossPowerFullLoadOptions(toJson.GP_fullLoadMetric);
+      setGrossPowerPropellerCurveKwOptions(toJson.GP_PropellerCurveKW);
+      setMaxContinuousRatingOptions(toJson.maxContinousRating);
+      setEngineSpeedRangeOptions(toJson.engineSpeedRange);
+
+      setGrossPowerPropellerCurveOptions(toJson.GP_PropellerCurveMetric);
+      setContinuousPowerOptions(toJson.continousPowerKWHP);
+      setEngineEfficiencyOptions(toJson.engineEfficiency);
+      setPowerToWeightRatioOptions(toJson.powerToWeightRatio);
+      setCylinderConfigurationOptions(toJson.cylinderConfiguration);
+      setNumberCylindersOptions(toJson.numberCylinders);
+      setCylindersArrangementOptions(toJson.cylindersArrangement);
     } catch (err) {
       console.log(err);
     }
@@ -570,16 +623,13 @@ const EngineAdvert = () => {
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
+                  <CheckComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.engineClassification}
-                    setValue={(val) =>
-                      setForm({ ...form, engineClassification: val })
-                    }
                     label={ENGINE_ADVERT.ENGINE_CLASSIFICATION}
-                    options={certificationOptions}
+                    setValue={(val) => setForm({ ...form, engineClassification: val })}
+                    name={ENGINE_ADVERT.ENGINE_CLASSIFICATION}
+                    id={ENGINE_ADVERT.ENGINE_CLASSIFICATION_ID}
                     isMandatory={true}
                   />
                 </Col>
@@ -596,16 +646,13 @@ const EngineAdvert = () => {
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
+                  <CheckComponent
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.manufacturerWarranty}
-                    setValue={(val) =>
-                      setForm({ ...form, manufacturerWarranty: val })
-                    }
                     label={ENGINE_ADVERT.MANUFACTURER_WARRANTY}
-                    options={defaultOptions}
+                    setValue={(val) => setForm({ ...form, manufacturerWarranty: val })}
+                    name={ENGINE_ADVERT.MANUFACTURER_WARRANTY}
+                    id={ENGINE_ADVERT.MANUFACTURER_WARRANTY_ID}
                     isMandatory={false}
                   />
                 </Col>
@@ -705,7 +752,7 @@ const EngineAdvert = () => {
                     value={form.engineHours}
                     setValue={(val) => setForm({ ...form, engineHours: val })}
                     label={ENGINE_ADVERT.ENGINE_HOURS}
-                    options={defaultOptions}
+                    options={engineHoursOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -719,7 +766,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, ignitionSystem: val })
                     }
                     label={ENGINE_ADVERT.IGNITION_SYSTEM}
-                    options={defaultOptions}
+                    options={ignitionSystemOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -731,7 +778,7 @@ const EngineAdvert = () => {
                     value={form.noiseLevel}
                     setValue={(val) => setForm({ ...form, noiseLevel: val })}
                     label={ENGINE_ADVERT.NOISE_LEVEL}
-                    options={defaultOptions}
+                    options={noiseLevelOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -745,7 +792,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, engineSoundproofingKits: val })
                     }
                     label={ENGINE_ADVERT.ENGINE_SOUNDPROOFING_KITS}
-                    options={defaultOptions}
+                    options={engineSoundproofingKits}
                     isMandatory={false}
                   />
                 </Col>
@@ -762,7 +809,7 @@ const EngineAdvert = () => {
                     value={form.nominalRating}
                     setValue={(val) => setForm({ ...form, nominalRating: val })}
                     label="Nominal Rating (Kw) (HP)"
-                    options={defaultOptions}
+                    options={nominalRatingOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -776,7 +823,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, enginePerformance: val })
                     }
                     label="Engine Performance"
-                    options={defaultOptions}
+                    options={enginePerformanceOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -790,7 +837,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, maxPowerOutput: val })
                     }
                     label="Max Power Output"
-                    options={defaultOptions}
+                    options={maxPowerOutputOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -802,7 +849,7 @@ const EngineAdvert = () => {
                     value={form.maxPowerBHP}
                     setValue={(val) => setForm({ ...form, maxPowerBHP: val })}
                     label="Max. Power (BHP)"
-                    options={defaultOptions}
+                    options={maxPowerBHPOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -814,7 +861,7 @@ const EngineAdvert = () => {
                     value={form.maxSpeedKnots}
                     setValue={(val) => setForm({ ...form, maxSpeedKnots: val })}
                     label="Max. Speed (Knots)"
-                    options={defaultOptions}
+                    options={maxSpeedKnotsOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -826,7 +873,7 @@ const EngineAdvert = () => {
                     value={form.supercharged}
                     setValue={(val) => setForm({ ...form, supercharged: val })}
                     label="Supercharged"
-                    options={defaultOptions}
+                    options={superchargedOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -838,7 +885,7 @@ const EngineAdvert = () => {
                     value={form.valveTrain}
                     setValue={(val) => setForm({ ...form, valveTrain: val })}
                     label="Valve Train"
-                    options={defaultOptions}
+                    options={valveTrainOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -852,7 +899,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, grossPowerFullLoadKW: val })
                     }
                     label="Gross Power, Full Load (Kw)"
-                    options={defaultOptions}
+                    options={grossPowerFullLoadKwOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -866,7 +913,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, grossPowerFullLoadHpMetric: val })
                     }
                     label="Gross Power, Full Load (Hp, Metric)"
-                    options={defaultOptions}
+                    options={grossPowerFullLoadOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -880,7 +927,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, GrossPowerPropellerCurveKw: val })
                     }
                     label="Gross Power, Propeller Curve (Kw)"
-                    options={defaultOptions}
+                    options={grossPowerPropellerCurveKwOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -897,7 +944,7 @@ const EngineAdvert = () => {
                       })
                     }
                     label="Gross Power, Propeller Curve (Hp, Metric)"
-                    options={defaultOptions}
+                    options={grossPowerPropellerCurveOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -909,7 +956,7 @@ const EngineAdvert = () => {
                     value={form.grossTorque}
                     setValue={(val) => setForm({ ...form, grossTorque: val })}
                     label="Gross Torque (Nm)"
-                    options={defaultOptions}
+                    options={grossTorqueOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -923,7 +970,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, continuousPower: val })
                     }
                     label="Continuous Power (kW/HP)"
-                    options={defaultOptions}
+                    options={continuousPowerOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -937,7 +984,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, maximumContinuousRating: val })
                     }
                     label="Maximum Continuous Rating (MCR)"
-                    options={defaultOptions}
+                    options={maxContinuousRatingOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -951,7 +998,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, engineSpeedRange: val })
                     }
                     label="Engine Speed Range (RPM)"
-                    options={defaultOptions}
+                    options={engineSpeedRangeOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -965,7 +1012,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, engineEfficiency: val })
                     }
                     label="Engine Efficiency"
-                    options={defaultOptions}
+                    options={engineEfficiencyOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -979,7 +1026,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, powerToWeightRatio: val })
                     }
                     label="Power-to-Weight Ratio"
-                    options={defaultOptions}
+                    options={powerToWeightRatioOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -998,7 +1045,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, transmissionType: val })
                     }
                     label={ENGINE_ADVERT.TRANSMISSION_TYPE}
-                    options={defaultOptions}
+                    options={transmissionTypeOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -1011,7 +1058,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, gearShift: val })}
                     label={ENGINE_ADVERT.GEAR_SHIFT}
                     isMandatory={false}
-                    options={defaultOptions}
+                    options={gearShiftOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1023,7 +1070,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, gearRatio: val })}
                     label={ENGINE_ADVERT.GEAR_RATIO}
                     isMandatory={false}
-                    options={defaultOptions}
+                    options={gearRatioOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1035,7 +1082,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, gearShiftType: val })}
                     label={ENGINE_ADVERT.GEAR_SHIFT_TYPE}
                     isMandatory={false}
-                    options={defaultOptions}
+                    options={gearShiftTypeOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1047,7 +1094,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, flywheelSAE14: val })}
                     label={ENGINE_ADVERT.FLYWHEEL_SAE14}
                     isMandatory={false}
-                    options={defaultOptions}
+                    options={flywheelOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1060,7 +1107,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, siluminFlywheelHousing: val })
                     }
                     label={ENGINE_ADVERT.SILUMIN_FLYWHEEL_HOUSING}
-                    options={defaultOptions}
+                    options={siluminFlywheelHousingOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -1072,7 +1119,7 @@ const EngineAdvert = () => {
                     value={form.camShaft}
                     setValue={(val) => setForm({ ...form, camShaft: val })}
                     label={ENGINE_ADVERT.CAMSHAFT}
-                    options={defaultOptions}
+                    options={camShaftOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -1084,7 +1131,7 @@ const EngineAdvert = () => {
                     value={form.camShaftAlloy}
                     setValue={(val) => setForm({ ...form, camShaftAlloy: val })}
                     label={ENGINE_ADVERT.CRANKSHAFT_ALLOY}
-                    options={defaultOptions}
+                    options={camShaftAlloyOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -1098,7 +1145,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, crankcaseDesign: val })
                     }
                     label={ENGINE_ADVERT.CRANKCASE_DESIGN}
-                    options={defaultOptions}
+                    options={crankcaseDesignOptions}
                   />
                 </Col>
               </Col>
@@ -1116,7 +1163,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, cylinderConfiguration: val })
                     }
                     label="Cylinder Configuration"
-                    options={defaultOptions}
+                    options={cylinderConfigurationOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -1130,7 +1177,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, numberCylinders: val })
                     }
                     label="Number Cylinders"
-                    options={defaultOptions}
+                    options={numberCylindersOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -1144,7 +1191,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, cylindersAndArrangement: val })
                     }
                     label="Cylinders And Arrangement"
-                    options={defaultOptions}
+                    options={cylindersArrangementOptions}
                     isMandatory={false}
                   />
                 </Col>

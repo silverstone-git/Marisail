@@ -202,6 +202,78 @@ advertEngineRouter.get("/conditions/", async (req, res) => {
     const [driveType] = await connection.query(
       `SELECT DISTINCT drive_type FROM engine_general ${filterOptions} ORDER BY drive_type`
     );
+    const [engineHours] = await connection.query(
+      `SELECT DISTINCT engine_hours FROM engine_general ${filterOptions} ORDER BY engine_hours`
+    );
+    const [ignitionSystems] = await connection.query(
+      `SELECT DISTINCT ignition_system FROM engine_general ${filterOptions} ORDER BY ignition_system`
+    );
+    const [noiseLevel] = await connection.query(
+      `SELECT DISTINCT noiselevel_db FROM engine_general ${filterOptions} ORDER BY noiselevel_db`
+    );
+    const [engineSoundProofingKits] = await connection.query(
+      `SELECT DISTINCT enginesound_proofingkits FROM engine_general ${filterOptions} ORDER BY enginesound_proofingkits`
+    );
+    const [nomialRating] = await connection.query(
+      `SELECT DISTINCT nominal_rating FROM engine_performance ${filterOptions} ORDER BY nominal_rating`
+    );
+    const [enginePerformance] = await connection.query(
+      `SELECT DISTINCT engine_performance FROM engine_performance ${filterOptions} ORDER BY engine_performance`
+    );
+    const [maxPowerOutput] = await connection.query(
+      `SELECT DISTINCT max_poweroutput FROM engine_performance ${filterOptions} ORDER BY max_poweroutput`
+    );
+    const [maxPower] = await connection.query(
+      `SELECT DISTINCT max_power FROM engine_performance ${filterOptions} ORDER BY max_power`
+    );
+    const [maxSpeed] = await connection.query(
+      `SELECT DISTINCT max_speed FROM engine_performance ${filterOptions} ORDER BY max_speed`
+    );
+    const [superCharged] = await connection.query(
+      `SELECT DISTINCT supercharged FROM engine_performance ${filterOptions} ORDER BY supercharged`
+    );
+    const [valveTrain] = await connection.query(
+      `SELECT DISTINCT valve_train FROM engine_performance ${filterOptions} ORDER BY valve_train`
+    );
+    const [grossTorque] = await connection.query(
+      `SELECT DISTINCT gross_torque FROM engine_performance ${filterOptions} ORDER BY gross_torque`
+    );
+    const [GP_fullLoadKW] = await connection.query(
+      `SELECT DISTINCT GP_fullloadKW FROM engine_performance ${filterOptions} ORDER BY GP_fullloadKW`
+    );
+    const [GP_fullLoadMetric] = await connection.query(
+      `SELECT DISTINCT GP_fullloadmetric FROM engine_performance ${filterOptions} ORDER BY GP_fullloadmetric`
+    );
+    const [GP_PropellerCurveKW] = await connection.query(
+      `SELECT DISTINCT GP_propellercurveKW FROM engine_performance ${filterOptions} ORDER BY GP_propellercurveKW`
+    );
+    const [GP_PropellerCurveMetric] = await connection.query(
+      `SELECT DISTINCT GP_propellercurvemetric FROM engine_performance ${filterOptions} ORDER BY GP_propellercurvemetric`
+    );
+    const [continousPowerKWHP] = await connection.query(
+      `SELECT DISTINCT continouspower_KWHP FROM engine_performance ${filterOptions} ORDER BY continouspower_KWHP`
+    );
+    const [maxContinousRating] = await connection.query(
+      `SELECT DISTINCT Max_Continuousrating FROM engine_performance ${filterOptions} ORDER BY Max_Continuousrating`
+    );
+    const [engineSpeedRange] = await connection.query(
+      `SELECT DISTINCT Engine_speedrange FROM engine_performance ${filterOptions} ORDER BY Engine_speedrange`
+    );
+    const [engineEfficiency] = await connection.query(
+      `SELECT DISTINCT engine_efficiency FROM engine_performance ${filterOptions} ORDER BY engine_efficiency`
+    );
+    const [powerToWeightRatio] = await connection.query(
+      `SELECT DISTINCT powertoweight_ratio FROM engine_performance ${filterOptions} ORDER BY powertoweight_ratio`
+    );
+    const [cylinderConfiguration] = await connection.query(
+      `SELECT DISTINCT cylinder_configuration FROM engine_performance ${filterOptions} ORDER BY cylinder_configuration`
+    );
+    const [numberCylinders] = await connection.query(
+      `SELECT DISTINCT number_cylinders FROM engine_performance ${filterOptions} ORDER BY number_cylinders`
+    );
+    const [cylindersArrangement] = await connection.query(
+      `SELECT DISTINCT cylinder_arrangement FROM engine_performance ${filterOptions} ORDER BY cylinder_arrangement`
+    );
     return res
       .status(200)
       .json({ ok: true,
@@ -216,8 +288,31 @@ advertEngineRouter.get("/conditions/", async (req, res) => {
         numberEngine: numberEngines.map((row) => row.number_engines),
         engineRange: engineRange.map((row) => row.engine_range),
         cruiseSpeed: cruiseSpeed.map((row) => row.cruise_speed),
-        driveType: driveType.map((row) => row.drive_type)
-        
+        driveType: driveType.map((row) => row.drive_type),
+        engineHours: engineHours.map((row) => row.engine_hours),
+        ignitionSystem: ignitionSystems.map((row) => row.ignition_system),
+        noiseLevel: noiseLevel.map((row) => row.noiselevel_db),
+        engineSoundProofingKit: engineSoundProofingKits.map((row) => row.enginesound_proofingkits),
+        nomialRating: nomialRating.map((row) => row.nominal_rating),
+        enginePerformance: enginePerformance.map((row) => row.engine_performance),
+        maxPowerOutput: maxPowerOutput.map((row) => row.max_poweroutput),
+        maxPower: maxPower.map((row) => row.max_power),
+        maxSpeed: maxSpeed.map((row) => row.max_speed),
+        superCharged: superCharged.map((row) => row.supercharged),
+        valveTrain: valveTrain.map((row) => row.valve_train),
+        grossTorque: grossTorque.map((row) => row.gross_torque),
+        GP_fullLoadKW: GP_fullLoadKW.map((row) => row.GP_fullloadKW),
+        GP_fullLoadMetric: GP_fullLoadMetric.map((row) => row.GP_fullloadmetric),
+        GP_PropellerCurveKW: GP_PropellerCurveKW.map((row) => row.GP_propellercurveKW),
+        maxContinousRating: maxContinousRating.map((row) => row.Max_Continuousrating),
+        engineSpeedRange: engineSpeedRange.map((row) => row.Engine_speedrange),
+        GP_PropellerCurveMetric: GP_PropellerCurveMetric.map((row) => row.GP_propellercurvemetric),
+        continousPowerKWHP: continousPowerKWHP.map((row) => row.continouspower_KWHP),
+        engineEfficiency: engineEfficiency.map((row) => row.engine_efficiency),
+        powerToWeightRatio: powerToWeightRatio.map((row) => row.powertoweight_ratio),
+        cylinderConfiguration: cylinderConfiguration.map((row) => row.cylinder_configuration),
+        numberCylinders: numberCylinders.map((row) => row.number_cylinders),
+        cylindersArrangement: cylindersArrangement.map((row) => row.cylinder_arrangement),
       });
   } catch (err) {
     return res.status(500).json({ ok: false, message: err.message });
