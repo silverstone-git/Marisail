@@ -337,6 +337,19 @@ const EngineAdvert = () => {
   const [alternatorOutputAMPS, setAlternatorOutputAMPS] = useState([]);
   const [batteryVoltageNumberOptions, setBatteryVoltageNumber] = useState([]);
 
+  const [emissionComplianceOptions, setEmissionComplianceOptions] = useState([]);
+  const [exhaustSystemOptions, setExhaustSystemOptions] = useState([]);
+  const [exhaustSystemTypeOptions, setExhaustSystemTypeOptions] = useState([]);
+  const [exhaustGasAfterTreatmentOptions, setExhaustGasAfterTreatmentOptions] = useState([]);
+  const [exhaustGasStatusOptions, setExhaustGasStatusOptions] = useState([]);
+  const [exhaustValveTimingOptions, setExhaustValveTimingOptions] = useState([]);
+  const [intakeValveTimingOptions, setIntakeValveTimingOptions] = useState([]);
+  const [emissionControlTechnologyOptions, setEmissionControlTechnologyOptions] = useState([]);
+  const [noxEmissionsOptions, setNoxEmissionsOptions] = useState([]);
+  const [soxEmissionsOptions, setSoxEmissionsOptions] = useState([]);
+  const [coxEmissionsOptions, setCoxEmissionsOptions] = useState([]);
+  const [complianceWithIMOStandardsOptions, setComplianceWithIMOStandardsOptions] = useState([]);  
+
   const [displacementOptions, setDisplacementOptions] = useState([]);
   const [lengthOptions, setLengthOptions] = useState([]);
   const [widthOptions, setWidthOptions] = useState([]);
@@ -550,6 +563,20 @@ const EngineAdvert = () => {
       setAirFilterTypeOptions(toJson.air_filtertype);
       setCirculationPumpTypeOptions(toJson.circulation_pumptype);
       setRawWaterpumpTypeOptions(toJson.rawwater_pumptype)
+
+      //EmissionsFields
+      setEmissionComplianceOptions(toJson.Emission_compliance);
+      setExhaustSystemOptions(toJson.exhaust_system);
+      setExhaustSystemTypeOptions(toJson.exhaust_systemtype);
+      setExhaustGasAfterTreatmentOptions(toJson.exhaustgas_aftertreatment);
+      setExhaustGasStatusOptions(toJson.exhaustGas_status);
+      setExhaustValveTimingOptions(toJson.exhaust_valvetiming);
+      setIntakeValveTimingOptions(toJson.intake_valvetiming);
+      setEmissionControlTechnologyOptions(toJson.emission_controltechnology);
+      setNoxEmissionsOptions(toJson.NOx_Emission);
+      setSoxEmissionsOptions(toJson.SOx_Emission);
+      setCoxEmissionsOptions(toJson.COx_Emission);
+      setComplianceWithIMOStandardsOptions(toJson.compliance_internationalmaritime);
 
       //FuelFields
       setFuelPreFilterOptions(toJson.fuel_prefilter);
@@ -3053,7 +3080,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, emissionCompliance: val })
                     }
                     label="Emission Compliance"
-                    options={defaultOptions}
+                    options={emissionComplianceOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -3066,7 +3093,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, exhaustSystem: val })}
                     label="Exhaust System"
                     isMandatory={false}
-                    options={defaultOptions}
+                    options={exhaustSystemOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -3080,7 +3107,7 @@ const EngineAdvert = () => {
                     }
                     label="Exhaust System Type"
                     isMandatory={false}
-                    options={defaultOptions}
+                    options={exhaustSystemTypeOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -3093,7 +3120,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, exhaustGasAfterTreatment: val })
                     }
                     label="Exhaust Gas After Treatment"
-                    options={defaultOptions}
+                    options={exhaustGasAfterTreatmentOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -3108,7 +3135,7 @@ const EngineAdvert = () => {
                     }
                     label="Exhaust Gas Status"
                     isMandatory={false}
-                    options={defaultOptions}
+                    options={exhaustGasStatusOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -3122,7 +3149,7 @@ const EngineAdvert = () => {
                     }
                     label="Exhaust Valve Timing"
                     isMandatory={false}
-                    options={defaultOptions}
+                    options={exhaustValveTimingOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -3136,7 +3163,7 @@ const EngineAdvert = () => {
                     }
                     label="Intake Valve Timing"
                     isMandatory={false}
-                    options={defaultOptions}
+                    options={intakeValveTimingOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -3150,7 +3177,7 @@ const EngineAdvert = () => {
                     }
                     label="Emission Control Technology"
                     isMandatory={false}
-                    options={defaultOptions}
+                    options={emissionControlTechnologyOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -3162,7 +3189,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, noxEmissions: val })}
                     label="NOx Emissions (g/kWh)"
                     isMandatory={false}
-                    options={defaultOptions}
+                    options={noxEmissionsOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -3174,7 +3201,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, soxEmissions: val })}
                     label="SOx Emissions (g/kWh)"
                     isMandatory={false}
-                    options={defaultOptions}
+                    options={soxEmissionsOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -3186,7 +3213,7 @@ const EngineAdvert = () => {
                     setValue={(val) => setForm({ ...form, coxEmissions: val })}
                     label="COx Emissions (g/kWh)"
                     isMandatory={false}
-                    options={defaultOptions}
+                    options={coxEmissionsOptions}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -3200,7 +3227,7 @@ const EngineAdvert = () => {
                     }
                     label="Compliance With IMO Standards"
                     isMandatory={false}
-                    options={defaultOptions}
+                    options={complianceWithIMOStandardsOptions}
                   />
                 </Col>
               </Col>

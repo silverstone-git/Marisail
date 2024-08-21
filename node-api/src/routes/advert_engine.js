@@ -279,8 +279,27 @@ advertEngineRouter.get("/conditions/", async (req, res) => {
       weight_heatexchanger,	weight_keelcooling
       FROM engine_dimensions WHERE engine_id IN (${req.query.engine_ids})`
     );
+    const [engineEmissionFields] = await connection.query(
+      `SELECT Emission_compliance,	exhaust_system,	exhaust_systemtype,	exhaustgas_aftertreatment,
+      exhaustGas_status,	exhaust_valvetiming,	intake_valvetiming,	emission_controltechnology,
+      NOx_Emission,	SOx_Emission,	COx_Emission,	compliance_internationalmaritime
+      FROM engine_emissions WHERE engine_id IN (${req.query.engine_ids})`
+    );
     return res.status(200).json({
       ok: true,
+
+      Emission_compliance: engineEmissionFields.map((row) => row.Emission_compliance),
+      exhaust_system: engineEmissionFields.map((row) => row.exhaust_system),
+      exhaust_systemtype: engineEmissionFields.map((row) => row.exhaust_systemtype),
+      exhaustgas_aftertreatment: engineEmissionFields.map((row) => row.exhaustgas_aftertreatment),
+      exhaustGas_status: engineEmissionFields.map((row) => row.exhaustGas_status),
+      exhaust_valvetiming: engineEmissionFields.map((row) => row.exhaust_valvetiming),
+      intake_valvetiming: engineEmissionFields.map((row) => row.intake_valvetiming),
+      emission_controltechnology: engineEmissionFields.map((row) => row.emission_controltechnology),
+      NOx_Emission: engineEmissionFields.map((row) => row.NOx_Emission),
+      SOx_Emission: engineEmissionFields.map((row) => row.SOx_Emission),
+      COx_Emission: engineEmissionFields.map((row) => row.COx_Emission),
+      compliance_internationalmaritime: engineEmissionFields.map((row) => row.compliance_internationalmaritime),
 
       displacement: engineDimensionFields.map((row) => row.displacement),
       length: engineDimensionFields.map((row) => row.length),
