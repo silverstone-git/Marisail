@@ -57,6 +57,6 @@ CheckComponent.propTypes = {
   value: PropTypes.array,
   setValue: PropTypes.func,
   name: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
 };
 export default CheckComponent;
