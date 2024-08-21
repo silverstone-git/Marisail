@@ -274,6 +274,36 @@ advertEngineRouter.get("/conditions/", async (req, res) => {
     const [cylindersArrangement] = await connection.query(
       `SELECT DISTINCT cylinder_arrangement FROM engine_performance ${filterOptions} ORDER BY cylinder_arrangement`
     );
+    const [numberValves] = await connection.query(
+      `SELECT DISTINCT number_valves FROM engine_performance ${filterOptions} ORDER BY number_valves`
+    );
+    const [boreStroke] = await connection.query(
+      `SELECT DISTINCT bore_stroke FROM engine_performance ${filterOptions} ORDER BY bore_stroke`
+    );
+    const [bore] = await connection.query(
+      `SELECT DISTINCT bore FROM engine_performance ${filterOptions} ORDER BY bore`
+    );
+    const [idleRPM] = await connection.query(
+      `SELECT DISTINCT idle_rpm FROM engine_performance ${filterOptions} ORDER BY idle_rpm`
+    );
+    const [rpmMaxPower] = await connection.query(
+      `SELECT DISTINCT rpm_maxpower FROM engine_performance ${filterOptions} ORDER BY rpm_maxpower`
+    );
+    const [ratedSpeed] = await connection.query(
+      `SELECT DISTINCT rated_speed FROM engine_performance ${filterOptions} ORDER BY rated_speed`
+    );
+    const [maxTorque] = await connection.query(
+      `SELECT DISTINCT max_torque FROM engine_performance ${filterOptions} ORDER BY max_torque`
+    );
+    const [maxTorqueRPM] = await connection.query(
+      `SELECT DISTINCT max_torquerpm FROM engine_performance ${filterOptions} ORDER BY max_torquerpm`
+    );
+    const [torqueRatedSpeed] = await connection.query(
+      `SELECT DISTINCT torque_ratespeed FROM engine_performance ${filterOptions} ORDER BY torque_ratespeed`
+    );
+    const [valvePerCylinder] = await connection.query(
+      `SELECT DISTINCT valve_percylinder FROM engine_performance ${filterOptions} ORDER BY valve_percylinder`
+    );
     return res
       .status(200)
       .json({ ok: true,
@@ -313,6 +343,16 @@ advertEngineRouter.get("/conditions/", async (req, res) => {
         cylinderConfiguration: cylinderConfiguration.map((row) => row.cylinder_configuration),
         numberCylinders: numberCylinders.map((row) => row.number_cylinders),
         cylindersArrangement: cylindersArrangement.map((row) => row.cylinder_arrangement),
+        numberValves: numberValves.map((row) => row.number_valves),
+        boreStroke: boreStroke.map((row) => row.bore_stroke),
+        bore: bore.map((row) => row.bore),
+        idleRPM: idleRPM.map((row) => row.idle_rpm),
+        rpmMaxPower: rpmMaxPower.map((row) => row.rpm_maxpower),
+        ratedSpeed: ratedSpeed.map((row) => row.rated_speed),
+        maxTorque: maxTorque.map((row) => row.max_torque),
+        maxTorqueRPM: maxTorqueRPM.map((row) => row.max_torquerpm),
+        torqueRatedSpeed: torqueRatedSpeed.map((row) => row.torque_ratespeed),
+        valvePerCylinder: valvePerCylinder.map((row) => row.valve_percylinder),
       });
   } catch (err) {
     return res.status(500).json({ ok: false, message: err.message });

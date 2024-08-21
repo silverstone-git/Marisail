@@ -237,6 +237,17 @@ const EngineAdvert = () => {
   const [cylindersArrangementOptions, setCylindersArrangementOptions] = useState([]);
   const [gearShiftTypeOptions, setGearShiftTypeOptions] = useState([]);
 
+  const [numberValvesOptions, setNumberValvesOptions] = useState([]);
+  const [boreStrokeOptions, setBoreStrokeOptions] = useState([]);
+  const [boreOptions, setBoreOptions] = useState([]);
+  const [idleRPMOptions, setIdleRPMOptions] = useState([]);
+  const [rpmMaxPowerOptions, setRPMMaxPowerOptions] = useState([]);
+  const [ratedSpeedOptions, setRatedSpeedOptions] = useState([]);
+  const [maxTorqueOptions, setMaxTorqueOptions] = useState([]);
+  const [maxTorqueRPMOptions, setMaxTorqueRPMOptions] = useState([]);
+  const [torqueRatedSpeedOptions, setTorqueRatedSpeed] = useState([]);
+  const [valvePerCylinderOptions, setValvePerCylinderOptions] = useState([]);  
+
   const handleSubmit = (e) => {
     setOpenKey("Broker Valuation");
     try {
@@ -396,6 +407,17 @@ const EngineAdvert = () => {
       setCylinderConfigurationOptions(toJson.cylinderConfiguration);
       setNumberCylindersOptions(toJson.numberCylinders);
       setCylindersArrangementOptions(toJson.cylindersArrangement);
+
+      setNumberValvesOptions(toJson.numberValves);
+      setBoreStrokeOptions(toJson.boreStroke);
+      setBoreOptions(toJson.bore);
+      setIdleRPMOptions(toJson.idleRPM);
+      setRPMMaxPowerOptions(toJson.rpmMaxPower);
+      setRatedSpeedOptions(toJson.ratedSpeed);
+      setMaxTorqueOptions(toJson.maxTorque);
+      setMaxTorqueRPMOptions(toJson.maxTorqueRPM);
+      setTorqueRatedSpeed(toJson.torqueRatedSpeed);
+      setValvePerCylinderOptions(toJson.valvePerCylinder)
     } catch (err) {
       console.log(err);
     }
@@ -1203,7 +1225,7 @@ const EngineAdvert = () => {
                     value={form.numberValves}
                     setValue={(val) => setForm({ ...form, numberValves: val })}
                     label="Number Valves"
-                    options={defaultOptions}
+                    options={numberValvesOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -1217,7 +1239,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, valvePerCylinder: val })
                     }
                     label="Valve per Cylinder"
-                    options={defaultOptions}
+                    options={valvePerCylinderOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -1229,7 +1251,7 @@ const EngineAdvert = () => {
                     value={form.boreXStroke}
                     setValue={(val) => setForm({ ...form, boreXStroke: val })}
                     label="Bore X Stroke"
-                    options={defaultOptions}
+                    options={boreStrokeOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -1241,7 +1263,7 @@ const EngineAdvert = () => {
                     value={form.bore}
                     setValue={(val) => setForm({ ...form, bore: val })}
                     label="Bore"
-                    options={defaultOptions}
+                    options={boreOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -1253,7 +1275,7 @@ const EngineAdvert = () => {
                     value={form.stroke}
                     setValue={(val) => setForm({ ...form, stroke: val })}
                     label="Stroke"
-                    options={defaultOptions}
+                    options={boreStrokeOptions}
                     isMandatory={false}
                   />
                 </Col>
