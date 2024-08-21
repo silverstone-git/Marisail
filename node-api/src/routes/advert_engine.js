@@ -285,8 +285,21 @@ advertEngineRouter.get("/conditions/", async (req, res) => {
       NOx_Emission,	SOx_Emission,	COx_Emission,	compliance_internationalmaritime
       FROM engine_emissions WHERE engine_id IN (${req.query.engine_ids})`
     );
+    const [engineMaintenanceFields] = await connection.query(
+      `SELECT scheduled_maintenanceplan,	service_interval,	maintenancelog_requirements,	availability_spareparts,
+      operation_mode,	last_servicedate
+      FROM engine_maintenance WHERE engine_id IN (${req.query.engine_ids})`
+    );
+
     return res.status(200).json({
       ok: true,
+
+      scheduled_maintenanceplan: engineMaintenanceFields.map((row) => row.scheduled_maintenanceplan),
+      service_interval: engineMaintenanceFields.map((row) => row.service_interval),
+      maintenancelog_requirements: engineMaintenanceFields.map((row) => row.maintenancelog_requirements),
+      availability_spareparts: engineMaintenanceFields.map((row) => row.availability_spareparts),
+      operation_mode: engineMaintenanceFields.map((row) => row.operation_mode),
+      last_servicedate: engineMaintenanceFields.map((row) => row.last_servicedate),
 
       Emission_compliance: engineEmissionFields.map((row) => row.Emission_compliance),
       exhaust_system: engineEmissionFields.map((row) => row.exhaust_system),

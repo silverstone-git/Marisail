@@ -361,6 +361,13 @@ const EngineAdvert = () => {
   const [lengthFromFrontEndOfFlywheelHousingOptions, setLengthFromFrontEndOfFlywheelHousingOptions] = useState([]);
   const [weightWithHeatExchangerOptions, setWeightWithHeatExchangerOptions] = useState([]);
 
+  const [serviceIntervalOptions, setServiceIntervalOptions] = useState([]);
+  const [scheduledMaintenancePlanOptions, setScheduledMaintenancePlanOptions] = useState([]);
+  const [maintenanceLogRequirementsOptions, setMaintenanceLogRequirementsOptions] = useState([]);
+  const [availabilityOfSparePartsOptions, setAvailabilityOfSparePartsOptions] = useState([]);
+  const [lastServiceDateOptions, setLastServiceDateOptions] = useState([]);
+  const [operationModeOptions, setOperationModeOptions] = useState([]);  
+
   const handleSubmit = (e) => {
     setOpenKey("Broker Valuation");
     try {
@@ -665,6 +672,14 @@ const EngineAdvert = () => {
       setWeightWithKeelCoolingOptions(toJson.weight_keelcooling);
       setExclOilWeightOptions(toJson.weight_excloil);
       setWeightWithHeatExchangerOptions(toJson.weight_heatexchanger)
+
+      //MaintenanceFields
+      setScheduledMaintenancePlanOptions(toJson.scheduled_maintenanceplan);
+      setServiceIntervalOptions(toJson.service_interval);
+      setMaintenanceLogRequirementsOptions(toJson.maintenancelog_requirements);
+      setAvailabilityOfSparePartsOptions(toJson.availability_spareparts);
+      setOperationModeOptions(toJson.operation_mode);
+      setLastServiceDateOptions(toJson.last_servicedate);
     } catch (err) {
       console.log(err);
     }
@@ -2624,7 +2639,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, scheduledMaintenancePlan: val })
                     }
                     label={ENGINE_ADVERT.SCHEDULED_MAINTENANCE_PLAN}
-                    options={defaultOptions}
+                    options={scheduledMaintenancePlanOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -2638,7 +2653,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, serviceInterval: val })
                     }
                     label={ENGINE_ADVERT.SERVICE_INTERVAL}
-                    options={defaultOptions}
+                    options={serviceIntervalOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -2652,7 +2667,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, maintenanceLogRequirements: val })
                     }
                     label={ENGINE_ADVERT.MAINTENANCE_LOG_REQUIREMENTS}
-                    options={defaultOptions}
+                    options={maintenanceLogRequirementsOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -2666,7 +2681,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, availabilityOfSpareParts: val })
                     }
                     label={ENGINE_ADVERT.AVAILABILITY_SPARE_PARTS}
-                    options={defaultOptions}
+                    options={availabilityOfSparePartsOptions}
                     isMandatory={true}
                   />
                 </Col>
@@ -2678,7 +2693,7 @@ const EngineAdvert = () => {
                     value={form.operationMode}
                     setValue={(val) => setForm({ ...form, operationMode: val })}
                     label={ENGINE_ADVERT.OPERATION_MODE}
-                    options={defaultOptions}
+                    options={operationModeOptions}
                     isMandatory={false}
                   />
                 </Col>
@@ -2692,7 +2707,7 @@ const EngineAdvert = () => {
                       setForm({ ...form, lastServiceDate: val })
                     }
                     label={ENGINE_ADVERT.LAST_SERVICE_DATE}
-                    options={defaultOptions}
+                    options={lastServiceDateOptions}
                     isMandatory={true}
                   />
                 </Col>
