@@ -94,7 +94,7 @@ export const ENGINE_ADVERT = {
   STANDARD_COMPLIANCE:"Compliance With IMO Standards",
   COX_EMISSIONS:"COx Emissions (g/kWh)",
   NOX_EMISSIONS:"NOx Emissions (g/kWh)",
-  sOX_EMISSIONS:"SOx Emissions (g/kWh)",
+  SOX_EMISSIONS:"SOx Emissions (g/kWh)",
   EMISSION_CONTROL_TECHNOLOGY:"Emission Control Technology",
   INTAKE_VALVE_TIMING:"Intake Valve Timing",
   EXHAUST_VALVE_TIMING:"Exhaust Valve Timing",
