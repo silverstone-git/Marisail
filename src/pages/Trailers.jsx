@@ -9,7 +9,7 @@ import CheckComponent from "../components/CheckComponent";
 import "./trailers.css";
 
 const Trailers = () => {
-  const [trailerOptions, setTrailerOptions] = useState(["1", "2", "3"]);
+  const [trailerOptions, setTrailerOptions] = useState([]);
   const [error, setErrors] = useState({});
   const [form, setForm] = useState({
     MarisailID: "",
@@ -212,12 +212,75 @@ const Trailers = () => {
   };
 
   const fetchTrailers = async (
-    URL = "http://localhost:3001/api/advert_engine/engine_make"
+    URL = "http://localhost:3001/api/trailers/marisail_id"
   ) => {
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      setTrailerOptions(toJson.result);
+      setForm({ ...form, MarisailID: toJson.result });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fetchTrailerMake = async (trailerMake) => {
+    const URL = `http://localhost:3001/api/trailers/trailer_make?marisail_id=${encodeURIComponent(
+      trailerMake
+    )}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      setForm({ ...form, Make: toJson.result });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fetchTrailersIdMake = async (trailerId, trailerMake) => {
+    const URL = `http://localhost:3001/api/trailers/trailer_model?trailer_id=${encodeURIComponent(
+      trailerId
+    )}&trailer_make=${encodeURIComponent(trailerMake)}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      setForm({ ...form, Model: toJson.result });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fetchTrailerYear = async (trailerId, trailerMake, trailerModel) => {
+    const URL = `http://localhost:3001/api/trailers/trailer_year?trailer_id=${encodeURIComponent(
+      trailerId
+    )}&trailer_make=${encodeURIComponent(
+      trailerMake
+    )}&trailer_model=${encodeURIComponent(trailerModel)}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      setForm({ ...form, Year: toJson.result });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fetchTrailerAll = async (
+    trailerId,
+    trailerMake,
+    trailerModel,
+    trailerYear
+  ) => {
+    const URL = `http://localhost:3001/api/trailers/trailer_all?trailer_id=${encodeURIComponent(
+      trailerId
+    )}&trailer_make=${encodeURIComponent(
+      trailerMake
+    )}&trailer_model=${encodeURIComponent(
+      trailerModel
+    )}$trailer_year=${encodeURIComponent(trailerYear)}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      setTrailerOptions(toJson.trailerIdData);
     } catch (err) {
       console.log(err);
     }
@@ -242,13 +305,16 @@ const Trailers = () => {
         <Row>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Identification</h6>
-            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
+            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2 myAcc">
                   <SelectComponent
-                    label="MarisailID"
+                    label="Marisail ID"
                     value={form.MarisailID}
-                    setValue={(val) => setForm({ ...form, MarisailID: val })}
+                    setValue={(val) => {
+                      setForm({ ...form, MarisailID: val });
+                      fetchTrailerMake(val);
+                    }}
                     header="Identification"
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -259,7 +325,10 @@ const Trailers = () => {
                   <SelectComponent
                     options={trailerOptions}
                     value={form.Make}
-                    setValue={(val) => setForm({ ...form, Make: val })}
+                    setValue={(val) => {
+                      setForm({ ...form, Make: val });
+                      fetchTrailersIdMake(form.MarisailID, val);
+                    }}
                     label="Make"
                     header="Identification"
                     openKey={openKey}
@@ -273,7 +342,10 @@ const Trailers = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.Model}
-                    setValue={(val) => setForm({ ...form, Model: val })}
+                    setValue={(val) => {
+                      setForm({ ...form, Model: val });
+                      fetchTrailerYear(form.MarisailID, form.Make, val);
+                    }}
                     label="Model"
                     isMandatory={error["Model"]}
                   />
@@ -284,7 +356,15 @@ const Trailers = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.Year}
-                    setValue={(val) => setForm({ ...form, Year: val })}
+                    setValue={(val) => {
+                      setForm({ ...form, Year: val });
+                      fetchTrailerAll(
+                        form.MarisailID,
+                        form.Make,
+                        form.Model,
+                        val
+                      );
+                    }}
                     label="Year"
                     isMandatory={error["Year"]}
                   />
@@ -294,7 +374,7 @@ const Trailers = () => {
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>General</h6>
-            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
+            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -325,7 +405,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.LoadCapacity}
                     setValue={(val) => setForm({ ...form, LoadCapacity: val })}
-                    label="LoadCapacity"
+                    label="Load Capacity"
                     isMandatory={error["LoadCapacity"]}
                   />
                 </Col>
@@ -382,7 +462,7 @@ const Trailers = () => {
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Construction Materials</h6>
-            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
+            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -391,7 +471,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.FrameMaterial}
                     setValue={(val) => setForm({ ...form, FrameMaterial: val })}
-                    label="FrameMaterial"
+                    label="Frame Material"
                     isMandatory={error["FrameMaterial"]}
                   />
                 </Col>
@@ -402,7 +482,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.FrameCoating}
                     setValue={(val) => setForm({ ...form, FrameCoating: val })}
-                    label="FrameCoating"
+                    label="Frame Coating"
                     isMandatory={error["FrameCoating"]}
                   />
                 </Col>
@@ -415,7 +495,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, FrameCrossmemberType: val })
                     }
-                    label="FrameCrossmemberType"
+                    label="Frame Crossmember Type"
                     isMandatory={error["FrameCrossmemberType"]}
                   />
                 </Col>
@@ -426,7 +506,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.FrameWeldType}
                     setValue={(val) => setForm({ ...form, FrameWeldType: val })}
-                    label="FrameWeldType"
+                    label="FrameWeld Type"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -441,7 +521,7 @@ const Trailers = () => {
                         MaximumAngleofApproach: val,
                       })
                     }
-                    label="MaximumAngleofApproach"
+                    label="Maximum Angle of Approach"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -451,7 +531,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.FloorMaterial}
                     setValue={(val) => setForm({ ...form, FloorMaterial: val })}
-                    label="FloorMaterial"
+                    label="Floor Material"
                     isMandatory={error["FloorMaterial"]}
                   />
                 </Col>
@@ -462,7 +542,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.SidesMaterial}
                     setValue={(val) => setForm({ ...form, SidesMaterial: val })}
-                    label="SidesMaterial"
+                    label="Sides Material"
                     isMandatory={error["SidesMaterial"]}
                   />
                 </Col>
@@ -473,7 +553,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.RoofMaterial}
                     setValue={(val) => setForm({ ...form, RoofMaterial: val })}
-                    label="RoofMaterial"
+                    label="Roof Material"
                     isMandatory={error["RoofMaterial"]}
                   />
                 </Col>
@@ -482,7 +562,7 @@ const Trailers = () => {
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Maintenance Features</h6>
-            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
+            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -491,7 +571,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.GreasePoints}
                     setValue={(val) => setForm({ ...form, GreasePoints: val })}
-                    label="GreasePoints"
+                    label="Grease Points"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -501,7 +581,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.BearingType}
                     setValue={(val) => setForm({ ...form, BearingType: val })}
-                    label="BearingType"
+                    label="Bearing Type"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -513,7 +593,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, MaintenanceSchedule: val })
                     }
-                    label="MaintenanceSchedule"
+                    label="Maintenance Schedule"
                   />
                 </Col>
               </Form>
@@ -521,7 +601,7 @@ const Trailers = () => {
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>User Features</h6>
-            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
+            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -540,7 +620,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.TieDownPoints}
                     setValue={(val) => setForm({ ...form, TieDownPoints: val })}
-                    label="TieDownPoints"
+                    label="Tie Down Points"
                     isMandatory={error["TieDownPoints"]}
                   />
                 </Col>
@@ -551,7 +631,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.ToolBox}
                     setValue={(val) => setForm({ ...form, ToolBox: val })}
-                    label="ToolBox"
+                    label="Tool Box"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -561,7 +641,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.BumperType}
                     setValue={(val) => setForm({ ...form, BumperType: val })}
-                    label="BumperType"
+                    label="Bumper Type"
                   />
                 </Col>
               </Form>
@@ -569,7 +649,7 @@ const Trailers = () => {
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Special Features</h6>
-            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
+            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
@@ -624,7 +704,7 @@ const Trailers = () => {
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Additional Accessories</h6>
-            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
+            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -633,7 +713,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.RampType}
                     setValue={(val) => setForm({ ...form, RampType: val })}
-                    label="RampType"
+                    label="Ramp Type"
                     isMandatory={error["RampType"]}
                   />
                 </Col>
@@ -644,7 +724,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.WinchPost}
                     setValue={(val) => setForm({ ...form, WinchPost: val })}
-                    label="WinchPost"
+                    label="Winch Post"
                     isMandatory={error["WinchPost"]}
                   />
                 </Col>
@@ -686,7 +766,7 @@ const Trailers = () => {
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Customization Options</h6>
-            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
+            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -716,7 +796,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.StorageBox}
                     setValue={(val) => setForm({ ...form, StorageBox: val })}
-                    label="StorageBox"
+                    label="Storage Box"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -728,7 +808,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, LightingPackage: val })
                     }
-                    label="LightingPackage"
+                    label="Lighting Package"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -740,7 +820,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, SuspensionUpgrade: val })
                     }
-                    label="SuspensionUpgrade"
+                    label="Suspension Upgrade"
                   />
                 </Col>
               </Form>
@@ -748,7 +828,7 @@ const Trailers = () => {
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Axles & Suspension</h6>
-            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
+            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -757,7 +837,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.AxleType}
                     setValue={(val) => setForm({ ...form, AxleType: val })}
-                    label="AxleType"
+                    label="Axle Type"
                     isMandatory={error["AxleType"]}
                   />
                 </Col>
@@ -768,7 +848,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.AxleCapacity}
                     setValue={(val) => setForm({ ...form, AxleCapacity: val })}
-                    label="AxleCapacity"
+                    label="Axle Capacity"
                     isMandatory={error["AxleCapacity"]}
                   />
                 </Col>
@@ -779,7 +859,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.AxleSealType}
                     setValue={(val) => setForm({ ...form, AxleSealType: val })}
-                    label="AxleSealType"
+                    label="Axle Seal Type"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -789,7 +869,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.AxleHubSize}
                     setValue={(val) => setForm({ ...form, AxleHubSize: val })}
-                    label="AxleHubSize"
+                    label="Axle Hub Size"
                     isMandatory={error["AxleHubSize"]}
                   />
                 </Col>
@@ -800,7 +880,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.AxlePosition}
                     setValue={(val) => setForm({ ...form, AxlePosition: val })}
-                    label="AxlePosition"
+                    label="Axle Position"
                     isMandatory={error["AxlePosition"]}
                   />
                 </Col>
@@ -825,7 +905,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, SuspensionType: val })
                     }
-                    label="SuspensionType"
+                    label="Suspension Type"
                     isMandatory={error["SuspensionType"]}
                   />
                 </Col>
@@ -838,7 +918,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, SuspensionCapacity: val })
                     }
-                    label="SuspensionCapacity"
+                    label="Suspension Capacity"
                     isMandatory={error["SuspensionCapacity"]}
                   />
                 </Col>
@@ -851,7 +931,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, SuspensionAdjustment: val })
                     }
-                    label="SuspensionAdjustment"
+                    label="Suspension Adjustment"
                   />
                 </Col>
               </Form>
@@ -859,7 +939,7 @@ const Trailers = () => {
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Tyres & Wheels</h6>
-            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
+            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -868,7 +948,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.TyreSize}
                     setValue={(val) => setForm({ ...form, TyreSize: val })}
-                    label="TyreSize"
+                    label="Tyre Size"
                     isMandatory={error["TyreSize"]}
                   />
                 </Col>
@@ -879,7 +959,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.TyreLoadRange}
                     setValue={(val) => setForm({ ...form, TyreLoadRange: val })}
-                    label="TyreLoadRange"
+                    label="Tyre Load Range"
                     isMandatory={error["TyreLoadRange"]}
                   />
                 </Col>
@@ -890,7 +970,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.TyreType}
                     setValue={(val) => setForm({ ...form, TyreType: val })}
-                    label="TyreType"
+                    label="Tyre Type"
                     isMandatory={error["TyreType"]}
                   />
                 </Col>
@@ -901,7 +981,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.WheelType}
                     setValue={(val) => setForm({ ...form, WheelType: val })}
-                    label="WheelType"
+                    label="Wheel Type"
                     isMandatory={error["WheelType"]}
                   />
                 </Col>
@@ -914,7 +994,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, WheelBoltPattern: val })
                     }
-                    label="WheelBoltPattern"
+                    label="Wheel Bolt Pattern"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -926,7 +1006,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, HubLubricationSystem: val })
                     }
-                    label="HubLubricationSystem"
+                    label="Hub Lubrication System"
                   />
                 </Col>
               </Form>
@@ -934,7 +1014,7 @@ const Trailers = () => {
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Brakes & Safety</h6>
-            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
+            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -943,7 +1023,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.BrakeType}
                     setValue={(val) => setForm({ ...form, BrakeType: val })}
-                    label="BrakeType"
+                    label="Brake Type"
                     isMandatory={error["BrakeType"]}
                   />
                 </Col>
@@ -954,7 +1034,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.BrakeActuator}
                     setValue={(val) => setForm({ ...form, BrakeActuator: val })}
-                    label="BrakeActuator"
+                    label="Brake Actuator"
                     isMandatory={error["BrakeActuator"]}
                   />
                 </Col>
@@ -967,7 +1047,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, BrakeLineMaterial: val })
                     }
-                    label="BrakeLineMaterial"
+                    label="Brake Line Material"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -979,7 +1059,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, BrakeDrumDiameter: val })
                     }
-                    label="BrakeDrumDiameter"
+                    label="Brake Drum Diameter"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -991,7 +1071,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, BrakeFluidType: val })
                     }
-                    label="BrakeFluidType"
+                    label="Brake Fluid Type"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1011,7 +1091,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.CouplerSize}
                     setValue={(val) => setForm({ ...form, CouplerSize: val })}
-                    label="CouplerSize"
+                    label="Coupler Size"
                     isMandatory={error["CouplerSize"]}
                   />
                 </Col>
@@ -1022,7 +1102,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.CouplerType}
                     setValue={(val) => setForm({ ...form, CouplerType: val })}
-                    label="CouplerType"
+                    label="Coupler Type"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1034,7 +1114,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, CouplerLockType: val })
                     }
-                    label="CouplerLockType"
+                    label="Coupler Lock Type"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1044,7 +1124,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.HitchClass}
                     setValue={(val) => setForm({ ...form, HitchClass: val })}
-                    label="HitchClass"
+                    label="Hitch Class"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1056,7 +1136,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, HitchReceiverSize: val })
                     }
-                    label="HitchReceiverSize"
+                    label="Hitch Receiver Size"
                     isMandatory={error["HitchReceiverSize"]}
                   />
                 </Col>
@@ -1067,7 +1147,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.SafetyChains}
                     setValue={(val) => setForm({ ...form, SafetyChains: val })}
-                    label="SafetyChains"
+                    label="Safety Chains"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1087,7 +1167,7 @@ const Trailers = () => {
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Winch & Winch Accessories</h6>
-            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
+            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1096,7 +1176,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.WinchType}
                     setValue={(val) => setForm({ ...form, WinchType: val })}
-                    label="WinchType"
+                    label="Winch Type"
                     isMandatory={error["WinchType"]}
                   />
                 </Col>
@@ -1107,7 +1187,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.WinchCapacity}
                     setValue={(val) => setForm({ ...form, WinchCapacity: val })}
-                    label="WinchCapacity"
+                    label="Winch Capacity"
                     isMandatory={error["WinchCapacity"]}
                   />
                 </Col>
@@ -1120,7 +1200,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, WinchRopeLength: val })
                     }
-                    label="WinchRopeLength"
+                    label="Winch Rope Length"
                     isMandatory={error["WinchRopeLength"]}
                   />
                 </Col>
@@ -1133,7 +1213,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, WinchDrumMaterial: val })
                     }
-                    label="WinchDrumMaterial"
+                    label="Winch Drum Material"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1145,7 +1225,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, WinchGearRatio: val })
                     }
-                    label="WinchGearRatio"
+                    label="Winch Gear Ratio"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1157,7 +1237,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, WinchRemoteControl: val })
                     }
-                    label="WinchRemoteControl"
+                    label="Winch Remote Control"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1169,7 +1249,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, WinchBrakeType: val })
                     }
-                    label="WinchBrakeType"
+                    label="Winch Brake Type"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1181,7 +1261,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, WinchCableType: val })
                     }
-                    label="WinchCableType"
+                    label="Winch Cable Type"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1193,7 +1273,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, WinchStrapLength: val })
                     }
-                    label="WinchStrapLength"
+                    label="Winch Strap Length"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1205,7 +1285,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, WinchHandleLength: val })
                     }
-                    label="WinchHandleLength"
+                    label="Winch Handle Length"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1215,7 +1295,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.WinchMounting}
                     setValue={(val) => setForm({ ...form, WinchMounting: val })}
-                    label="WinchMounting"
+                    label="Winch Mounting"
                   />
                 </Col>
               </Form>
@@ -1223,7 +1303,7 @@ const Trailers = () => {
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Lighting & Electrical</h6>
-            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
+            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1245,7 +1325,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, LightMountingPosition: val })
                     }
-                    label="LightMountingPosition"
+                    label="Light Mounting Position"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1255,7 +1335,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.LightType}
                     setValue={(val) => setForm({ ...form, LightType: val })}
-                    label="LightType"
+                    label="Light Type"
                     isMandatory={error["LightType"]}
                   />
                 </Col>
@@ -1268,7 +1348,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, ElectricalConnectorType: val })
                     }
-                    label="ElectricalConnectorType"
+                    label="Electrical Connector Type"
                     isMandatory={error["ElectricalConnectorType"]}
                   />
                 </Col>
@@ -1281,7 +1361,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, ElectricalWiringType: val })
                     }
-                    label="ElectricalWiringType"
+                    label="Electrical Wiring Type"
                     isMandatory={error["ElectricalWiringType"]}
                   />
                 </Col>
@@ -1292,7 +1372,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.BatteryType}
                     setValue={(val) => setForm({ ...form, BatteryType: val })}
-                    label="BatteryType"
+                    label="Battery Type"
                     isMandatory={error["BatteryType"]}
                   />
                 </Col>
@@ -1305,7 +1385,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, BatteryChargerType: val })
                     }
-                    label="BatteryChargerType"
+                    label="Battery Charger Type"
                     isMandatory={error["BatteryChargerType"]}
                   />
                 </Col>
@@ -1314,7 +1394,7 @@ const Trailers = () => {
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Accessories</h6>
-            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
+            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1325,7 +1405,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, SpareTyreCarrier: val })
                     }
-                    label="SpareTyreCarrier"
+                    label="Spare Tyre Carrier"
                     isMandatory={error["SpareTyreCarrier"]}
                   />
                 </Col>
@@ -1336,7 +1416,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.SpareTyreSize}
                     setValue={(val) => setForm({ ...form, SpareTyreSize: val })}
-                    label="SpareTyreSize"
+                    label="Spare Tyre Size"
                     isMandatory={error["SpareTyreSize"]}
                   />
                 </Col>
@@ -1349,7 +1429,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, SpareTyreMountingLocation: val })
                     }
-                    label="SpareTyreMountingLocation"
+                    label="Spare Tyre Mounting Location"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1359,7 +1439,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.JackType}
                     setValue={(val) => setForm({ ...form, JackType: val })}
-                    label="JackType"
+                    label="Jack Type"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1369,7 +1449,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.JackWheelType}
                     setValue={(val) => setForm({ ...form, JackWheelType: val })}
-                    label="JackWheelType"
+                    label="Jack Wheel Type"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1379,7 +1459,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.JackCapacity}
                     setValue={(val) => setForm({ ...form, JackCapacity: val })}
-                    label="JackCapacity"
+                    label="Jack Capacity"
                     isMandatory={error["JackCapacity"]}
                   />
                 </Col>
@@ -1392,7 +1472,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, JackLiftHeight: val })
                     }
-                    label="JackLiftHeight"
+                    label="Jack Lift Height"
                   />
                 </Col>
               </Form>
@@ -1400,7 +1480,7 @@ const Trailers = () => {
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Loading & Transport Features</h6>
-            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
+            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1409,7 +1489,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.LoadingSystem}
                     setValue={(val) => setForm({ ...form, LoadingSystem: val })}
-                    label="LoadingSystem"
+                    label="Loading System"
                     isMandatory={error["LoadingSystem"]}
                   />
                 </Col>
@@ -1430,7 +1510,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.BunkMaterial}
                     setValue={(val) => setForm({ ...form, BunkMaterial: val })}
-                    label="BunkMaterial"
+                    label="Bunk Material"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1440,7 +1520,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.BunkWidth}
                     setValue={(val) => setForm({ ...form, BunkWidth: val })}
-                    label="BunkWidth"
+                    label="Bunk Width"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1452,7 +1532,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, BunkHeightAdjustment: val })
                     }
-                    label="BunkHeightAdjustment"
+                    label="Bunk Height Adjustment"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1464,7 +1544,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, BunkMountingBracketMaterial: val })
                     }
-                    label="BunkMountingBracketMaterial"
+                    label="Bunk Mounting Bracket Material"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1486,7 +1566,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, RollerMaterial: val })
                     }
-                    label="RollerMaterial"
+                    label="Roller Material"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1498,7 +1578,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, RollerAxleDiameter: val })
                     }
-                    label="RollerAxleDiameter"
+                    label="Roller Axle Diameter"
                   />
                 </Col>
               </Form>
@@ -1506,7 +1586,7 @@ const Trailers = () => {
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Security Features</h6>
-            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
+            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1526,7 +1606,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.LockType}
                     setValue={(val) => setForm({ ...form, LockType: val })}
-                    label="LockType"
+                    label="Lock Type"
                     isMandatory={error["LockType"]}
                   />
                 </Col>
@@ -1537,7 +1617,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.AlarmSystem}
                     setValue={(val) => setForm({ ...form, AlarmSystem: val })}
-                    label="AlarmSystem"
+                    label="Alarm System"
                     isMandatory={error["AlarmSystem"]}
                   />
                 </Col>
@@ -1550,7 +1630,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, GPSTrackingDevice: val })
                     }
-                    label="GPSTrackingDevice"
+                    label="GPS Tracking Device"
                     isMandatory={error["GPSTrackingDevice"]}
                   />
                 </Col>
@@ -1561,7 +1641,7 @@ const Trailers = () => {
             <h6 style={{ marginLeft: 10 }}>
               Environmental & Corrosion Resistance
             </h6>
-            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
+            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1572,7 +1652,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, CorrosionProtection: val })
                     }
-                    label="CorrosionProtection"
+                    label="Corrosion Protection"
                     isMandatory={error["CorrosionProtection"]}
                   />
                 </Col>
@@ -1585,7 +1665,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, RustInhibitors: val })
                     }
-                    label="RustInhibitors"
+                    label="Rust Inhibitors"
                   />
                 </Col>
               </Form>
@@ -1593,7 +1673,7 @@ const Trailers = () => {
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Performance & Handling</h6>
-            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
+            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1604,7 +1684,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, MaximumSpeedRating: val })
                     }
-                    label="MaximumSpeedRating"
+                    label="Maximum Speed Rating"
                     isMandatory={error["MaximumSpeedRating"]}
                   />
                 </Col>
@@ -1615,7 +1695,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.TurningRadius}
                     setValue={(val) => setForm({ ...form, TurningRadius: val })}
-                    label="TurningRadius"
+                    label="Turning Radius"
                     isMandatory={error["TurningRadius"]}
                   />
                 </Col>
@@ -1624,7 +1704,7 @@ const Trailers = () => {
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Tongue</h6>
-            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
+            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1635,7 +1715,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, TongueMaterial: val })
                     }
-                    label="TongueMaterial"
+                    label="Tongue Material"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1645,7 +1725,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.TongueShape}
                     setValue={(val) => setForm({ ...form, TongueShape: val })}
-                    label="TongueShape"
+                    label="Tongue Shape"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1657,7 +1737,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, TongueJackWheelSize: val })
                     }
-                    label="TongueJackWheelSize"
+                    label="Tongue Jack Wheel Size"
                     isMandatory={error["TongueJackWheelSize"]}
                   />
                 </Col>
@@ -1670,7 +1750,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, TongueJackType: val })
                     }
-                    label="TongueJackType"
+                    label="Tongue Jack Type"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1680,7 +1760,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.TongueWeight}
                     setValue={(val) => setForm({ ...form, TongueWeight: val })}
-                    label="TongueWeight"
+                    label="Tongue Weight"
                     isMandatory={error["TongueWeight"]}
                   />
                 </Col>
@@ -1693,7 +1773,7 @@ const Trailers = () => {
                     setValue={(val) =>
                       setForm({ ...form, TongueWeightRatio: val })
                     }
-                    label="TongueWeightRatio"
+                    label="Tongue Weight Ratio"
                   />
                 </Col>
               </Form>
@@ -1701,7 +1781,7 @@ const Trailers = () => {
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Documentation</h6>
-            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
+            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1710,7 +1790,7 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     value={form.OwnerManual}
                     setValue={(val) => setForm({ ...form, OwnerManual: val })}
-                    label="OwnerManual"
+                    label="Owner Manual"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -1728,7 +1808,7 @@ const Trailers = () => {
           </Col>
           <Col md={6} className="mt-4">
             <h6 style={{ marginLeft: 10 }}>Regulatory Compliance</h6>
-            <Col md={12} className="mt-5 ms-3 mr-3" style={{ width: "480px" }}>
+            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
               <Form>
                 <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
