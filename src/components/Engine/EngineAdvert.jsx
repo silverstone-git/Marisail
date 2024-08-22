@@ -3827,6 +3827,150 @@ const EngineAdvert = () => {
               </Col>
             </Col>
             <Col md={6} style={{ marginTop: 40 }}>
+              <h6 style={{ marginLeft: 10 }}>Dimensions</h6>
+              <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.displacement}
+                    setValue={(val) => setForm({ ...form, displacement: val })}
+                    label={ENGINE_ADVERT.DISPLACEMENT}
+                    isMandatory={true}
+                    options={displacementOptions}
+                  />
+                  <div className="ms-2"><p><small>{error["displacement"] && errorDisplay(ENGINE_ADVERT.DISPLACEMENT)}</small></p></div>
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.length}
+                    setValue={(val) => setForm({ ...form, length: val })}
+                    label={ENGINE_ADVERT.LENGTH}
+                    isMandatory={true}
+                    options={lengthOptions}
+                  />
+                  <div className="ms-2"><p><small>{error["length"] && errorDisplay(ENGINE_ADVERT.LENGTH)}</small></p></div>
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.width}
+                    setValue={(val) => setForm({ ...form, width: val })}
+                    label={ENGINE_ADVERT.WIDTH}
+                    isMandatory={true}
+                    options={widthOptions}
+                  />
+                  <div className="ms-2"><p><small>{error["width"] && errorDisplay(ENGINE_ADVERT.WIDTH)}</small></p></div>
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.height}
+                    setValue={(val) => setForm({ ...form, height: val })}
+                    label={ENGINE_ADVERT.HEIGHT}
+                    isMandatory={true}
+                    options={heightOptions}
+                  />
+                  <div className="ms-2"><p><small>{error["height"] && errorDisplay(ENGINE_ADVERT.HEIGHT)}</small></p></div>
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.lengthFromFrontEndOfFlywheelHousing}
+                    setValue={(val) =>
+                      setForm({
+                        ...form,
+                        lengthFromFrontEndOfFlywheelHousing: val,
+                      })
+                    }
+                    label={ENGINE_ADVERT.LENGTH_FROM_FRONTEND_FLYWHEEL_HOUSING}
+                    options={lengthFromFrontEndOfFlywheelHousingOptions}
+                    isMandatory={false}
+                  />
+                  {/* <div className="ms-2"><p><small>{error["lengthFromFrontEndOfFlywheelHousingOptions"] && errorDisplay(ENGINE_ADVERT.LENGTH_FROM_FRONTEND_FLYWHEEL_HOUSING)}</small></p></div> */}
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.engineWeight}
+                    setValue={(val) => setForm({ ...form, engineWeight: val })}
+                    label={ENGINE_ADVERT.ENGINE_WEIGHT}
+                    options={engineWeightOptions}
+                    isMandatory={true}
+                  />
+                  <div className="ms-2"><p><small>{error["engineWeight"] && errorDisplay(ENGINE_ADVERT.ENGINE_WEIGHT)}</small></p></div>
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.dryWeight}
+                    setValue={(val) => setForm({ ...form, dryWeight: val })}
+                    label={ENGINE_ADVERT.DRY_WEIGHT}
+                    options={dryWeightOptions}
+                    isMandatory={true}
+                  />
+                  <div className="ms-2"><p><small>{error["dryWeight"] && errorDisplay(ENGINE_ADVERT.DRY_WEIGHT)}</small></p></div>
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.exclOilWeight}
+                    setValue={(val) => setForm({ ...form, exclOilWeight: val })}
+                    label={ENGINE_ADVERT.EXCL_OIL_WEIGHT_AND_COOLANT}
+                    options={exclOilWeightOptions}
+                    isMandatory={false}
+                  />
+                  {/* <div className="ms-2"><p><small>{error["exclOilWeight"] && errorDisplay(ENGINE_ADVERT.EXCL_OIL_WEIGHT_AND_COOLANT)}</small></p></div> */}
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.weightWithHeatExchanger}
+                    setValue={(val) =>
+                      setForm({ ...form, weightWithHeatExchanger: val })
+                    }
+                    label={ENGINE_ADVERT.WEIGHT_WITH_HEAT_EXCHANGER}
+                    options={weightWithHeatExchangerOptions}
+                    isMandatory={false}
+                  />
+                  {/* <div className="ms-2"><p><small>{error["weightWithHeatExchanger"] && errorDisplay(ENGINE_ADVERT.WEIGHT_WITH_HEAT_EXCHANGER)}</small></p></div> */}
+                </Col>
+                <Col xs={3} md={12} className="mb-2">
+                  <SelectComponent
+                    type="advertEngine"
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                    value={form.weightWithKeelCooling}
+                    setValue={(val) =>
+                      setForm({ ...form, weightWithKeelCooling: val })
+                    }
+                    label={ENGINE_ADVERT.WEIGHT_WITH_KEEL_COOLING}
+                    options={weightWithKeelCoolingOptions}
+                    isMandatory={false}
+                  />
+                  {/* <div className="ms-2"><p><small>{error["weightWithKeelCooling"] && errorDisplay(ENGINE_ADVERT.WEIGHT_WITH_KEEL_COOLING)}</small></p></div> */}
+                </Col>
+              </Col>
+            </Col>
+            <Col md={6} style={{ marginTop: 40 }}>
               <h6 style={{ marginLeft: 10 }}>Electrical System</h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
                 <Col xs={3} md={12} className="mb-2">
@@ -3974,150 +4118,6 @@ const EngineAdvert = () => {
                     isMandatory={false}
                   />
                   {/* <div className="ms-2"><p><small>{error["integratedGenerator"] && errorDisplay(ENGINE_ADVERT.INTEGRATED_GENERATOR)}</small></p></div> */}
-                </Col>
-              </Col>
-            </Col>
-            <Col md={6} style={{ marginTop: 40 }}>
-              <h6 style={{ marginLeft: 10 }}>Dimensions</h6>
-              <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.displacement}
-                    setValue={(val) => setForm({ ...form, displacement: val })}
-                    label={ENGINE_ADVERT.DISPLACEMENT}
-                    isMandatory={true}
-                    options={displacementOptions}
-                  />
-                  <div className="ms-2"><p><small>{error["displacement"] && errorDisplay(ENGINE_ADVERT.DISPLACEMENT)}</small></p></div>
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.length}
-                    setValue={(val) => setForm({ ...form, length: val })}
-                    label={ENGINE_ADVERT.LENGTH}
-                    isMandatory={true}
-                    options={lengthOptions}
-                  />
-                  <div className="ms-2"><p><small>{error["length"] && errorDisplay(ENGINE_ADVERT.LENGTH)}</small></p></div>
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.width}
-                    setValue={(val) => setForm({ ...form, width: val })}
-                    label={ENGINE_ADVERT.WIDTH}
-                    isMandatory={true}
-                    options={widthOptions}
-                  />
-                  <div className="ms-2"><p><small>{error["width"] && errorDisplay(ENGINE_ADVERT.WIDTH)}</small></p></div>
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.height}
-                    setValue={(val) => setForm({ ...form, height: val })}
-                    label={ENGINE_ADVERT.HEIGHT}
-                    isMandatory={true}
-                    options={heightOptions}
-                  />
-                  <div className="ms-2"><p><small>{error["height"] && errorDisplay(ENGINE_ADVERT.HEIGHT)}</small></p></div>
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.lengthFromFrontEndOfFlywheelHousing}
-                    setValue={(val) =>
-                      setForm({
-                        ...form,
-                        lengthFromFrontEndOfFlywheelHousing: val,
-                      })
-                    }
-                    label={ENGINE_ADVERT.LENGTH_FROM_FRONTEND_FLYWHEEL_HOUSING}
-                    options={lengthFromFrontEndOfFlywheelHousingOptions}
-                    isMandatory={false}
-                  />
-                  {/* <div className="ms-2"><p><small>{error["lengthFromFrontEndOfFlywheelHousingOptions"] && errorDisplay(ENGINE_ADVERT.LENGTH_FROM_FRONTEND_FLYWHEEL_HOUSING)}</small></p></div> */}
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.engineWeight}
-                    setValue={(val) => setForm({ ...form, engineWeight: val })}
-                    label={ENGINE_ADVERT.ENGINE_WEIGHT}
-                    options={engineWeightOptions}
-                    isMandatory={true}
-                  />
-                  <div className="ms-2"><p><small>{error["engineWeight"] && errorDisplay(ENGINE_ADVERT.ENGINE_WEIGHT)}</small></p></div>
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.dryWeight}
-                    setValue={(val) => setForm({ ...form, dryWeight: val })}
-                    label={ENGINE_ADVERT.DRY_WEIGHT}
-                    options={dryWeightOptions}
-                    isMandatory={true}
-                  />
-                  <div className="ms-2"><p><small>{error["dryWeight"] && errorDisplay(ENGINE_ADVERT.DRY_WEIGHT)}</small></p></div>
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.exclOilWeight}
-                    setValue={(val) => setForm({ ...form, exclOilWeight: val })}
-                    label={ENGINE_ADVERT.EXCL_OIL_WEIGHT_AND_COOLANT}
-                    options={exclOilWeightOptions}
-                    isMandatory={false}
-                  />
-                  {/* <div className="ms-2"><p><small>{error["exclOilWeight"] && errorDisplay(ENGINE_ADVERT.EXCL_OIL_WEIGHT_AND_COOLANT)}</small></p></div> */}
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.weightWithHeatExchanger}
-                    setValue={(val) =>
-                      setForm({ ...form, weightWithHeatExchanger: val })
-                    }
-                    label={ENGINE_ADVERT.WEIGHT_WITH_HEAT_EXCHANGER}
-                    options={weightWithHeatExchangerOptions}
-                    isMandatory={false}
-                  />
-                  {/* <div className="ms-2"><p><small>{error["weightWithHeatExchanger"] && errorDisplay(ENGINE_ADVERT.WEIGHT_WITH_HEAT_EXCHANGER)}</small></p></div> */}
-                </Col>
-                <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    type="advertEngine"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.weightWithKeelCooling}
-                    setValue={(val) =>
-                      setForm({ ...form, weightWithKeelCooling: val })
-                    }
-                    label={ENGINE_ADVERT.WEIGHT_WITH_KEEL_COOLING}
-                    options={weightWithKeelCoolingOptions}
-                    isMandatory={false}
-                  />
-                  {/* <div className="ms-2"><p><small>{error["weightWithKeelCooling"] && errorDisplay(ENGINE_ADVERT.WEIGHT_WITH_KEEL_COOLING)}</small></p></div> */}
                 </Col>
               </Col>
             </Col>
