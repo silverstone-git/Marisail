@@ -19,8 +19,8 @@ server.get("/", (req, res) => {
     message: "root route",
   });
 });
-server.get('/server/healthCheck', (req, res) => {
-  res.json({ message: 'Hello from the backend!' });
+server.get("/server/healthCheck", (req, res) => {
+  res.json({ message: "Hello from the backend!" });
 });
 server.use(function (req, res, next) {
   next(createError(404));
