@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import HeaderNavbar from "./Components/HeaderNavbar";
+import HeaderNavbar from "./components/HeaderNavbar";
 
 import { useRef } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -13,7 +13,7 @@ import Berths from "./pages/Berths";
 import Buy from "./pages/Buy";
 import Sell from "./pages/Sell";
 import Services from "./pages/Services";
-import EngineDetailPage from "./Components/Engine/EngineDetail";
+import EngineDetailPage from "./components/Engine/EngineDetail";
 
 function App() {
   const navbarRef = useRef();
