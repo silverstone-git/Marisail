@@ -3,7 +3,6 @@ import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import DropdownWithCheckBoxes from "../DropdownWithCheckBoxes";
 import EngineCard from "../EngineCard";
 import CustomDatePicker from "../CustomDatePicker";
-import axios from "axios";
 import SearchBar from "../SearchBar";
 import {
   fetchColumns,
