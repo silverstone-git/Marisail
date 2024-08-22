@@ -1257,7 +1257,7 @@ const EngineAdvert = () => {
                     options={offeredByOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["offeredBy"] && errorDisplay(ENGINE_ADVERT.OFFERED_BY)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["offeredBy"] && errorDisplay(ENGINE_ADVERT.OFFERED_BY)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <div className="customDatePickerWidth">
@@ -1353,7 +1353,7 @@ const EngineAdvert = () => {
                     id={ENGINE_ADVERT.MANUFACTURER_WARRANTY_ID}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["manufacturerWarranty"] && errorDisplay(ENGINE_ADVERT.MANUFACTURER_WARRANTY)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["manufacturerWarranty"] && errorDisplay(ENGINE_ADVERT.MANUFACTURER_WARRANTY)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1368,7 +1368,7 @@ const EngineAdvert = () => {
                     options={engineSerialNumberOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["engineSerialNumber"] && errorDisplay(ENGINE_ADVERT.ENGINE_SERIAL_NUMBER)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["engineSerialNumber"] && errorDisplay(ENGINE_ADVERT.ENGINE_SERIAL_NUMBER)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1504,7 +1504,7 @@ const EngineAdvert = () => {
                     options={engineSoundproofingKits}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["engineSoundproofingKits"] && errorDisplay(ENGINE_ADVERT.ENGINE_SOUNDPROOFING_KITS)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["engineSoundproofingKits"] && errorDisplay(ENGINE_ADVERT.ENGINE_SOUNDPROOFING_KITS)}</small></p></div> */}
                 </Col>
               </Col>
             </Col>
@@ -1522,7 +1522,7 @@ const EngineAdvert = () => {
                     options={nominalRatingOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["nominalRating"] && errorDisplay("Nominal Rating (Kw) (HP)")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["nominalRating"] && errorDisplay("Nominal Rating (Kw) (HP)")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1537,7 +1537,7 @@ const EngineAdvert = () => {
                     options={enginePerformanceOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["enginePerformance"] && errorDisplay("Engine Performance")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["enginePerformance"] && errorDisplay("Engine Performance")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1552,7 +1552,7 @@ const EngineAdvert = () => {
                     options={maxPowerOutputOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["maxPowerOutput"] && errorDisplay("Max Power Output")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["maxPowerOutput"] && errorDisplay("Max Power Output")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1591,7 +1591,7 @@ const EngineAdvert = () => {
                     options={superchargedOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["supercharged"] && errorDisplay("Supercharged")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["supercharged"] && errorDisplay("Supercharged")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1604,7 +1604,7 @@ const EngineAdvert = () => {
                     options={valveTrainOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["valveTrain"] && errorDisplay("Valve Train")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["valveTrain"] && errorDisplay("Valve Train")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1619,7 +1619,7 @@ const EngineAdvert = () => {
                     options={grossPowerFullLoadKwOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["grossPowerFullLoadKW"] && errorDisplay("Gross Power, Full Load (Kw)")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["grossPowerFullLoadKW"] && errorDisplay("Gross Power, Full Load (Kw)")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1634,7 +1634,7 @@ const EngineAdvert = () => {
                     options={grossPowerFullLoadOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["grossPowerFullLoadHpMetric"] && errorDisplay("Gross Power, Full Load (Hp, Metric)")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["grossPowerFullLoadHpMetric"] && errorDisplay("Gross Power, Full Load (Hp, Metric)")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1649,7 +1649,7 @@ const EngineAdvert = () => {
                     options={grossPowerPropellerCurveKwOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["GrossPowerPropellerCurveKw"] && errorDisplay("Gross Power, Propeller Curve (Kw)")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["GrossPowerPropellerCurveKw"] && errorDisplay("Gross Power, Propeller Curve (Kw)")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1667,7 +1667,7 @@ const EngineAdvert = () => {
                     options={grossPowerPropellerCurveOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["GrossPowerPropellerCurveHpMetric"] && errorDisplay("Gross Power, Propeller Curve (Hp, Metric)")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["GrossPowerPropellerCurveHpMetric"] && errorDisplay("Gross Power, Propeller Curve (Hp, Metric)")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1680,7 +1680,7 @@ const EngineAdvert = () => {
                     options={grossTorqueOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["grossTorque"] && errorDisplay("Gross Torque (Nm)")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["grossTorque"] && errorDisplay("Gross Torque (Nm)")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1695,7 +1695,7 @@ const EngineAdvert = () => {
                     options={continuousPowerOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["continuousPower"] && errorDisplay("Continuous Power (kW/HP)")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["continuousPower"] && errorDisplay("Continuous Power (kW/HP)")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1710,7 +1710,7 @@ const EngineAdvert = () => {
                     options={maxContinuousRatingOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["maximumContinuousRating"] && errorDisplay("Maximum Continuous Rating (MCR)")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["maximumContinuousRating"] && errorDisplay("Maximum Continuous Rating (MCR)")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1755,7 +1755,7 @@ const EngineAdvert = () => {
                     options={powerToWeightRatioOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["powerToWeightRatio"] && errorDisplay("Power-to-Weight Ratio")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["powerToWeightRatio"] && errorDisplay("Power-to-Weight Ratio")}</small></p></div> */}
                 </Col>
               </Col>
             </Col>
@@ -1788,7 +1788,7 @@ const EngineAdvert = () => {
                     isMandatory={false}
                     options={gearShiftOptions}
                   />
-                  <div className="ms-2"><p><small>{error["gearShift"] && errorDisplay(ENGINE_ADVERT.GEAR_SHIFT)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["gearShift"] && errorDisplay(ENGINE_ADVERT.GEAR_SHIFT)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1801,7 +1801,7 @@ const EngineAdvert = () => {
                     isMandatory={false}
                     options={gearRatioOptions}
                   />
-                  <div className="ms-2"><p><small>{error["gearRatio"] && errorDisplay(ENGINE_ADVERT.GEAR_RATIO)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["gearRatio"] && errorDisplay(ENGINE_ADVERT.GEAR_RATIO)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1814,7 +1814,7 @@ const EngineAdvert = () => {
                     isMandatory={false}
                     options={gearShiftTypeOptions}
                   />
-                  <div className="ms-2"><p><small>{error["gearShiftType"] && errorDisplay(ENGINE_ADVERT.GEAR_SHIFT_TYPE)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["gearShiftType"] && errorDisplay(ENGINE_ADVERT.GEAR_SHIFT_TYPE)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1827,7 +1827,7 @@ const EngineAdvert = () => {
                     isMandatory={false}
                     options={flywheelOptions}
                   />
-                  <div className="ms-2"><p><small>{error["flywheelSAE14"] && errorDisplay(ENGINE_ADVERT.FLYWHEEL_SAE14)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["flywheelSAE14"] && errorDisplay(ENGINE_ADVERT.FLYWHEEL_SAE14)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1842,7 +1842,7 @@ const EngineAdvert = () => {
                     options={siluminFlywheelHousingOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["siluminFlywheelHousing"] && errorDisplay(ENGINE_ADVERT.SILUMIN_FLYWHEEL_HOUSING)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["siluminFlywheelHousing"] && errorDisplay(ENGINE_ADVERT.SILUMIN_FLYWHEEL_HOUSING)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1855,7 +1855,7 @@ const EngineAdvert = () => {
                     options={camShaftOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["camShaft"] && errorDisplay(ENGINE_ADVERT.CAMSHAFT)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["camShaft"] && errorDisplay(ENGINE_ADVERT.CAMSHAFT)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1868,7 +1868,7 @@ const EngineAdvert = () => {
                     options={camShaftAlloyOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["camShaftAlloy"] && errorDisplay(ENGINE_ADVERT.CRANKSHAFT_ALLOY)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["camShaftAlloy"] && errorDisplay(ENGINE_ADVERT.CRANKSHAFT_ALLOY)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1883,7 +1883,7 @@ const EngineAdvert = () => {
                     options={crankcaseDesignOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["crankcaseDesign"] && errorDisplay(ENGINE_ADVERT.CRANKCASE_DESIGN)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["crankcaseDesign"] && errorDisplay(ENGINE_ADVERT.CRANKCASE_DESIGN)}</small></p></div> */}
                 </Col>
               </Col>
             </Col>
@@ -1903,7 +1903,7 @@ const EngineAdvert = () => {
                     options={cylinderConfigurationOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["cylinderConfiguration"] && errorDisplay("Cylinder Configuration")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["cylinderConfiguration"] && errorDisplay("Cylinder Configuration")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1933,7 +1933,7 @@ const EngineAdvert = () => {
                     options={cylindersArrangementOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["cylindersAndArrangement"] && errorDisplay("Cylinders And Arrangement")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["cylindersAndArrangement"] && errorDisplay("Cylinders And Arrangement")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1961,7 +1961,7 @@ const EngineAdvert = () => {
                     options={valvePerCylinderOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["valvePerCylinder"] && errorDisplay("Valve per Cylinder")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["valvePerCylinder"] && errorDisplay("Valve per Cylinder")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1974,7 +1974,7 @@ const EngineAdvert = () => {
                     options={boreStrokeOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["boreXStroke"] && errorDisplay("Bore X Stroke")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["boreXStroke"] && errorDisplay("Bore X Stroke")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1987,7 +1987,7 @@ const EngineAdvert = () => {
                     options={boreOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["bore"] && errorDisplay("Bore")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["bore"] && errorDisplay("Bore")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2000,7 +2000,7 @@ const EngineAdvert = () => {
                     options={boreStrokeOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["stroke"] && errorDisplay("Stroke")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["stroke"] && errorDisplay("Stroke")}</small></p></div> */}
                 </Col>
               </Col>
             </Col>
@@ -2020,7 +2020,7 @@ const EngineAdvert = () => {
                     options={engineManagementSystemOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["engineManagementSystem"] && errorDisplay(ENGINE_ADVERT.ENGINE_MANAGEMENT_SYSTEM)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["engineManagementSystem"] && errorDisplay(ENGINE_ADVERT.ENGINE_MANAGEMENT_SYSTEM)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2035,7 +2035,7 @@ const EngineAdvert = () => {
                     options={engineControlSystemOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["engineControlSystem"] && errorDisplay(ENGINE_ADVERT.ENGINE_CONTROL_SYSTEM)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["engineControlSystem"] && errorDisplay(ENGINE_ADVERT.ENGINE_CONTROL_SYSTEM)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2048,7 +2048,7 @@ const EngineAdvert = () => {
                     options={unitInjectorsOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["unitInjectors"] && errorDisplay(ENGINE_ADVERT.UNIT_INJECTORS)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["unitInjectors"] && errorDisplay(ENGINE_ADVERT.UNIT_INJECTORS)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2061,7 +2061,7 @@ const EngineAdvert = () => {
                     options={turboChargerOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["turboCharger"] && errorDisplay(ENGINE_ADVERT.TURBO_CHARGER)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["turboCharger"] && errorDisplay(ENGINE_ADVERT.TURBO_CHARGER)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2074,7 +2074,7 @@ const EngineAdvert = () => {
                     options={turboChargingOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["turboCharging"] && errorDisplay(ENGINE_ADVERT.TURBO_CHARGING)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["turboCharging"] && errorDisplay(ENGINE_ADVERT.TURBO_CHARGING)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2087,7 +2087,7 @@ const EngineAdvert = () => {
                     options={starterMotorOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["starterMotor"] && errorDisplay(ENGINE_ADVERT.STARTER_MOTOR)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["starterMotor"] && errorDisplay(ENGINE_ADVERT.STARTER_MOTOR)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2102,7 +2102,7 @@ const EngineAdvert = () => {
                     options={protectionCoversOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["protectionCovers"] && errorDisplay(ENGINE_ADVERT.PROTECTION_COVERS)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["protectionCovers"] && errorDisplay(ENGINE_ADVERT.PROTECTION_COVERS)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2117,7 +2117,7 @@ const EngineAdvert = () => {
                     options={closedCrankcaseVentilationOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["closedCrankcaseVentilationOptions"] && errorDisplay(ENGINE_ADVERT.CLOSED_CRANKCASE_VENTILATION)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["closedCrankcaseVentilationOptions"] && errorDisplay(ENGINE_ADVERT.CLOSED_CRANKCASE_VENTILATION)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2130,7 +2130,7 @@ const EngineAdvert = () => {
                     options={heatExchangerOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["heatExchanger"] && errorDisplay(ENGINE_ADVERT.HEAT_EXCHANGER)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["heatExchanger"] && errorDisplay(ENGINE_ADVERT.HEAT_EXCHANGER)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2145,7 +2145,7 @@ const EngineAdvert = () => {
                     options={heatExchangerWithExpansionTankOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["heatExchangerWithExpansionTank"] && errorDisplay(ENGINE_ADVERT.HEAT_EXCHANGER_WITH_EXPANSION_TANK)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["heatExchangerWithExpansionTank"] && errorDisplay(ENGINE_ADVERT.HEAT_EXCHANGER_WITH_EXPANSION_TANK)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2158,7 +2158,7 @@ const EngineAdvert = () => {
                     options={seaWaterPumpOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["seaWaterPump"] && errorDisplay(ENGINE_ADVERT.SEA_WATER_PUMP)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["seaWaterPump"] && errorDisplay(ENGINE_ADVERT.SEA_WATER_PUMP)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2173,7 +2173,7 @@ const EngineAdvert = () => {
                     options={seaWaterCooledChargeAirCoolerOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["seaWaterCooledChargeAirCooler"] && errorDisplay(ENGINE_ADVERT.SEA_WATER_COOLED_CHARGE_AIR_COOLER)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["seaWaterCooledChargeAirCooler"] && errorDisplay(ENGINE_ADVERT.SEA_WATER_COOLED_CHARGE_AIR_COOLER)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2188,7 +2188,7 @@ const EngineAdvert = () => {
                     options={workingPrincipleOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["workingPrinciple"] && errorDisplay(ENGINE_ADVERT.WORKING_PRINCIPLE)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["workingPrinciple"] && errorDisplay(ENGINE_ADVERT.WORKING_PRINCIPLE)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2203,7 +2203,7 @@ const EngineAdvert = () => {
                     options={compressionRatioOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["compressionRatio"] && errorDisplay(ENGINE_ADVERT.COMPRESSION_RATIO)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["compressionRatio"] && errorDisplay(ENGINE_ADVERT.COMPRESSION_RATIO)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2218,7 +2218,7 @@ const EngineAdvert = () => {
                     options={PistonSpeedAt1500RpmOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["pistonSpeedAt1500Rpm"] && errorDisplay(ENGINE_ADVERT.PISTON_SPEED_AT_1500)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["pistonSpeedAt1500Rpm"] && errorDisplay(ENGINE_ADVERT.PISTON_SPEED_AT_1500)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2233,7 +2233,7 @@ const EngineAdvert = () => {
                     options={PistonSpeedAt1800RpmOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["pistonSpeedAt1800Rpm"] && errorDisplay(ENGINE_ADVERT.PISTON_SPEED_AT_1800)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["pistonSpeedAt1800Rpm"] && errorDisplay(ENGINE_ADVERT.PISTON_SPEED_AT_1800)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2246,7 +2246,7 @@ const EngineAdvert = () => {
                     options={firingOrderOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["firingOrder"] && errorDisplay(ENGINE_ADVERT.FIRING_ORDER)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["firingOrder"] && errorDisplay(ENGINE_ADVERT.FIRING_ORDER)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2259,7 +2259,7 @@ const EngineAdvert = () => {
                     options={pistonsOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["pistons"] && errorDisplay(ENGINE_ADVERT.PISTONS)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["pistons"] && errorDisplay(ENGINE_ADVERT.PISTONS)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2274,7 +2274,7 @@ const EngineAdvert = () => {
                     options={connectionRodsOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["connectionRods"] && errorDisplay(ENGINE_ADVERT.CONNECTION_RODS)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["connectionRods"] && errorDisplay(ENGINE_ADVERT.CONNECTION_RODS)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2289,7 +2289,7 @@ const EngineAdvert = () => {
                     options={auxiliaryPowerTakeOffOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["auxiliaryPowerTakeOff"] && errorDisplay(ENGINE_ADVERT.AUXILIARY_POWER_TAKEOFF)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["auxiliaryPowerTakeOff"] && errorDisplay(ENGINE_ADVERT.AUXILIARY_POWER_TAKEOFF)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2304,7 +2304,7 @@ const EngineAdvert = () => {
                     options={remoteControlSystemsOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["remoteControlSystems"] && errorDisplay(ENGINE_ADVERT.REMOTE_CONTROL_SYSTEMS)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["remoteControlSystems"] && errorDisplay(ENGINE_ADVERT.REMOTE_CONTROL_SYSTEMS)}</small></p></div> */}
                 </Col>
               </Col>
             </Col>
@@ -2350,7 +2350,7 @@ const EngineAdvert = () => {
                     options={propulsionSystemOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["propulsionSystem"] && errorDisplay("Propulsion System")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["propulsionSystem"] && errorDisplay("Propulsion System")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2365,7 +2365,7 @@ const EngineAdvert = () => {
                     options={propulsionSystemTypeOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["propulsionSystemType"] && errorDisplay("Propulsion System Type")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["propulsionSystemType"] && errorDisplay("Propulsion System Type")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2380,7 +2380,7 @@ const EngineAdvert = () => {
                     options={propellerDiameterOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["propellerDiameter"] && errorDisplay("Propeller Diameter")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["propellerDiameter"] && errorDisplay("Propeller Diameter")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2395,7 +2395,7 @@ const EngineAdvert = () => {
                     options={propellerMaterialOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["propellerMaterial"] && errorDisplay("Propeller Material")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["propellerMaterial"] && errorDisplay("Propeller Material")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2410,7 +2410,7 @@ const EngineAdvert = () => {
                     isMandatory={false}
                     options={propellerPitchOptions}
                   />
-                  <div className="ms-2"><p><small>{error["propellerPitch"] && errorDisplay("Propeller Pitch")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["propellerPitch"] && errorDisplay("Propeller Pitch")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2423,7 +2423,7 @@ const EngineAdvert = () => {
                     options={propellerTypeOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["propellerType"] && errorDisplay("Propeller Type")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["propellerType"] && errorDisplay("Propeller Type")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2438,7 +2438,7 @@ const EngineAdvert = () => {
                     options={propellerShaftDiameterOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["propellerShaftDiameter"] && errorDisplay("Propeller Shaft Diameter")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["propellerShaftDiameter"] && errorDisplay("Propeller Shaft Diameter")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2451,7 +2451,7 @@ const EngineAdvert = () => {
                     options={gearboxTypeOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["gearboxType"] && errorDisplay("Gearbox Type")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["gearboxType"] && errorDisplay("Gearbox Type")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2466,7 +2466,7 @@ const EngineAdvert = () => {
                     options={transmissionCoolingOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["transmissionCooling"] && errorDisplay("Transmission Cooling")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["transmissionCooling"] && errorDisplay("Transmission Cooling")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2496,7 +2496,7 @@ const EngineAdvert = () => {
                     options={propellerShaftMaterialOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["propellerShaftMaterial"] && errorDisplay("Propeller Shaft Material")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["propellerShaftMaterial"] && errorDisplay("Propeller Shaft Material")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2511,7 +2511,7 @@ const EngineAdvert = () => {
                     isMandatory={false}
                     options={steeringSystemOptions}
                   />
-                  <div className="ms-2"><p><small>{error["steeringSystem"] && errorDisplay("Steering System")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["steeringSystem"] && errorDisplay("Steering System")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2526,7 +2526,7 @@ const EngineAdvert = () => {
                     isMandatory={false}
                     options={steeringControlTypeOptions}
                   />
-                  <div className="ms-2"><p><small>{error["steeringControlType"] && errorDisplay("Steering Control Type")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["steeringControlType"] && errorDisplay("Steering Control Type")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2539,7 +2539,7 @@ const EngineAdvert = () => {
                     isMandatory={false}
                     options={trimSystemOptions}
                   />
-                  <div className="ms-2"><p><small>{error["trimSystem"] && errorDisplay("Trim System")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["trimSystem"] && errorDisplay("Trim System")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2554,7 +2554,7 @@ const EngineAdvert = () => {
                     options={trimTabMaterialOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["trimTabMaterial"] && errorDisplay("Trim Tab Material")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["trimTabMaterial"] && errorDisplay("Trim Tab Material")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2567,7 +2567,7 @@ const EngineAdvert = () => {
                     isMandatory={false}
                     options={trimTabTypeOptions}
                   />
-                  <div className="ms-2"><p><small>{error["trimTabType"] && errorDisplay("Trim Tab Type")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["trimTabType"] && errorDisplay("Trim Tab Type")}</small></p></div> */}
                 </Col>
               </Col>
             </Col>
@@ -2587,7 +2587,7 @@ const EngineAdvert = () => {
                     options={electronicFuelinjectionOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["electronicFuelinjection"] && errorDisplay("Electronic Fuel Injection (EFI)")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["electronicFuelinjection"] && errorDisplay("Electronic Fuel Injection (EFI)")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2600,7 +2600,7 @@ const EngineAdvert = () => {
                     isMandatory={false}
                     options={fuelPreFilterOptions}
                   />
-                  <div className="ms-2"><p><small>{error["fuelPreFilter"] && errorDisplay("Fuel Pre-Filter")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["fuelPreFilter"] && errorDisplay("Fuel Pre-Filter")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2613,7 +2613,7 @@ const EngineAdvert = () => {
                     options={fuelFilterOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["fuelFilter"] && errorDisplay("Fuel Filter")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["fuelFilter"] && errorDisplay("Fuel Filter")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2628,7 +2628,7 @@ const EngineAdvert = () => {
                     options={fuelFilterTypeOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["fuelFilterType"] && errorDisplay("Fuel Filter Type")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["fuelFilterType"] && errorDisplay("Fuel Filter Type")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2641,7 +2641,7 @@ const EngineAdvert = () => {
                     options={fuelReserveOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["fuelReserve"] && errorDisplay("Fuel Reserve (Holding Tank) (Litres)")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["fuelReserve"] && errorDisplay("Fuel Reserve (Holding Tank) (Litres)")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2669,7 +2669,7 @@ const EngineAdvert = () => {
                     options={fuelTankCapacityOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["fuelTankCapacity"] && errorDisplay("Fuel Tank Capacity (Litres)")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["fuelTankCapacity"] && errorDisplay("Fuel Tank Capacity (Litres)")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2697,7 +2697,7 @@ const EngineAdvert = () => {
                     options={lowestSpecificFuelConsumptionOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["lowestSpecificFuelConsumption"] && errorDisplay("Lowest Specific Fuel Consumption (G/Kwh)")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["lowestSpecificFuelConsumption"] && errorDisplay("Lowest Specific Fuel Consumption (G/Kwh)")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2712,7 +2712,7 @@ const EngineAdvert = () => {
                     options={recommendedFuelOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["recommendedFuel"] && errorDisplay("Recommended Fuel")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["recommendedFuel"] && errorDisplay("Recommended Fuel")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2727,7 +2727,7 @@ const EngineAdvert = () => {
                     options={fuelReserveOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["fuelConsumptionAtCruisingSpeed"] && errorDisplay("Fuel Consumption At Cruising Speed (Litres)")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["fuelConsumptionAtCruisingSpeed"] && errorDisplay("Fuel Consumption At Cruising Speed (Litres)")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2742,7 +2742,7 @@ const EngineAdvert = () => {
                     options={fuelConsumptionRateOptions}
                     isMandatory={true}
                   />
-                  <div className="ms-2"><p><small>{error["fuelConsumptionRate"] && errorDisplay("Fuel Consumption Rate")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["fuelConsumptionRate"] && errorDisplay("Fuel Consumption Rate")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2757,7 +2757,7 @@ const EngineAdvert = () => {
                     options={fuelConsumtpionAtFullLoadOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["fuelConsumtpionAtFullLoad"] && errorDisplay("Fuel Consumption At Full Load (G/Kwh)")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["fuelConsumtpionAtFullLoad"] && errorDisplay("Fuel Consumption At Full Load (G/Kwh)")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2772,7 +2772,7 @@ const EngineAdvert = () => {
                     options={fuelInjectionSystemTypeOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["fuelInjectionSystemType"] && errorDisplay("Fuel Injection System Type")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["fuelInjectionSystemType"] && errorDisplay("Fuel Injection System Type")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2787,7 +2787,7 @@ const EngineAdvert = () => {
                     options={fuelDeliveryPressureOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["fuelDeliveryPressure"] && errorDisplay("Fuel Delivery Pressure")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["fuelDeliveryPressure"] && errorDisplay("Fuel Delivery Pressure")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2817,7 +2817,7 @@ const EngineAdvert = () => {
                     options={fuelLineDiameterOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["fuelLineDiameter"] && errorDisplay("Fuel Line Diameter")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["fuelLineDiameter"] && errorDisplay("Fuel Line Diameter")}</small></p></div> */}
                 </Col>
               </Col>
             </Col>
@@ -2835,7 +2835,7 @@ const EngineAdvert = () => {
                     options={afterCooledOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["afterCooled"] && errorDisplay("Aftercooled")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["afterCooled"] && errorDisplay("Aftercooled")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2863,7 +2863,7 @@ const EngineAdvert = () => {
                     options={closedCoolingSystemOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["closedCoolingSystem"] && errorDisplay("Closed Cooling System")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["closedCoolingSystem"] && errorDisplay("Closed Cooling System")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2878,7 +2878,7 @@ const EngineAdvert = () => {
                     options={openCoolingSystemOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["openCoolingSystem"] && errorDisplay("Open Cooling System")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["openCoolingSystem"] && errorDisplay("Open Cooling System")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2891,7 +2891,7 @@ const EngineAdvert = () => {
                     options={intercooledOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["intercooled"] && errorDisplay("Intercooled")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["intercooled"] && errorDisplay("Intercooled")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2906,7 +2906,7 @@ const EngineAdvert = () => {
                     options={recommendedCoolantOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["recommendedCoolant"] && errorDisplay("Recommended Coolant")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["recommendedCoolant"] && errorDisplay("Recommended Coolant")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2919,7 +2919,7 @@ const EngineAdvert = () => {
                     options={typeOfCoolingOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["typeOfCooling"] && errorDisplay("Type Of Cooling")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["typeOfCooling"] && errorDisplay("Type Of Cooling")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2934,7 +2934,7 @@ const EngineAdvert = () => {
                     options={heatExchangerMaterialOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["heatExchangerMaterial"] && errorDisplay("Heat Exchanger Material")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["heatExchangerMaterial"] && errorDisplay("Heat Exchanger Material")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2949,7 +2949,7 @@ const EngineAdvert = () => {
                     options={heatDissipationRateOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["heatDissipationRate"] && errorDisplay("Heat Dissipation Rate")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["heatDissipationRate"] && errorDisplay("Heat Dissipation Rate")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2964,7 +2964,7 @@ const EngineAdvert = () => {
                     options={engineLubricationOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["engineLubrication"] && errorDisplay("Engine Lubrication")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["engineLubrication"] && errorDisplay("Engine Lubrication")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2979,7 +2979,7 @@ const EngineAdvert = () => {
                     options={lubricationSystemOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["lubricationSystem"] && errorDisplay("Lubrication System")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["lubricationSystem"] && errorDisplay("Lubrication System")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -2994,7 +2994,7 @@ const EngineAdvert = () => {
                     options={coolingCapacityOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["coolingCapacity"] && errorDisplay("Cooling Capacity (L/min)")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["coolingCapacity"] && errorDisplay("Cooling Capacity (L/min)")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3024,7 +3024,7 @@ const EngineAdvert = () => {
                     options={coolingSystemPressureOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["coolingSystemPressure"] && errorDisplay("Cooling System Pressure")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["coolingSystemPressure"] && errorDisplay("Cooling System Pressure")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3037,7 +3037,7 @@ const EngineAdvert = () => {
                     options={airFilterTypeOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["airFilterType"] && errorDisplay("Air Filter Type")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["airFilterType"] && errorDisplay("Air Filter Type")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3052,7 +3052,7 @@ const EngineAdvert = () => {
                     options={circulationPumpTypeOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["circulationPumpType"] && errorDisplay("Circulation Pump Type")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["circulationPumpType"] && errorDisplay("Circulation Pump Type")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3067,7 +3067,7 @@ const EngineAdvert = () => {
                     options={rawWaterpumpTypeOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["rawWaterpumpType"] && errorDisplay("Raw Water Pump Type")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["rawWaterpumpType"] && errorDisplay("Raw Water Pump Type")}</small></p></div> */}
                 </Col>
               </Col>
             </Col>
@@ -3087,7 +3087,7 @@ const EngineAdvert = () => {
                     options={engineMountingOrientationOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["engineMountingOrientation"] && errorDisplay(ENGINE_ADVERT.ENGINE_MOUNTING_ORIENTATION)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["engineMountingOrientation"] && errorDisplay(ENGINE_ADVERT.ENGINE_MOUNTING_ORIENTATION)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3102,7 +3102,7 @@ const EngineAdvert = () => {
                     options={engineSuspensionOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["engineSuspension"] && errorDisplay(ENGINE_ADVERT.ENGINE_SUSPENSION)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["engineSuspension"] && errorDisplay(ENGINE_ADVERT.ENGINE_SUSPENSION)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3117,7 +3117,7 @@ const EngineAdvert = () => {
                     options={engineMountingTypeOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["engineMountingType"] && errorDisplay(ENGINE_ADVERT.ENGINE_MOUNTING_TYPE)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["engineMountingType"] && errorDisplay(ENGINE_ADVERT.ENGINE_MOUNTING_TYPE)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3132,7 +3132,7 @@ const EngineAdvert = () => {
                     options={mountingBracketMaterialOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["mountingBracketMaterial"] && errorDisplay(ENGINE_ADVERT.MOUNTING_BRACKET_MATERIAL)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["mountingBracketMaterial"] && errorDisplay(ENGINE_ADVERT.MOUNTING_BRACKET_MATERIAL)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3147,7 +3147,7 @@ const EngineAdvert = () => {
                     options={alignmentRequirementsOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["alignmentRequirements"] && errorDisplay(ENGINE_ADVERT.ALIGNMENT_REQUIREMENTS)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["alignmentRequirements"] && errorDisplay(ENGINE_ADVERT.ALIGNMENT_REQUIREMENTS)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3160,7 +3160,7 @@ const EngineAdvert = () => {
                     options={engineBlockOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["engineBlock"] && errorDisplay(ENGINE_ADVERT.ENGINE_BLOCK)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["engineBlock"] && errorDisplay(ENGINE_ADVERT.ENGINE_BLOCK)}</small></p></div> */}
                 </Col>
               </Col>
             </Col>
@@ -3180,7 +3180,7 @@ const EngineAdvert = () => {
                     options={scheduledMaintenancePlanOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["scheduledMaintenancePlan"] && errorDisplay(ENGINE_ADVERT.SCHEDULED_MAINTENANCE_PLAN)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["scheduledMaintenancePlan"] && errorDisplay(ENGINE_ADVERT.SCHEDULED_MAINTENANCE_PLAN)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3195,7 +3195,7 @@ const EngineAdvert = () => {
                     options={serviceIntervalOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["serviceInterval"] && errorDisplay(ENGINE_ADVERT.SERVICE_INTERVAL)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["serviceInterval"] && errorDisplay(ENGINE_ADVERT.SERVICE_INTERVAL)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3210,7 +3210,7 @@ const EngineAdvert = () => {
                     options={maintenanceLogRequirementsOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["maintenanceLogRequirements"] && errorDisplay(ENGINE_ADVERT.MAINTENANCE_LOG_REQUIREMENTS)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["maintenanceLogRequirements"] && errorDisplay(ENGINE_ADVERT.MAINTENANCE_LOG_REQUIREMENTS)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3238,7 +3238,7 @@ const EngineAdvert = () => {
                     options={operationModeOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["operationMode"] && errorDisplay(ENGINE_ADVERT.OPERATION_MODE)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["operationMode"] && errorDisplay(ENGINE_ADVERT.OPERATION_MODE)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3273,7 +3273,7 @@ const EngineAdvert = () => {
                     options={fuelConsumptionOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["fuelConsumption"] && errorDisplay("Fuel Consumption At 3/4 Load (G/Kwh)")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["fuelConsumption"] && errorDisplay("Fuel Consumption At 3/4 Load (G/Kwh)")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3288,7 +3288,7 @@ const EngineAdvert = () => {
                     options={fuelConsumptionHalfLoadOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["fuelConsumptionHalfLoad"] && errorDisplay("Fuel Consumption At 1/2 Load (G/Kwh)")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["fuelConsumptionHalfLoad"] && errorDisplay("Fuel Consumption At 1/2 Load (G/Kwh)")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3303,7 +3303,7 @@ const EngineAdvert = () => {
                     options={fuelConsumptionPropellerCurveOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["fuelConsumptionPropellerCurve"] && errorDisplay("Fuel Consumption, Propeller Curve (L/H)")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["fuelConsumptionPropellerCurve"] && errorDisplay("Fuel Consumption, Propeller Curve (L/H)")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3318,7 +3318,7 @@ const EngineAdvert = () => {
                     options={heatRejectionToCoolantOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["heatRejectionToCoolant"] && errorDisplay("Heat Rejection To Coolant (Kw)")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["heatRejectionToCoolant"] && errorDisplay("Heat Rejection To Coolant (Kw)")}</small></p></div> */}
                 </Col>
               </Col>
             </Col>
@@ -3338,7 +3338,7 @@ const EngineAdvert = () => {
                     isMandatory={false}
                     options={engineMonitoringSystemsOptions}
                   />
-                  <div className="ms-2"><p><small>{error["engineMonitoringSystems"] && errorDisplay("Engine Monitoring Systems")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["engineMonitoringSystems"] && errorDisplay("Engine Monitoring Systems")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3353,7 +3353,7 @@ const EngineAdvert = () => {
                     isMandatory={false}
                     options={overheatProtectionOptions}
                   />
-                  <div className="ms-2"><p><small>{error["overheatProtection"] && errorDisplay("Overheat Protection")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["overheatProtection"] && errorDisplay("Overheat Protection")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3368,7 +3368,7 @@ const EngineAdvert = () => {
                     isMandatory={false}
                     options={lowOilPressureAlarmOptions}
                   />
-                  <div className="ms-2"><p><small>{error["lowOilPressureAlarm"] && errorDisplay("Low Oil Pressure Alarm")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["lowOilPressureAlarm"] && errorDisplay("Low Oil Pressure Alarm")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3383,7 +3383,7 @@ const EngineAdvert = () => {
                     isMandatory={false}
                     options={emergencyStopSystemOptions}
                   />
-                  <div className="ms-2"><p><small>{error["emergencyStopSystem"] && errorDisplay("Emergency Stop System")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["emergencyStopSystem"] && errorDisplay("Emergency Stop System")}</small></p></div> */}
                 </Col>
               </Col>
             </Col>
@@ -3401,7 +3401,7 @@ const EngineAdvert = () => {
                     options={maxTorqueOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["maximumTorque"] && errorDisplay("Maximum Torque (Nm)")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["maximumTorque"] && errorDisplay("Maximum Torque (Nm)")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3416,7 +3416,7 @@ const EngineAdvert = () => {
                     options={maxTorqueRPMOptions}
                     isMandatory={true}
                   />
-                  <div className="ms-2"><p><small>{error["maximumTorqueAtSpeed"] && errorDisplay("Maximum Torque At Speed (RPM)")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["maximumTorqueAtSpeed"] && errorDisplay("Maximum Torque At Speed (RPM)")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3431,7 +3431,7 @@ const EngineAdvert = () => {
                     options={torqueRatedSpeedOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["torqueAtRatedSpeed"] && errorDisplay("Torque At Rated Speed (Nm)")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["torqueAtRatedSpeed"] && errorDisplay("Torque At Rated Speed (Nm)")}</small></p></div> */}
                 </Col>
               </Col>
             </Col>
@@ -3449,7 +3449,7 @@ const EngineAdvert = () => {
                     options={idleRPMOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["idleRPM"] && errorDisplay("Idle RPM")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["idleRPM"] && errorDisplay("Idle RPM")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3462,7 +3462,7 @@ const EngineAdvert = () => {
                     options={ratedSpeedOptions}
                     isMandatory={true}
                   />
-                  <div className="ms-2"><p><small>{error["ratedSpeedRPM"] && errorDisplay("Rated Speed (RPM)")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["ratedSpeedRPM"] && errorDisplay("Rated Speed (RPM)")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3475,7 +3475,7 @@ const EngineAdvert = () => {
                     options={rpmMaxPowerOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["rpmAtMaxPower"] && errorDisplay("RPM at Max Power")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["rpmAtMaxPower"] && errorDisplay("RPM at Max Power")}</small></p></div> */}
                 </Col>
               </Col>
             </Col>
@@ -3493,7 +3493,7 @@ const EngineAdvert = () => {
                     options={oilFilterOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["oilFilter"] && errorDisplay("Oil Filter")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["oilFilter"] && errorDisplay("Oil Filter")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3506,7 +3506,7 @@ const EngineAdvert = () => {
                     options={oilFilterTypeOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["oilFilterType"] && errorDisplay("Oil Filter Type")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["oilFilterType"] && errorDisplay("Oil Filter Type")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3521,7 +3521,7 @@ const EngineAdvert = () => {
                     options={centrifugalOilCleanerOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["centrifugalOilCleaner"] && errorDisplay("Centrifugal Oil Cleaner")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["centrifugalOilCleaner"] && errorDisplay("Centrifugal Oil Cleaner")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3534,7 +3534,7 @@ const EngineAdvert = () => {
                     options={oilCoolerOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["oilCooler"] && errorDisplay("Oil Cooler")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["oilCooler"] && errorDisplay("Oil Cooler")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3547,7 +3547,7 @@ const EngineAdvert = () => {
                     options={oilFillerOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["oilFiller"] && errorDisplay("Oil Filler")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["oilFiller"] && errorDisplay("Oil Filler")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3560,7 +3560,7 @@ const EngineAdvert = () => {
                     options={oilDipstickOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["oilDipstick"] && errorDisplay("Oil Dipstick")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["oilDipstick"] && errorDisplay("Oil Dipstick")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3575,7 +3575,7 @@ const EngineAdvert = () => {
                     options={recommendedOilOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["recommendedOil"] && errorDisplay("Recommended Oil")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["recommendedOil"] && errorDisplay("Recommended Oil")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3588,7 +3588,7 @@ const EngineAdvert = () => {
                     options={oilCapacityOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["oilCapacity"] && errorDisplay("Oil Capacity")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["oilCapacity"] && errorDisplay("Oil Capacity")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3603,7 +3603,7 @@ const EngineAdvert = () => {
                     options={oilChangeIntervalOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["oilChangeInterval"] && errorDisplay("Oil Change Interval")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["oilChangeInterval"] && errorDisplay("Oil Change Interval")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3618,7 +3618,7 @@ const EngineAdvert = () => {
                     options={oilCoolingMethodOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["oilCoolingMethod"] && errorDisplay("Oil Cooling Method")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["oilCoolingMethod"] && errorDisplay("Oil Cooling Method")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3633,7 +3633,7 @@ const EngineAdvert = () => {
                     options={lubricationOilPressureOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["lubricationOilPressure"] && errorDisplay("Lubrication Oil Pressure")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["lubricationOilPressure"] && errorDisplay("Lubrication Oil Pressure")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3648,7 +3648,7 @@ const EngineAdvert = () => {
                     options={oilFilterBypassValveOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["oilFilterBypassValve"] && errorDisplay("Oil Filter Bypass Valve")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["oilFilterBypassValve"] && errorDisplay("Oil Filter Bypass Valve")}</small></p></div> */}
                 </Col>
               </Col>
             </Col>
@@ -3668,7 +3668,7 @@ const EngineAdvert = () => {
                     options={emissionComplianceOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["emissionCompliance"] && errorDisplay("Emission Compliance")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["emissionCompliance"] && errorDisplay("Emission Compliance")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3681,7 +3681,7 @@ const EngineAdvert = () => {
                     isMandatory={false}
                     options={exhaustSystemOptions}
                   />
-                  <div className="ms-2"><p><small>{error["exhaustSystem"] && errorDisplay("Exhaust System")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["exhaustSystem"] && errorDisplay("Exhaust System")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3696,7 +3696,7 @@ const EngineAdvert = () => {
                     isMandatory={false}
                     options={exhaustSystemTypeOptions}
                   />
-                  <div className="ms-2"><p><small>{error["exhaustSystemType"] && errorDisplay("Exhaust System Type")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["exhaustSystemType"] && errorDisplay("Exhaust System Type")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3711,7 +3711,7 @@ const EngineAdvert = () => {
                     options={exhaustGasAfterTreatmentOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["exhaustGasAfterTreatment"] && errorDisplay(ENGINE_ADVERT.EXHAUST_GAS_AFTER_TREATMENT)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["exhaustGasAfterTreatment"] && errorDisplay(ENGINE_ADVERT.EXHAUST_GAS_AFTER_TREATMENT)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3726,7 +3726,7 @@ const EngineAdvert = () => {
                     isMandatory={false}
                     options={exhaustGasStatusOptions}
                   />
-                  <div className="ms-2"><p><small>{error["exhaustGasStatus"] && errorDisplay(ENGINE_ADVERT.EXHAUST_GAS_STATUS)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["exhaustGasStatus"] && errorDisplay(ENGINE_ADVERT.EXHAUST_GAS_STATUS)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3741,7 +3741,7 @@ const EngineAdvert = () => {
                     isMandatory={false}
                     options={exhaustValveTimingOptions}
                   />
-                  <div className="ms-2"><p><small>{error["exhaustValveTiming"] && errorDisplay(ENGINE_ADVERT.EXHAUST_VALVE_TIMING)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["exhaustValveTiming"] && errorDisplay(ENGINE_ADVERT.EXHAUST_VALVE_TIMING)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3756,7 +3756,7 @@ const EngineAdvert = () => {
                     isMandatory={false}
                     options={intakeValveTimingOptions}
                   />
-                  <div className="ms-2"><p><small>{error["intakeValveTiming"] && errorDisplay(ENGINE_ADVERT.INTAKE_VALVE_TIMING)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["intakeValveTiming"] && errorDisplay(ENGINE_ADVERT.INTAKE_VALVE_TIMING)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3771,7 +3771,7 @@ const EngineAdvert = () => {
                     isMandatory={false}
                     options={emissionControlTechnologyOptions}
                   />
-                  <div className="ms-2"><p><small>{error["emissionControlTechnology"] && errorDisplay(ENGINE_ADVERT.EMISSION_CONTROL_TECHNOLOGY)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["emissionControlTechnology"] && errorDisplay(ENGINE_ADVERT.EMISSION_CONTROL_TECHNOLOGY)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3784,7 +3784,7 @@ const EngineAdvert = () => {
                     isMandatory={false}
                     options={noxEmissionsOptions}
                   />
-                  <div className="ms-2"><p><small>{error["noxEmissions"] && errorDisplay(ENGINE_ADVERT.NOX_EMISSIONS)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["noxEmissions"] && errorDisplay(ENGINE_ADVERT.NOX_EMISSIONS)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3797,7 +3797,7 @@ const EngineAdvert = () => {
                     isMandatory={false}
                     options={soxEmissionsOptions}
                   />
-                  <div className="ms-2"><p><small>{error["soxEmissions"] && errorDisplay(ENGINE_ADVERT.SOX_EMISSIONS)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["soxEmissions"] && errorDisplay(ENGINE_ADVERT.SOX_EMISSIONS)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3810,7 +3810,7 @@ const EngineAdvert = () => {
                     isMandatory={false}
                     options={coxEmissionsOptions}
                   />
-                  <div className="ms-2"><p><small>{error["coxEmissions"] && errorDisplay(ENGINE_ADVERT.COX_EMISSIONS)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["coxEmissions"] && errorDisplay(ENGINE_ADVERT.COX_EMISSIONS)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3825,7 +3825,7 @@ const EngineAdvert = () => {
                     isMandatory={false}
                     options={complianceWithIMOStandardsOptions}
                   />
-                  <div className="ms-2"><p><small>{error["complianceWithIMOStandards"] && errorDisplay(ENGINE_ADVERT.STANDARD_COMPLIANCE)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["complianceWithIMOStandards"] && errorDisplay(ENGINE_ADVERT.STANDARD_COMPLIANCE)}</small></p></div> */}
                 </Col>
               </Col>
             </Col>
@@ -3843,7 +3843,7 @@ const EngineAdvert = () => {
                     isMandatory={false}
                     options={alternatorOptions}
                   />
-                  <div className="ms-2"><p><small>{error["alternator"] && errorDisplay(ENGINE_ADVERT.ALTERNATOR)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["alternator"] && errorDisplay(ENGINE_ADVERT.ALTERNATOR)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3858,7 +3858,7 @@ const EngineAdvert = () => {
                     isMandatory={false}
                     options={alternatorOutputOptions}
                   />
-                  <div className="ms-2"><p><small>{error["alternatorOutput"] && errorDisplay(ENGINE_ADVERT.ALTERNATOR_OUTPUT)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["alternatorOutput"] && errorDisplay(ENGINE_ADVERT.ALTERNATOR_OUTPUT)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3871,7 +3871,7 @@ const EngineAdvert = () => {
                     isMandatory={false}
                     options={batteryTypeOptions}
                   />
-                  <div className="ms-2"><p><small>{error["batteryType"] && errorDisplay("Battery Type")}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["batteryType"] && errorDisplay("Battery Type")}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3886,7 +3886,7 @@ const EngineAdvert = () => {
                     options={batteryVoltageOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["batteryVoltage"] && errorDisplay(ENGINE_ADVERT.BATTERY_VOLTAGE)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["batteryVoltage"] && errorDisplay(ENGINE_ADVERT.BATTERY_VOLTAGE)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3901,7 +3901,7 @@ const EngineAdvert = () => {
                     options={batteryVoltageOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["generatorOutputKw"] && errorDisplay(ENGINE_ADVERT.GENERATOR_OUTPUT_KW)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["generatorOutputKw"] && errorDisplay(ENGINE_ADVERT.GENERATOR_OUTPUT_KW)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3916,7 +3916,7 @@ const EngineAdvert = () => {
                     options={alternatorOutputAmpsOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["alternatorOutputAmps"] && errorDisplay(ENGINE_ADVERT.ALTERNATOR_OUTPUT_AMPS)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["alternatorOutputAmps"] && errorDisplay(ENGINE_ADVERT.ALTERNATOR_OUTPUT_AMPS)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3931,7 +3931,7 @@ const EngineAdvert = () => {
                     options={starterMotorVoltageOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["starterMotorVoltageOptions"] && errorDisplay(ENGINE_ADVERT.STARTER_MOTOR_VOLTAGE)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["starterMotorVoltageOptions"] && errorDisplay(ENGINE_ADVERT.STARTER_MOTOR_VOLTAGE)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3946,7 +3946,7 @@ const EngineAdvert = () => {
                     options={engineControlUnitModelOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["engineControlUnitModel"] && errorDisplay(ENGINE_ADVERT.ECU)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["engineControlUnitModel"] && errorDisplay(ENGINE_ADVERT.ECU)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3961,7 +3961,7 @@ const EngineAdvert = () => {
                     options={batteryChargingSystemOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["batteryChargingSystem"] && errorDisplay(ENGINE_ADVERT.BATTERY_CHARGING_SYSTEM)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["batteryChargingSystem"] && errorDisplay(ENGINE_ADVERT.BATTERY_CHARGING_SYSTEM)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -3976,7 +3976,7 @@ const EngineAdvert = () => {
                     options={integratedGeneratorOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["integratedGenerator"] && errorDisplay(ENGINE_ADVERT.INTEGRATED_GENERATOR)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["integratedGenerator"] && errorDisplay(ENGINE_ADVERT.INTEGRATED_GENERATOR)}</small></p></div> */}
                 </Col>
               </Col>
             </Col>
@@ -4051,7 +4051,7 @@ const EngineAdvert = () => {
                     options={lengthFromFrontEndOfFlywheelHousingOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["lengthFromFrontEndOfFlywheelHousingOptions"] && errorDisplay(ENGINE_ADVERT.LENGTH_FROM_FRONTEND_FLYWHEEL_HOUSING)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["lengthFromFrontEndOfFlywheelHousingOptions"] && errorDisplay(ENGINE_ADVERT.LENGTH_FROM_FRONTEND_FLYWHEEL_HOUSING)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -4090,7 +4090,7 @@ const EngineAdvert = () => {
                     options={exclOilWeightOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["exclOilWeight"] && errorDisplay(ENGINE_ADVERT.EXCL_OIL_WEIGHT_AND_COOLANT)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["exclOilWeight"] && errorDisplay(ENGINE_ADVERT.EXCL_OIL_WEIGHT_AND_COOLANT)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -4105,7 +4105,7 @@ const EngineAdvert = () => {
                     options={weightWithHeatExchangerOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["weightWithHeatExchanger"] && errorDisplay(ENGINE_ADVERT.WEIGHT_WITH_HEAT_EXCHANGER)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["weightWithHeatExchanger"] && errorDisplay(ENGINE_ADVERT.WEIGHT_WITH_HEAT_EXCHANGER)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -4120,7 +4120,7 @@ const EngineAdvert = () => {
                     options={weightWithKeelCoolingOptions}
                     isMandatory={false}
                   />
-                  <div className="ms-2"><p><small>{error["weightWithKeelCooling"] && errorDisplay(ENGINE_ADVERT.WEIGHT_WITH_KEEL_COOLING)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["weightWithKeelCooling"] && errorDisplay(ENGINE_ADVERT.WEIGHT_WITH_KEEL_COOLING)}</small></p></div> */}
                 </Col>
               </Col>
             </Col>
@@ -4138,7 +4138,7 @@ const EngineAdvert = () => {
                     isMandatory={false}
                     options={defaultOptions}
                   />
-                  <div className="ms-2"><p><small>{error["location"] && errorDisplay(ENGINE_ADVERT.LOCATION)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["location"] && errorDisplay(ENGINE_ADVERT.LOCATION)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -4151,7 +4151,7 @@ const EngineAdvert = () => {
                     isMandatory={false}
                     options={defaultOptions}
                   />
-                  <div className="ms-2"><p><small>{error["distance"] && errorDisplay(ENGINE_ADVERT.DISTANCE)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["distance"] && errorDisplay(ENGINE_ADVERT.DISTANCE)}</small></p></div> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -4166,7 +4166,7 @@ const EngineAdvert = () => {
                     isMandatory={false}
                     options={defaultOptions}
                   />
-                  <div className="ms-2"><p><small>{error["globalAddressLookup"] && errorDisplay(ENGINE_ADVERT.GLOBAL_ADDRESS_LOOKUP)}</small></p></div>
+                  {/* <div className="ms-2"><p><small>{error["globalAddressLookup"] && errorDisplay(ENGINE_ADVERT.GLOBAL_ADDRESS_LOOKUP)}</small></p></div> */}
                 </Col>
               </Col>
             </Col>
