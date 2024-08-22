@@ -302,11 +302,11 @@ const Trailers = () => {
   return (
     <>
       <Container className="mb-5">
-        <Row>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>Identification</h6>
-            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
-              <Form>
+        <Form>
+          <Row>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Identification</h6>
+              <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2 myAcc">
                   <SelectComponent
                     label="Marisail ID"
@@ -369,13 +369,11 @@ const Trailers = () => {
                     isMandatory={error["Year"]}
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>General</h6>
-            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
-              <Form>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>General</h6>
+              <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     options={trailerOptions}
@@ -457,13 +455,11 @@ const Trailers = () => {
                     isMandatory={error["AxleHeightFromGound"]}
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>Construction Materials</h6>
-            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
-              <Form>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Construction Materials</h6>
+              <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     options={trailerOptions}
@@ -557,13 +553,11 @@ const Trailers = () => {
                     isMandatory={error["RoofMaterial"]}
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>Maintenance Features</h6>
-            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
-              <Form>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Maintenance Features</h6>
+              <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     options={trailerOptions}
@@ -596,13 +590,11 @@ const Trailers = () => {
                     label="Maintenance Schedule"
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>User Features</h6>
-            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
-              <Form>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>User Features</h6>
+              <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     options={trailerOptions}
@@ -644,13 +636,11 @@ const Trailers = () => {
                     label="Bumper Type"
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>Special Features</h6>
-            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
-              <Form>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Special Features</h6>
+              <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
                     openKey={openKey}
@@ -699,13 +689,11 @@ const Trailers = () => {
                     id="DetachableSidePanels"
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>Additional Accessories</h6>
-            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
-              <Form>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Additional Accessories</h6>
+              <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     options={trailerOptions}
@@ -761,13 +749,11 @@ const Trailers = () => {
                     isMandatory={error["SideRails"]}
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>Customization Options</h6>
-            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
-              <Form>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Customization Options</h6>
+              <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     options={trailerOptions}
@@ -823,13 +809,11 @@ const Trailers = () => {
                     label="Suspension Upgrade"
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>Axles & Suspension</h6>
-            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
-              <Form>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Axles & Suspension</h6>
+              <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     options={trailerOptions}
@@ -934,13 +918,11 @@ const Trailers = () => {
                     label="Suspension Adjustment"
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>Tyres & Wheels</h6>
-            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
-              <Form>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Tyres & Wheels</h6>
+              <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     options={trailerOptions}
@@ -1009,13 +991,11 @@ const Trailers = () => {
                     label="Hub Lubrication System"
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>Brakes & Safety</h6>
-            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
-              <Form>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Brakes & Safety</h6>
+              <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     options={trailerOptions}
@@ -1162,13 +1142,11 @@ const Trailers = () => {
                     id="BreakawaySystem"
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>Winch & Winch Accessories</h6>
-            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
-              <Form>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Winch & Winch Accessories</h6>
+              <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     options={trailerOptions}
@@ -1298,13 +1276,11 @@ const Trailers = () => {
                     label="Winch Mounting"
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>Lighting & Electrical</h6>
-            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
-              <Form>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Lighting & Electrical</h6>
+              <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     options={trailerOptions}
@@ -1389,13 +1365,11 @@ const Trailers = () => {
                     isMandatory={error["BatteryChargerType"]}
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>Accessories</h6>
-            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
-              <Form>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Accessories</h6>
+              <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     options={trailerOptions}
@@ -1475,13 +1449,11 @@ const Trailers = () => {
                     label="Jack Lift Height"
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>Loading & Transport Features</h6>
-            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
-              <Form>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Loading & Transport Features</h6>
+              <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     options={trailerOptions}
@@ -1581,13 +1553,11 @@ const Trailers = () => {
                     label="Roller Axle Diameter"
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>Security Features</h6>
-            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
-              <Form>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Security Features</h6>
+              <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     options={trailerOptions}
@@ -1634,15 +1604,13 @@ const Trailers = () => {
                     isMandatory={error["GPSTrackingDevice"]}
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>
-              Environmental & Corrosion Resistance
-            </h6>
-            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
-              <Form>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>
+                Environmental & Corrosion Resistance
+              </h6>
+              <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     options={trailerOptions}
@@ -1668,13 +1636,11 @@ const Trailers = () => {
                     label="Rust Inhibitors"
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>Performance & Handling</h6>
-            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
-              <Form>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Performance & Handling</h6>
+              <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     options={trailerOptions}
@@ -1699,13 +1665,11 @@ const Trailers = () => {
                     isMandatory={error["TurningRadius"]}
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>Tongue</h6>
-            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
-              <Form>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Tongue</h6>
+              <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     options={trailerOptions}
@@ -1776,13 +1740,11 @@ const Trailers = () => {
                     label="Tongue Weight Ratio"
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>Documentation</h6>
-            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
-              <Form>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Documentation</h6>
+              <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     options={trailerOptions}
@@ -1803,13 +1765,11 @@ const Trailers = () => {
                     label="Warranty"
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-          <Col md={6} className="mt-4">
-            <h6 style={{ marginLeft: 10 }}>Regulatory Compliance</h6>
-            <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
-              <Form>
+            <Col md={6} className="mt-4">
+              <h6 style={{ marginLeft: 10 }}>Regulatory Compliance</h6>
+              <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
                     openKey={openKey}
@@ -1854,10 +1814,10 @@ const Trailers = () => {
                     id="ADRCompliance"
                   />
                 </Col>
-              </Form>
+              </Col>
             </Col>
-          </Col>
-        </Row>
+          </Row>
+        </Form>
         <div className="d-flex justify-content-center p-4 pt-5">
           <button
             type="button"
