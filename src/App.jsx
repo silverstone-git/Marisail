@@ -13,6 +13,8 @@ import Berths from "./pages/Berths";
 import Buy from "./pages/Buy";
 import Sell from "./pages/Sell";
 import Services from "./pages/Services";
+import EngineDetailPage from "./Components/Engine/EngineDetail";
+
 function App() {
   const navbarRef = useRef();
 
@@ -31,6 +33,7 @@ function App() {
         <Route path="/buy" element={<Buy />}></Route>
         <Route path="/sell" element={<Sell />}></Route>
         <Route path="/services" element={<Services />}></Route>
+        <Route path="/engines/:id" element={<EngineDetailPage />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,42 +1,35 @@
 // src/components/CustomCard.js
 import React from "react";
+import { Link } from "react-router-dom";
 
 const EngineCard = ({
   image,
-  status,
-  statusLabel,
-  year,
-  title,
-  price,
-  location,
-  isNew,
-  description,
-  save,
-  share,
-  download,
-  enquire,
+  engine_modelyear,
+  engine_model,
+  asking_price,
+  engine_id,
+  engine_make,
 }) => {
   return (
     <div className="custom-card">
       <div className="card-image">
-        <img src={image} alt={title} />
-        <div className="status-label">{statusLabel}</div>
+        <img src="./images/slider-sailboat.jpg" alt="{title}" />
       </div>
       <div className="card-content">
         <div className="card-header">
-          <span className="year">{year}</span>
-          <h3 className="title">{title}</h3>
-          <p className="price">{price}</p>
-          <p className="location">{location}</p>
+          <span className="year">{engine_modelyear}</span>
+          <h3 className="title">{engine_model}</h3>
+          <p className="price">£ 249,950 Tax Paid</p>
+          <p className="price">{engine_make}</p>
         </div>
-        <div className="card-description">
-          <p>{description}</p>
-        </div>
+        <div className="card-description">{/* <p>{description}</p> */}</div>
         <div className="card-actions">
-          <button className="action-button">{save}</button>
-          <button className="action-button">{share}</button>
-          <button className="action-button">{download}</button>
-          <button className="action-button">{enquire}</button>
+          <Link to={`/engines/${engine_id}`}>
+            <button className="action-button">Details</button>
+          </Link>
+          <button className="action-button">Share</button>
+          <button className="action-button">Download</button>
+          <button className="action-button">Enquire</button>
         </div>
       </div>
     </div>

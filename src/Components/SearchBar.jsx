@@ -1,9 +1,8 @@
 import React from "react";
 
-const SearchBar = ({ selectedTags, removeTag }) => {
+const SearchBar = ({ selectedTags, removeTag, onChange }) => {
   return (
     <div id="search-bar">
-      {/* <input type="text" placeholder="Search..." readOnly /> */}
       <h3 className="h3-0">Your Engine Search</h3>
       <div
         id="selected-tags"
@@ -19,6 +18,12 @@ const SearchBar = ({ selectedTags, removeTag }) => {
             >
               ×
             </span>
+            {/* <input
+              type="text"
+              placeholder="Search..."
+              onChange={onChange} // Attach the onChange handler
+              style={{ marginTop: "10px", width: "80%" }}
+            /> */}
           </div>
         ))}
       </div>

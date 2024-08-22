@@ -107,7 +107,7 @@ html,
   position: absolute;
   top: 10px;
   left: 10px;
-  background: #e74c3c;
+  background: rgb(151, 30, 40);
   color: white;
   padding: 5px 10px;
   border-radius: 5px;
@@ -135,7 +135,7 @@ html,
 }
 
 .price {
-  color: #e74c3c;
+  color: rgb(151, 30, 40);
   font-size: 16px;
   font-weight: bold;
 }
@@ -155,7 +155,7 @@ html,
 }
 
 .action-button {
-  background: #e74c3c;
+  background: rgb(151, 30, 40);
   color: white;
   border: none;
   border-radius: 5px;
@@ -304,4 +304,86 @@ html,
   flex: 1 1 0%;
   background: none 0% 0% / auto repeat scroll padding-box border-box
     rgb(255, 255, 255);
+}
+
+// ENgine Detail Page CSS
+
+.engine-detail-page {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.engine-main-section {
+  width: 100%; /* Adjust based on preference */
+}
+
+.engine-image-gallery {
+  margin-bottom: 20px;
+}
+
+.engine-main-image {
+  width: 100%;
+  height: 500px;
+}
+
+.engine-thumbnails {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.thumbnail {
+  width: 100px;
+  height: auto;
+  cursor: pointer;
+}
+
+.engine-summary {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.engine-summary h1 {
+  margin-bottom: 10px;
+}
+
+.engine-summary p {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.engine-specifications ul {
+  list-style: none;
+  padding: 0;
+}
+
+.engine-specifications li {
+  margin-bottom: 8px;
+}
+
+.engine-side-section {
+  width: 25%; /* Adjust based on preference */
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+}
+
+.contact-info h2,
+.engine-location h2 {
+  margin-bottom: 15px;
+}
+
+.contact-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.contact-button:hover {
+  background-color: #0056b3;
 }

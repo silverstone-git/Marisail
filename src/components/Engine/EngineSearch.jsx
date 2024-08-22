@@ -1,217 +1,211 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
-import DropdownWithSearchAndCheckBoxes from "../DropdownWithSearchAndCheckBoxes";
+import DropdownWithCheckBoxes from "../DropdownWithCheckBoxes";
 import EngineCard from "../EngineCard";
 import CustomDatePicker from "../CustomDatePicker";
 import axios from "axios";
 import SearchBar from "../SearchBar";
+import {
+  fetchColumns,
+  fetchDistinctValues,
+  fetchTables,
+} from "../../api/searchEngineApi";
+import DropdownWithRadioButtons from "../DropdownWithRadioButtons";
 
 import "./engineSearch.scss";
 const Engines = () => {
-  const [selectedDate, setSelectedDate] = useState(null);
-
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-  };
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
-
-  const cardData = {
-    image: "./images/slider-sailboat.jpg",
-    status: "NEW LISTING!",
-    statusLabel: "New Listing!",
-    year: "2009",
-    title: "Fairline Targa 44 GT",
-    price: "£ 249,950 Tax Paid",
-    location: "Lymington Yacht Haven United Kingdom",
-    isNew: true,
-    description: "This is a sample description of the boat.",
-    save: "Save",
-    share: "Share",
-    download: "Download",
-    enquire: "Enquire",
-  };
-
-  const [dropdownOptions, setDropdownOptions] = useState({
-    conditionOptions: [],
-    sellerOptions: [],
-    offeredByOptions: [],
-    brokerValuationOptions: [],
-    marisailVesselIdOptions: [],
-    engineMakeOptions: [],
-    engineClassifiableOptions: [],
-    certificationOptions: [],
-    engineModelOptions: [],
-    manufacturerWarrantyOptions: [],
-    engineModelYearOptions: [],
-    engineSerialNumberOptions: [],
-    engineTypeOptions: [],
-    typeDesginationOptions: [],
-    engineYearOptions: [],
-    ceCategoryOptions: [],
-    numberDrivesOptions: [],
-    numberEnginesOptions: [],
-    rangeOptions: [],
-    cruiseSpeedOptions: [],
-    driveTypeOptions: [],
-    engineHoursOptions: [],
-    ignitionSystemOptions: [],
-    noiseLevelDbOptions: [],
-    engineSoundProofingKitsOptions: [],
+  const [columns, setColumns] = useState([]);
+  const [selectedColumn, setSelectedColumn] = useState("");
+  const [distinctValues, setDistinctValues] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [engines, setEngines] = useState([]);
+  const [page, setPage] = useState(1);
+  const [limit] = useState(27); // Fixed limit
+  const [search, setSearch] = useState([]);
+  const [pagination, setPagination] = useState({
+    currentPage: 1,
+    totalPages: 1,
+    totalRecords: 0,
+    limit: 20,
   });
   const [selectedOptions, setSelectedOptions] = useState({
-    conditionOptions: [],
-    sellerOptions: [],
-    offeredByOptions: [],
-    brokerValuationOptions: [],
-    marisailVesselIdOptions: [],
-    engineMakeOptions: [],
-    engineClassifiableOptions: [],
-    certificationOptions: [],
-    engineModelOptions: [],
-    manufacturerWarrantyOptions: [],
-    engineModelYearOptions: [],
-    engineSerialNumberOptions: [],
-    engineTypeOptions: [],
-    typeDesginationOptions: [],
-    engineYearOptions: [],
-    ceCategoryOptions: [],
-    numberDrivesOptions: [],
-    numberEnginesOptions: [],
-    rangeOptions: [],
-    cruiseSpeedOptions: [],
-    driveTypeOptions: [],
-    engineHoursOptions: [],
-    ignitionSystemOptions: [],
-    noiseLevelDbOptions: [],
-    engineSoundProofingKitsOptions: [],
+    condition_1: "",
+    used_condition: "",
+    seller: "",
+    offered_by: "",
+    broker_valuation: "",
+    marisail_vesselid: [],
+    engine_make: [],
+    engine_classifiable: [],
+    engine_certification: [],
+    engine_model: [],
+    Engine_Type: [],
+    Type_Designation: [],
+    Engine_Year: [],
+    CE_Category: [],
+    Number_Drives: [],
+    Number_Engines: [],
+    Range: [],
+    Cruise_Speed: [],
+    Drive_Type: [],
+    Engine_Hours: [],
+    Ignition_System: "",
+    noiselevel_db: "",
+    // dimentions
+    engine_weight: [],
+    height: [],
+    width: [],
+    lenght: [],
+    displacement: [],
+    dry_weight: [],
+    // performace
+    engine_performance: [],
+    max_poweroutput: [],
+    max_power: [],
+    max_speed: [],
+    engine_speedrange: [],
+    engine_efficiency: [],
+    // cylinders
+    bore_stroke: "",
+    bore: [],
+    number_cylinders: [],
+    number_valves: [],
+    // RMP
+    rated_speed: [],
+    // Torque
+    max_torque: [],
+    max_torquerpm: "",
+    // cooiling system
+    after_cooled: [],
+    cooling_system: "",
+    cooling_type: "",
+    cooling_fluidtype: [],
+    lubrication_sytem: "",
+    circulation_pumptype: [],
+    rawwater_pumptype: [],
+    // propulsion
+    propulsion: [],
+    bowthruster: "",
+    propulsion_systemtype: [],
+    propeller_bladematerial: "",
+    steering_controltype: [],
+    trim_system: [],
+    // fuel
+    fuel_filtertype: [],
+    fuel_system: "",
+    fuel_type: [],
+    fuel_reserve: [],
+    fuel_consumptionrate: "",
+    Fuel_tankmaterial: "",
+    //Emmissions & Environment
+    exhaust_system: [],
+    exhaust_systemtype: [],
+    // Electrical System
+    alternator: [],
+    battery_type: [],
+    //oil
+    oil_filtertype: [],
   });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const handleSelect = (category, options) => {
-    setSelectedOptions((prevState) => ({
-      ...prevState,
-      [category]: options,
+  useEffect(() => {
+    const loadColumns = async () => {
+      try {
+        const columnList = await fetchColumns(tableName);
+        setColumns(columnList);
+        if (columnList.length > 0) {
+          setSelectedColumn(columnList[0]); // Set default column
+        }
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+
+    loadColumns();
+  }, []);
+  useEffect(() => {
+    const loadDistinctValues = async () => {
+      if (selectedColumn) {
+        setLoading(true);
+        try {
+          const values = await fetchDistinctValues(tableName, selectedColumn);
+          setDistinctValues(values);
+        } catch (err) {
+          setError(err.message);
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+
+    loadDistinctValues();
+  }, [selectedColumn]);
+  useEffect(() => {
+    fetchEngines();
+  }, [page, search]);
+  useEffect(() => {
+    console.log("Search state changed:", search);
+  }, [search]);
+
+  const fetchEngines = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch(
+        `http://localhost:3001/api/search_engine/engines?page=${page}&limit=${limit}&search=${encodeURIComponent(
+          search
+        )}`
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await response.json();
+      setEngines(data.data);
+      setPagination(data.pagination);
+    } catch (err) {
+      setError("Failed to fetch engines");
+    } finally {
+      setLoading(false);
+    }
+  };
+  const handleSearchChange = (e) => {
+    console.log("Search input changed:", e.target.value);
+    setSearch(e.target.value);
+  };
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+  };
+  const handleSingleSelectOption = (category, option) => {
+    setSelectedOptions((prevOptions) => ({
+      ...prevOptions,
+      [category]: option,
     }));
   };
-  // Get all selected options across all dropdowns
-  const allSelectedOptions = Object.values(selectedOptions).flat();
-
-  // Remove a tag and update the corresponding dropdown
+  const handleMultiSelectOption = (category, updatedOptions) => {
+    setSelectedOptions((prevOptions) => ({
+      ...prevOptions,
+      [category]: updatedOptions,
+    }));
+  };
+  const allSelectedOptions = Object.values(selectedOptions)
+    .filter((value) => value && (typeof value !== "object" || value.length > 0))
+    .flat();
   const removeTag = (tag) => {
     setSelectedOptions((prevState) => {
       const newState = { ...prevState };
       Object.keys(newState).forEach((key) => {
-        newState[key] = newState[key].filter((option) => option !== tag);
+        if (Array.isArray(newState[key])) {
+          newState[key] = newState[key].filter((option) => option !== tag);
+        } else if (newState[key] === tag) {
+          newState[key] = "";
+        }
       });
+
       return newState;
     });
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        console.log("here");
-
-        const response = await axios.get("http://localhost:3000/engines");
-        console.log(response.data);
-        const engines = response.data.results;
-
-        setengineData(response.data);
-        setDropdownOptions((prevState) => ({
-          ...prevState,
-          conditionOptions: engines.map((engine) => ({
-            name: engine.Condition,
-          })),
-          sellerOptions: engines.map((engine) => ({ name: engine.Seller })),
-          offeredByOptions: engines.map((engine) => ({
-            name: engine.Offered_By,
-          })),
-          brokerValuationOptions: engines.map((engine) => ({
-            name: engine.Broker_Valuation,
-          })),
-          marisailVesselIdOptions: engines.map((engine) => ({
-            name: engine.Marisail_Vessel_ID,
-          })),
-          engineMakeOptions: engines.map((engine) => ({
-            name: engine.Engine_Make,
-          })),
-          engineClassifiableOptions: engines.map((engine) => ({
-            name: engine.Engine_Classifiable,
-          })),
-          certificationOptions: engines.map((engine) => ({
-            name: engine.Certification,
-          })),
-          engineModelOptions: engines.map((engine) => ({
-            name: engine.Engine_Model,
-          })),
-          manufacturerWarrantyOptions: engines.map((engine) => ({
-            name: engine.Manufacturer_Warranty,
-          })),
-          engineModelYearOptions: engines.map((engine) => ({
-            name: engine.Engine_Model_Year,
-          })),
-          engineSerialNumberOptions: engines.map((engine) => ({
-            name: engine.Engine_Serial_Number,
-          })),
-          engineTypeOptions: engines.map((engine) => ({
-            name: engine.Engine_Type,
-          })),
-
-          typeDesginationOptions: engines.map((engine) => ({
-            name: engine.Type_Designation,
-          })),
-          engineYearOptions: engines.map((engine) => ({
-            name: engine.Engine_Year,
-          })),
-
-          ceCategoryOptions: engines.map((engine) => ({
-            name: engine.CE_Category,
-          })),
-          numberDrivesOptions: engines.map((engine) => ({
-            name: engine.Number_Drives,
-          })),
-          numberEnginesOptions: engines.map((engine) => ({
-            name: engine.Number_Engines,
-          })),
-          rangeOptions: engines.map((engine) => ({
-            name: engine.Range,
-          })),
-          cruiseSpeedOptions: engines.map((engine) => ({
-            name: engine.Cruise_Speed,
-          })),
-          driveTypeOptions: engines.map((engine) => ({
-            name: engine.Drive_Type,
-          })),
-          engineHoursOptions: engines.map((engine) => ({
-            name: engine.Engine_Hours,
-          })),
-          ignitionSystemOptions: engines.map((engine) => ({
-            name: engine.Ignition_System,
-          })),
-          // noiseLevelDbOptions: engines.map((engine) => ({
-          //   name: engine.Noise_Level_(dB),
-          // })),
-          engineSoundProofingKitsOptions: engines.map((engine) => ({
-            name: engine.Engine_Soundproofing_Kits,
-          })),
-        }));
-        setLoading(false);
-      } catch (err) {
-        console.log("Error fetching data:", err);
-        // Handle errors
-        setError(err.message);
-        setLoading(false);
-      }
-    };
-
-    // Call the fetchData function
-    fetchData();
-  }, []);
   return (
     <Container>
       <Row>
@@ -228,6 +222,7 @@ const Engines = () => {
             <SearchBar
               selectedTags={allSelectedOptions}
               removeTag={removeTag}
+              onChange={handleSearchChange}
             />
           </Row>
           <Row>
@@ -236,10 +231,11 @@ const Engines = () => {
             >
               <legend
                 style={{
-                  borderBottom: "2px solid #f5f5f5",
+                  // borderBottom: "2px solid #f5f5f5",
                   fontSize: "16px",
                   fontWeight: "bold",
                   width: "100%",
+                  marginBottom: "12px",
                 }}
               >
                 Condition
@@ -247,12 +243,13 @@ const Engines = () => {
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
+                    <DropdownWithRadioButtons
                       title="Condition"
-                      options={dropdownOptions.conditionOptions}
                       selectedOptions={selectedOptions}
-                      category="conditionOptions"
-                      onSelect={handleSelect}
+                      category="condition_1"
+                      onSelect={handleSingleSelectOption}
+                      tableName="engine_general"
+                      columnName="condition_1"
                     />
                   </Form.Group>
                 </Col>
@@ -260,12 +257,27 @@ const Engines = () => {
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
+                    <DropdownWithRadioButtons
+                      title="Used Condition"
+                      selectedOptions={selectedOptions}
+                      category="used_condition"
+                      onSelect={handleSingleSelectOption}
+                      tableName="engine_general"
+                      columnName="used_condition"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithRadioButtons
                       title="Seller"
-                      options={dropdownOptions.sellerOptions}
                       selectedOptions={selectedOptions}
-                      category="conditionOptions"
-                      onSelect={handleSelect}
+                      category="seller"
+                      onSelect={handleSingleSelectOption}
+                      tableName="engine_general"
+                      columnName="seller"
                     />
                   </Form.Group>
                 </Col>
@@ -273,23 +285,13 @@ const Engines = () => {
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="Offered By (Dealer)"
-                      options={dropdownOptions.offeredByOptions}
-                      selectedOption={selectedOptions}
-                      category={"offeredByOptions"}
-                      onSelect={handleSelect}
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Row className="row-margin">
-                <Col md={12} style={{ marginBottom: "10px" }}>
-                  <Form.Group>
-                    <CustomDatePicker
-                      style={{ width: "108%" }}
-                      selectedDate={selectedDate}
-                      handleDateChange={handleDateChange}
+                    <DropdownWithRadioButtons
+                      title="Offered By"
+                      selectedOptions={selectedOptions}
+                      category="offered_by"
+                      onSelect={handleSingleSelectOption}
+                      tableName="engine_general"
+                      columnName="offered_by"
                     />
                   </Form.Group>
                 </Col>
@@ -297,12 +299,13 @@ const Engines = () => {
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
+                    <DropdownWithRadioButtons
                       title="Broker Valuation"
-                      options={dropdownOptions.brokerValuationOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"brokerValuationOptions"}
+                      selectedOptions={selectedOptions}
+                      category="broker_valuation"
+                      onSelect={handleSingleSelectOption}
+                      tableName="engine_general"
+                      columnName="broker_valuation"
                     />
                   </Form.Group>
                 </Col>
@@ -310,15 +313,15 @@ const Engines = () => {
             </fieldset>
 
             <fieldset
-              className="py-1"
               style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
             >
               <legend
                 style={{
-                  borderBottom: "2px solid #f5f5f5",
+                  // borderBottom: "2px solid #f5f5f5",
                   fontSize: "16px",
                   fontWeight: "bold",
                   width: "100%",
+                  marginBottom: "12px",
                 }}
               >
                 General
@@ -326,12 +329,13 @@ const Engines = () => {
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title=" Marisail Vessel ID"
-                      options={dropdownOptions.marisailVesselIdOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"marisailVesselIdOptions"}
+                    <DropdownWithCheckBoxes
+                      title="Marisail Vessel ID"
+                      selectedOptions={selectedOptions}
+                      category="marisail_vesselid"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_general"
+                      columnName="marisail_vesselid"
                     />
                   </Form.Group>
                 </Col>
@@ -339,12 +343,13 @@ const Engines = () => {
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title=" Engine Make"
-                      options={dropdownOptions.engineMakeOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"engineMakeOptions"}
+                    <DropdownWithCheckBoxes
+                      title="Engine Make"
+                      selectedOptions={selectedOptions}
+                      category="engine_make"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_general"
+                      columnName="engine_make"
                     />
                   </Form.Group>
                 </Col>
@@ -352,12 +357,13 @@ const Engines = () => {
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="  Engine Classification"
-                      options={dropdownOptions.engineClassifiableOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"engineClassifiableOptions"}
+                    <DropdownWithCheckBoxes
+                      title="Engine Classification"
+                      selectedOptions={selectedOptions}
+                      category="engine_classifiable"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_general"
+                      columnName="engine_classifiable"
                     />
                   </Form.Group>
                 </Col>
@@ -365,12 +371,13 @@ const Engines = () => {
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="  Certification"
-                      options={dropdownOptions.certificationOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"certificationOptions"}
+                    <DropdownWithCheckBoxes
+                      title="Certification"
+                      selectedOptions={selectedOptions}
+                      category="engine_certification"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_general"
+                      columnName="engine_certification"
                     />
                   </Form.Group>
                 </Col>
@@ -378,12 +385,13 @@ const Engines = () => {
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="  Engine Model"
-                      options={dropdownOptions.engineModelOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"engineModelOptions"}
+                    <DropdownWithCheckBoxes
+                      title="Engine Model"
+                      selectedOptions={selectedOptions}
+                      category="engine_model"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_general"
+                      columnName="engine_model"
                     />
                   </Form.Group>
                 </Col>
@@ -391,12 +399,13 @@ const Engines = () => {
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="  Manufacturer Warranty"
-                      options={dropdownOptions.manufacturerWarrantyOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"manufacturerWarrantyOptions"}
+                    <DropdownWithRadioButtons
+                      title="Engine Model Year"
+                      selectedOptions={selectedOptions}
+                      category="engine_modelyear"
+                      onSelect={handleSingleSelectOption}
+                      tableName="engine_general"
+                      columnName="engine_modelyear"
                     />
                   </Form.Group>
                 </Col>
@@ -404,38 +413,13 @@ const Engines = () => {
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="  Engine Model Year"
-                      options={dropdownOptions.engineModelOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"engineModelYearOptions"}
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-              {/* <Row className="row-margin">
-                <Col md={12}>
-                  <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="   Engine Serial Number"
-                      options={dropdownOptions.engineSerialNumberOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"engineSerialNumberOptions"}
-                    />
-                  </Form.Group>
-                </Col>
-              </Row> */}
-              <Row className="row-margin">
-                <Col md={12}>
-                  <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="  Engine Type"
-                      options={dropdownOptions.engineTypeOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"engineTypeOptions"}
+                    <DropdownWithCheckBoxes
+                      title="Engine Type"
+                      selectedOptions={selectedOptions}
+                      category="engine_type"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_general"
+                      columnName="engine_type"
                     />
                   </Form.Group>
                 </Col>
@@ -443,12 +427,13 @@ const Engines = () => {
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="  Type Designation"
-                      options={dropdownOptions.typeDesginationOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"typeDesginationOptions"}
+                    <DropdownWithCheckBoxes
+                      title="Type Designation"
+                      selectedOptions={selectedOptions}
+                      category="type_designation"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_general"
+                      columnName="type_designation"
                     />
                   </Form.Group>
                 </Col>
@@ -456,12 +441,13 @@ const Engines = () => {
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="  Type Designation"
-                      options={dropdownOptions.brokerValuationOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"brokerValuationOptions"}
+                    <DropdownWithCheckBoxes
+                      title="Engine Year"
+                      selectedOptions={selectedOptions}
+                      category="engine_year"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_general"
+                      columnName="engine_year"
                     />
                   </Form.Group>
                 </Col>
@@ -469,12 +455,13 @@ const Engines = () => {
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="  Engine Year"
-                      options={dropdownOptions.brokerValuationOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"brokerValuationOptions"}
+                    <DropdownWithCheckBoxes
+                      title="CE Design Category"
+                      selectedOptions={selectedOptions}
+                      category="ce_category"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_general"
+                      columnName="ce_category"
                     />
                   </Form.Group>
                 </Col>
@@ -482,12 +469,13 @@ const Engines = () => {
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="  CE Design Category"
-                      options={dropdownOptions.brokerValuationOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"brokerValuationOptions"}
+                    <DropdownWithCheckBoxes
+                      title="Number Drives"
+                      selectedOptions={selectedOptions}
+                      category="number_drives"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_general"
+                      columnName="number_drives"
                     />
                   </Form.Group>
                 </Col>
@@ -495,12 +483,13 @@ const Engines = () => {
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="  Number Drives"
-                      options={dropdownOptions.brokerValuationOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"brokerValuationOptions"}
+                    <DropdownWithCheckBoxes
+                      title="Number Engines"
+                      selectedOptions={selectedOptions}
+                      category="number_engines"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_general"
+                      columnName="number_engines"
                     />
                   </Form.Group>
                 </Col>
@@ -508,12 +497,13 @@ const Engines = () => {
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="   Number Engines"
-                      options={dropdownOptions.brokerValuationOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"brokerValuationOptions"}
+                    <DropdownWithCheckBoxes
+                      title="Range (Miles)"
+                      selectedOptions={selectedOptions}
+                      category="engine_range"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_general"
+                      columnName="engine_range"
                     />
                   </Form.Group>
                 </Col>
@@ -521,12 +511,13 @@ const Engines = () => {
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="  Range (Miles)"
-                      options={dropdownOptions.brokerValuationOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"brokerValuationOptions"}
+                    <DropdownWithCheckBoxes
+                      title="Cruising Speed (Knots)"
+                      selectedOptions={selectedOptions}
+                      category="cruise_speed"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_general"
+                      columnName="cruise_speed"
                     />
                   </Form.Group>
                 </Col>
@@ -534,12 +525,13 @@ const Engines = () => {
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="   Cruising Speed (Knots)"
-                      options={dropdownOptions.brokerValuationOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"brokerValuationOptions"}
+                    <DropdownWithCheckBoxes
+                      title="Drive Type"
+                      selectedOptions={selectedOptions}
+                      category="drive_type"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_general"
+                      columnName="drive_type"
                     />
                   </Form.Group>
                 </Col>
@@ -547,12 +539,13 @@ const Engines = () => {
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="  Drive Type"
-                      options={dropdownOptions.brokerValuationOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"brokerValuationOptions"}
+                    <DropdownWithCheckBoxes
+                      title="Engine Hours"
+                      selectedOptions={selectedOptions}
+                      category="engine_hours"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_general"
+                      columnName="engine_hours"
                     />
                   </Form.Group>
                 </Col>
@@ -560,12 +553,13 @@ const Engines = () => {
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="  Engine Hours"
-                      options={dropdownOptions.brokerValuationOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"brokerValuationOptions"}
+                    <DropdownWithRadioButtons
+                      title="Ignition System (Starting)"
+                      selectedOptions={selectedOptions}
+                      category="ignition_system"
+                      onSelect={handleSingleSelectOption}
+                      tableName="engine_general"
+                      columnName="ignition_system"
                     />
                   </Form.Group>
                 </Col>
@@ -573,38 +567,13 @@ const Engines = () => {
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="  Ignition System (Starting) "
-                      options={dropdownOptions.brokerValuationOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"brokerValuationOptions"}
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Row className="row-margin">
-                <Col md={12}>
-                  <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="  Noise Level (dB) "
-                      options={dropdownOptions.brokerValuationOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"brokerValuationOptions"}
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Row className="row-margin">
-                <Col md={12}>
-                  <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="  Engine Soundproofing Kits"
-                      options={dropdownOptions.brokerValuationOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"brokerValuationOptions"}
+                    <DropdownWithRadioButtons
+                      title="Noise Level (dB)"
+                      selectedOptions={selectedOptions}
+                      category="noiselevel_db"
+                      onSelect={handleSingleSelectOption}
+                      tableName="engine_general"
+                      columnName="noiselevel_db"
                     />
                   </Form.Group>
                 </Col>
@@ -612,15 +581,15 @@ const Engines = () => {
             </fieldset>
 
             <fieldset
-              className="py-1"
-              style={{ borderBottom: "2px solid #f5f5f5" }}
+              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
             >
               <legend
                 style={{
-                  borderBottom: "2px solid #f5f5f5",
+                  // borderBottom: "2px solid #f5f5f5",
                   fontSize: "16px",
                   fontWeight: "bold",
                   width: "100%",
+                  marginBottom: "12px",
                 }}
               >
                 Transmission
@@ -628,12 +597,13 @@ const Engines = () => {
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="  Transmission Type"
-                      options={dropdownOptions.brokerValuationOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"brokerValuationOptions"}
+                    <DropdownWithCheckBoxes
+                      title="Transmission Type"
+                      selectedOptions={selectedOptions}
+                      category="transmission_type"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_transmission"
+                      columnName="transmission_type"
                     />
                   </Form.Group>
                 </Col>
@@ -641,104 +611,13 @@ const Engines = () => {
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="Gear Shift"
-                      options={dropdownOptions.brokerValuationOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"brokerValuationOptions"}
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Row className="row-margin">
-                <Col md={12}>
-                  <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="Gear Ratio"
-                      options={dropdownOptions.brokerValuationOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"brokerValuationOptions"}
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Row className="row-margin">
-                <Col md={12}>
-                  <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="Gear Shift Type"
-                      options={dropdownOptions.brokerValuationOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"brokerValuationOptions"}
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Row className="row-margin">
-                <Col md={12}>
-                  <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="  Flywheel SAE 14"
-                      options={dropdownOptions.brokerValuationOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"brokerValuationOptions"}
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Row className="row-margin">
-                <Col md={12}>
-                  <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="Silumin Flywheel Housing"
-                      options={dropdownOptions.brokerValuationOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"brokerValuationOptions"}
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-
-              <Row className="row-margin">
-                <Col md={12}>
-                  <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="Camshaft"
-                      options={dropdownOptions.brokerValuationOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"brokerValuationOptions"}
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Row className="row-margin">
-                <Col md={12}>
-                  <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title=" Crankshaft Alloy"
-                      options={dropdownOptions.brokerValuationOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"brokerValuationOptions"}
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Row className="row-margin">
-                <Col md={12}>
-                  <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="   Crankcase Design"
-                      options={dropdownOptions.brokerValuationOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"brokerValuationOptions"}
+                    <DropdownWithCheckBoxes
+                      title="Flywheel SAE 14"
+                      selectedOptions={selectedOptions}
+                      category="flywheel_SAE"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_transmission"
+                      columnName="flywheel_SAE"
                     />
                   </Form.Group>
                 </Col>
@@ -746,15 +625,15 @@ const Engines = () => {
             </fieldset>
 
             <fieldset
-              className="py-1"
-              style={{ borderBottom: "2px solid #f5f5f5" }}
+              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
             >
               <legend
                 style={{
-                  borderBottom: "2px solid #f5f5f5",
+                  // borderBottom: "2px solid #f5f5f5",
                   fontSize: "16px",
                   fontWeight: "bold",
                   width: "100%",
+                  marginBottom: "12px",
                 }}
               >
                 Installation and Mounting
@@ -762,12 +641,13 @@ const Engines = () => {
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="  Engine Mounting Orientation"
-                      options={dropdownOptions.brokerValuationOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"brokerValuationOptions"}
+                    <DropdownWithCheckBoxes
+                      title="Engine Mounting Type "
+                      selectedOptions={selectedOptions}
+                      category="engine_mountingtype"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_mounting"
+                      columnName="engine_mountingtype"
                     />
                   </Form.Group>
                 </Col>
@@ -775,12 +655,43 @@ const Engines = () => {
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title=" Engine Suspension"
-                      options={dropdownOptions.brokerValuationOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"brokerValuationOptions"}
+                    <DropdownWithRadioButtons
+                      title="Engine Block"
+                      selectedOptions={selectedOptions}
+                      category="engine_block"
+                      onSelect={handleSingleSelectOption}
+                      tableName="engine_mounting"
+                      columnName="engine_block"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+            </fieldset>
+
+            <fieldset
+              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
+            >
+              <legend
+                style={{
+                  // borderBottom: "2px solid #f5f5f5",
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                  width: "100%",
+                  marginBottom: "12px",
+                }}
+              >
+                Service & Maintenance
+              </legend>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithRadioButtons
+                      title="Availability of Spare Parts"
+                      selectedOptions={selectedOptions}
+                      category="availability_spareparts"
+                      onSelect={handleSingleSelectOption}
+                      tableName="engine_maintenance"
+                      columnName="availability_spareparts"
                     />
                   </Form.Group>
                 </Col>
@@ -788,12 +699,43 @@ const Engines = () => {
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="  Engine Mounting Type"
-                      options={dropdownOptions.brokerValuationOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"brokerValuationOptions"}
+                    <DropdownWithCheckBoxes
+                      title="Last Service Date"
+                      selectedOptions={selectedOptions}
+                      category="last_servicedate"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_maintenance"
+                      columnName="last_servicedate"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+            </fieldset>
+
+            <fieldset
+              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
+            >
+              <legend
+                style={{
+                  // borderBottom: "2px solid #f5f5f5",
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                  width: "100%",
+                  marginBottom: "12px",
+                }}
+              >
+                Equipment
+              </legend>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Engine Management System (EMS)"
+                      selectedOptions={selectedOptions}
+                      category="EMS"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_equipment"
+                      columnName="EMS"
                     />
                   </Form.Group>
                 </Col>
@@ -801,12 +743,13 @@ const Engines = () => {
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="  Mounting Bracket Material"
-                      options={dropdownOptions.brokerValuationOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"brokerValuationOptions"}
+                    <DropdownWithCheckBoxes
+                      title="Engine Control System"
+                      selectedOptions={selectedOptions}
+                      category="engine_controlsystem"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_equipment"
+                      columnName="engine_controlsystem"
                     />
                   </Form.Group>
                 </Col>
@@ -814,12 +757,13 @@ const Engines = () => {
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="   Alignment Requirements"
-                      options={dropdownOptions.brokerValuationOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"brokerValuationOptions"}
+                    <DropdownWithCheckBoxes
+                      title="Turbocharger"
+                      selectedOptions={selectedOptions}
+                      category="turbo_charging"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_equipment"
+                      columnName="turbo_charging"
                     />
                   </Form.Group>
                 </Col>
@@ -827,12 +771,820 @@ const Engines = () => {
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
-                    <DropdownWithSearchAndCheckBoxes
-                      title="  Engine Block Type"
-                      options={dropdownOptions.brokerValuationOptions}
-                      selectedOption={selectedOptions}
-                      onSelect={handleSelect}
-                      category={"brokerValuationOptions"}
+                    <DropdownWithCheckBoxes
+                      title="Heat Exchanger"
+                      selectedOptions={selectedOptions}
+                      category="heat_exchanger"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_equipment"
+                      columnName="heat_exchanger"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Sea Water Pump"
+                      selectedOptions={selectedOptions}
+                      category="seawater_pump"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_equipment"
+                      columnName="seawater_pump"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+            </fieldset>
+
+            <fieldset
+              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
+            >
+              <legend
+                style={{
+                  // borderBottom: "2px solid #f5f5f5",
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                  width: "100%",
+                  marginBottom: "12px",
+                }}
+              >
+                Dimensions
+              </legend>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Displacement"
+                      selectedOptions={selectedOptions}
+                      category="displacement"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_dimentions"
+                      columnName="displacement"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Length (mm)"
+                      selectedOptions={selectedOptions}
+                      category="lenght"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_dimentions"
+                      columnName="lenght"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Width (mm)"
+                      selectedOptions={selectedOptions}
+                      category="width"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_dimentions"
+                      columnName="width"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Height (mm)"
+                      selectedOptions={selectedOptions}
+                      category="height"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_dimentions"
+                      columnName="height"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Engine Weight"
+                      selectedOptions={selectedOptions}
+                      category="engine_weight"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_dimentions"
+                      columnName="engine_weight"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Dry Weight (Kg)"
+                      selectedOptions={selectedOptions}
+                      category="dry_weight"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_dimentions"
+                      columnName="dry_weight"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+            </fieldset>
+
+            <fieldset
+              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
+            >
+              <legend
+                style={{
+                  // borderBottom: "2px solid #f5f5f5",
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                  width: "100%",
+                  marginBottom: "12px",
+                }}
+              >
+                Performance
+              </legend>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Engine Performance"
+                      selectedOptions={selectedOptions}
+                      category="engine_performance"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_performance"
+                      columnName="engine_performance"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title=" Max Power Output"
+                      selectedOptions={selectedOptions}
+                      category="max_poweroutput"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_performance"
+                      columnName="max_poweroutput"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Max. Power (BHP)"
+                      selectedOptions={selectedOptions}
+                      category="max_power"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_performance"
+                      columnName="max_power"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Max. Speed (Knots)"
+                      selectedOptions={selectedOptions}
+                      category="max_speed"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_performance"
+                      columnName="max_speed"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithRadioButtons
+                      title="Engine Speed Range (RPM)"
+                      selectedOptions={selectedOptions}
+                      category="engine_speedrange"
+                      onSelect={handleSingleSelectOption}
+                      tableName="engine_performance"
+                      columnName="engine_speedrange"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithRadioButtons
+                      title="Engine Efficiency"
+                      selectedOptions={selectedOptions}
+                      category="engine_efficiency"
+                      onSelect={handleSingleSelectOption}
+                      tableName="engine_performance"
+                      columnName="engine_efficiency"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+            </fieldset>
+
+            <fieldset
+              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
+            >
+              <legend
+                style={{
+                  // borderBottom: "2px solid #f5f5f5",
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                  width: "100%",
+                  marginBottom: "12px",
+                }}
+              >
+                Cylinders
+              </legend>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Number Cylinders"
+                      selectedOptions={selectedOptions}
+                      category="number_cylinders"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_performance"
+                      columnName="number_cylinders"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title=" Number Valves"
+                      selectedOptions={selectedOptions}
+                      category="number_valves"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_performance"
+                      columnName="number_valves"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Bore"
+                      selectedOptions={selectedOptions}
+                      category="bore"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_performance"
+                      columnName="bore"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithRadioButtons
+                      title="Stroke"
+                      selectedOptions={selectedOptions}
+                      category=" bore_stroke"
+                      onSelect={handleSingleSelectOption}
+                      tableName="engine_performance"
+                      columnName="bore_stroke"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+            </fieldset>
+
+            <fieldset
+              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
+            >
+              <legend
+                style={{
+                  // borderBottom: "2px solid #f5f5f5",
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                  width: "100%",
+                  marginBottom: "12px",
+                }}
+              >
+                RPM
+              </legend>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Rated Speed (RPM)"
+                      selectedOptions={selectedOptions}
+                      category="rated_speed"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_performance"
+                      columnName="rated_speed"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+            </fieldset>
+
+            <fieldset
+              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
+            >
+              <legend
+                style={{
+                  // borderBottom: "2px solid #f5f5f5",
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                  width: "100%",
+                  marginBottom: "12px",
+                }}
+              >
+                Torque
+              </legend>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Maximum Torque (Nm)"
+                      selectedOptions={selectedOptions}
+                      category="max_torque"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_performance"
+                      columnName="max_torque"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithRadioButtons
+                      title="Maximum Torque At Speed (RPM)"
+                      selectedOptions={selectedOptions}
+                      category="max_torquerpm"
+                      onSelect={handleSingleSelectOption}
+                      tableName="engine_performance"
+                      columnName="max_torquerpm"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+            </fieldset>
+
+            <fieldset
+              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
+            >
+              <legend
+                style={{
+                  // borderBottom: "2px solid #f5f5f5",
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                  width: "100%",
+                  marginBottom: "12px",
+                }}
+              >
+                Cooling System
+              </legend>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Aftercooled"
+                      selectedOptions={selectedOptions}
+                      category="after_cooled"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_cooling"
+                      columnName="after_cooled"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithRadioButtons
+                      title=" Cooling System"
+                      selectedOptions={selectedOptions}
+                      category="cooling_system"
+                      onSelect={handleSingleSelectOption}
+                      tableName="engine_cooling"
+                      columnName="cooling_system"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithRadioButtons
+                      title="Type Of Cooling"
+                      selectedOptions={selectedOptions}
+                      category="cooling_type"
+                      onSelect={handleSingleSelectOption}
+                      tableName="engine_cooling"
+                      columnName="cooling_type"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Lubrication System"
+                      selectedOptions={selectedOptions}
+                      category="lubrication_sytem"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_cooling"
+                      columnName="lubrication_sytem"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithRadioButtons
+                      title="Cooling Fluid Type"
+                      selectedOptions={selectedOptions}
+                      category="cooling_fluidtype"
+                      onSelect={handleSingleSelectOption}
+                      tableName="engine_cooling"
+                      columnName="cooling_fluidtype"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Circulation Pump Type"
+                      selectedOptions={selectedOptions}
+                      category="circulation_pumptype"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_cooling"
+                      columnName="circulation_pumptype"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Raw Water Pump Type"
+                      selectedOptions={selectedOptions}
+                      category="rawwater_pumptype"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_cooling"
+                      columnName="rawwater_pumptype"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+            </fieldset>
+
+            <fieldset
+              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
+            >
+              <legend
+                style={{
+                  // borderBottom: "2px solid #f5f5f5",
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                  width: "100%",
+                  marginBottom: "12px",
+                }}
+              >
+                Propulsion System
+              </legend>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Propulsion"
+                      selectedOptions={selectedOptions}
+                      category="propulsion"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_propulsion"
+                      columnName="propulsion"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithRadioButtons
+                      title=" Bowthruster"
+                      selectedOptions={selectedOptions}
+                      category="bowthruster"
+                      onSelect={handleSingleSelectOption}
+                      tableName="engine_propulsion"
+                      columnName="bowthruster"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Propulsion System Type"
+                      selectedOptions={selectedOptions}
+                      category="propulsion_systemtype"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_propulsion"
+                      columnName="propulsion_systemtype"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithRadioButtons
+                      title="Propeller Blade Material"
+                      selectedOptions={selectedOptions}
+                      category="propeller_bladematerial"
+                      onSelect={handleSingleSelectOption}
+                      tableName="engine_propulsion"
+                      columnName="propeller_bladematerial"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Steering Control Type"
+                      selectedOptions={selectedOptions}
+                      category="steering_controltype"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_propulsion"
+                      columnName="steering_controltype"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Trim System"
+                      selectedOptions={selectedOptions}
+                      category="trim_system"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_propulsion"
+                      columnName="trim_system"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Trim Tab Type"
+                      selectedOptions={selectedOptions}
+                      category="trim_tab_type"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_propulsion"
+                      columnName="rawwater_pumptype"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+            </fieldset>
+
+            <fieldset
+              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
+            >
+              <legend
+                style={{
+                  // borderBottom: "2px solid #f5f5f5",
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                  width: "100%",
+                  marginBottom: "12px",
+                }}
+              >
+                Fuel System
+              </legend>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Fuel Filter Type"
+                      selectedOptions={selectedOptions}
+                      category="fuel_filtertype"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_fuel"
+                      columnName="fuel_filtertype"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithRadioButtons
+                      title=" Fuel System"
+                      selectedOptions={selectedOptions}
+                      category="fuel_system"
+                      onSelect={handleSingleSelectOption}
+                      tableName="engine_fuel"
+                      columnName="fuel_system"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Fuel Type"
+                      selectedOptions={selectedOptions}
+                      category="fuel_type"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_fuel"
+                      columnName="fuel_type"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Fuel Consumption At Cruising Speed (Litres)"
+                      selectedOptions={selectedOptions}
+                      category="fuel_reserve"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_fuel"
+                      columnName="fuel_reserve"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithRadioButtons
+                      title="Fuel Consumption Rate"
+                      selectedOptions={selectedOptions}
+                      category="fuel_consumptionrate"
+                      onSelect={handleSingleSelectOption}
+                      tableName="engine_fuel"
+                      columnName="fuel_consumptionrate"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithRadioButtons
+                      title="Fuel Tank Material"
+                      selectedOptions={selectedOptions}
+                      category="Fuel_tankmaterial"
+                      onSelect={handleSingleSelectOption}
+                      tableName="engine_fuel"
+                      columnName="Fuel_tankmaterial"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+            </fieldset>
+
+            <fieldset
+              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
+            >
+              <legend
+                style={{
+                  // borderBottom: "2px solid #f5f5f5",
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                  width: "100%",
+                  marginBottom: "12px",
+                }}
+              >
+                Oil
+              </legend>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Oil Filter Type"
+                      selectedOptions={selectedOptions}
+                      category="oil_filtertype"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_oil"
+                      columnName="oil_filtertype"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+            </fieldset>
+
+            <fieldset
+              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
+            >
+              <legend
+                style={{
+                  // borderBottom: "2px solid #f5f5f5",
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                  width: "100%",
+                  marginBottom: "12px",
+                }}
+              >
+                Electrical System
+              </legend>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Alternator"
+                      selectedOptions={selectedOptions}
+                      category="alternator"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_electrical"
+                      columnName="alternator"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Battery Type"
+                      selectedOptions={selectedOptions}
+                      category="battery_type"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_electrical"
+                      columnName="battery_type"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+            </fieldset>
+
+            <fieldset
+              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
+            >
+              <legend
+                style={{
+                  // borderBottom: "2px solid #f5f5f5",
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                  width: "100%",
+                  marginBottom: "12px",
+                }}
+              >
+                Emmissions & Environment
+              </legend>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Exhaust System"
+                      selectedOptions={selectedOptions}
+                      category="exhaust_system"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_emissions"
+                      columnName="exhaust_system"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Exhaust System Type"
+                      selectedOptions={selectedOptions}
+                      category="exhaust_systemtype"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_emissions"
+                      columnName="exhaust_systemtype"
                     />
                   </Form.Group>
                 </Col>
@@ -855,15 +1607,30 @@ const Engines = () => {
             </Col>
           </Row>
           <Row>
-            <Col md={4}>
-              <EngineCard {...cardData} />
-            </Col>
-            <Col md={4}>
-              <EngineCard {...cardData} />
-            </Col>
-            <Col md={4}>
-              <EngineCard {...cardData} />
-            </Col>
+            {engines.map((engine) => (
+              <Col md={4}>
+                <EngineCard key={engine.engine_id} {...engine} />
+              </Col>
+            ))}
+          </Row>
+          <Row style={{ marginBottom: "20px" }}>
+            <div>
+              <button
+                onClick={() => handlePageChange(page - 1)}
+                disabled={page === 1}
+              >
+                Previous
+              </button>
+              <span>
+                Page {page} of {pagination.totalPages}
+              </span>
+              <button
+                onClick={() => handlePageChange(page + 1)}
+                disabled={page === pagination.totalPages}
+              >
+                Next
+              </button>
+            </div>
           </Row>
         </Col>
       </Row>

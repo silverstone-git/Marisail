@@ -1,5 +1,5 @@
-import mysql from 'mysql2/promise';
-import dotenv from 'dotenv';
+import mysql from "mysql2/promise";
+import dotenv from "dotenv";
 
 dotenv.config();
 
@@ -9,7 +9,7 @@ const connection = mysql.createPool({
   host: ENVIRONMENT.HOST,
   user: ENVIRONMENT.MY_USER,
   password: ENVIRONMENT.MY_PASSWORD,
-  database: 'Marisail',
+  database: "Marisail",
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
