@@ -1,7 +1,7 @@
 import Form from "react-bootstrap/Form";
 import Accordion from "react-bootstrap/Accordion";
 import PropTypes from "prop-types";
-
+// import { Button } from "react-bootstrap";
 function SelectComponent({
   label,
   setValue,
@@ -10,20 +10,32 @@ function SelectComponent({
   openKey,
   type,
   options,
-  isMandatory
+  isMandatory,
 }) {
-  
+  const clearSelection = (e) => {
+    e.stopPropagation();
+    setValue("");
+  };
   return (
     <Accordion
       activeKey={openKey}
       onSelect={(eventKey) => setOpenKey(eventKey)}
     >
       <Accordion.Item eventKey={label}>
-        <Accordion.Header>{label}
-        {isMandatory && <span className="text-danger">&nbsp;*</span>}
+        <Accordion.Header
+          style={{position: 'relative'}}
+        >
+          {label}
+          {isMandatory && <span className="text-danger">&nbsp;*</span>}
+          <span style={{position: 'absolute', right: 35,  top: '50%', transform: 'translateY(-50%)'}}
+            onClick={clearSelection}
+            className="clear-selection-x"
+          >
+            X
+          </span>
         </Accordion.Header>
         <Accordion.Body style={{ maxHeight: 200, overflowY: "auto" }}>
-          {options.map((item,index) => {
+          {options.map((item, index) => {
             return (
               <Form.Check
                 type="radio"
