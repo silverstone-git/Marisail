@@ -19,7 +19,7 @@ const EngineAdvert = () => {
     offeredBy: "",
     lastSurveyDate: null,
     brokerValuation: "",
-    marisailVesselId: "",
+    // marisailVesselId: "",
     engineMake: "",
     engineModelYear: "",
     engineClassification: "",
@@ -511,7 +511,7 @@ const EngineAdvert = () => {
     engineType: true,
     typeDesignation: true,
 
-    marisailVesselId: true,
+    // marisailVesselId: true,
     engineClassification: true,
     certification: true,
     manufacturerWarranty: false,
@@ -1296,7 +1296,7 @@ const EngineAdvert = () => {
             <Col md={6} style={{ marginTop: 40 }}>
               <h6 style={{ marginLeft: 10, color:'#1F75FE' }}>General</h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
-                <Col xs={3} md={12} className="mb-2">
+                {/* <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
                     type="advertEngine"
                     openKey={openKey}
@@ -1310,7 +1310,7 @@ const EngineAdvert = () => {
                     isMandatory={true}
                   />
                   <div className="ms-2"><p><small>{error["marisailVesselId"] && errorDisplay(ENGINE_ADVERT.MARISAIL_VESSEL_ID)}</small></p></div>
-                </Col>
+                </Col> */}
                 <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
                     openKey={openKey}
