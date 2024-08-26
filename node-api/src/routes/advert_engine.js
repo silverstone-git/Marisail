@@ -181,13 +181,11 @@ advertEngineRouter.get("/type_designation/", async (req, res) => {
     );
     // console.log("Final Rows Filter Options------------------->",filterOptions);
     // console.log("Final Rows Engine Id------------------->",engineId);
-    return res
-      .status(200)
-      .json({
-        ok: true,
-        type_designation: rows.map((row) => row.type_designation),
-        engineId: engineId.map((row) => row.engine_id),
-      });
+    return res.status(200).json({
+      ok: true,
+      type_designation: rows.map((row) => row.type_designation),
+      engineId: engineId.map((row) => row.engine_id),
+    });
   } catch (err) {
     return res.status(500).json({ ok: false, message: err.message });
   } finally {
@@ -294,25 +292,51 @@ advertEngineRouter.get("/conditions/", async (req, res) => {
     return res.status(200).json({
       ok: true,
 
-      scheduled_maintenanceplan: engineMaintenanceFields.map((row) => row.scheduled_maintenanceplan),
-      service_interval: engineMaintenanceFields.map((row) => row.service_interval),
-      maintenancelog_requirements: engineMaintenanceFields.map((row) => row.maintenancelog_requirements),
-      availability_spareparts: engineMaintenanceFields.map((row) => row.availability_spareparts),
+      scheduled_maintenanceplan: engineMaintenanceFields.map(
+        (row) => row.scheduled_maintenanceplan
+      ),
+      service_interval: engineMaintenanceFields.map(
+        (row) => row.service_interval
+      ),
+      maintenancelog_requirements: engineMaintenanceFields.map(
+        (row) => row.maintenancelog_requirements
+      ),
+      availability_spareparts: engineMaintenanceFields.map(
+        (row) => row.availability_spareparts
+      ),
       operation_mode: engineMaintenanceFields.map((row) => row.operation_mode),
-      last_servicedate: engineMaintenanceFields.map((row) => row.last_servicedate),
+      last_servicedate: engineMaintenanceFields.map(
+        (row) => row.last_servicedate
+      ),
 
-      Emission_compliance: engineEmissionFields.map((row) => row.Emission_compliance),
+      Emission_compliance: engineEmissionFields.map(
+        (row) => row.Emission_compliance
+      ),
       exhaust_system: engineEmissionFields.map((row) => row.exhaust_system),
-      exhaust_systemtype: engineEmissionFields.map((row) => row.exhaust_systemtype),
-      exhaustgas_aftertreatment: engineEmissionFields.map((row) => row.exhaustgas_aftertreatment),
-      exhaustGas_status: engineEmissionFields.map((row) => row.exhaustGas_status),
-      exhaust_valvetiming: engineEmissionFields.map((row) => row.exhaust_valvetiming),
-      intake_valvetiming: engineEmissionFields.map((row) => row.intake_valvetiming),
-      emission_controltechnology: engineEmissionFields.map((row) => row.emission_controltechnology),
+      exhaust_systemtype: engineEmissionFields.map(
+        (row) => row.exhaust_systemtype
+      ),
+      exhaustgas_aftertreatment: engineEmissionFields.map(
+        (row) => row.exhaustgas_aftertreatment
+      ),
+      exhaustGas_status: engineEmissionFields.map(
+        (row) => row.exhaustGas_status
+      ),
+      exhaust_valvetiming: engineEmissionFields.map(
+        (row) => row.exhaust_valvetiming
+      ),
+      intake_valvetiming: engineEmissionFields.map(
+        (row) => row.intake_valvetiming
+      ),
+      emission_controltechnology: engineEmissionFields.map(
+        (row) => row.emission_controltechnology
+      ),
       NOx_Emission: engineEmissionFields.map((row) => row.NOx_Emission),
       SOx_Emission: engineEmissionFields.map((row) => row.SOx_Emission),
       COx_Emission: engineEmissionFields.map((row) => row.COx_Emission),
-      compliance_internationalmaritime: engineEmissionFields.map((row) => row.compliance_internationalmaritime),
+      compliance_internationalmaritime: engineEmissionFields.map(
+        (row) => row.compliance_internationalmaritime
+      ),
 
       displacement: engineDimensionFields.map((row) => row.displacement),
       length: engineDimensionFields.map((row) => row.length),
@@ -666,16 +690,35 @@ advertEngineRouter.get("/conditions/", async (req, res) => {
 });
 
 advertEngineRouter.get("/columnsList", async (req, res) => {
-  let valid_tables = ['engine_general'];
+  let valid_tables = ["engine_general"];
   let connection;
-
+  let filterOptions = "";
+  // let engine_make = req.query.engine_make;
+  // let engine_model = req.query.engine_mode;
   try {
     connection = await dbConnection.getConnection();
+    if (req.query.engine_make && req.query.engine_model) {
+      filterOptions = ` WHERE engine_make = '${req.query.engine_make}' AND engine_model = '${req.query.engine_model}'`;
+    } else if (req.query.engine_make && !req.query.engine_model) {
+      filterOptions = ` WHERE engine_make = '${req.query.engine_make}'`;
+    } else if (req.query.engine_model && !req.query.engine_make) {
+      filterOptions = ` WHERE engine_model = '${req.query.engine_model}'`;
+    } else {
+      filterOptions = ``;
+    }
+    const [engineId] = await connection.query(
+      `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
+    );
+    // console.log("Final Rows Filter Options------------------->",filterOptions);
+    // console.log("Final Rows Engine Id------------------->",engineId);
+    console.log(engineId.map((row) => row.engine_id));
     let results = {};
 
     for (let tableName of valid_tables) {
       // Step1: Show column names of the valid_tables table
-      const [columns] = await connection.query("SHOW COLUMNS FROM ??", [tableName]);
+      const [columns] = await connection.query("SHOW COLUMNS FROM ??", [
+        tableName,
+      ]);
 
       results[tableName] = {};
 
@@ -684,8 +727,13 @@ advertEngineRouter.get("/columnsList", async (req, res) => {
         const columnName = column.Field; // Use the column name from the table
 
         const [rows] = await connection.query(
-          `SELECT DISTINCT ?? FROM ?? ORDER BY ??`,
-          [columnName, tableName, columnName]
+          `SELECT DISTINCT ?? FROM ?? WHERE engine_id IN (?) ORDER BY ??`,
+          [
+            columnName,
+            tableName,
+            engineId.map((row) => row.engine_id),
+            columnName,
+          ]
         );
 
         results[tableName][columnName] = rows.map((row) => row[columnName]);

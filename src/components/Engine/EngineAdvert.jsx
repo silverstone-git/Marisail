@@ -741,17 +741,6 @@ const EngineAdvert = () => {
     setErrors(errors);
     return Object.keys(errors).length === 0;
   };
-  const fetchColumnsList = async (
-    URL = "http://localhost:3001/api/advert_engine/columnsList"
-  ) => {
-    try {
-      const res = await fetch(URL);
-      const toJson = await res.json();
-      console.log("001 to json--",toJson);
-    } catch (err) {
-      console.log(err);
-    }
-  };
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
@@ -789,56 +778,68 @@ const EngineAdvert = () => {
     }
   };
 
-  const fetchEngineModelYear = async (engineMake, engineModel) => {
-    const URL = `http://localhost:3001/api/advert_engine/engine_modelyear?engine_make=${encodeURIComponent(
+  const fetchColumnsList = async (engineMake, engineModel)=>{
+    const URL = `http://localhost:3001/api/advert_engine/columnsList?engine_make=${encodeURIComponent(
       engineMake
     )}&engine_model=${encodeURIComponent(engineModel)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      setEngineModelYearOptions(toJson.result);
+      console.log("001 to json--",toJson);
     } catch (err) {
       console.log(err);
     }
   };
+  // const fetchEngineModelYear = async (engineMake, engineModel) => {
+  //   const URL = `http://localhost:3001/api/advert_engine/engine_modelyear?engine_make=${encodeURIComponent(
+  //     engineMake
+  //   )}&engine_model=${encodeURIComponent(engineModel)}`;
+  //   try {
+  //     const res = await fetch(URL);
+  //     const toJson = await res.json();
+  //     setEngineModelYearOptions(toJson.result);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  const fetchEngineType = async (engineMake, engineModel, engineModelYear) => {
-    const URL = `http://localhost:3001/api/advert_engine/engine_type?engine_make=${encodeURIComponent(
-      engineMake
-    )}&engine_model=${encodeURIComponent(
-      engineModel
-    )}&engine_modelyear=${encodeURIComponent(engineModelYear)}`;
-    try {
-      const res = await fetch(URL);
-      const toJson = await res.json();
-      setEngineTypeOptions(toJson.result);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const fetchEngineType = async (engineMake, engineModel, engineModelYear) => {
+  //   const URL = `http://localhost:3001/api/advert_engine/engine_type?engine_make=${encodeURIComponent(
+  //     engineMake
+  //   )}&engine_model=${encodeURIComponent(
+  //     engineModel
+  //   )}&engine_modelyear=${encodeURIComponent(engineModelYear)}`;
+  //   try {
+  //     const res = await fetch(URL);
+  //     const toJson = await res.json();
+  //     setEngineTypeOptions(toJson.result);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  const fetchTypeDesignation = async (
-    engineMake,
-    engineModel,
-    engineModelYear,
-    engineType
-  ) => {
-    const URL = `http://localhost:3001/api/advert_engine/type_designation?engine_make=${encodeURIComponent(
-      engineMake
-    )}&engine_model=${encodeURIComponent(
-      engineModel
-    )}&engine_modelyear=${encodeURIComponent(
-      engineModelYear
-    )}&engine_type=${encodeURIComponent(engineType)}`;
-    try {
-      const res = await fetch(URL);
-      const toJson = await res.json();
-      setTypeDesignationOptions(toJson.type_designation);
-      setEngineIdOptions(toJson.engineId);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const fetchTypeDesignation = async (
+  //   engineMake,
+  //   engineModel,
+  //   engineModelYear,
+  //   engineType
+  // ) => {
+  //   const URL = `http://localhost:3001/api/advert_engine/type_designation?engine_make=${encodeURIComponent(
+  //     engineMake
+  //   )}&engine_model=${encodeURIComponent(
+  //     engineModel
+  //   )}&engine_modelyear=${encodeURIComponent(
+  //     engineModelYear
+  //   )}&engine_type=${encodeURIComponent(engineType)}`;
+  //   try {
+  //     const res = await fetch(URL);
+  //     const toJson = await res.json();
+  //     setTypeDesignationOptions(toJson.type_designation);
+  //     setEngineIdOptions(toJson.engineId);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   const fetchCondition = async (
     engineMake,
@@ -1087,7 +1088,6 @@ const EngineAdvert = () => {
   };
   useEffect(() => {
     fetchEngineMake();
-    fetchColumnsList();
   }, []);
   const errorDisplay = (fieldName) => {
     return <div style={{ color: "red" }}>{fieldName} field is required</div>;
@@ -1109,7 +1109,7 @@ const EngineAdvert = () => {
                     setValue={(val) => {
                       setForm({ ...form, engineMake: val });
                       fetchEngineModel(val);
-                      fetchEngineModelYear(val);
+                      // fetchEngineModelYear(val);
                     }}
                     label={ENGINE_ADVERT.ENGINE_MAKE}
                     options={engineMakeOptions}
@@ -1141,7 +1141,8 @@ const EngineAdvert = () => {
                     value={form.engineModel}
                     setValue={(val) => {
                       setForm({ ...form, engineModel: val });
-                      fetchEngineModelYear(form.engineMake, val);
+                      // fetchEngineModelYear(form.engineMake, val);
+                      fetchColumnsList(form.engineMake, val);
                     }}
                     label={ENGINE_ADVERT.ENGINE_MODEL}
                     options={engineModelOptions}
@@ -1157,7 +1158,7 @@ const EngineAdvert = () => {
                     value={form.engineModelYear}
                     setValue={(val) => {
                       setForm({ ...form, engineModelYear: val });
-                      fetchEngineType(form.engineMake, form.engineModel, val);
+                      // fetchEngineType(form.engineMake, form.engineModel, val);
                     }}
                     label={ENGINE_ADVERT.ENGINE_MODEL_YEAR}
                     options={engineModelYearOptions}
@@ -1173,12 +1174,12 @@ const EngineAdvert = () => {
                     value={form.engineType}
                     setValue={(val) => {
                       setForm({ ...form, engineType: val });
-                      fetchTypeDesignation(
-                        form.engineMake,
-                        form.engineModel,
-                        form.engineModelYear,
-                        val
-                      );
+                      // fetchTypeDesignation(
+                      //   form.engineMake,
+                      //   form.engineModel,
+                      //   form.engineModelYear,
+                      //   val
+                      // );
                     }}
                     label={ENGINE_ADVERT.ENGINE_TYPE}
                     options={engineTypeOptions}
