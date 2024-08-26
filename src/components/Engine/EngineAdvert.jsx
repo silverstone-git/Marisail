@@ -741,7 +741,17 @@ const EngineAdvert = () => {
     setErrors(errors);
     return Object.keys(errors).length === 0;
   };
-
+  const fetchColumnsList = async (
+    URL = "http://localhost:3001/api/advert_engine/columnsList"
+  ) => {
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      console.log("001 to json--",toJson);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
@@ -1077,6 +1087,7 @@ const EngineAdvert = () => {
   };
   useEffect(() => {
     fetchEngineMake();
+    fetchColumnsList();
   }, []);
   const errorDisplay = (fieldName) => {
     return <div style={{ color: "red" }}>{fieldName} field is required</div>;

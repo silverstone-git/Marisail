@@ -665,4 +665,40 @@ advertEngineRouter.get("/conditions/", async (req, res) => {
   }
 });
 
+advertEngineRouter.get("/columnsList", async (req, res) => {
+  let valid_tables = ['engine_general'];
+  let connection;
+
+  try {
+    connection = await dbConnection.getConnection();
+
+    const promises = valid_tables.map(async (tableName) => {
+      // Step 1: Show column names of the current table
+      const [columns] = await connection.query("SHOW COLUMNS FROM ??", [tableName]);
+
+      // Step 2: Use column names to construct a dynamic query for each table
+      const selectQuery = `SELECT ${columns.map((col) => col.Field).join(', ')} FROM ??`;
+      // console.log("001 selectQuery--",selectQuery);
+
+      // Step 3: Execute the dynamic query for the current table
+      const [rows] = await connection.query(selectQuery, [tableName]);
+
+      // Return the table name and its rows
+      return { tableName, rows };
+    });
+
+    const results = await Promise.all(promises); // Wait for all queries to finish
+    // console.log("001 Results--",results);
+    
+    return res
+      .status(200)
+      .json({ ok: true, result: results });
+  } catch (err) {
+    return res.status(500).json({ ok: false, message: err.message });
+  } finally {
+    if (connection) connection.release();
+  }
+});
+
+
 export default advertEngineRouter;
