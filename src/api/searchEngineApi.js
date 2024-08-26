@@ -54,3 +54,35 @@ export async function fetchDistinctValues(tableName, columnName) {
     return [];
   }
 }
+
+export const fetchEngines = async (
+  page,
+  limit,
+  search,
+  setLoading,
+  setError,
+  setEngines,
+  setPagination
+) => {
+  setLoading(true);
+  setError(null);
+
+  try {
+    const response = await fetch(
+      `http://localhost:3001/api/search_engine/engines?page=${page}&limit=${limit}&search=${encodeURIComponent(
+        search
+      )}`
+    );
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const data = await response.json();
+    setEngines(data.data);
+    setPagination(data.pagination);
+  } catch (err) {
+    setError("Failed to fetch engines");
+  } finally {
+    setLoading(false);
+  }
+};

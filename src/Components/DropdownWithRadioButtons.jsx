@@ -75,16 +75,14 @@ const DropdownWithRadioButtons = ({
           <div className="custom-dropdown-options">
             <Form>
               {distinctValues.length > 0 ? (
-                distinctValues.map((value, index) => (
-                  <div key={index} className="custom-dropdown-option">
+                distinctValues.map((item) => (
+                  <div key={item.value} className="custom-dropdown-option">
                     <Form.Check
                       type="radio"
                       name={`radio-options-${category}`}
-                      id={`radio-${index}`}
-                      //label={value}
-                      label={`${value} (${value.count || 5})`}
-                      checked={selectedOptions[category] === value}
-                      onChange={() => handleOptionChange(value)}
+                      label={`${item.value} (${item.count || 5})`}
+                      checked={selectedOptions[category] === item.value} // Compare using item.value
+                      onChange={() => handleOptionChange(item.value)} // Pass item.value to the handler
                     />
                   </div>
                 ))
