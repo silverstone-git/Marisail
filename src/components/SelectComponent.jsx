@@ -12,10 +12,10 @@ function SelectComponent({
   options,
   isMandatory,
 }) {
-  const clearSelection = (e) => {
+  {/* const clearSelection = (e) => {
     e.stopPropagation();
     setValue("");
-  };
+  };*/}
   return (
     <Accordion
       activeKey={openKey}
