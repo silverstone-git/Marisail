@@ -20,6 +20,7 @@ const DropdownWithCheckBoxes = ({
       setLoading(true);
       try {
         const values = await fetchDistinctValues(tableName, columnName);
+        // console.log(values);
         setDistinctValues(values);
       } catch (err) {
         setError(err.message);
@@ -81,19 +82,17 @@ const DropdownWithCheckBoxes = ({
           <div className="custom-dropdown-options">
             <Form>
               {distinctValues.length > 0 ? (
-                distinctValues.map((value, index) => (
-                  <div key={index} className="custom-dropdown-option">
+                distinctValues.map((item) => (
+                  <div key={item.value} className="custom-dropdown-option">
                     <Form.Check
                       type="checkbox"
                       name={`checkbox-options-${category}`}
-                      id={`checkbox-${index}`}
-                      // label={value}
-                      label={`${value} (${value.count || 5})`}
+                      label={`${item.value} (${item.count || 5})`}
                       checked={
                         selectedOptions[category] &&
-                        selectedOptions[category].includes(value)
+                        selectedOptions[category].includes(item.value) // Compare using item.value
                       }
-                      onChange={() => handleOptionChange(value)}
+                      onChange={() => handleOptionChange(item.value)} // Pass item.value to the handler
                     />
                   </div>
                 ))

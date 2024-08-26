@@ -11,9 +11,9 @@ const EngineCard = ({
   engine_make,
 }) => {
   return (
-    <div className="custom-card">
+    <div className="custom-card" style={{ marginBottom: "30px" }}>
       <div className="card-image">
-        <img src="./images/slider-sailboat.jpg" alt="{title}" />
+        <img src="./images/engine.jpg" alt="{title}" />
       </div>
       <div className="card-content">
         <div className="card-header">
