@@ -154,7 +154,7 @@
   border: none;
   border-radius: 5px;
   padding: 10px;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: bold;
   cursor: pointer;
   transition: background 0.2s;
@@ -380,4 +380,139 @@
 
 .contact-button:hover {
   background-color: #0056b3;
+}
+// Css for Engine Detail Panel
+.details-panel-container {
+  margin-bottom: 10px;
+  // border: 1px solid #ddd;
+  // border-radius: 4px;
+  overflow: hidden;
+}
+
+.details-panel-header {
+  background-color: #f5f5f5;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.toggle-sign {
+  margin-right: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.panel-title {
+  font-size: small;
+  font-weight: 600;
+}
+
+.details-panel-content {
+  padding: 15px;
+  background-color: #fff;
+}
+
+.details-panel-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.details-panel-item {
+  flex: 1 1 30%;
+  margin-bottom: 15px;
+}
+
+.details-panel-item strong {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 5px;
+  font-size: smaller;
+}
+
+.details-panel-item span {
+  font-size: 14px;
+  color: #555;
+}
+// css for pagination
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 300px;
+}
+
+.pagination button {
+  padding: 6px 12px;
+  border: none;
+  background-color: #fff;
+  cursor: pointer;
+  font-size: smaller;
+}
+
+.pagination button.active {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+.pagination button:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
+
+.pagination button:hover:not(.active):not(:disabled) {
+  background-color: #e9ecef;
+}
+//  CSS FOR IMAGE GALLERY
+.gallery-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  margin-top: 20px;
+}
+
+.main-image-section {
+  flex: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-image {
+  width: 100%;
+  max-width: 80%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.thumbnail-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  padding: 0 20px;
+}
+
+.thumbnail {
+  width: 100px;
+  height: auto;
+  cursor: pointer;
+  border-radius: 8px;
+  opacity: 0.7;
+  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+  border: 2px solid transparent;
+}
+
+.thumbnail.active,
+.thumbnail:hover {
+  opacity: 1;
+  transform: scale(1.05);
+  border: 2px solid black;
 }
