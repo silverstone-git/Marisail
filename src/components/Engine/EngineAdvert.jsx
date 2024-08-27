@@ -756,13 +756,14 @@ const EngineAdvert = () => {
     }
   };
   const fetchGeneralColumnsList = async (engineMake, engineModel) => {
-    const URL = `http://localhost:3001/api/advert_engine/columnsList/engine_general?engine_make=${encodeURIComponent(
+    const tableName = 'engine_general'
+    const URL = `http://localhost:3001/api/advert_engine/columnsList/${tableName}?engine_make=${encodeURIComponent(
       engineMake
     )}&engine_model=${encodeURIComponent(engineModel)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 to json--", toJson.result.engine_general.engine_make);
+      // console.log("001 to json--", toJson.result.engine_general.engine_make);
       if(toJson.ok){
         // console.log("001 Before state update: ", toJson.result.engine_general.engine_make);
         setEngineMakeOptions(toJson.result.engine_general.engine_make)
@@ -798,13 +799,14 @@ const EngineAdvert = () => {
   };
 
   const fetchDimensionsColumnsList = async (engineMake, engineModel) => {
-    const URL = `http://localhost:3001/api/advert_engine/columnsList/engine_dimensions?engine_make=${encodeURIComponent(
+    const tableName = 'engine_dimensions'
+    const URL = `http://localhost:3001/api/advert_engine/columnsList/${tableName}?engine_make=${encodeURIComponent(
       engineMake
     )}&engine_model=${encodeURIComponent(engineModel)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 to json--", toJson.result.engine_dimensions);
+      // console.log("001 to json--", toJson.result.engine_dimensions);
 
       //DimensionFields
       setDisplacementOptions(toJson.result.engine_dimensions.displacement);
@@ -823,13 +825,14 @@ const EngineAdvert = () => {
   };
 
   const fetchCoolingColumnsList = async (engineMake, engineModel) => {
-    const URL = `http://localhost:3001/api/advert_engine/columnsList/engine_cooling?engine_make=${encodeURIComponent(
+    const tableName = 'engine_cooling'
+    const URL = `http://localhost:3001/api/advert_engine/columnsList/${tableName}?engine_make=${encodeURIComponent(
       engineMake
     )}&engine_model=${encodeURIComponent(engineModel)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 to json--", toJson.result.engine_cooling);
+      // console.log("001 to json--", toJson.result.engine_cooling);
 
       //CoolingFields
       setCoolingSystemOptions(toJson.result.engine_cooling.cooling_system);
@@ -854,13 +857,14 @@ const EngineAdvert = () => {
   };
 
   const fetchElectricalColumnsList = async (engineMake, engineModel) => {
-    const URL = `http://localhost:3001/api/advert_engine/columnsList/engine_electrical?engine_make=${encodeURIComponent(
+    const tableName = 'engine_electrical'    
+    const URL = `http://localhost:3001/api/advert_engine/columnsList/${tableName}?engine_make=${encodeURIComponent(
       engineMake
     )}&engine_model=${encodeURIComponent(engineModel)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 to json--", toJson.result.engine_electrical);
+      // console.log("001 to json--", toJson.result.engine_electrical);
 
        //ElectricalFields
       // setBatteryVoltageNumberOptions(toJson.result.engine_electrical.battery_voltagenumber);
@@ -879,13 +883,14 @@ const EngineAdvert = () => {
   };
 
   const fetchEmissionsColumnsList = async (engineMake, engineModel) => {
-    const URL = `http://localhost:3001/api/advert_engine/columnsList/engine_emissions?engine_make=${encodeURIComponent(
+    const tableName = 'engine_emissions'
+    const URL = `http://localhost:3001/api/advert_engine/columnsList/${tableName}?engine_make=${encodeURIComponent(
       engineMake
     )}&engine_model=${encodeURIComponent(engineModel)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 to json--", toJson.result.engine_emissions);
+      // console.log("001 to json--", toJson.result.engine_emissions);
 
       setEmissionComplianceOptions(toJson.result.engine_emissions.Emission_compliance);
       setExhaustSystemOptions(toJson.result.engine_emissions.exhaust_system);
@@ -907,13 +912,14 @@ const EngineAdvert = () => {
   };
 
   const fetchFuelColumnsList = async (engineMake, engineModel) => {
-    const URL = `http://localhost:3001/api/advert_engine/columnsList/engine_fuel?engine_make=${encodeURIComponent(
+    const tableName = 'engine_fuel'
+    const URL = `http://localhost:3001/api/advert_engine/columnsList/${tableName}?engine_make=${encodeURIComponent(
       engineMake
     )}&engine_model=${encodeURIComponent(engineModel)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 to json--", toJson.result.engine_fuel);
+      // console.log("001 to json--", toJson.result.engine_fuel);
 
       setFuelPreFilterOptions(toJson.result.engine_fuel.fuel_prefilter);
       setElectronicFuelinjectionOptions(toJson.result.engine_fuel.EFI);
@@ -941,13 +947,14 @@ const EngineAdvert = () => {
   };
 
   const fetchPropulsionColumnsList = async (engineMake, engineModel) => {
-    const URL = `http://localhost:3001/api/advert_engine/columnsList/engine_propulsion?engine_make=${encodeURIComponent(
+    const tableName = 'engine_propulsion'
+    const URL = `http://localhost:3001/api/advert_engine/columnsList/${tableName}?engine_make=${encodeURIComponent(
       engineMake
     )}&engine_model=${encodeURIComponent(engineModel)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 to json--", toJson.result.engine_propulsion);
+      // console.log("001 to json--", toJson.result.engine_propulsion);
 
       //PropulsionFields
       setPropulsionOptions(toJson.result.engine_propulsion.propulsion);
@@ -974,13 +981,14 @@ const EngineAdvert = () => {
   };
 
   const fetchTransmissionsColumnsList = async (engineMake, engineModel) => {
-    const URL = `http://localhost:3001/api/advert_engine/columnsList/engine_transmission?engine_make=${encodeURIComponent(
+    const tableName = 'engine_transmission'
+    const URL = `http://localhost:3001/api/advert_engine/columnsList/${tableName}?engine_make=${encodeURIComponent(
       engineMake
     )}&engine_model=${encodeURIComponent(engineModel)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 to json--", toJson.result.engine_transmission);
+      // console.log("001 to json--", toJson.result.engine_transmission);
       //TransmissionFields
       setTransmissionTypeOptions(toJson.result.engine_transmission.transmission_type);
       setGearShiftOptions(toJson.result.engine_transmission.gear_shift);
@@ -997,13 +1005,14 @@ const EngineAdvert = () => {
   };
 
   const fetchOilColumnsList = async (engineMake, engineModel) => {
-    const URL = `http://localhost:3001/api/advert_engine/columnsList/engine_oil?engine_make=${encodeURIComponent(
+    const tableName = 'engine_oil'
+    const URL = `http://localhost:3001/api/advert_engine/columnsList/${tableName}?engine_make=${encodeURIComponent(
       engineMake
     )}&engine_model=${encodeURIComponent(engineModel)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 to json--", toJson.result.engine_oil);
+      // console.log("001 to json--", toJson.result.engine_oil);
       //OilFields
       setOilFilterOptions(toJson.result.engine_oil.oil_filter);
       setOilFilterTypeOptions(toJson.result.engine_oil.oil_filtertype);
@@ -1023,13 +1032,14 @@ const EngineAdvert = () => {
   };
 
   const fetchSafetyColumnsList = async (engineMake, engineModel) => {
-    const URL = `http://localhost:3001/api/advert_engine/columnsList/engine_safety?engine_make=${encodeURIComponent(
+    const tableName = 'engine_safety'
+    const URL = `http://localhost:3001/api/advert_engine/columnsList/${tableName}?engine_make=${encodeURIComponent(
       engineMake
     )}&engine_model=${encodeURIComponent(engineModel)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 to json--", toJson.result.engine_safety);
+      // console.log("001 to json--", toJson.result.engine_safety);
       //SafetyFields
       setEngineMonitoringSystemsOptions(toJson.result.engine_safety.engine_monitoringsystem);
       setOverheatProtectionOptions(toJson.result.engine_safety.overheat_protection);
@@ -1041,13 +1051,14 @@ const EngineAdvert = () => {
   };
 
   const fetchEquipmentColumnsList = async (engineMake, engineModel) => {
-    const URL = `http://localhost:3001/api/advert_engine/columnsList/engine_equipment?engine_make=${encodeURIComponent(
+    const tableName = 'engine_equipment'
+    const URL = `http://localhost:3001/api/advert_engine/columnsList/${tableName}?engine_make=${encodeURIComponent(
       engineMake
     )}&engine_model=${encodeURIComponent(engineModel)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 to json--", toJson.result.engine_equipment);
+      // console.log("001 to json--", toJson.result.engine_equipment);
       //Equipment
       setEngineManagementSystemOptions(toJson.result.engine_equipment.EMS);
       setEngineControlSystemOptions(toJson.result.engine_equipment.engine_controlsystem);
@@ -1076,13 +1087,14 @@ const EngineAdvert = () => {
   };
 
   const fetchPerformanceColumnsList = async (engineMake, engineModel) => {
-    const URL = `http://localhost:3001/api/advert_engine/columnsList/engine_performance?engine_make=${encodeURIComponent(
+    const tableName = 'engine_performance'
+    const URL = `http://localhost:3001/api/advert_engine/columnsList/${tableName}?engine_make=${encodeURIComponent(
       engineMake
     )}&engine_model=${encodeURIComponent(engineModel)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 to json--", toJson.result.engine_performance);
+      // console.log("001 to json--", toJson.result.engine_performance);
       //Performance
       setNominalRatingOptions(toJson.result.engine_performance.nominal_rating);
       setEnginePerformanceOptions(toJson.result.engine_performance.engine_performance);
@@ -1123,13 +1135,14 @@ const EngineAdvert = () => {
   };
 
   const fetchMaintenanceColumnsList = async (engineMake, engineModel) => {
-    const URL = `http://localhost:3001/api/advert_engine/columnsList/engine_maintenance?engine_make=${encodeURIComponent(
+    const tableName = 'engine_maintenance'
+    const URL = `http://localhost:3001/api/advert_engine/columnsList/${tableName}?engine_make=${encodeURIComponent(
       engineMake
     )}&engine_model=${encodeURIComponent(engineModel)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 to json--", toJson.result.engine_maintenance);
+      // console.log("001 to json--", toJson.result.engine_maintenance);
       //MaintenanceFields
       setScheduledMaintenancePlanOptions(toJson.result.engine_maintenance.scheduled_maintenanceplan);
       setServiceIntervalOptions(toJson.result.engine_maintenance.service_interval);
@@ -1143,13 +1156,14 @@ const EngineAdvert = () => {
   };
 
   const fetchMountingColumnsList = async (engineMake, engineModel) => {
-    const URL = `http://localhost:3001/api/advert_engine/columnsList/engine_mounting?engine_make=${encodeURIComponent(
+    const tableName = 'engine_mounting'
+    const URL = `http://localhost:3001/api/advert_engine/columnsList/${tableName}?engine_make=${encodeURIComponent(
       engineMake
     )}&engine_model=${encodeURIComponent(engineModel)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 to json--", toJson.result.engine_mounting);
+      // console.log("001 to json--", toJson.result.engine_mounting);
       //MountingFields
       setEngineMountingOrientationOptions(toJson.result.engine_mounting.enginemounting_orientation);
       setEngineSuspensionOptions(toJson.result.engine_mounting.engine_suspension);
