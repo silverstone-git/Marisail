@@ -703,7 +703,7 @@ advertEngineRouter.get("/columnsList/engine_general", async (req, res) => {
   let filterOptions = "";
   // let engine_make = req.query.engine_make;
   // let engine_model = req.query.engine_mode;
-  let limit = 3
+  // let limit = 3
 
   try {
     connection = await dbConnection.getConnection();
@@ -735,13 +735,12 @@ advertEngineRouter.get("/columnsList/engine_general", async (req, res) => {
         const columnName = column.Field; // Use the column name from the table
 
         const [rows] = await connection.query(
-          `SELECT DISTINCT ?? FROM ?? WHERE engine_id IN (?) ORDER BY ?? LIMIT ${limit}`,
+          `SELECT DISTINCT ?? FROM ?? WHERE engine_id IN (?) ORDER BY ??`,
           [
             columnName,
             tableName,
             engineId.map((row) => row.engine_id),
             columnName,
-            limit,
           ]
         );
 
