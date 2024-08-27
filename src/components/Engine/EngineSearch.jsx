@@ -6,7 +6,7 @@ import EngineCard from "../EngineCard";
 import CustomDatePicker from "../CustomDatePicker";
 import SearchBar from "../SearchBar";
 import Pagination from "../CustomPagination";
-import axios from "axios";
+// import axios from "axios";
 import {
   fetchColumns,
   fetchDistinctValues,
@@ -486,18 +486,18 @@ const Engines = () => {
       const encodedColumns = encodeURIComponent(columns);
       const encodedValues = encodeURIComponent(values);
 
-      const response = await axios.get(
-        `http://localhost:3001/api/search_engine/engines?t=${encodedTables}&c=${encodedColumns}&v=${encodedValues}&page=1&limit=21`,
-        {
-          params: {
-            tables: JSON.stringify(tables),
-            columns: JSON.stringify(columns),
-            values: JSON.stringify(values),
-            page: pagination.currentPage,
-            limit: pagination.limit,
-          },
-        }
-      );
+      // const response = await axios.get(
+      //   `http://localhost:3001/api/search_engine/engines?t=${encodedTables}&c=${encodedColumns}&v=${encodedValues}&page=1&limit=21`,
+      //   {
+      //     params: {
+      //       tables: JSON.stringify(tables),
+      //       columns: JSON.stringify(columns),
+      //       values: JSON.stringify(values),
+      //       page: pagination.currentPage,
+      //       limit: pagination.limit,
+      //     },
+      //   }
+      // );
 
       console.log("API Response:", response.data);
 
