@@ -204,7 +204,7 @@ advertEngineRouter.get("/type_designation/", async (req, res) => {
 advertEngineRouter.get("/conditions/", async (req, res) => {
   let connection;
   try {
-    console.log("001 Engine Ids--", req.query.engine_ids);
+    // console.log("001 Engine Ids--", req.query.engine_ids);
 
     connection = await dbConnection.getConnection();
     // console.log("Engine general query--", `SELECT marisail_vesselid,	engine_make,	engine_classifiable,	engine_certification,	engine_model,	manufacture_warranty,
@@ -719,7 +719,7 @@ advertEngineRouter.get("/columnsList/engine_general", async (req, res) => {
     const [engineId] = await connection.query(
       `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
     );
-    console.log("Final Rows Filter Options------------------->",filterOptions);
+    // console.log("Final Rows Filter Options------------------->",filterOptions);
     // console.log("Final Rows Engine Id------------------->",engineId);
     let results = {};
 
@@ -773,7 +773,7 @@ advertEngineRouter.get("/columnsList/engine_cooling", async (req, res) => {
     const [engineId] = await connection.query(
       `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
     );
-    console.log(engineId.map((row) => row.engine_id));
+    // console.log(engineId.map((row) => row.engine_id));
     let results = {};
 
     for (let tableName of valid_tables) {
@@ -828,7 +828,7 @@ advertEngineRouter.get("/columnsList/engine_dimensions", async (req, res) => {
     const [engineId] = await connection.query(
       `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
     );
-    console.log(engineId.map((row) => row.engine_id));
+    // console.log(engineId.map((row) => row.engine_id));
     let results = {};
 
     for (let tableName of valid_tables) {
@@ -883,7 +883,7 @@ advertEngineRouter.get("/columnsList/engine_electrical", async (req, res) => {
     const [engineId] = await connection.query(
       `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
     );
-    console.log(engineId.map((row) => row.engine_id));
+    // console.log(engineId.map((row) => row.engine_id));
     let results = {};
 
     for (let tableName of valid_tables) {
@@ -938,7 +938,7 @@ advertEngineRouter.get("/columnsList/engine_emissions", async (req, res) => {
     const [engineId] = await connection.query(
       `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
     );
-    console.log(engineId.map((row) => row.engine_id));
+    // console.log(engineId.map((row) => row.engine_id));
     let results = {};
 
     for (let tableName of valid_tables) {
@@ -993,7 +993,7 @@ advertEngineRouter.get("/columnsList/engine_equipment", async (req, res) => {
     const [engineId] = await connection.query(
       `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
     );
-    console.log(engineId.map((row) => row.engine_id));
+    // console.log(engineId.map((row) => row.engine_id));
     let results = {};
 
     for (let tableName of valid_tables) {
@@ -1048,7 +1048,7 @@ advertEngineRouter.get("/columnsList/engine_fuel", async (req, res) => {
     const [engineId] = await connection.query(
       `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
     );
-    console.log(engineId.map((row) => row.engine_id));
+    // console.log(engineId.map((row) => row.engine_id));
     let results = {};
 
     for (let tableName of valid_tables) {
@@ -1103,7 +1103,7 @@ advertEngineRouter.get("/columnsList/engine_location", async (req, res) => {
     const [engineId] = await connection.query(
       `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
     );
-    console.log(engineId.map((row) => row.engine_id));
+    // console.log(engineId.map((row) => row.engine_id));
     let results = {};
 
     for (let tableName of valid_tables) {
@@ -1158,7 +1158,7 @@ advertEngineRouter.get("/columnsList/engine_maintenance", async (req, res) => {
     const [engineId] = await connection.query(
       `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
     );
-    console.log(engineId.map((row) => row.engine_id));
+    // console.log(engineId.map((row) => row.engine_id));
     let results = {};
 
     for (let tableName of valid_tables) {
@@ -1213,7 +1213,7 @@ advertEngineRouter.get("/columnsList/engine_mounting", async (req, res) => {
     const [engineId] = await connection.query(
       `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
     );
-    console.log(engineId.map((row) => row.engine_id));
+    // console.log(engineId.map((row) => row.engine_id));
     let results = {};
 
     for (let tableName of valid_tables) {
@@ -1268,7 +1268,7 @@ advertEngineRouter.get("/columnsList/engine_oil", async (req, res) => {
     const [engineId] = await connection.query(
       `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
     );
-    console.log(engineId.map((row) => row.engine_id));
+    // console.log(engineId.map((row) => row.engine_id));
     let results = {};
 
     for (let tableName of valid_tables) {
@@ -1323,7 +1323,7 @@ advertEngineRouter.get("/columnsList/engine_performance", async (req, res) => {
     const [engineId] = await connection.query(
       `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
     );
-    console.log(engineId.map((row) => row.engine_id));
+    // console.log(engineId.map((row) => row.engine_id));
     let results = {};
 
     for (let tableName of valid_tables) {
@@ -1378,7 +1378,7 @@ advertEngineRouter.get("/columnsList/engine_propulsion", async (req, res) => {
     const [engineId] = await connection.query(
       `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
     );
-    console.log(engineId.map((row) => row.engine_id));
+    // console.log(engineId.map((row) => row.engine_id));
     let results = {};
 
     for (let tableName of valid_tables) {
@@ -1433,7 +1433,7 @@ advertEngineRouter.get("/columnsList/engine_safety", async (req, res) => {
     const [engineId] = await connection.query(
       `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
     );
-    console.log(engineId.map((row) => row.engine_id));
+    // console.log(engineId.map((row) => row.engine_id));
     let results = {};
 
     for (let tableName of valid_tables) {
@@ -1488,7 +1488,7 @@ advertEngineRouter.get("/columnsList/engine_transmission", async (req, res) => {
     const [engineId] = await connection.query(
       `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
     );
-    console.log(engineId.map((row) => row.engine_id));
+    // console.log(engineId.map((row) => row.engine_id));
     let results = {};
 
     for (let tableName of valid_tables) {
