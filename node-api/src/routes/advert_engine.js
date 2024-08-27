@@ -689,7 +689,7 @@ advertEngineRouter.get("/conditions/", async (req, res) => {
   }
 });
 
-advertEngineRouter.get("/columnsList", async (req, res) => {
+advertEngineRouter.get("/columnsList/engine_general", async (req, res) => {
   let valid_tables = ["engine_general"];
   let connection;
   let filterOptions = "";
@@ -711,6 +711,774 @@ advertEngineRouter.get("/columnsList", async (req, res) => {
     );
     // console.log("Final Rows Filter Options------------------->",filterOptions);
     // console.log("Final Rows Engine Id------------------->",engineId);
+    let results = {};
+
+    for (let tableName of valid_tables) {
+      // Step1: Show column names of the valid_tables table
+      const [columns] = await connection.query("SHOW COLUMNS FROM ??", [
+        tableName,
+      ]);
+
+      results[tableName] = {};
+
+      // Step2: Loop all the column names for each valid_tables
+      for (let column of columns) {
+        const columnName = column.Field; // Use the column name from the table
+
+        const [rows] = await connection.query(
+          `SELECT DISTINCT ?? FROM ?? WHERE engine_id IN (?) ORDER BY ??`,
+          [
+            columnName,
+            tableName,
+            engineId.map((row) => row.engine_id),
+            columnName,
+          ]
+        );
+
+        results[tableName][columnName] = rows.map((row) => row[columnName]);
+      }
+    }
+
+    return res.status(200).json({ ok: true, result: results });
+  } catch (err) {
+    return res.status(500).json({ ok: false, message: err.message });
+  } finally {
+    if (connection) connection.release();
+  }
+});
+advertEngineRouter.get("/columnsList/engine_cooling", async (req, res) => {
+  let valid_tables = ["engine_cooling"];
+  let connection;
+  let filterOptions = "";
+  try {
+    connection = await dbConnection.getConnection();
+    if (req.query.engine_make && req.query.engine_model) {
+      filterOptions = ` WHERE engine_make = '${req.query.engine_make}' AND engine_model = '${req.query.engine_model}'`;
+    } else if (req.query.engine_make && !req.query.engine_model) {
+      filterOptions = ` WHERE engine_make = '${req.query.engine_make}'`;
+    } else if (req.query.engine_model && !req.query.engine_make) {
+      filterOptions = ` WHERE engine_model = '${req.query.engine_model}'`;
+    } else {
+      filterOptions = ``;
+    }
+    const [engineId] = await connection.query(
+      `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
+    );
+    console.log(engineId.map((row) => row.engine_id));
+    let results = {};
+
+    for (let tableName of valid_tables) {
+      // Step1: Show column names of the valid_tables table
+      const [columns] = await connection.query("SHOW COLUMNS FROM ??", [
+        tableName,
+      ]);
+
+      results[tableName] = {};
+
+      // Step2: Loop all the column names for each valid_tables
+      for (let column of columns) {
+        const columnName = column.Field; // Use the column name from the table
+
+        const [rows] = await connection.query(
+          `SELECT DISTINCT ?? FROM ?? WHERE engine_id IN (?) ORDER BY ??`,
+          [
+            columnName,
+            tableName,
+            engineId.map((row) => row.engine_id),
+            columnName,
+          ]
+        );
+
+        results[tableName][columnName] = rows.map((row) => row[columnName]);
+      }
+    }
+
+    return res.status(200).json({ ok: true, result: results });
+  } catch (err) {
+    return res.status(500).json({ ok: false, message: err.message });
+  } finally {
+    if (connection) connection.release();
+  }
+});
+
+advertEngineRouter.get("/columnsList/engine_dimensions", async (req, res) => {
+  let valid_tables = ["engine_dimensions"];
+  let connection;
+  let filterOptions = "";
+  try {
+    connection = await dbConnection.getConnection();
+    if (req.query.engine_make && req.query.engine_model) {
+      filterOptions = ` WHERE engine_make = '${req.query.engine_make}' AND engine_model = '${req.query.engine_model}'`;
+    } else if (req.query.engine_make && !req.query.engine_model) {
+      filterOptions = ` WHERE engine_make = '${req.query.engine_make}'`;
+    } else if (req.query.engine_model && !req.query.engine_make) {
+      filterOptions = ` WHERE engine_model = '${req.query.engine_model}'`;
+    } else {
+      filterOptions = ``;
+    }
+    const [engineId] = await connection.query(
+      `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
+    );
+    console.log(engineId.map((row) => row.engine_id));
+    let results = {};
+
+    for (let tableName of valid_tables) {
+      // Step1: Show column names of the valid_tables table
+      const [columns] = await connection.query("SHOW COLUMNS FROM ??", [
+        tableName,
+      ]);
+
+      results[tableName] = {};
+
+      // Step2: Loop all the column names for each valid_tables
+      for (let column of columns) {
+        const columnName = column.Field; // Use the column name from the table
+
+        const [rows] = await connection.query(
+          `SELECT DISTINCT ?? FROM ?? WHERE engine_id IN (?) ORDER BY ??`,
+          [
+            columnName,
+            tableName,
+            engineId.map((row) => row.engine_id),
+            columnName,
+          ]
+        );
+
+        results[tableName][columnName] = rows.map((row) => row[columnName]);
+      }
+    }
+
+    return res.status(200).json({ ok: true, result: results });
+  } catch (err) {
+    return res.status(500).json({ ok: false, message: err.message });
+  } finally {
+    if (connection) connection.release();
+  }
+});
+
+advertEngineRouter.get("/columnsList/engine_electrical", async (req, res) => {
+  let valid_tables = ["engine_electrical"];
+  let connection;
+  let filterOptions = "";
+  try {
+    connection = await dbConnection.getConnection();
+    if (req.query.engine_make && req.query.engine_model) {
+      filterOptions = ` WHERE engine_make = '${req.query.engine_make}' AND engine_model = '${req.query.engine_model}'`;
+    } else if (req.query.engine_make && !req.query.engine_model) {
+      filterOptions = ` WHERE engine_make = '${req.query.engine_make}'`;
+    } else if (req.query.engine_model && !req.query.engine_make) {
+      filterOptions = ` WHERE engine_model = '${req.query.engine_model}'`;
+    } else {
+      filterOptions = ``;
+    }
+    const [engineId] = await connection.query(
+      `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
+    );
+    console.log(engineId.map((row) => row.engine_id));
+    let results = {};
+
+    for (let tableName of valid_tables) {
+      // Step1: Show column names of the valid_tables table
+      const [columns] = await connection.query("SHOW COLUMNS FROM ??", [
+        tableName,
+      ]);
+
+      results[tableName] = {};
+
+      // Step2: Loop all the column names for each valid_tables
+      for (let column of columns) {
+        const columnName = column.Field; // Use the column name from the table
+
+        const [rows] = await connection.query(
+          `SELECT DISTINCT ?? FROM ?? WHERE engine_id IN (?) ORDER BY ??`,
+          [
+            columnName,
+            tableName,
+            engineId.map((row) => row.engine_id),
+            columnName,
+          ]
+        );
+
+        results[tableName][columnName] = rows.map((row) => row[columnName]);
+      }
+    }
+
+    return res.status(200).json({ ok: true, result: results });
+  } catch (err) {
+    return res.status(500).json({ ok: false, message: err.message });
+  } finally {
+    if (connection) connection.release();
+  }
+});
+
+advertEngineRouter.get("/columnsList/engine_emissions", async (req, res) => {
+  let valid_tables = ["engine_emissions"];
+  let connection;
+  let filterOptions = "";
+  try {
+    connection = await dbConnection.getConnection();
+    if (req.query.engine_make && req.query.engine_model) {
+      filterOptions = ` WHERE engine_make = '${req.query.engine_make}' AND engine_model = '${req.query.engine_model}'`;
+    } else if (req.query.engine_make && !req.query.engine_model) {
+      filterOptions = ` WHERE engine_make = '${req.query.engine_make}'`;
+    } else if (req.query.engine_model && !req.query.engine_make) {
+      filterOptions = ` WHERE engine_model = '${req.query.engine_model}'`;
+    } else {
+      filterOptions = ``;
+    }
+    const [engineId] = await connection.query(
+      `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
+    );
+    console.log(engineId.map((row) => row.engine_id));
+    let results = {};
+
+    for (let tableName of valid_tables) {
+      // Step1: Show column names of the valid_tables table
+      const [columns] = await connection.query("SHOW COLUMNS FROM ??", [
+        tableName,
+      ]);
+
+      results[tableName] = {};
+
+      // Step2: Loop all the column names for each valid_tables
+      for (let column of columns) {
+        const columnName = column.Field; // Use the column name from the table
+
+        const [rows] = await connection.query(
+          `SELECT DISTINCT ?? FROM ?? WHERE engine_id IN (?) ORDER BY ??`,
+          [
+            columnName,
+            tableName,
+            engineId.map((row) => row.engine_id),
+            columnName,
+          ]
+        );
+
+        results[tableName][columnName] = rows.map((row) => row[columnName]);
+      }
+    }
+
+    return res.status(200).json({ ok: true, result: results });
+  } catch (err) {
+    return res.status(500).json({ ok: false, message: err.message });
+  } finally {
+    if (connection) connection.release();
+  }
+});
+
+advertEngineRouter.get("/columnsList/engine_equipment", async (req, res) => {
+  let valid_tables = ["engine_equipment"];
+  let connection;
+  let filterOptions = "";
+  try {
+    connection = await dbConnection.getConnection();
+    if (req.query.engine_make && req.query.engine_model) {
+      filterOptions = ` WHERE engine_make = '${req.query.engine_make}' AND engine_model = '${req.query.engine_model}'`;
+    } else if (req.query.engine_make && !req.query.engine_model) {
+      filterOptions = ` WHERE engine_make = '${req.query.engine_make}'`;
+    } else if (req.query.engine_model && !req.query.engine_make) {
+      filterOptions = ` WHERE engine_model = '${req.query.engine_model}'`;
+    } else {
+      filterOptions = ``;
+    }
+    const [engineId] = await connection.query(
+      `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
+    );
+    console.log(engineId.map((row) => row.engine_id));
+    let results = {};
+
+    for (let tableName of valid_tables) {
+      // Step1: Show column names of the valid_tables table
+      const [columns] = await connection.query("SHOW COLUMNS FROM ??", [
+        tableName,
+      ]);
+
+      results[tableName] = {};
+
+      // Step2: Loop all the column names for each valid_tables
+      for (let column of columns) {
+        const columnName = column.Field; // Use the column name from the table
+
+        const [rows] = await connection.query(
+          `SELECT DISTINCT ?? FROM ?? WHERE engine_id IN (?) ORDER BY ??`,
+          [
+            columnName,
+            tableName,
+            engineId.map((row) => row.engine_id),
+            columnName,
+          ]
+        );
+
+        results[tableName][columnName] = rows.map((row) => row[columnName]);
+      }
+    }
+
+    return res.status(200).json({ ok: true, result: results });
+  } catch (err) {
+    return res.status(500).json({ ok: false, message: err.message });
+  } finally {
+    if (connection) connection.release();
+  }
+});
+
+advertEngineRouter.get("/columnsList/engine_fuel", async (req, res) => {
+  let valid_tables = ["engine_fuel"];
+  let connection;
+  let filterOptions = "";
+  try {
+    connection = await dbConnection.getConnection();
+    if (req.query.engine_make && req.query.engine_model) {
+      filterOptions = ` WHERE engine_make = '${req.query.engine_make}' AND engine_model = '${req.query.engine_model}'`;
+    } else if (req.query.engine_make && !req.query.engine_model) {
+      filterOptions = ` WHERE engine_make = '${req.query.engine_make}'`;
+    } else if (req.query.engine_model && !req.query.engine_make) {
+      filterOptions = ` WHERE engine_model = '${req.query.engine_model}'`;
+    } else {
+      filterOptions = ``;
+    }
+    const [engineId] = await connection.query(
+      `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
+    );
+    console.log(engineId.map((row) => row.engine_id));
+    let results = {};
+
+    for (let tableName of valid_tables) {
+      // Step1: Show column names of the valid_tables table
+      const [columns] = await connection.query("SHOW COLUMNS FROM ??", [
+        tableName,
+      ]);
+
+      results[tableName] = {};
+
+      // Step2: Loop all the column names for each valid_tables
+      for (let column of columns) {
+        const columnName = column.Field; // Use the column name from the table
+
+        const [rows] = await connection.query(
+          `SELECT DISTINCT ?? FROM ?? WHERE engine_id IN (?) ORDER BY ??`,
+          [
+            columnName,
+            tableName,
+            engineId.map((row) => row.engine_id),
+            columnName,
+          ]
+        );
+
+        results[tableName][columnName] = rows.map((row) => row[columnName]);
+      }
+    }
+
+    return res.status(200).json({ ok: true, result: results });
+  } catch (err) {
+    return res.status(500).json({ ok: false, message: err.message });
+  } finally {
+    if (connection) connection.release();
+  }
+});
+
+advertEngineRouter.get("/columnsList/engine_location", async (req, res) => {
+  let valid_tables = ["engine_location"];
+  let connection;
+  let filterOptions = "";
+  try {
+    connection = await dbConnection.getConnection();
+    if (req.query.engine_make && req.query.engine_model) {
+      filterOptions = ` WHERE engine_make = '${req.query.engine_make}' AND engine_model = '${req.query.engine_model}'`;
+    } else if (req.query.engine_make && !req.query.engine_model) {
+      filterOptions = ` WHERE engine_make = '${req.query.engine_make}'`;
+    } else if (req.query.engine_model && !req.query.engine_make) {
+      filterOptions = ` WHERE engine_model = '${req.query.engine_model}'`;
+    } else {
+      filterOptions = ``;
+    }
+    const [engineId] = await connection.query(
+      `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
+    );
+    console.log(engineId.map((row) => row.engine_id));
+    let results = {};
+
+    for (let tableName of valid_tables) {
+      // Step1: Show column names of the valid_tables table
+      const [columns] = await connection.query("SHOW COLUMNS FROM ??", [
+        tableName,
+      ]);
+
+      results[tableName] = {};
+
+      // Step2: Loop all the column names for each valid_tables
+      for (let column of columns) {
+        const columnName = column.Field; // Use the column name from the table
+
+        const [rows] = await connection.query(
+          `SELECT DISTINCT ?? FROM ?? WHERE engine_id IN (?) ORDER BY ??`,
+          [
+            columnName,
+            tableName,
+            engineId.map((row) => row.engine_id),
+            columnName,
+          ]
+        );
+
+        results[tableName][columnName] = rows.map((row) => row[columnName]);
+      }
+    }
+
+    return res.status(200).json({ ok: true, result: results });
+  } catch (err) {
+    return res.status(500).json({ ok: false, message: err.message });
+  } finally {
+    if (connection) connection.release();
+  }
+});
+
+advertEngineRouter.get("/columnsList/engine_maintenance", async (req, res) => {
+  let valid_tables = ["engine_location"];
+  let connection;
+  let filterOptions = "";
+  try {
+    connection = await dbConnection.getConnection();
+    if (req.query.engine_make && req.query.engine_model) {
+      filterOptions = ` WHERE engine_make = '${req.query.engine_make}' AND engine_model = '${req.query.engine_model}'`;
+    } else if (req.query.engine_make && !req.query.engine_model) {
+      filterOptions = ` WHERE engine_make = '${req.query.engine_make}'`;
+    } else if (req.query.engine_model && !req.query.engine_make) {
+      filterOptions = ` WHERE engine_model = '${req.query.engine_model}'`;
+    } else {
+      filterOptions = ``;
+    }
+    const [engineId] = await connection.query(
+      `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
+    );
+    console.log(engineId.map((row) => row.engine_id));
+    let results = {};
+
+    for (let tableName of valid_tables) {
+      // Step1: Show column names of the valid_tables table
+      const [columns] = await connection.query("SHOW COLUMNS FROM ??", [
+        tableName,
+      ]);
+
+      results[tableName] = {};
+
+      // Step2: Loop all the column names for each valid_tables
+      for (let column of columns) {
+        const columnName = column.Field; // Use the column name from the table
+
+        const [rows] = await connection.query(
+          `SELECT DISTINCT ?? FROM ?? WHERE engine_id IN (?) ORDER BY ??`,
+          [
+            columnName,
+            tableName,
+            engineId.map((row) => row.engine_id),
+            columnName,
+          ]
+        );
+
+        results[tableName][columnName] = rows.map((row) => row[columnName]);
+      }
+    }
+
+    return res.status(200).json({ ok: true, result: results });
+  } catch (err) {
+    return res.status(500).json({ ok: false, message: err.message });
+  } finally {
+    if (connection) connection.release();
+  }
+});
+
+advertEngineRouter.get("/columnsList/engine_mounting", async (req, res) => {
+  let valid_tables = ["engine_mounting"];
+  let connection;
+  let filterOptions = "";
+  try {
+    connection = await dbConnection.getConnection();
+    if (req.query.engine_make && req.query.engine_model) {
+      filterOptions = ` WHERE engine_make = '${req.query.engine_make}' AND engine_model = '${req.query.engine_model}'`;
+    } else if (req.query.engine_make && !req.query.engine_model) {
+      filterOptions = ` WHERE engine_make = '${req.query.engine_make}'`;
+    } else if (req.query.engine_model && !req.query.engine_make) {
+      filterOptions = ` WHERE engine_model = '${req.query.engine_model}'`;
+    } else {
+      filterOptions = ``;
+    }
+    const [engineId] = await connection.query(
+      `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
+    );
+    console.log(engineId.map((row) => row.engine_id));
+    let results = {};
+
+    for (let tableName of valid_tables) {
+      // Step1: Show column names of the valid_tables table
+      const [columns] = await connection.query("SHOW COLUMNS FROM ??", [
+        tableName,
+      ]);
+
+      results[tableName] = {};
+
+      // Step2: Loop all the column names for each valid_tables
+      for (let column of columns) {
+        const columnName = column.Field; // Use the column name from the table
+
+        const [rows] = await connection.query(
+          `SELECT DISTINCT ?? FROM ?? WHERE engine_id IN (?) ORDER BY ??`,
+          [
+            columnName,
+            tableName,
+            engineId.map((row) => row.engine_id),
+            columnName,
+          ]
+        );
+
+        results[tableName][columnName] = rows.map((row) => row[columnName]);
+      }
+    }
+
+    return res.status(200).json({ ok: true, result: results });
+  } catch (err) {
+    return res.status(500).json({ ok: false, message: err.message });
+  } finally {
+    if (connection) connection.release();
+  }
+});
+
+advertEngineRouter.get("/columnsList/engine_oil", async (req, res) => {
+  let valid_tables = ["engine_oil"];
+  let connection;
+  let filterOptions = "";
+  try {
+    connection = await dbConnection.getConnection();
+    if (req.query.engine_make && req.query.engine_model) {
+      filterOptions = ` WHERE engine_make = '${req.query.engine_make}' AND engine_model = '${req.query.engine_model}'`;
+    } else if (req.query.engine_make && !req.query.engine_model) {
+      filterOptions = ` WHERE engine_make = '${req.query.engine_make}'`;
+    } else if (req.query.engine_model && !req.query.engine_make) {
+      filterOptions = ` WHERE engine_model = '${req.query.engine_model}'`;
+    } else {
+      filterOptions = ``;
+    }
+    const [engineId] = await connection.query(
+      `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
+    );
+    console.log(engineId.map((row) => row.engine_id));
+    let results = {};
+
+    for (let tableName of valid_tables) {
+      // Step1: Show column names of the valid_tables table
+      const [columns] = await connection.query("SHOW COLUMNS FROM ??", [
+        tableName,
+      ]);
+
+      results[tableName] = {};
+
+      // Step2: Loop all the column names for each valid_tables
+      for (let column of columns) {
+        const columnName = column.Field; // Use the column name from the table
+
+        const [rows] = await connection.query(
+          `SELECT DISTINCT ?? FROM ?? WHERE engine_id IN (?) ORDER BY ??`,
+          [
+            columnName,
+            tableName,
+            engineId.map((row) => row.engine_id),
+            columnName,
+          ]
+        );
+
+        results[tableName][columnName] = rows.map((row) => row[columnName]);
+      }
+    }
+
+    return res.status(200).json({ ok: true, result: results });
+  } catch (err) {
+    return res.status(500).json({ ok: false, message: err.message });
+  } finally {
+    if (connection) connection.release();
+  }
+});
+
+advertEngineRouter.get("/columnsList/engine_performance", async (req, res) => {
+  let valid_tables = ["engine_performance"];
+  let connection;
+  let filterOptions = "";
+  try {
+    connection = await dbConnection.getConnection();
+    if (req.query.engine_make && req.query.engine_model) {
+      filterOptions = ` WHERE engine_make = '${req.query.engine_make}' AND engine_model = '${req.query.engine_model}'`;
+    } else if (req.query.engine_make && !req.query.engine_model) {
+      filterOptions = ` WHERE engine_make = '${req.query.engine_make}'`;
+    } else if (req.query.engine_model && !req.query.engine_make) {
+      filterOptions = ` WHERE engine_model = '${req.query.engine_model}'`;
+    } else {
+      filterOptions = ``;
+    }
+    const [engineId] = await connection.query(
+      `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
+    );
+    console.log(engineId.map((row) => row.engine_id));
+    let results = {};
+
+    for (let tableName of valid_tables) {
+      // Step1: Show column names of the valid_tables table
+      const [columns] = await connection.query("SHOW COLUMNS FROM ??", [
+        tableName,
+      ]);
+
+      results[tableName] = {};
+
+      // Step2: Loop all the column names for each valid_tables
+      for (let column of columns) {
+        const columnName = column.Field; // Use the column name from the table
+
+        const [rows] = await connection.query(
+          `SELECT DISTINCT ?? FROM ?? WHERE engine_id IN (?) ORDER BY ??`,
+          [
+            columnName,
+            tableName,
+            engineId.map((row) => row.engine_id),
+            columnName,
+          ]
+        );
+
+        results[tableName][columnName] = rows.map((row) => row[columnName]);
+      }
+    }
+
+    return res.status(200).json({ ok: true, result: results });
+  } catch (err) {
+    return res.status(500).json({ ok: false, message: err.message });
+  } finally {
+    if (connection) connection.release();
+  }
+});
+
+advertEngineRouter.get("/columnsList/engine_propulsion", async (req, res) => {
+  let valid_tables = ["engine_propulsion"];
+  let connection;
+  let filterOptions = "";
+  try {
+    connection = await dbConnection.getConnection();
+    if (req.query.engine_make && req.query.engine_model) {
+      filterOptions = ` WHERE engine_make = '${req.query.engine_make}' AND engine_model = '${req.query.engine_model}'`;
+    } else if (req.query.engine_make && !req.query.engine_model) {
+      filterOptions = ` WHERE engine_make = '${req.query.engine_make}'`;
+    } else if (req.query.engine_model && !req.query.engine_make) {
+      filterOptions = ` WHERE engine_model = '${req.query.engine_model}'`;
+    } else {
+      filterOptions = ``;
+    }
+    const [engineId] = await connection.query(
+      `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
+    );
+    console.log(engineId.map((row) => row.engine_id));
+    let results = {};
+
+    for (let tableName of valid_tables) {
+      // Step1: Show column names of the valid_tables table
+      const [columns] = await connection.query("SHOW COLUMNS FROM ??", [
+        tableName,
+      ]);
+
+      results[tableName] = {};
+
+      // Step2: Loop all the column names for each valid_tables
+      for (let column of columns) {
+        const columnName = column.Field; // Use the column name from the table
+
+        const [rows] = await connection.query(
+          `SELECT DISTINCT ?? FROM ?? WHERE engine_id IN (?) ORDER BY ??`,
+          [
+            columnName,
+            tableName,
+            engineId.map((row) => row.engine_id),
+            columnName,
+          ]
+        );
+
+        results[tableName][columnName] = rows.map((row) => row[columnName]);
+      }
+    }
+
+    return res.status(200).json({ ok: true, result: results });
+  } catch (err) {
+    return res.status(500).json({ ok: false, message: err.message });
+  } finally {
+    if (connection) connection.release();
+  }
+});
+
+advertEngineRouter.get("/columnsList/engine_safety", async (req, res) => {
+  let valid_tables = ["engine_safety"];
+  let connection;
+  let filterOptions = "";
+  try {
+    connection = await dbConnection.getConnection();
+    if (req.query.engine_make && req.query.engine_model) {
+      filterOptions = ` WHERE engine_make = '${req.query.engine_make}' AND engine_model = '${req.query.engine_model}'`;
+    } else if (req.query.engine_make && !req.query.engine_model) {
+      filterOptions = ` WHERE engine_make = '${req.query.engine_make}'`;
+    } else if (req.query.engine_model && !req.query.engine_make) {
+      filterOptions = ` WHERE engine_model = '${req.query.engine_model}'`;
+    } else {
+      filterOptions = ``;
+    }
+    const [engineId] = await connection.query(
+      `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
+    );
+    console.log(engineId.map((row) => row.engine_id));
+    let results = {};
+
+    for (let tableName of valid_tables) {
+      // Step1: Show column names of the valid_tables table
+      const [columns] = await connection.query("SHOW COLUMNS FROM ??", [
+        tableName,
+      ]);
+
+      results[tableName] = {};
+
+      // Step2: Loop all the column names for each valid_tables
+      for (let column of columns) {
+        const columnName = column.Field; // Use the column name from the table
+
+        const [rows] = await connection.query(
+          `SELECT DISTINCT ?? FROM ?? WHERE engine_id IN (?) ORDER BY ??`,
+          [
+            columnName,
+            tableName,
+            engineId.map((row) => row.engine_id),
+            columnName,
+          ]
+        );
+
+        results[tableName][columnName] = rows.map((row) => row[columnName]);
+      }
+    }
+
+    return res.status(200).json({ ok: true, result: results });
+  } catch (err) {
+    return res.status(500).json({ ok: false, message: err.message });
+  } finally {
+    if (connection) connection.release();
+  }
+});
+
+advertEngineRouter.get("/columnsList/engine_transmission", async (req, res) => {
+  let valid_tables = ["engine_transmission"];
+  let connection;
+  let filterOptions = "";
+  try {
+    connection = await dbConnection.getConnection();
+    if (req.query.engine_make && req.query.engine_model) {
+      filterOptions = ` WHERE engine_make = '${req.query.engine_make}' AND engine_model = '${req.query.engine_model}'`;
+    } else if (req.query.engine_make && !req.query.engine_model) {
+      filterOptions = ` WHERE engine_make = '${req.query.engine_make}'`;
+    } else if (req.query.engine_model && !req.query.engine_make) {
+      filterOptions = ` WHERE engine_model = '${req.query.engine_model}'`;
+    } else {
+      filterOptions = ``;
+    }
+    const [engineId] = await connection.query(
+      `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
+    );
     console.log(engineId.map((row) => row.engine_id));
     let results = {};
 
