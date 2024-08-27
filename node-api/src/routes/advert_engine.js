@@ -703,6 +703,8 @@ advertEngineRouter.get("/columnsList/engine_general", async (req, res) => {
   let filterOptions = "";
   // let engine_make = req.query.engine_make;
   // let engine_model = req.query.engine_mode;
+  // let limit = 3
+
   try {
     connection = await dbConnection.getConnection();
     if (isValidString(req.query.engine_make) && isValidString(req.query.engine_model)) {
@@ -728,7 +730,6 @@ advertEngineRouter.get("/columnsList/engine_general", async (req, res) => {
       ]);
 
       results[tableName] = {};
-
       // Step2: Loop all the column names for each valid_tables
       for (let column of columns) {
         const columnName = column.Field; // Use the column name from the table
