@@ -209,6 +209,7 @@ const Trailers = () => {
         : (requiredField[key] = false);
     });
     setErrors(requiredField);
+    return Object.keys(error).length === 0;
   };
 
   const fetchTrailers = async (
@@ -280,15 +281,141 @@ const Trailers = () => {
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      setTrailerOptions(toJson.trailerIdData);
+      setForm({
+        MarisailID: toJson.marisailId,
+        Make: toJson.trailerMake,
+        Model: toJson.trailerModel,
+        Year: toJson.trailerYear,
+        Type: toJson.type,
+        GVWR: toJson.gvwr,
+        LoadCapacity: toJson.loadCapacitie,
+        Length: toJson.length,
+        Width: toJson.width,
+        FrameMaterial: toJson.frameMaterial,
+        FrameCoating: toJson.frameCoating,
+        FrameCrossmemberType: toJson.frameCrossmemberType,
+        FrameWeldType: toJson.frameWeldType,
+        MaximumAngleofApproach: toJson.maximumAnglesOfApproach,
+        FloorMaterial: toJson.floorMaterial,
+        SidesMaterial: toJson.sidesMaterial,
+        RoofMaterial: toJson.roofMaterial,
+        GreasePoints: toJson.greasePoint,
+        BearingType: toJson.bearingType,
+        MaintenanceSchedule: toJson.maintenanceSchedule,
+        Storage: toJson.storage,
+        TieDownPoints: toJson.tieDownPoint,
+        ToolBox: toJson.toolBoxe,
+        BumperType: toJson.bumperType,
+        TotalHeight: toJson.totalHeight,
+        AxleHeightFromGound: toJson.axleHeightsFromGround,
+        HydraulicTilt: toJson.hydraulicTilt,
+        ExtendableTongue: toJson.extendableTongue,
+        AdjustableDeckHeight: toJson.adjustableDeckHeight,
+        DetachableSidePanels: toJson.detachableSidePanel,
+        RampType: toJson.rampType,
+        WinchPost: toJson.winchPost,
+        SplashGuards: toJson.splashGuard,
+        Fenders: toJson.fender,
+        SideRails: toJson.sideRail,
+        Color: toJson.color,
+        Decals: toJson.decal,
+        StorageBox: toJson.storageBoxe,
+        LightingPackage: toJson.lightingPackage,
+        SuspensionUpgrade: toJson.suspensionUpgrade,
+        AxleType: toJson.axleType,
+        AxleCapacity: toJson.axleCapacitie,
+        AxleSealType: toJson.axleSealType,
+        AxleHubSize: toJson.axleHubSize,
+        AxlePosition: toJson.axlePosition,
+        DropAxleOption: toJson.dropAxleOption,
+        SuspensionType: toJson.suspensionType,
+        SuspensionCapacity: toJson.suspensionCapacitie,
+        SuspensionAdjustment: toJson.suspensionAdjustment,
+        TyreSize: toJson.tyreSize,
+        TyreLoadRange: toJson.tyreLoadRange,
+        TyreType: toJson.tyreType,
+        WheelType: toJson.wheelType,
+        WheelBoltPattern: toJson.wheelBoltPattern,
+        HubLubricationSystem: toJson.hubLubricationSystem,
+        BrakeType: toJson.brakeType,
+        BrakeActuator: toJson.brakeActuator,
+        BrakeLineMaterial: toJson.brakeLineMaterial,
+        BrakeDrumDiameter: toJson.brakeDrumDiameter,
+        BrakeFluidType: toJson.brakeFluidType,
+        Brakes: toJson.brake,
+        CouplerSize: toJson.couplerSize,
+        CouplerType: toJson.couplerType,
+        CouplerLockType: toJson.couplerLockType,
+        HitchClass: toJson.hitchClasse,
+        HitchReceiverSize: toJson.hitchReceiverSize,
+        SafetyChains: toJson.safetyChain,
+        BreakawaySystem: toJson.breakawaySystem,
+        WinchType: toJson.winchType,
+        WinchCapacity: toJson.winchCapacitie,
+        WinchRopeLength: toJson.winchRopeLength,
+        WinchDrumMaterial: toJson.winchDrumMaterial,
+        WinchGearRatio: toJson.winchGearRatio,
+        WinchRemoteControl: toJson.winchRemoteControl,
+        WinchBrakeType: toJson.winchBrakeType,
+        WinchCableType: toJson.winchCableType,
+        WinchStrapLength: toJson.winchStrapLength,
+        WinchHandleLength: toJson.winchHandleLength,
+        WinchMounting: toJson.winchMounting,
+        Lighting: toJson.lighting,
+        LightMountingPosition: toJson.lightMountingPosition,
+        LightType: toJson.lightType,
+        ElectricalConnectorType: toJson.electricalConnectorType,
+        ElectricalWiringType: toJson.electricalWiringType,
+        BatteryType: toJson.batteryType,
+        BatteryChargerType: toJson.batteryChargerType,
+        SpareTyreCarrier: toJson.spareTyreCarrier,
+        SpareTyreSize: toJson.spareTyreSize,
+        SpareTyreMountingLocation: toJson.spareTyreMountingLocation,
+        JackType: toJson.jackType,
+        JackWheelType: toJson.jackWheelType,
+        JackCapacity: toJson.jackCapacity,
+        JackLiftHeight: toJson.jackLiftHeight,
+        LoadingSystem: toJson.loadingSystem,
+        Bunks: toJson.bunk,
+        BunkMaterial: toJson.bunkMaterial,
+        BunkWidth: toJson.bunkWidth,
+        BunkHeightAdjustment: toJson.bunkHeightAdjustment,
+        BunkMountingBracketMaterial: toJson.bunkMountingBracketMaterial,
+        Rollers: toJson.roller,
+        RollerMaterial: toJson.rollerMaterial,
+        RollerAxleDiameter: toJson.rollerAxleDiameter,
+        WheelLocks: toJson.wheelLock,
+        LockType: toJson.lockType,
+        AlarmSystem: toJson.alarmSystem,
+        GPSTrackingDevice: toJson.gpsTrackingDevice,
+        CorrosionProtection: toJson.corrosionProtection,
+        RustInhibitors: toJson.rustInhibitor,
+        MaximumSpeedRating: toJson.maximumSpeedRating,
+        TurningRadius: toJson.turningRadiu,
+        TongueMaterial: toJson.tongueMaterial,
+        TongueShape: toJson.tongueShape,
+        TongueJackWheelSize: toJson.tongueJackWheelSize,
+        TongueJackType: toJson.tongueJackType,
+        TongueWeight: toJson.tongueWeight,
+        TongueWeightRatio: toJson.tongueWeightRatio,
+        OwnerManual: toJson.ownerManual,
+        Warranty: toJson.warrantie,
+        DOTCompliance: toJson.dotCompliance,
+        NATMCertification: toJson.natmCertification,
+        EUTypeApproval: toJson.euTypeApproval,
+        ADRCompliance: toJson.adrCompliance,
+      });
     } catch (err) {
       console.log(err);
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     try {
-      checkRequired();
+      if (!checkRequired()) {
+        return console.log("Form is Validation not FullFilled");
+      }
       console.log("This is Form >>>>>>>>", form);
     } catch (error) {
       console.log(error);
@@ -298,14 +425,18 @@ const Trailers = () => {
   useEffect(() => {
     fetchTrailers();
   }, []);
-
+  const errorDisplay = (fieldName) => {
+    return <div style={{ color: "red" }}>{fieldName} field is required</div>;
+  };
   return (
     <>
       <Container className="mb-5">
         <Form>
           <Row>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: 10, color:'#1F75FE' }}>Identification</h6>
+              <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>
+                Identification
+              </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2 myAcc">
                   <SelectComponent
@@ -335,6 +466,11 @@ const Trailers = () => {
                     setOpenKey={setOpenKey}
                     isMandatory={error["Make"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>{error["Make"] && errorDisplay("Make")}</small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -349,6 +485,11 @@ const Trailers = () => {
                     label="Model"
                     isMandatory={error["Model"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>{error["Model"] && errorDisplay("Model")}</small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -368,11 +509,18 @@ const Trailers = () => {
                     label="Year"
                     isMandatory={error["Year"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>{error["Year"] && errorDisplay("Year")}</small>
+                    </p>
+                  </div>
                 </Col>
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: 10, color:'#1F75FE' }}>Security Features</h6>
+              <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>
+                Security Features
+              </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -384,6 +532,13 @@ const Trailers = () => {
                     label="WheelLocks"
                     isMandatory={error["WheelLocks"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["WheelLocks"] && errorDisplay("Wheel Locks")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -395,6 +550,13 @@ const Trailers = () => {
                     label="Lock Type"
                     isMandatory={error["LockType"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["LockType"] && errorDisplay("Lock Type")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -406,6 +568,13 @@ const Trailers = () => {
                     label="Alarm System"
                     isMandatory={error["AlarmSystem"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["AlarmSystem"] && errorDisplay("Alarm System")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -419,11 +588,19 @@ const Trailers = () => {
                     label="GPS Tracking Device"
                     isMandatory={error["GPSTrackingDevice"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["GPSTrackingDevice"] &&
+                          errorDisplay("GPS Tracking Device")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: 10, color:'#1F75FE' }}>General</h6>
+              <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>General</h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -435,6 +612,11 @@ const Trailers = () => {
                     label="Type"
                     isMandatory={error["Type"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>{error["Type"] && errorDisplay("Type")}</small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -446,6 +628,11 @@ const Trailers = () => {
                     label="GVWR"
                     isMandatory={error["GVWR"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>{error["GVWR"] && errorDisplay("GVWR")}</small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -457,6 +644,13 @@ const Trailers = () => {
                     label="Load Capacity"
                     isMandatory={error["LoadCapacity"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["LoadCapacity"] && errorDisplay("Load Capacity")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -468,6 +662,11 @@ const Trailers = () => {
                     label="Length"
                     isMandatory={error["Length"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>{error["Length"] && errorDisplay("Length")}</small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -479,6 +678,11 @@ const Trailers = () => {
                     label="Width"
                     isMandatory={error["Width"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>{error["Width"] && errorDisplay("Width")}</small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <InputComponent
@@ -492,6 +696,13 @@ const Trailers = () => {
                     }
                     isMandatory={error["TotalHeight"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["TotalHeight"] && errorDisplay("Total Height")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <InputComponent
@@ -505,11 +716,21 @@ const Trailers = () => {
                     }
                     isMandatory={error["AxleHeightFromGound"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["AxleHeightFromGound"] &&
+                          errorDisplay("Axle Height From Gound")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: 10, color:'#1F75FE' }}>Construction Materials</h6>
+              <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>
+                Construction Materials
+              </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -521,6 +742,14 @@ const Trailers = () => {
                     label="Frame Material"
                     isMandatory={error["FrameMaterial"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["FrameMaterial"] &&
+                          errorDisplay("Frame Material")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -532,6 +761,13 @@ const Trailers = () => {
                     label="Frame Coating"
                     isMandatory={error["FrameCoating"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["FrameCoating"] && errorDisplay("Frame Coating")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -545,6 +781,14 @@ const Trailers = () => {
                     label="Frame Crossmember Type"
                     isMandatory={error["FrameCrossmemberType"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["FrameCrossmemberType"] &&
+                          errorDisplay("Frame Crossmember Type")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -581,6 +825,14 @@ const Trailers = () => {
                     label="Floor Material"
                     isMandatory={error["FloorMaterial"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["FloorMaterial"] &&
+                          errorDisplay("Floor Material")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -592,6 +844,14 @@ const Trailers = () => {
                     label="Sides Material"
                     isMandatory={error["SidesMaterial"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["SidesMaterial"] &&
+                          errorDisplay("Sides Material")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -603,11 +863,20 @@ const Trailers = () => {
                     label="Roof Material"
                     isMandatory={error["RoofMaterial"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["RoofMaterial"] && errorDisplay("Roof Material")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: 10, color:'#1F75FE' }}>User Features</h6>
+              <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>
+                User Features
+              </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -629,6 +898,14 @@ const Trailers = () => {
                     label="Tie Down Points"
                     isMandatory={error["TieDownPoints"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["TieDownPoints"] &&
+                          errorDisplay("Tie Down Points")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -653,7 +930,9 @@ const Trailers = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: 10, color:'#1F75FE' }}>Special Features</h6>
+              <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>
+                Special Features
+              </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
@@ -665,6 +944,14 @@ const Trailers = () => {
                     id="HydraulicTilt"
                     isMandatory={error["HydraulicTilt"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["HydraulicTilt"] &&
+                          errorDisplay("Hydraulic Tilt")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
@@ -678,6 +965,14 @@ const Trailers = () => {
                     id="ExtendableTongue"
                     isMandatory={error["ExtendableTongue"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["ExtendableTongue"] &&
+                          errorDisplay("Extendable Tongue")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
@@ -706,7 +1001,9 @@ const Trailers = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: 10, color:'#1F75FE' }}>Additional Accessories</h6>
+              <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>
+                Additional Accessories
+              </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -718,6 +1015,13 @@ const Trailers = () => {
                     label="Ramp Type"
                     isMandatory={error["RampType"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["RampType"] && errorDisplay("Ramp Type")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -729,6 +1033,13 @@ const Trailers = () => {
                     label="Winch Post"
                     isMandatory={error["WinchPost"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["WinchPost"] && errorDisplay("Winch Post")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
@@ -740,6 +1051,13 @@ const Trailers = () => {
                     id="SplashGuards"
                     isMandatory={error["SplashGuards"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["SplashGuards"] && errorDisplay("Splash Guards")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -751,6 +1069,13 @@ const Trailers = () => {
                     label="Fenders"
                     isMandatory={error["Fenders"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["Fenders"] && errorDisplay("Fenders")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
@@ -762,11 +1087,20 @@ const Trailers = () => {
                     id="SideRails"
                     isMandatory={error["SideRails"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["SideRails"] && errorDisplay("Side Rails")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: 10, color:'#1F75FE' }}>Customization Options</h6>
+              <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>
+                Customization Options
+              </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -778,6 +1112,11 @@ const Trailers = () => {
                     label="Color"
                     isMandatory={error["Color"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>{error["Color"] && errorDisplay("Color")}</small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -826,7 +1165,9 @@ const Trailers = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: 10, color:'#1F75FE' }}>Axles & Suspension</h6>
+              <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>
+                Axles & Suspension
+              </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -838,6 +1179,13 @@ const Trailers = () => {
                     label="Axle Type"
                     isMandatory={error["AxleType"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["AxleType"] && errorDisplay("Axle Type")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -849,6 +1197,13 @@ const Trailers = () => {
                     label="Axle Capacity"
                     isMandatory={error["AxleCapacity"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["AxleCapacity"] && errorDisplay("Axle Capacity")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -870,6 +1225,13 @@ const Trailers = () => {
                     label="Axle Hub Size"
                     isMandatory={error["AxleHubSize"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["AxleHubSize"] && errorDisplay("Axle Hub Size")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -881,6 +1243,13 @@ const Trailers = () => {
                     label="Axle Position"
                     isMandatory={error["AxlePosition"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["AxlePosition"] && errorDisplay("Axle Position")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
@@ -906,6 +1275,14 @@ const Trailers = () => {
                     label="Suspension Type"
                     isMandatory={error["SuspensionType"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["SuspensionType"] &&
+                          errorDisplay("Suspension Type")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -919,6 +1296,14 @@ const Trailers = () => {
                     label="Suspension Capacity"
                     isMandatory={error["SuspensionCapacity"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["SuspensionCapacity"] &&
+                          errorDisplay("Suspension Capacity")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -935,7 +1320,9 @@ const Trailers = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: 10, color:'#1F75FE' }}>Loading & Transport Features</h6>
+              <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>
+                Loading & Transport Features
+              </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -947,6 +1334,14 @@ const Trailers = () => {
                     label="Loading System"
                     isMandatory={error["LoadingSystem"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["LoadingSystem"] &&
+                          errorDisplay("Loading System")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1039,7 +1434,9 @@ const Trailers = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: 10, color:'#1F75FE' }}>Brakes & Safety</h6>
+              <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>
+                Brakes & Safety
+              </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1051,6 +1448,13 @@ const Trailers = () => {
                     label="Brake Type"
                     isMandatory={error["BrakeType"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["BrakeType"] && errorDisplay("Brake Type")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1062,6 +1466,14 @@ const Trailers = () => {
                     label="Brake Actuator"
                     isMandatory={error["BrakeActuator"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["BrakeActuator"] &&
+                          errorDisplay("Brake Actuator")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1119,6 +1531,13 @@ const Trailers = () => {
                     label="Coupler Size"
                     isMandatory={error["CouplerSize"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["CouplerSize"] && errorDisplay("Coupler Size")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1164,6 +1583,14 @@ const Trailers = () => {
                     label="Hitch Receiver Size"
                     isMandatory={error["HitchReceiverSize"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["HitchReceiverSize"] &&
+                          errorDisplay("Hitch Receiver Size")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1190,7 +1617,9 @@ const Trailers = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: 10, color:'#1F75FE' }}>Winch & Winch Accessories</h6>
+              <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>
+                Winch & Winch Accessories
+              </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1202,6 +1631,13 @@ const Trailers = () => {
                     label="Winch Type"
                     isMandatory={error["WinchType"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["WinchType"] && errorDisplay("Winch Type")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1213,6 +1649,14 @@ const Trailers = () => {
                     label="Winch Capacity"
                     isMandatory={error["WinchCapacity"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["WinchCapacity"] &&
+                          errorDisplay("Winch Capacity")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1226,6 +1670,14 @@ const Trailers = () => {
                     label="Winch Rope Length"
                     isMandatory={error["WinchRopeLength"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["WinchRopeLength"] &&
+                          errorDisplay("Winch Rope Length")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1324,7 +1776,9 @@ const Trailers = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: 10, color:'#1F75FE' }}>Lighting & Electrical</h6>
+              <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>
+                Lighting & Electrical
+              </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1336,6 +1790,13 @@ const Trailers = () => {
                     label="Lighting"
                     isMandatory={error["Lighting"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["Lighting"] && errorDisplay("Lighting")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1359,6 +1820,13 @@ const Trailers = () => {
                     label="Light Type"
                     isMandatory={error["LightType"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["LightType"] && errorDisplay("Light Type")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1372,6 +1840,14 @@ const Trailers = () => {
                     label="Electrical Connector Type"
                     isMandatory={error["ElectricalConnectorType"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["ElectricalConnectorType"] &&
+                          errorDisplay("Electrical Connector Type")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1385,6 +1861,14 @@ const Trailers = () => {
                     label="Electrical Wiring Type"
                     isMandatory={error["ElectricalWiringType"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["ElectricalWiringType"] &&
+                          errorDisplay("Electrical Wiring Type")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1396,6 +1880,13 @@ const Trailers = () => {
                     label="Battery Type"
                     isMandatory={error["BatteryType"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["BatteryType"] && errorDisplay("Battery Type")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1409,11 +1900,19 @@ const Trailers = () => {
                     label="Battery Charger Type"
                     isMandatory={error["BatteryChargerType"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["BatteryChargerType"] &&
+                          errorDisplay("Battery Charger Type")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: 10, color:'#1F75FE' }}>Accessories</h6>
+              <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>Accessories</h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1427,6 +1926,14 @@ const Trailers = () => {
                     label="Spare Tyre Carrier"
                     isMandatory={error["SpareTyreCarrier"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["SpareTyreCarrier"] &&
+                          errorDisplay("Spare Tyre Carrier")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1438,6 +1945,14 @@ const Trailers = () => {
                     label="Spare Tyre Size"
                     isMandatory={error["SpareTyreSize"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["SpareTyreSize"] &&
+                          errorDisplay("Spare Tyre Size")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1481,6 +1996,13 @@ const Trailers = () => {
                     label="Jack Capacity"
                     isMandatory={error["JackCapacity"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["JackCapacity"] && errorDisplay("Jack Capacity")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1497,7 +2019,7 @@ const Trailers = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: 10, color:'#1F75FE' }}>
+              <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>
                 Environmental & Corrosion Resistance
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
@@ -1513,6 +2035,14 @@ const Trailers = () => {
                     label="Corrosion Protection"
                     isMandatory={error["CorrosionProtection"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["CorrosionProtection"] &&
+                          errorDisplay("Corrosion Protection")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1529,7 +2059,9 @@ const Trailers = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: 10, color:'#1F75FE' }}>Maintenance Features</h6>
+              <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>
+                Maintenance Features
+              </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1566,7 +2098,9 @@ const Trailers = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: 10, color:'#1F75FE' }}>Performance & Handling</h6>
+              <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>
+                Performance & Handling
+              </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1580,6 +2114,14 @@ const Trailers = () => {
                     label="Maximum Speed Rating"
                     isMandatory={error["MaximumSpeedRating"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["MaximumSpeedRating"] &&
+                          errorDisplay("Maximum Speed Rating")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1591,11 +2133,21 @@ const Trailers = () => {
                     label="Turning Radius"
                     isMandatory={error["TurningRadius"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["TurningRadius"] &&
+                          errorDisplay("Turning Radius")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: 10, color:'#1F75FE' }}>Documentation</h6>
+              <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>
+                Documentation
+              </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1620,7 +2172,7 @@ const Trailers = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: 10, color:'#1F75FE' }}>Tongue</h6>
+              <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>Tongue</h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1656,6 +2208,14 @@ const Trailers = () => {
                     label="Tongue Jack Wheel Size"
                     isMandatory={error["TongueJackWheelSize"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["TongueJackWheelSize"] &&
+                          errorDisplay("Tongue Jack Wheel Size")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1679,6 +2239,13 @@ const Trailers = () => {
                     label="Tongue Weight"
                     isMandatory={error["TongueWeight"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["TongueWeight"] && errorDisplay("Tongue Weight")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1695,7 +2262,9 @@ const Trailers = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: 10, color:'#1F75FE' }}>Tyres & Wheels</h6>
+              <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>
+                Tyres & Wheels
+              </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1707,6 +2276,13 @@ const Trailers = () => {
                     label="Tyre Size"
                     isMandatory={error["TyreSize"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["TyreSize"] && errorDisplay("Tyre Size")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1718,6 +2294,14 @@ const Trailers = () => {
                     label="Tyre Load Range"
                     isMandatory={error["TyreLoadRange"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["TyreLoadRange"] &&
+                          errorDisplay("Tyre Load Range")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1729,6 +2313,13 @@ const Trailers = () => {
                     label="Tyre Type"
                     isMandatory={error["TyreType"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["TyreType"] && errorDisplay("Tyre Type")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1740,6 +2331,13 @@ const Trailers = () => {
                     label="Wheel Type"
                     isMandatory={error["WheelType"]}
                   />
+                  <div className="ms-2">
+                    <p>
+                      <small>
+                        {error["WheelType"] && errorDisplay("Wheel Type")}
+                      </small>
+                    </p>
+                  </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
                   <SelectComponent
@@ -1768,7 +2366,9 @@ const Trailers = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: 10, color:'#1F75FE' }}>Regulatory Compliance</h6>
+              <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>
+                Regulatory Compliance
+              </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <CheckComponent
