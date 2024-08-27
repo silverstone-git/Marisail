@@ -786,30 +786,33 @@ const EngineAdvert = () => {
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 to json--", toJson);
-
-      setEngineModelYearOptions(toJson.engine_modelyear)
-      setEngineTypeOptions(toJson.engine_type)
-      setTypeDesignationOptions(toJson.type_designation)
-
-      setEngineSerialNumberOptions(toJson.engine_serial);
-      setCEDesignCategoryOptions(toJson.ce_category);
-      setNumberDrivesOptions(toJson.number_drive);
-      setNumberEnginesOptions(toJson.number_engine);
-      setCertificationOptions(toJson.engine_certification)
-      setEngineRangeOptions(toJson.engine_range);
-      setCruisingSpeedOptions(toJson.cruise_speed);
-      setDriveTypeOptions(toJson.drive_type);
-      setEngineHoursOptions(toJson.engine_hours);
-      setIgnitionSystemOptions(toJson.ignition_system);
-      setNoiseLevelOptions(toJson.noiselevel_db);
-      setEngineSoundproofingKits(toJson.enginesound_proofingkits);
-      //warranty
-      //classification
-      setConditionOptions(toJson.condition_1);
-      setUsedConditionOptions(toJson.used_condition);
-      setSellerOptions(toJson.seller);
-      setOfferedByOptions(toJson.offered_by);
+      console.log("001 to json--", toJson.ok);
+      if(toJson.ok){
+        setEngineMakeOptions(toJson.engine_make)
+        setEngineModelOptions(toJson.engine_model)
+        // setEngineModelYearOptions(toJson.engine_modelyear)
+        // setEngineTypeOptions(toJson.engine_type)
+        // setTypeDesignationOptions(toJson.type_designation)
+  
+        // setEngineSerialNumberOptions(toJson.engine_serial);
+        // setCEDesignCategoryOptions(toJson.ce_category);
+        // setNumberDrivesOptions(toJson.number_drive);
+        // setNumberEnginesOptions(toJson.number_engine);
+        // setCertificationOptions(toJson.engine_certification)
+        // setEngineRangeOptions(toJson.engine_range);
+        // setCruisingSpeedOptions(toJson.cruise_speed);
+        // setDriveTypeOptions(toJson.drive_type);
+        // setEngineHoursOptions(toJson.engine_hours);
+        // setIgnitionSystemOptions(toJson.ignition_system);
+        // setNoiseLevelOptions(toJson.noiselevel_db);
+        // setEngineSoundproofingKits(toJson.enginesound_proofingkits);
+        // //warranty
+        // //classification
+        // setConditionOptions(toJson.condition_1);
+        // setUsedConditionOptions(toJson.used_condition);
+        // setSellerOptions(toJson.seller);
+        // setOfferedByOptions(toJson.offered_by);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -1180,18 +1183,18 @@ const EngineAdvert = () => {
     }
   };  
 
-  // const fetchEngineModelYear = async (engineMake, engineModel) => {
-  //   const URL = `http://localhost:3001/api/advert_engine/engine_modelyear?engine_make=${encodeURIComponent(
-  //     engineMake
-  //   )}&engine_model=${encodeURIComponent(engineModel)}`;
-  //   try {
-  //     const res = await fetch(URL);
-  //     const toJson = await res.json();
-  //     setEngineModelYearOptions(toJson.result);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  const fetchEngineModelYear = async (engineMake, engineModel) => {
+    const URL = `http://localhost:3001/api/advert_engine/engine_modelyear?engine_make=${encodeURIComponent(
+      engineMake
+    )}&engine_model=${encodeURIComponent(engineModel)}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      setEngineModelYearOptions(toJson.result);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   // const fetchEngineType = async (engineMake, engineModel, engineModelYear) => {
   //   const URL = `http://localhost:3001/api/advert_engine/engine_type?engine_make=${encodeURIComponent(
@@ -1259,7 +1262,21 @@ const EngineAdvert = () => {
     }
   };
   useEffect(() => {
-    fetchEngineMake();
+    // fetchEngineMake();
+    fetchGeneralColumnsList("", "");
+    // fetchMountingColumnsList("", "")
+    // fetchMaintenanceColumnsList("", "")
+    // fetchSafetyColumnsList("", "")
+    // fetchOilColumnsList("", "")
+    // fetchTransmissionsColumnsList("", "")
+    // fetchPropulsionColumnsList("", "")
+    // fetchCoolingColumnsList("", "")
+    // fetchElectricalColumnsList("", "")
+    // fetchEmissionsColumnsList("", "")
+    // fetchDimensionsColumnsList("", "")
+    // fetchFuelColumnsList("", "")
+    // fetchPerformanceColumnsList("", "")
+    // fetchEquipmentColumnsList("", "")
   }, []);
   const errorDisplay = (fieldName) => {
     return <div style={{ color: "red" }}>{fieldName} field is required</div>;
@@ -1282,7 +1299,8 @@ const EngineAdvert = () => {
                     value={form.engineMake}
                     setValue={(val) => {
                       setForm({ ...form, engineMake: val });
-                      fetchEngineModel(val);
+                      fetchGeneralColumnsList(val,"");
+                      // fetchEngineModel(val);
                       // fetchEngineModelYear(val);
                     }}
                     label={ENGINE_ADVERT.ENGINE_MAKE}
@@ -1323,20 +1341,20 @@ const EngineAdvert = () => {
                     setValue={(val) => {
                       setForm({ ...form, engineModel: val });
                       // fetchEngineModelYear(form.engineMake, val);
-                      fetchGeneralColumnsList(form.engineMake, val);
-                      fetchMountingColumnsList(form.engineMake, val)
-                      fetchMaintenanceColumnsList(form.engineMake, val)
-                      fetchSafetyColumnsList(form.engineMake, val)
-                      fetchOilColumnsList(form.engineMake, val)
-                      fetchTransmissionsColumnsList(form.engineMake, val)
-                      fetchPropulsionColumnsList(form.engineMake, val)
-                      fetchCoolingColumnsList(form.engineMake, val)
-                      fetchElectricalColumnsList(form.engineMake, val)
-                      fetchEmissionsColumnsList(form.engineMake, val)
-                      fetchDimensionsColumnsList(form.engineMake, val)
-                      fetchFuelColumnsList(form.engineMake, val)
-                      fetchPerformanceColumnsList(form.engineMake, val)
-                      fetchEquipmentColumnsList(form.engineMake, val)
+                      // fetchGeneralColumnsList(form.engineMake, val);
+                      // fetchMountingColumnsList(form.engineMake, val)
+                      // fetchMaintenanceColumnsList(form.engineMake, val)
+                      // fetchSafetyColumnsList(form.engineMake, val)
+                      // fetchOilColumnsList(form.engineMake, val)
+                      // fetchTransmissionsColumnsList(form.engineMake, val)
+                      // fetchPropulsionColumnsList(form.engineMake, val)
+                      // fetchCoolingColumnsList(form.engineMake, val)
+                      // fetchElectricalColumnsList(form.engineMake, val)
+                      // fetchEmissionsColumnsList(form.engineMake, val)
+                      // fetchDimensionsColumnsList(form.engineMake, val)
+                      // fetchFuelColumnsList(form.engineMake, val)
+                      // fetchPerformanceColumnsList(form.engineMake, val)
+                      // fetchEquipmentColumnsList(form.engineMake, val)
                     }}
                     label={ENGINE_ADVERT.ENGINE_MODEL}
                     options={engineModelOptions}

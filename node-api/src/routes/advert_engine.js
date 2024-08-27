@@ -15,6 +15,14 @@ advertEngineRouter.get("/main/", (req, res) => {
   res.json({ message: "advert engine main page route" });
 });
 
+function isValidString(str) {
+  if (str !== undefined && str.trim() !== "") {
+      return true;
+  } else {
+      return false;
+  }
+}
+
 advertEngineRouter.get("/engine_make/", async (req, res) => {
   let connection;
   try {
@@ -697,11 +705,11 @@ advertEngineRouter.get("/columnsList/engine_general", async (req, res) => {
   // let engine_model = req.query.engine_mode;
   try {
     connection = await dbConnection.getConnection();
-    if (req.query.engine_make && req.query.engine_model) {
+    if (isValidString(req.query.engine_make) && isValidString(req.query.engine_model)) {
       filterOptions = ` WHERE engine_make = '${req.query.engine_make}' AND engine_model = '${req.query.engine_model}'`;
-    } else if (req.query.engine_make && !req.query.engine_model) {
+    } else if (isValidString(req.query.engine_make) && !isValidString(req.query.engine_model)) {
       filterOptions = ` WHERE engine_make = '${req.query.engine_make}'`;
-    } else if (req.query.engine_model && !req.query.engine_make) {
+    } else if (isValidString(req.query.engine_model) && !isValidString(req.query.engine_make)) {
       filterOptions = ` WHERE engine_model = '${req.query.engine_model}'`;
     } else {
       filterOptions = ``;
@@ -709,7 +717,7 @@ advertEngineRouter.get("/columnsList/engine_general", async (req, res) => {
     const [engineId] = await connection.query(
       `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
     );
-    // console.log("Final Rows Filter Options------------------->",filterOptions);
+    console.log("Final Rows Filter Options------------------->",filterOptions);
     // console.log("Final Rows Engine Id------------------->",engineId);
     let results = {};
 
