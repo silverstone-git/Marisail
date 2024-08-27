@@ -755,169 +755,156 @@ const EngineAdvert = () => {
       console.log(error);
     }
   };
-  const fetchEngineMake = async (
-    URL = "http://localhost:3001/api/advert_engine/engine_make"
-  ) => {
-    try {
-      const res = await fetch(URL);
-      const toJson = await res.json();
-      setEngineMakeOptions(toJson.result);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  const fetchEngineModel = async (engineMake) => {
-    const URL = `http://localhost:3001/api/advert_engine/engine_model?engine_make=${encodeURIComponent(
-      engineMake
-    )}`;
-    try {
-      const res = await fetch(URL);
-      const toJson = await res.json();
-      setEngineModelOptions(toJson.result);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   const fetchGeneralColumnsList = async (engineMake, engineModel) => {
-    const URL = `http://localhost:3001/api/advert_engine/columnsList/engine_general?engine_make=${encodeURIComponent(
+    const tableName = 'engine_general'
+    const URL = `http://localhost:3001/api/advert_engine/columnsList/${tableName}?engine_make=${encodeURIComponent(
       engineMake
     )}&engine_model=${encodeURIComponent(engineModel)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 to json--", toJson);
+      // console.log("001 to json--", toJson.result.engine_general.engine_make);
+      if(toJson.ok){
+        // console.log("001 Before state update: ", toJson.result.engine_general.engine_make);
+        setEngineMakeOptions(toJson.result.engine_general.engine_make)
+        // console.log("001 After state update: ", engineMakeOptions);
 
-      setEngineModelYearOptions(toJson.engine_modelyear)
-      setEngineTypeOptions(toJson.engine_type)
-      setTypeDesignationOptions(toJson.type_designation)
-
-      setEngineSerialNumberOptions(toJson.engine_serial);
-      setCEDesignCategoryOptions(toJson.ce_category);
-      setNumberDrivesOptions(toJson.number_drive);
-      setNumberEnginesOptions(toJson.number_engine);
-      setCertificationOptions(toJson.engine_certification)
-      setEngineRangeOptions(toJson.engine_range);
-      setCruisingSpeedOptions(toJson.cruise_speed);
-      setDriveTypeOptions(toJson.drive_type);
-      setEngineHoursOptions(toJson.engine_hours);
-      setIgnitionSystemOptions(toJson.ignition_system);
-      setNoiseLevelOptions(toJson.noiselevel_db);
-      setEngineSoundproofingKits(toJson.enginesound_proofingkits);
-      //warranty
-      //classification
-      setConditionOptions(toJson.condition_1);
-      setUsedConditionOptions(toJson.used_condition);
-      setSellerOptions(toJson.seller);
-      setOfferedByOptions(toJson.offered_by);
+        setEngineModelOptions(toJson.result.engine_general.engine_model)
+        setEngineModelYearOptions(toJson.result.engine_general.engine_modelyear)
+        setEngineTypeOptions(toJson.result.engine_general.engine_type)
+        setTypeDesignationOptions(toJson.result.engine_general.type_designation)
+  
+        setEngineSerialNumberOptions(toJson.result.engine_general.engine_serial);
+        setCEDesignCategoryOptions(toJson.result.engine_general.ce_category);
+        setNumberDrivesOptions(toJson.result.engine_general.number_drives);
+        setNumberEnginesOptions(toJson.result.engine_general.number_engines);
+        setCertificationOptions(toJson.result.engine_general.engine_certification)
+        setEngineRangeOptions(toJson.result.engine_general.engine_range);
+        setCruisingSpeedOptions(toJson.result.engine_general.cruise_speed);
+        setDriveTypeOptions(toJson.result.engine_general.drive_type);
+        setEngineHoursOptions(toJson.result.engine_general.engine_hours);
+        setIgnitionSystemOptions(toJson.result.engine_general.ignition_system);
+        setNoiseLevelOptions(toJson.result.engine_general.noiselevel_db);
+        setEngineSoundproofingKits(toJson.result.engine_general.enginesound_proofingkits);
+        //warranty
+        //classification
+        setConditionOptions(toJson.result.engine_general.condition_1);
+        setUsedConditionOptions(toJson.result.engine_general.used_condition);
+        setSellerOptions(toJson.result.engine_general.seller);
+        setOfferedByOptions(toJson.result.engine_general.offered_by);
+      }
     } catch (err) {
       console.log(err);
     }
   };
 
   const fetchDimensionsColumnsList = async (engineMake, engineModel) => {
-    const URL = `http://localhost:3001/api/advert_engine/columnsList/engine_dimensions?engine_make=${encodeURIComponent(
+    const tableName = 'engine_dimensions'
+    const URL = `http://localhost:3001/api/advert_engine/columnsList/${tableName}?engine_make=${encodeURIComponent(
       engineMake
     )}&engine_model=${encodeURIComponent(engineModel)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 to json--", toJson);
+      // console.log("001 to json--", toJson.result.engine_dimensions);
 
       //DimensionFields
-      setDisplacementOptions(toJson.displacement);
-      setLengthOptions(toJson.length);
-      setWidthOptions(toJson.width);
-      setHeightOptions(toJson.height);
-      setLengthFromFrontEndOfFlywheelHousingOptions(toJson.Engine_length);
-      setEngineWeightOptions(toJson.engine_weight);
-      setDryWeightOptions(toJson.dry_weight);
-      setWeightWithKeelCoolingOptions(toJson.weight_keelcooling);
-      setExclOilWeightOptions(toJson.weight_excloil);
-      setWeightWithHeatExchangerOptions(toJson.weight_heatexchanger);
+      setDisplacementOptions(toJson.result.engine_dimensions.displacement);
+      setLengthOptions(toJson.result.engine_dimensions.length);
+      setWidthOptions(toJson.result.engine_dimensions.width);
+      setHeightOptions(toJson.result.engine_dimensions.height);
+      setLengthFromFrontEndOfFlywheelHousingOptions(toJson.result.engine_dimensions.Engine_length);
+      setEngineWeightOptions(toJson.result.engine_dimensions.engine_weight);
+      setDryWeightOptions(toJson.result.engine_dimensions.dry_weight);
+      setWeightWithKeelCoolingOptions(toJson.result.engine_dimensions.weight_keelcooling);
+      setExclOilWeightOptions(toJson.result.engine_dimensions.weight_excloil);
+      setWeightWithHeatExchangerOptions(toJson.result.engine_dimensions.weight_heatexchanger);
     } catch (err) {
       console.log(err);
     }
   };
 
   const fetchCoolingColumnsList = async (engineMake, engineModel) => {
-    const URL = `http://localhost:3001/api/advert_engine/columnsList/engine_cooling?engine_make=${encodeURIComponent(
+    const tableName = 'engine_cooling'
+    const URL = `http://localhost:3001/api/advert_engine/columnsList/${tableName}?engine_make=${encodeURIComponent(
       engineMake
     )}&engine_model=${encodeURIComponent(engineModel)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 to json--", toJson);
+      // console.log("001 to json--", toJson.result.engine_cooling);
 
       //CoolingFields
-      setCoolingSystemOptions(toJson.cooling_system);
-      setClosedCoolingSystemOptions(toJson.closed_coolingsystem);
-      setOpenCoolingSystemOptions(toJson.open_coolingsystem);
-      setIntercooledOptions(toJson.intercooled);
-      setRecommendedCoolantOptions(toJson.recommended_coolant);
-      setAfterCooledOptions(toJson.after_cooled);
-      setTypeOfCoolingOptions(toJson.cooling_type);
-      setHeatExchangerMaterialOptions(toJson.heat_exchangermaterial);
-      setHeatDissipationRateOptions(toJson.heat_dissipationrate);
-      setEngineLubricationOptions(toJson.engine_lubrication);
-      setLubricationSystemOptions(toJson.lubrication_system);
-      setCoolingFluidTypeOptions(toJson.cooling_fluidtype);
-      setCoolingSystemPressureOptions(toJson.cooling_systempressure);
-      setAirFilterTypeOptions(toJson.air_filtertype);
-      setCirculationPumpTypeOptions(toJson.circulation_pumptype);
-      setRawWaterpumpTypeOptions(toJson.rawwater_pumptype);
+      setCoolingSystemOptions(toJson.result.engine_cooling.cooling_system);
+      setClosedCoolingSystemOptions(toJson.result.engine_cooling.closed_coolingsystem);
+      setOpenCoolingSystemOptions(toJson.result.engine_cooling.open_coolingsystem);
+      setIntercooledOptions(toJson.result.engine_cooling.intercooled);
+      setRecommendedCoolantOptions(toJson.result.engine_cooling.recommended_coolant);
+      setAfterCooledOptions(toJson.result.engine_cooling.after_cooled);
+      setTypeOfCoolingOptions(toJson.result.engine_cooling.cooling_type);
+      setHeatExchangerMaterialOptions(toJson.result.engine_cooling.heat_exchangermaterial);
+      setHeatDissipationRateOptions(toJson.result.engine_cooling.heat_dissipationrate);
+      setEngineLubricationOptions(toJson.result.engine_cooling.engine_lubrication);
+      setLubricationSystemOptions(toJson.result.engine_cooling.lubrication_system);
+      setCoolingFluidTypeOptions(toJson.result.engine_cooling.cooling_fluidtype);
+      setCoolingSystemPressureOptions(toJson.result.engine_cooling.cooling_systempressure);
+      setAirFilterTypeOptions(toJson.result.engine_cooling.air_filtertype);
+      setCirculationPumpTypeOptions(toJson.result.engine_cooling.circulation_pumptype);
+      setRawWaterpumpTypeOptions(toJson.result.engine_cooling.rawwater_pumptype);
     } catch (err) {
       console.log(err);
     }
   };
 
   const fetchElectricalColumnsList = async (engineMake, engineModel) => {
-    const URL = `http://localhost:3001/api/advert_engine/columnsList/engine_electrical?engine_make=${encodeURIComponent(
+    const tableName = 'engine_electrical'    
+    const URL = `http://localhost:3001/api/advert_engine/columnsList/${tableName}?engine_make=${encodeURIComponent(
       engineMake
     )}&engine_model=${encodeURIComponent(engineModel)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 to json--", toJson);
+      // console.log("001 to json--", toJson.result.engine_electrical);
 
        //ElectricalFields
-      // setBatteryVoltageNumberOptions(toJson.battery_voltagenumber);
-      setIntegratedGeneratorOptions(toJson.integrated_generator);
-      setBatteryChargingSystemOptions(toJson.Battery_ChargingSystem);
-      setEngineControlUnitModelOptions(toJson.ECU_Model);
-      setStarterMotorVoltageOptions(toJson.starter_MotorVoltage);
-      setAlternatorOutputAmpsOptions(toJson.alternator_outputAMPS);
-      setBatteryVoltageOptions(toJson.battery_voltage);
-      setAlternatorOptions(toJson.alternator);
-      setAlternatorOutputOptions(toJson.alternator_output);
-      setBatteryTypeOptions(toJson.battery_type);
+      // setBatteryVoltageNumberOptions(toJson.result.engine_electrical.battery_voltagenumber);
+      setIntegratedGeneratorOptions(toJson.result.engine_electrical.integrated_generator);
+      setBatteryChargingSystemOptions(toJson.result.engine_electrical.Battery_ChargingSystem);
+      setEngineControlUnitModelOptions(toJson.result.engine_electrical.ECU_Model);
+      setStarterMotorVoltageOptions(toJson.result.engine_electrical.starter_MotorVoltage);
+      setAlternatorOutputAmpsOptions(toJson.result.engine_electrical.alternator_outputAMPS);
+      setBatteryVoltageOptions(toJson.result.engine_electrical.battery_voltage);
+      setAlternatorOptions(toJson.result.engine_electrical.alternator);
+      setAlternatorOutputOptions(toJson.result.engine_electrical.alternator_output);
+      setBatteryTypeOptions(toJson.result.engine_electrical.battery_type);
     } catch (err) {
       console.log(err);
     }
   };
 
   const fetchEmissionsColumnsList = async (engineMake, engineModel) => {
-    const URL = `http://localhost:3001/api/advert_engine/columnsList/engine_emissions?engine_make=${encodeURIComponent(
+    const tableName = 'engine_emissions'
+    const URL = `http://localhost:3001/api/advert_engine/columnsList/${tableName}?engine_make=${encodeURIComponent(
       engineMake
     )}&engine_model=${encodeURIComponent(engineModel)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 to json--", toJson);
+      // console.log("001 to json--", toJson.result.engine_emissions);
 
-      setEmissionComplianceOptions(toJson.Emission_compliance);
-      setExhaustSystemOptions(toJson.exhaust_system);
-      setExhaustSystemTypeOptions(toJson.exhaust_systemtype);
-      setExhaustGasAfterTreatmentOptions(toJson.exhaustgas_aftertreatment);
-      setExhaustGasStatusOptions(toJson.exhaustGas_status);
-      setExhaustValveTimingOptions(toJson.exhaust_valvetiming);
-      setIntakeValveTimingOptions(toJson.intake_valvetiming);
-      setEmissionControlTechnologyOptions(toJson.emission_controltechnology);
-      setNoxEmissionsOptions(toJson.NOx_Emission);
-      setSoxEmissionsOptions(toJson.SOx_Emission);
-      setCoxEmissionsOptions(toJson.COx_Emission);
+      setEmissionComplianceOptions(toJson.result.engine_emissions.Emission_compliance);
+      setExhaustSystemOptions(toJson.result.engine_emissions.exhaust_system);
+      setExhaustSystemTypeOptions(toJson.result.engine_emissions.exhaust_systemtype);
+      setExhaustGasAfterTreatmentOptions(toJson.result.engine_emissions.exhaustgas_aftertreatment);
+      setExhaustGasStatusOptions(toJson.result.engine_emissions.exhaustGas_status);
+      setExhaustValveTimingOptions(toJson.result.engine_emissions.exhaust_valvetiming);
+      setIntakeValveTimingOptions(toJson.result.engine_emissions.intake_valvetiming);
+      setEmissionControlTechnologyOptions(toJson.result.engine_emissions.emission_controltechnology);
+      setNoxEmissionsOptions(toJson.result.engine_emissions.NOx_Emission);
+      setSoxEmissionsOptions(toJson.result.engine_emissions.SOx_Emission);
+      setCoxEmissionsOptions(toJson.result.engine_emissions.COx_Emission);
       setComplianceWithIMOStandardsOptions(
-        toJson.compliance_internationalmaritime
+        toJson.result.engine_emissions.compliance_internationalmaritime
       );
     } catch (err) {
       console.log(err);
@@ -925,342 +912,286 @@ const EngineAdvert = () => {
   };
 
   const fetchFuelColumnsList = async (engineMake, engineModel) => {
-    const URL = `http://localhost:3001/api/advert_engine/columnsList/engine_fuel?engine_make=${encodeURIComponent(
+    const tableName = 'engine_fuel'
+    const URL = `http://localhost:3001/api/advert_engine/columnsList/${tableName}?engine_make=${encodeURIComponent(
       engineMake
     )}&engine_model=${encodeURIComponent(engineModel)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 to json--", toJson);
+      // console.log("001 to json--", toJson.result.engine_fuel);
 
-      setFuelPreFilterOptions(toJson.fuel_prefilter);
-      setElectronicFuelinjectionOptions(toJson.EFI);
-      setFuelFilterTypeOptions(toJson.fuel_filtertype);
-      setFuelFilterOptions(toJson.fuel_filter);
-      setFuelReserveOptions(toJson.fuel_reserve);
-      setFuelSystemOptions(toJson.fuel_system);
-      setFuelTankCapacityOptions(toJson.fuel_tankcapacity);
-      setFuelTypeOptions(toJson.fuel_type);
-      setLowestSpecificFuelConsumptionOptions(toJson.lowest_fuelconsumption);
-      setFuelConsumptionRateOptions(toJson.fuel_consumptionrate);
-      setFuelConsumtpionAtFullLoadOptions(toJson.FC_fullload);
-      setFuelInjectionSystemTypeOptions(toJson.FuelInjection_systemtype);
-      setDuelDeliveryPressureOptions(toJson.Fuel_deliverypressure);
-      setFuelTankMaterialOptions(toJson.Fuel_tankmaterial);
-      setFuelLineDiameterOptions(toJson.fuel_linediameter);
-      setFuelConsumptionOptions(toJson.FC_3Quarterload);
-      setFuelConsumptionHalfLoadOptions(toJson.FC_halfload);
-      setFuelConsumptionPropellerCurveOptions(toJson.FC_propellercurve);
-      setHeatRejectionToCoolantOptions(toJson.heat_rejection);
-      setRecommendedFuelOptions(toJson.recommended_fuel);
+      setFuelPreFilterOptions(toJson.result.engine_fuel.fuel_prefilter);
+      setElectronicFuelinjectionOptions(toJson.result.engine_fuel.EFI);
+      setFuelFilterTypeOptions(toJson.result.engine_fuel.fuel_filtertype);
+      setFuelFilterOptions(toJson.result.engine_fuel.fuel_filter);
+      setFuelReserveOptions(toJson.result.engine_fuel.fuel_reserve);
+      setFuelSystemOptions(toJson.result.engine_fuel.fuel_system);
+      setFuelTankCapacityOptions(toJson.result.engine_fuel.fuel_tankcapacity);
+      setFuelTypeOptions(toJson.result.engine_fuel.fuel_type);
+      setLowestSpecificFuelConsumptionOptions(toJson.result.engine_fuel.lowest_fuelconsumption);
+      setFuelConsumptionRateOptions(toJson.result.engine_fuel.fuel_consumptionrate);
+      setFuelConsumtpionAtFullLoadOptions(toJson.result.engine_fuel.FC_fullload);
+      setFuelInjectionSystemTypeOptions(toJson.result.engine_fuel.FuelInjection_systemtype);
+      setDuelDeliveryPressureOptions(toJson.result.engine_fuel.Fuel_deliverypressure);
+      setFuelTankMaterialOptions(toJson.result.engine_fuel.Fuel_tankmaterial);
+      setFuelLineDiameterOptions(toJson.result.engine_fuel.fuel_linediameter);
+      setFuelConsumptionOptions(toJson.result.engine_fuel.FC_3Quarterload);
+      setFuelConsumptionHalfLoadOptions(toJson.result.engine_fuel.FC_halfload);
+      setFuelConsumptionPropellerCurveOptions(toJson.result.engine_fuel.FC_propellercurve);
+      setHeatRejectionToCoolantOptions(toJson.result.engine_fuel.heat_rejection);
+      setRecommendedFuelOptions(toJson.result.engine_fuel.recommended_fuel);
     } catch (err) {
       console.log(err);
     }
   };
 
   const fetchPropulsionColumnsList = async (engineMake, engineModel) => {
-    const URL = `http://localhost:3001/api/advert_engine/columnsList/engine_propulsion?engine_make=${encodeURIComponent(
+    const tableName = 'engine_propulsion'
+    const URL = `http://localhost:3001/api/advert_engine/columnsList/${tableName}?engine_make=${encodeURIComponent(
       engineMake
     )}&engine_model=${encodeURIComponent(engineModel)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 to json--", toJson);
+      // console.log("001 to json--", toJson.result.engine_propulsion);
 
       //PropulsionFields
-      setPropulsionOptions(toJson.propulsion);
-      setPropellerBladeMaterialOptions(toJson.propeller_bladematerial);
-      setPropellerShaftMaterialOptions(toJson.propeller_shaftmaterial);
-      setSteeringSystemOptions(toJson.steering_system);
-      setSteeringControlTypeOptions(toJson.steering_controltype);
-      setTrimSystemOptions(toJson.trim_system);
-      setTrimTabMaterialOptions(toJson.trim_tabmaterial);
-      setTrimTabTypeOptions(toJson.trim_tab_type);
-      setBowthrusterOptions(toJson.bowthruster);
-      setPropulsionSystemOptions(toJson.propulsion_system);
-      setPropulsionSystemTypeOptions(toJson.propulsion_systemtype);
-      setPropellerDiameterOptions(toJson.propeller_diameter);
-      setPropellerMaterialOptions(toJson.propeller_material);
-      setPropellerPitchOptions(toJson.propeller_pitch);
-      setPropellerTypeOptions(toJson.propeller_type);
-      setPropellerShaftDiameterOptions(toJson.propeller_shaftdiameter);
-      setGearboxTypeOptions(toJson.gearbox_type);
-      setTransmissionCoolingOptions(toJson.transmission_cooling);
+      setPropulsionOptions(toJson.result.engine_propulsion.propulsion);
+      setPropellerBladeMaterialOptions(toJson.result.engine_propulsion.propeller_bladematerial);
+      setPropellerShaftMaterialOptions(toJson.result.engine_propulsion.propeller_shaftmaterial);
+      setSteeringSystemOptions(toJson.result.engine_propulsion.steering_system);
+      setSteeringControlTypeOptions(toJson.result.engine_propulsion.steering_controltype);
+      setTrimSystemOptions(toJson.result.engine_propulsion.trim_system);
+      setTrimTabMaterialOptions(toJson.result.engine_propulsion.trim_tabmaterial);
+      setTrimTabTypeOptions(toJson.result.engine_propulsion.trim_tab_type);
+      setBowthrusterOptions(toJson.result.engine_propulsion.bowthruster);
+      setPropulsionSystemOptions(toJson.result.engine_propulsion.propulsion_system);
+      setPropulsionSystemTypeOptions(toJson.result.engine_propulsion.propulsion_systemtype);
+      setPropellerDiameterOptions(toJson.result.engine_propulsion.propeller_diameter);
+      setPropellerMaterialOptions(toJson.result.engine_propulsion.propeller_material);
+      setPropellerPitchOptions(toJson.result.engine_propulsion.propeller_pitch);
+      setPropellerTypeOptions(toJson.result.engine_propulsion.propeller_type);
+      setPropellerShaftDiameterOptions(toJson.result.engine_propulsion.propeller_shaftdiameter);
+      setGearboxTypeOptions(toJson.result.engine_propulsion.gearbox_type);
+      setTransmissionCoolingOptions(toJson.result.engine_propulsion.transmission_cooling);
     } catch (err) {
       console.log(err);
     }
   };
 
   const fetchTransmissionsColumnsList = async (engineMake, engineModel) => {
-    const URL = `http://localhost:3001/api/advert_engine/columnsList/engine_transmission?engine_make=${encodeURIComponent(
+    const tableName = 'engine_transmission'
+    const URL = `http://localhost:3001/api/advert_engine/columnsList/${tableName}?engine_make=${encodeURIComponent(
       engineMake
     )}&engine_model=${encodeURIComponent(engineModel)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 to json--", toJson);
+      // console.log("001 to json--", toJson.result.engine_transmission);
       //TransmissionFields
-      setTransmissionTypeOptions(toJson.transmission_type);
-      setGearShiftOptions(toJson.gear_shift);
-      setGearRatioOptions(toJson.gear_ratio);
-      setGearShiftTypeOptions(toJson.gearshift_type);
-      setFlywheelOptions(toJson.flywheel_SAE);
-      setSiluminFlywheelHousingOptions(toJson.flywheel_housing);
-      setCamShaftOptions(toJson.camshaft);
-      setCamShaftAlloyOptions(toJson.crankshaft_alloy);
-      setCrankcaseDesignOptions(toJson.crankcase_design);
+      setTransmissionTypeOptions(toJson.result.engine_transmission.transmission_type);
+      setGearShiftOptions(toJson.result.engine_transmission.gear_shift);
+      setGearRatioOptions(toJson.result.engine_transmission.gear_ratio);
+      setGearShiftTypeOptions(toJson.result.engine_transmission.gearshift_type);
+      setFlywheelOptions(toJson.result.engine_transmission.flywheel_SAE);
+      setSiluminFlywheelHousingOptions(toJson.result.engine_transmission.flywheel_housing);
+      setCamShaftOptions(toJson.result.engine_transmission.camshaft);
+      setCamShaftAlloyOptions(toJson.result.engine_transmission.crankshaft_alloy);
+      setCrankcaseDesignOptions(toJson.result.engine_transmission.crankcase_design);
     } catch (err) {
       console.log(err);
     }
   };
 
   const fetchOilColumnsList = async (engineMake, engineModel) => {
-    const URL = `http://localhost:3001/api/advert_engine/columnsList/engine_oil?engine_make=${encodeURIComponent(
+    const tableName = 'engine_oil'
+    const URL = `http://localhost:3001/api/advert_engine/columnsList/${tableName}?engine_make=${encodeURIComponent(
       engineMake
     )}&engine_model=${encodeURIComponent(engineModel)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 to json--", toJson);
+      // console.log("001 to json--", toJson.result.engine_oil);
       //OilFields
-      setOilFilterOptions(toJson.oil_filter);
-      setOilFilterTypeOptions(toJson.oil_filtertype);
-      setCentrifugalOilCleanerOptions(toJson.centrifugal_oilcleaner);
-      setOilCoolerOptions(toJson.oil_cooler);
-      setOilFillerOptions(toJson.oil_filler);
-      setOilDipstickOptions(toJson.oil_dipstick);
-      setRecommendedOilOptions(toJson.recommended_oil);
-      setOilCapacityOptions(toJson.oil_capacity);
-      setOilChangeIntervalOptions(toJson.oil_changeinterval);
-      setOilCoolingMethodOptions(toJson.oil_coolingmethod);
-      setLubricationOilPressureOptions(toJson.lubrication_oilpressure);
-      setOilFilterBypassValveOptions(toJson.oilfilter_bypassvalve);
+      setOilFilterOptions(toJson.result.engine_oil.oil_filter);
+      setOilFilterTypeOptions(toJson.result.engine_oil.oil_filtertype);
+      setCentrifugalOilCleanerOptions(toJson.result.engine_oil.centrifugal_oilcleaner);
+      setOilCoolerOptions(toJson.result.engine_oil.oil_cooler);
+      setOilFillerOptions(toJson.result.engine_oil.oil_filler);
+      setOilDipstickOptions(toJson.result.engine_oil.oil_dipstick);
+      setRecommendedOilOptions(toJson.result.engine_oil.recommended_oil);
+      setOilCapacityOptions(toJson.result.engine_oil.oil_capacity);
+      setOilChangeIntervalOptions(toJson.result.engine_oil.oil_changeinterval);
+      setOilCoolingMethodOptions(toJson.result.engine_oil.oil_coolingmethod);
+      setLubricationOilPressureOptions(toJson.result.engine_oil.lubrication_oilpressure);
+      setOilFilterBypassValveOptions(toJson.result.engine_oil.oilfilter_bypassvalve);
     } catch (err) {
       console.log(err);
     }
   };
 
   const fetchSafetyColumnsList = async (engineMake, engineModel) => {
-    const URL = `http://localhost:3001/api/advert_engine/columnsList/engine_safety?engine_make=${encodeURIComponent(
+    const tableName = 'engine_safety'
+    const URL = `http://localhost:3001/api/advert_engine/columnsList/${tableName}?engine_make=${encodeURIComponent(
       engineMake
     )}&engine_model=${encodeURIComponent(engineModel)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 to json--", toJson);
+      // console.log("001 to json--", toJson.result.engine_safety);
       //SafetyFields
-      setEngineMonitoringSystemsOptions(toJson.engine_monitoringsystem);
-      setOverheatProtectionOptions(toJson.overheat_protection);
-      setLowOilPressureAlarmOptions(toJson.lowoil_pressurealarm);
-      setEmergencyStopSystemOptions(toJson.emergency_stopsystem);
+      setEngineMonitoringSystemsOptions(toJson.result.engine_safety.engine_monitoringsystem);
+      setOverheatProtectionOptions(toJson.result.engine_safety.overheat_protection);
+      setLowOilPressureAlarmOptions(toJson.result.engine_safety.lowoil_pressurealarm);
+      setEmergencyStopSystemOptions(toJson.result.engine_safety.emergency_stopsystem);
     } catch (err) {
       console.log(err);
     }
   };
 
   const fetchEquipmentColumnsList = async (engineMake, engineModel) => {
-    const URL = `http://localhost:3001/api/advert_engine/columnsList/engine_equipment?engine_make=${encodeURIComponent(
+    const tableName = 'engine_equipment'
+    const URL = `http://localhost:3001/api/advert_engine/columnsList/${tableName}?engine_make=${encodeURIComponent(
       engineMake
     )}&engine_model=${encodeURIComponent(engineModel)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 to json--", toJson);
+      // console.log("001 to json--", toJson.result.engine_equipment);
       //Equipment
-      setEngineManagementSystemOptions(toJson.EMS);
-      setEngineControlSystemOptions(toJson.engine_controlsystem);
-      setUnitInjectorsOptions(toJson.unit_injectors);
-      setTurboChargerOptions(toJson.turbocharger);
-      setTurboChargingOptions(toJson.turbo_charging);
-      setStarterMotorOptions(toJson.starter_motor);
-      setProtectionCoversOptions(toJson.protection_covers);
-      setClosedCrankcaseVentilationOptions(toJson.crankcase_ventilation);
-      setHeatExchangerOptions(toJson.heat_exchanger);
-      setHeatExchangerWithExpansionTankOptions(toJson.heat_exchanger_WET);
-      setSeaWaterPumpOptions(toJson.seawater_pump);
-      setSeaWaterCooledChargeAirCoolerOptions(toJson.charge_aircooler);
-      setWorkingPrincipleOptions(toJson.working_principle);
-      setCompressionRatioOptions(toJson.compression_ratio);
-      setPistonSpeedAt1500RpmOptions(toJson.pistonspeed_1500);
-      setPistonSpeedAt1800RpmOptions(toJson.pistonspeed_1800);
-      setFiringOrderOptions(toJson.firing_order);
-      setPistonsOptions(toJson.pistons);
-      setConnectionRodsOptions(toJson.connection_rods);
-      setAuxiliaryPowerTakeOffOptions(toJson.auxiliarypower_takeoff);
-      setRemoteControlSystemsOptions(toJson.remote_controlsystems);
+      setEngineManagementSystemOptions(toJson.result.engine_equipment.EMS);
+      setEngineControlSystemOptions(toJson.result.engine_equipment.engine_controlsystem);
+      setUnitInjectorsOptions(toJson.result.engine_equipment.unit_injectors);
+      setTurboChargerOptions(toJson.result.engine_equipment.turbocharger);
+      setTurboChargingOptions(toJson.result.engine_equipment.turbo_charging);
+      setStarterMotorOptions(toJson.result.engine_equipment.starter_motor);
+      setProtectionCoversOptions(toJson.result.engine_equipment.protection_covers);
+      setClosedCrankcaseVentilationOptions(toJson.result.engine_equipment.crankcase_ventilation);
+      setHeatExchangerOptions(toJson.result.engine_equipment.heat_exchanger);
+      setHeatExchangerWithExpansionTankOptions(toJson.result.engine_equipment.heat_exchanger_WET);
+      setSeaWaterPumpOptions(toJson.result.engine_equipment.seawater_pump);
+      setSeaWaterCooledChargeAirCoolerOptions(toJson.result.engine_equipment.charge_aircooler);
+      setWorkingPrincipleOptions(toJson.result.engine_equipment.working_principle);
+      setCompressionRatioOptions(toJson.result.engine_equipment.compression_ratio);
+      setPistonSpeedAt1500RpmOptions(toJson.result.engine_equipment.pistonspeed_1500);
+      setPistonSpeedAt1800RpmOptions(toJson.result.engine_equipment.pistonspeed_1800);
+      setFiringOrderOptions(toJson.result.engine_equipment.firing_order);
+      setPistonsOptions(toJson.result.engine_equipment.pistons);
+      setConnectionRodsOptions(toJson.result.engine_equipment.connection_rods);
+      setAuxiliaryPowerTakeOffOptions(toJson.result.engine_equipment.auxiliarypower_takeoff);
+      setRemoteControlSystemsOptions(toJson.result.engine_equipment.remote_controlsystems);
     } catch (err) {
       console.log(err);
     }
   };
 
   const fetchPerformanceColumnsList = async (engineMake, engineModel) => {
-    const URL = `http://localhost:3001/api/advert_engine/columnsList/engine_performance?engine_make=${encodeURIComponent(
+    const tableName = 'engine_performance'
+    const URL = `http://localhost:3001/api/advert_engine/columnsList/${tableName}?engine_make=${encodeURIComponent(
       engineMake
     )}&engine_model=${encodeURIComponent(engineModel)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 to json--", toJson);
+      // console.log("001 to json--", toJson.result.engine_performance);
       //Performance
-      setNominalRatingOptions(toJson.nomial_rating);
-      setEnginePerformanceOptions(toJson.engine_performance);
-      setMaxPowerOutputOptions(toJson.max_powerOutput);
-      setMaxPowerBHPOptions(toJson.max_power);
-      setMaxSpeedKnotsOptions(toJson.max_speed);
-      setSuperchargedOptions(toJson.supercharged);
-      setValveTrainOptions(toJson.valve_train);
-      setGrossPowerFullLoadKwOptions(toJson.GP_fullloadKW);
-      setGrossPowerFullLoadOptions(toJson.GP_fullloadmetric);
-      setGrossPowerPropellerCurveKwOptions(toJson.GP_propellercurveKW);
-      setGrossPowerPropellerCurveOptions(toJson.GP_propellercurvemetric);
-      setGrossTorqueOptions(toJson.gross_torque);
-      setContinuousPowerOptions(toJson.continouspower_KWHP);
-      setMaxContinuousRatingOptions(toJson.Max_Continousrating);
-      setEngineSpeedRangeOptions(toJson.Engine_speedrange);
-      setEngineEfficiencyOptions(toJson.engine_efficiency);
-      setPowerToWeightRatioOptions(toJson.powertoweight_ratio);
+      setNominalRatingOptions(toJson.result.engine_performance.nominal_rating);
+      setEnginePerformanceOptions(toJson.result.engine_performance.engine_performance);
+      setMaxPowerOutputOptions(toJson.result.engine_performance.max_poweroutput);
+      setMaxPowerBHPOptions(toJson.result.engine_performance.max_power);
+      setMaxSpeedKnotsOptions(toJson.result.engine_performance.max_speed);
+      setSuperchargedOptions(toJson.result.engine_performance.supercharged);
+      setValveTrainOptions(toJson.result.engine_performance.valve_train);
+      setGrossPowerFullLoadKwOptions(toJson.result.engine_performance.GP_fullloadKW);
+      setGrossPowerFullLoadOptions(toJson.result.engine_performance.GP_fullloadmetric);
+      setGrossPowerPropellerCurveKwOptions(toJson.result.engine_performance.GP_propellercurveKW);
+      setGrossPowerPropellerCurveOptions(toJson.result.engine_performance.GP_propellercurvemetric);
+      setGrossTorqueOptions(toJson.result.engine_performance.gross_torque);
+      setContinuousPowerOptions(toJson.result.engine_performance.continuouspower_KWHP);
+      setMaxContinuousRatingOptions(toJson.result.engine_performance.Max_Continuousrating);
+      setEngineSpeedRangeOptions(toJson.result.engine_performance.Engine_speedrange);
+      setEngineEfficiencyOptions(toJson.result.engine_performance.engine_efficiency);
+      setPowerToWeightRatioOptions(toJson.result.engine_performance.powertoweight_ratio);
 
       //Cylinders
-      setCylinderConfigurationOptions(toJson.cylinder_configuration);
-      setNumberCylindersOptions(toJson.number_cylinders);
-      setCylindersArrangementOptions(toJson.cylinders_arrangement);
-      setNumberValvesOptions(toJson.number_valves);
-      setBoreStrokeOptions(toJson.bore_stroke);
-      setBoreOptions(toJson.bore);
+      setCylinderConfigurationOptions(toJson.result.engine_performance.cylinder_configuration);
+      setNumberCylindersOptions(toJson.result.engine_performance.number_cylinders);
+      setCylindersArrangementOptions(toJson.result.engine_performance.cylinders_arrangement);
+      setNumberValvesOptions(toJson.result.engine_performance.number_valves);
+      setBoreStrokeOptions(toJson.result.engine_performance.bore_stroke);
+      setBoreOptions(toJson.result.engine_performance.bore);
 
-      setIdleRPMOptions(toJson.idle_rpm);
-      setRPMMaxPowerOptions(toJson.rpm_maxpower);
-      setRatedSpeedOptions(toJson.rated_speed);
-      setMaxTorqueOptions(toJson.max_torque);
-      setMaxTorqueRPMOptions(toJson.max_torquerpm);
-      setTorqueRatedSpeed(toJson.torque_ratedspeed);
-      setValvePerCylinderOptions(toJson.valve_percylinder);
+      setIdleRPMOptions(toJson.result.engine_performance.idle_rpm);
+      setRPMMaxPowerOptions(toJson.result.engine_performance.rpm_maxpower);
+      setRatedSpeedOptions(toJson.result.engine_performance.rated_speed);
+      setMaxTorqueOptions(toJson.result.engine_performance.max_torque);
+      setMaxTorqueRPMOptions(toJson.result.engine_performance.max_torquerpm);
+      setTorqueRatedSpeed(toJson.result.engine_performance.torque_ratedspeed);
+      setValvePerCylinderOptions(toJson.result.engine_performance.valve_percylinder);
     } catch (err) {
       console.log(err);
     }
   };
 
   const fetchMaintenanceColumnsList = async (engineMake, engineModel) => {
-    const URL = `http://localhost:3001/api/advert_engine/columnsList/engine_maintenance?engine_make=${encodeURIComponent(
+    const tableName = 'engine_maintenance'
+    const URL = `http://localhost:3001/api/advert_engine/columnsList/${tableName}?engine_make=${encodeURIComponent(
       engineMake
     )}&engine_model=${encodeURIComponent(engineModel)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 to json--", toJson);
+      // console.log("001 to json--", toJson.result.engine_maintenance);
       //MaintenanceFields
-      setScheduledMaintenancePlanOptions(toJson.scheduled_maintenanceplan);
-      setServiceIntervalOptions(toJson.service_interval);
-      setMaintenanceLogRequirementsOptions(toJson.maintenancelog_requirements);
-      setAvailabilityOfSparePartsOptions(toJson.availability_spareparts);
-      setOperationModeOptions(toJson.operation_mode);
-      setLastServiceDateOptions(toJson.last_servicedate);
+      setScheduledMaintenancePlanOptions(toJson.result.engine_maintenance.scheduled_maintenanceplan);
+      setServiceIntervalOptions(toJson.result.engine_maintenance.service_interval);
+      setMaintenanceLogRequirementsOptions(toJson.result.engine_maintenance.maintenancelog_requirements);
+      setAvailabilityOfSparePartsOptions(toJson.result.engine_maintenance.availability_spareparts);
+      setOperationModeOptions(toJson.result.engine_maintenance.operation_mode);
+      setLastServiceDateOptions(toJson.result.engine_maintenance.last_servicedate);
     } catch (err) {
       console.log(err);
     }
   };
 
   const fetchMountingColumnsList = async (engineMake, engineModel) => {
-    const URL = `http://localhost:3001/api/advert_engine/columnsList/engine_mounting?engine_make=${encodeURIComponent(
+    const tableName = 'engine_mounting'
+    const URL = `http://localhost:3001/api/advert_engine/columnsList/${tableName}?engine_make=${encodeURIComponent(
       engineMake
     )}&engine_model=${encodeURIComponent(engineModel)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 to json--", toJson);
+      // console.log("001 to json--", toJson.result.engine_mounting);
       //MountingFields
-      setEngineMountingOrientationOptions(toJson.enginemounting_orientation);
-      setEngineSuspensionOptions(toJson.engine_suspension);
-      setEngineMountingTypeOptions(toJson.engine_mountingtype);
-      setMountingBracketMaterialOptions(toJson.mountingbracket_material);
-      setAlignmentRequirementsOptions(toJson.alignment_requirements);
-      setEngineBlockOptions(toJson.engine_block);
-    } catch (err) {
-      console.log(err);
-    }
-  };  
-
-  // const fetchEngineModelYear = async (engineMake, engineModel) => {
-  //   const URL = `http://localhost:3001/api/advert_engine/engine_modelyear?engine_make=${encodeURIComponent(
-  //     engineMake
-  //   )}&engine_model=${encodeURIComponent(engineModel)}`;
-  //   try {
-  //     const res = await fetch(URL);
-  //     const toJson = await res.json();
-  //     setEngineModelYearOptions(toJson.result);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // const fetchEngineType = async (engineMake, engineModel, engineModelYear) => {
-  //   const URL = `http://localhost:3001/api/advert_engine/engine_type?engine_make=${encodeURIComponent(
-  //     engineMake
-  //   )}&engine_model=${encodeURIComponent(
-  //     engineModel
-  //   )}&engine_modelyear=${encodeURIComponent(engineModelYear)}`;
-  //   try {
-  //     const res = await fetch(URL);
-  //     const toJson = await res.json();
-  //     setEngineTypeOptions(toJson.result);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // const fetchTypeDesignation = async (
-  //   engineMake,
-  //   engineModel,
-  //   engineModelYear,
-  //   engineType
-  // ) => {
-  //   const URL = `http://localhost:3001/api/advert_engine/type_designation?engine_make=${encodeURIComponent(
-  //     engineMake
-  //   )}&engine_model=${encodeURIComponent(
-  //     engineModel
-  //   )}&engine_modelyear=${encodeURIComponent(
-  //     engineModelYear
-  //   )}&engine_type=${encodeURIComponent(engineType)}`;
-  //   try {
-  //     const res = await fetch(URL);
-  //     const toJson = await res.json();
-  //     setTypeDesignationOptions(toJson.type_designation);
-  //     setEngineIdOptions(toJson.engineId);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  const fetchCondition = async (
-    engineMake,
-    engineModel,
-    engineModelYear,
-    engineType,
-    typeDesignation
-  ) => {
-    const URL = `http://localhost:3001/api/advert_engine/conditions?engine_make=${encodeURIComponent(
-      engineMake
-    )}&engine_model=${encodeURIComponent(
-      engineModel
-    )}&engine_modelyear=${encodeURIComponent(
-      engineModelYear
-    )}&engine_type=${encodeURIComponent(
-      engineType
-    )}&type_designation=${encodeURIComponent(
-      typeDesignation
-    )}&engine_ids=${encodeURIComponent(engineIdOptions)}`;
-    try {
-      const res = await fetch(URL);
-      const toJson = await res.json();
-      console.log(toJson);
-      
+      setEngineMountingOrientationOptions(toJson.result.engine_mounting.enginemounting_orientation);
+      setEngineSuspensionOptions(toJson.result.engine_mounting.engine_suspension);
+      setEngineMountingTypeOptions(toJson.result.engine_mounting.engine_mountingtype);
+      setMountingBracketMaterialOptions(toJson.result.engine_mounting.mountingbracket_material);
+      setAlignmentRequirementsOptions(toJson.result.engine_mounting.alignment_requirements);
+      setEngineBlockOptions(toJson.result.engine_mounting.engine_block);
     } catch (err) {
       console.log(err);
     }
   };
   useEffect(() => {
-    fetchEngineMake();
+    fetchGeneralColumnsList("", "");
+    fetchMountingColumnsList("", "")
+    fetchMaintenanceColumnsList("", "")
+    fetchSafetyColumnsList("", "")
+    fetchOilColumnsList("", "")
+    fetchTransmissionsColumnsList("", "")
+    fetchPropulsionColumnsList("", "")
+    fetchCoolingColumnsList("", "")
+    fetchElectricalColumnsList("", "")
+    fetchEmissionsColumnsList("", "")
+    fetchDimensionsColumnsList("", "")
+    fetchFuelColumnsList("", "")
+    fetchPerformanceColumnsList("", "")
+    fetchEquipmentColumnsList("", "")
   }, []);
+
   const errorDisplay = (fieldName) => {
     return <div style={{ color: "red" }}>{fieldName} field is required</div>;
   };
@@ -1282,7 +1213,8 @@ const EngineAdvert = () => {
                     value={form.engineMake}
                     setValue={(val) => {
                       setForm({ ...form, engineMake: val });
-                      fetchEngineModel(val);
+                      fetchGeneralColumnsList(val,"");
+                      // fetchEngineModel(val);
                       // fetchEngineModelYear(val);
                     }}
                     label={ENGINE_ADVERT.ENGINE_MAKE}
@@ -1323,20 +1255,20 @@ const EngineAdvert = () => {
                     setValue={(val) => {
                       setForm({ ...form, engineModel: val });
                       // fetchEngineModelYear(form.engineMake, val);
-                      fetchGeneralColumnsList(form.engineMake, val);
-                      fetchMountingColumnsList(form.engineMake, val)
-                      fetchMaintenanceColumnsList(form.engineMake, val)
-                      fetchSafetyColumnsList(form.engineMake, val)
-                      fetchOilColumnsList(form.engineMake, val)
-                      fetchTransmissionsColumnsList(form.engineMake, val)
-                      fetchPropulsionColumnsList(form.engineMake, val)
-                      fetchCoolingColumnsList(form.engineMake, val)
-                      fetchElectricalColumnsList(form.engineMake, val)
-                      fetchEmissionsColumnsList(form.engineMake, val)
-                      fetchDimensionsColumnsList(form.engineMake, val)
-                      fetchFuelColumnsList(form.engineMake, val)
-                      fetchPerformanceColumnsList(form.engineMake, val)
-                      fetchEquipmentColumnsList(form.engineMake, val)
+                      // fetchGeneralColumnsList(form.engineMake, val);
+                      // fetchMountingColumnsList(form.engineMake, val)
+                      // fetchMaintenanceColumnsList(form.engineMake, val)
+                      // fetchSafetyColumnsList(form.engineMake, val)
+                      // fetchOilColumnsList(form.engineMake, val)
+                      // fetchTransmissionsColumnsList(form.engineMake, val)
+                      // fetchPropulsionColumnsList(form.engineMake, val)
+                      // fetchCoolingColumnsList(form.engineMake, val)
+                      // fetchElectricalColumnsList(form.engineMake, val)
+                      // fetchEmissionsColumnsList(form.engineMake, val)
+                      // fetchDimensionsColumnsList(form.engineMake, val)
+                      // fetchFuelColumnsList(form.engineMake, val)
+                      // fetchPerformanceColumnsList(form.engineMake, val)
+                      // fetchEquipmentColumnsList(form.engineMake, val)
                     }}
                     label={ENGINE_ADVERT.ENGINE_MODEL}
                     options={engineModelOptions}
@@ -1410,13 +1342,13 @@ const EngineAdvert = () => {
                     value={form.typeDesignation}
                     setValue={(val) => {
                       setForm({ ...form, typeDesignation: val });
-                      fetchCondition(
-                        form.engineMake,
-                        form.engineModel,
-                        form.engineModelYear,
-                        form.engineType,
-                        val
-                      );
+                      // fetchCondition(
+                      //   form.engineMake,
+                      //   form.engineModel,
+                      //   form.engineModelYear,
+                      //   form.engineType,
+                      //   val
+                      // );
                     }}
                     label={ENGINE_ADVERT.TYPE_DESIGNATION}
                     options={typeDesignationOptions}

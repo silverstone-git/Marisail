@@ -16,6 +16,10 @@ function SelectComponent({
     e.stopPropagation();
     setValue("");
   };*/}
+  if(options == undefined) {
+    console.log("001 Options--",label,options);
+  }
+  
   return (
     <Accordion
       activeKey={openKey}
@@ -35,7 +39,7 @@ function SelectComponent({
           </span> */}
         </Accordion.Header>
         <Accordion.Body style={{ maxHeight: 200, overflowY: "auto" }}>
-          {options.map((item, index) => (
+          {options && options.map((item, index) => (
             <div
               key={index}
               style={{
@@ -55,7 +59,7 @@ function SelectComponent({
                 onChange={() => setValue(item)}
                 label={item}
               />
-              {item === value && (
+              {/* {item === value && (
                 <span
                   style={{
                     color: "#193e77",
@@ -68,7 +72,7 @@ function SelectComponent({
                 >
                   X
                 </span>
-              )}
+              )} */}
             </div>
           ))}
         </Accordion.Body>
