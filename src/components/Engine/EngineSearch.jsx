@@ -474,42 +474,51 @@ const Engines = () => {
       values: JSON.stringify(values),
     };
   };
+  function convertToArrayOfArrays(arr) {
+    if (!Array.isArray(arr)) {
+      console.error("Expected an array but got:", arr);
+      return []; // or handle as needed
+    }
 
-  // Function to fetch results from the API
+    return arr.map((item) => {
+      if (typeof item === "string") {
+        // Wrap the string in an array
+        return [item];
+      } else if (Array.isArray(item)) {
+        // Check if it's an array of arrays
+        return item.map((subItem) => {
+          // If subItem is a string, wrap it in an array
+          if (typeof subItem === "string") {
+            return [subItem];
+          }
+          // Otherwise, assume it's already an array
+          return subItem;
+        });
+      }
+      // Handle unexpected types if needed
+      console.warn("Unexpected item type:", typeof item);
+      return [];
+    });
+  }
+
   // Function to fetch results from the API
   const fetchResults = async () => {
     try {
       setLoading(true);
       setError(null);
 
-      // Default to empty arrays if null
-      const {
-        tables = [],
-        columns = [],
-        values = [],
-      } = getSelectionData() || {};
+      let { tables = [], columns = [], values = [] } = getSelectionData();
 
-      // Log to debug
-      console.log("Tables:", tables, "Columns:", columns, "Values:", values);
+      console.log("Extracted Tables:", tables);
+      console.log("Extracted Columns:", columns);
+      console.log("Extracted Values:", values);
+      console.log(convertToArrayOfArrays(values));
 
-      // Ensure join is used on valid arrays
-      const queryParams = new URLSearchParams();
+      // Construct the API URL
+      const url = `http://localhost:3001/api/search_engine/engines?tables=${tables}&columns=${columns}&values=${values}&page=${pagination.currentPage}&limit=${pagination.limit}`;
+      console.log("API URL:", url);
 
-      if (Array.isArray(tables) && tables.length > 0) {
-        queryParams.append("t", tables.join(","));
-      }
-      if (Array.isArray(columns) && columns.length > 0) {
-        queryParams.append("c", columns.join(","));
-      }
-      if (Array.isArray(values) && values.length > 0) {
-        queryParams.append("v", values.join(","));
-      }
-
-      queryParams.append("page", pagination.currentPage);
-      queryParams.append("limit", pagination.limit);
-
-      const url = `http://localhost:3001/api/search_engine/engines?${queryParams.toString()}`;
-
+      // Fetch data from the API
       const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -522,13 +531,9 @@ const Engines = () => {
       }
 
       const data = await response.json();
-
       console.log("API Response:", data);
 
-      // Check data structure and pagination details
-      console.log("Pagination Data:", data.pagination);
-      console.log("Data:", data.data);
-
+      // Update state with fetched data
       setEngines(data.data);
       setPagination({
         currentPage: data.pagination.currentPage,
@@ -544,7 +549,6 @@ const Engines = () => {
     }
   };
 
-  // Fetch results whenever selected options or pagination changes
   useEffect(() => {
     fetchResults();
   }, [selectedOptions, pagination.currentPage]);

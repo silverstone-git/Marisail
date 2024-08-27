@@ -160,15 +160,15 @@ searchEngineRouter.get("/:tableName/:columnName", async (req, res) => {
 searchEngineRouter.get("/engines", async (req, res) => {
   try {
     let connection = await dbConnection.getConnection();
-    console.log(req.query);
+    console.log("Query Parameters:", req.query);
 
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 21;
     const offset = (page - 1) * limit;
 
-    const tables = JSON.parse(req.query.t || "[]");
-    const columns = JSON.parse(req.query.c || "[]");
-    const values = JSON.parse(req.query.v || "[]");
+    const tables = JSON.parse(req.query.tables || "[]");
+    const columns = JSON.parse(req.query.columns || "[]");
+    const values = JSON.parse(req.query.values || "[]");
 
     if (
       !Array.isArray(tables) ||
@@ -180,98 +180,63 @@ searchEngineRouter.get("/engines", async (req, res) => {
         .json({ error: "Invalid query parameters format." });
     }
 
-    let countQuery = "SELECT COUNT(*) AS total FROM engine_general e";
-    const countQueryParams = [];
-
-    let staticJoins = `
-      LEFT JOIN engine_condition t1 ON e.engine_id = t1.engine_id
-      LEFT JOIN engine_cooling t2 ON e.engine_id = t2.engine_id
-      LEFT JOIN engine_dimensions t3 ON e.engine_id = t3.engine_id
-      LEFT JOIN engine_electrical t4 ON e.engine_id = t4.engine_id
-      LEFT JOIN engine_emissions t5 ON e.engine_id = t5.engine_id
-      LEFT JOIN engine_equipment t6 ON e.engine_id = t6.engine_id
-      LEFT JOIN engine_fuel t7 ON e.engine_id = t7.engine_id
-      LEFT JOIN engine_location t8 ON e.engine_id = t8.engine_id
-      LEFT JOIN engine_maintenance t9 ON e.engine_id = t9.engine_id
-      LEFT JOIN engine_mounting t10 ON e.engine_id = t10.engine_id
-      LEFT JOIN engine_oil t11 ON e.engine_id = t11.engine_id
-      LEFT JOIN engine_performance t12 ON e.engine_id = t12.engine_id
-      LEFT JOIN engine_propulsion t13 ON e.engine_id = t13.engine_id
-      LEFT JOIN engine_safety t14 ON e.engine_id = t14.engine_id
-      LEFT JOIN engine_transmission t15 ON e.engine_id = t15.engine_id
+    let dataQuery = `
+      SELECT 
+      e.engine_id,
+        e.engine_make, 
+        e.engine_model, 
+        e.engine_modelyear
+      FROM engine_general e
     `;
 
-    const aliasMap = {
-      engine_general: "e",
-      engine_condition: "t1",
-      engine_cooling: "t2",
-      engine_dimensions: "t3",
-      engine_electrical: "t4",
-      engine_emissions: "t5",
-      engine_equipment: "t6",
-      engine_fuel: "t7",
-      engine_location: "t8",
-      engine_maintenance: "t9",
-      engine_mounting: "t10",
-      engine_oil: "t11",
-      engine_performance: "t12",
-      engine_propulsion: "t13",
-      engine_safety: "t14",
-      engine_transmission: "t15",
-    };
+    let countQuery = "SELECT COUNT(*) AS total FROM engine_general e";
+    const queryParams = [];
+    const conditions = [];
 
-    let dynamicJoins = "";
-    let conditions = [];
-
-    tables.forEach((table, index) => {
-      if (columns[index] && values[index]) {
-        if (!aliasMap[table]) {
-          const alias = `t${Object.keys(aliasMap).length + 1}`;
-          dynamicJoins += ` LEFT JOIN ${table} ${alias} ON e.engine_id = ${alias}.engine_id `;
-          aliasMap[table] = alias;
-        }
-
-        const tableAlias = aliasMap[table];
-        conditions.push(`${tableAlias}.${columns[index]} LIKE ?`);
-        countQueryParams.push(`%${values[index]}%`);
+    // Construct conditions based on columns and values
+    columns.forEach((column, index) => {
+      const valueArray = values[index];
+      if (valueArray && valueArray.length) {
+        const columnConditions = valueArray
+          .map((value) => `e.${column} LIKE ?`)
+          .join(" OR ");
+        conditions.push(`(${columnConditions})`);
+        queryParams.push(...valueArray.map((value) => `%${value}%`));
       }
     });
 
+    // Add conditions to the query if any exist
     if (conditions.length > 0) {
-      countQuery += ` ${staticJoins} ${dynamicJoins} WHERE ${conditions.join(
-        " AND"
-      )}`;
+      const whereClause = `WHERE ${conditions.join(" AND ")}`;
+      dataQuery += ` ${whereClause}`;
+      countQuery += ` ${whereClause}`;
     }
 
+    // Add pagination
+    dataQuery += " LIMIT ? OFFSET ?";
+    queryParams.push(limit, offset);
+
+    console.log("Data Query:", dataQuery);
+    console.log("Data Query Params:", queryParams);
+
+    // Fetch the data
+    const [results] = await connection.query(dataQuery, queryParams);
+
+    // Prepare the count query for pagination purposes
     console.log("Count Query:", countQuery);
-    console.log("Count Query Params:", countQueryParams);
+    console.log(
+      "Count Query Params:",
+      queryParams.slice(0, queryParams.length - 2)
+    );
 
     const [[countResult]] = await connection.query(
       countQuery,
-      countQueryParams
+      queryParams.slice(0, queryParams.length - 2) // Remove LIMIT and OFFSET params
     );
     const totalRecords = countResult.total;
     const totalPages = Math.ceil(totalRecords / limit);
 
-    let dataQuery = `
-      SELECT e.*, t1.*, t2.*, t3.*, t4.*, t5.*, t6.*, t7.*, t8.*, t9.*, t10.*, t11.*, t12.*, t13.*, t14.*, t15.*
-      FROM engine_general e
-    `;
-
-    dataQuery += staticJoins + dynamicJoins;
-
-    if (conditions.length > 0) {
-      dataQuery += ` WHERE ${conditions.join(" OR ")}`;
-    }
-
-    dataQuery += " LIMIT ? OFFSET ?";
-    const dataQueryParams = [...countQueryParams, limit, offset];
-
-    console.log("Data Query:", dataQuery);
-    console.log("Data Query Params:", dataQueryParams);
-
-    const [results] = await connection.query(dataQuery, dataQueryParams);
-
+    // Respond with data and pagination
     res.json({
       data: results,
       pagination: {
