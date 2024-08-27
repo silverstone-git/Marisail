@@ -12,43 +12,65 @@ function SelectComponent({
   options,
   isMandatory,
 }) {
-  const clearSelection = (e) => {
+  {/* const clearSelection = (e) => {
     e.stopPropagation();
     setValue("");
-  };
+  };*/}
   return (
     <Accordion
       activeKey={openKey}
       onSelect={(eventKey) => setOpenKey(eventKey)}
     >
       <Accordion.Item eventKey={label}>
-        <Accordion.Header
-          style={{position: 'relative'}}
-        >
+        {/* <Accordion.Header style={{position: 'relative'}}> */}
+        <Accordion.Header style={{ position: "relative" }}>
           {label}
           {isMandatory && <span className="text-danger">&nbsp;*</span>}
-          <span style={{position: 'absolute', right: 35,  top: '50%', transform: 'translateY(-50%)'}}
+          {/* Clear Selection at section level */}
+          {/* <span style={{position: 'absolute', right: 35,  top: '50%', transform: 'translateY(-50%)'}}
             onClick={clearSelection}
             className="clear-selection-x"
           >
             X
-          </span>
+          </span> */}
         </Accordion.Header>
         <Accordion.Body style={{ maxHeight: 200, overflowY: "auto" }}>
-          {options.map((item, index) => {
-            return (
+          {options.map((item, index) => (
+            <div
+              key={index}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                cursor: "pointer",
+              }}
+              onClick={() => setValue(item)}
+            >
               <Form.Check
                 type="radio"
-                key={index}
                 className="custom-checkbox"
-                aria-label="radio 1"
+                aria-label={`radio-${index}`}
                 name={label}
                 checked={item === value}
                 onChange={() => setValue(item)}
                 label={item}
               />
-            );
-          })}
+              {item === value && (
+                <span
+                  style={{
+                    color: "#193e77",
+                    cursor: "pointer",
+                  }}
+                  onClick={(e) => {
+                    e.stopPropagation(); // Prevent the Accordion from toggling
+                    setValue(""); // Clear the selected value
+                  }}
+                >
+                  X
+                </span>
+              )}
+            </div>
+          ))}
         </Accordion.Body>
       </Accordion.Item>
     </Accordion>
