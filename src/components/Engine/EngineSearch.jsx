@@ -476,41 +476,65 @@ const Engines = () => {
   };
 
   // Function to fetch results from the API
+  // Function to fetch results from the API
   const fetchResults = async () => {
     try {
       setLoading(true);
       setError(null);
-      const { tables, columns, values } = getSelectionData(); // Ensure this returns the correct data
-      // URL Encoding
-      const encodedTables = encodeURIComponent(tables);
-      const encodedColumns = encodeURIComponent(columns);
-      const encodedValues = encodeURIComponent(values);
 
-      // const response = await axios.get(
-      //   `http://localhost:3001/api/search_engine/engines?t=${encodedTables}&c=${encodedColumns}&v=${encodedValues}&page=1&limit=21`,
-      //   {
-      //     params: {
-      //       tables: JSON.stringify(tables),
-      //       columns: JSON.stringify(columns),
-      //       values: JSON.stringify(values),
-      //       page: pagination.currentPage,
-      //       limit: pagination.limit,
-      //     },
-      //   }
-      // );
+      // Default to empty arrays if null
+      const {
+        tables = [],
+        columns = [],
+        values = [],
+      } = getSelectionData() || {};
 
-      console.log("API Response:", response.data);
+      // Log to debug
+      console.log("Tables:", tables, "Columns:", columns, "Values:", values);
+
+      // Ensure join is used on valid arrays
+      const queryParams = new URLSearchParams();
+
+      if (Array.isArray(tables) && tables.length > 0) {
+        queryParams.append("t", tables.join(","));
+      }
+      if (Array.isArray(columns) && columns.length > 0) {
+        queryParams.append("c", columns.join(","));
+      }
+      if (Array.isArray(values) && values.length > 0) {
+        queryParams.append("v", values.join(","));
+      }
+
+      queryParams.append("page", pagination.currentPage);
+      queryParams.append("limit", pagination.limit);
+
+      const url = `http://localhost:3001/api/search_engine/engines?${queryParams.toString()}`;
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch engines");
+      }
+
+      const data = await response.json();
+
+      console.log("API Response:", data);
 
       // Check data structure and pagination details
-      console.log("Pagination Data:", response.data.pagination);
-      console.log("Data:", response.data.data);
+      console.log("Pagination Data:", data.pagination);
+      console.log("Data:", data.data);
 
-      setEngines(response.data.data);
+      setEngines(data.data);
       setPagination({
-        currentPage: response.data.pagination.currentPage,
-        totalPages: response.data.pagination.totalPages,
-        totalRecords: response.data.pagination.totalRecords,
-        limit: response.data.pagination.limit,
+        currentPage: data.pagination.currentPage,
+        totalPages: data.pagination.totalPages,
+        totalRecords: data.pagination.totalRecords,
+        limit: data.pagination.limit,
       });
     } catch (error) {
       console.error("Error fetching results:", error);
@@ -629,20 +653,7 @@ const Engines = () => {
               >
                 Engine Details
               </legend>
-              <Row className="row-margin">
-                <Col md={12}>
-                  <Form.Group>
-                    <DropdownWithCheckBoxes
-                      title="Marisail Vessel ID"
-                      selectedOptions={selectedOptions}
-                      category="marisail_vesselid"
-                      onSelect={handleMultiSelectOption}
-                      tableName="engine_general"
-                      columnName="marisail_vesselid"
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
+
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
