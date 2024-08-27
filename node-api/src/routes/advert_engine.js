@@ -1132,7 +1132,7 @@ advertEngineRouter.get("/columnsList/engine_location", async (req, res) => {
 });
 
 advertEngineRouter.get("/columnsList/engine_maintenance", async (req, res) => {
-  let valid_tables = ["engine_location"];
+  let valid_tables = ["engine_maintenance"];
   let connection;
   let filterOptions = "";
   try {

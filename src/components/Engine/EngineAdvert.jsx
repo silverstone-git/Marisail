@@ -1058,6 +1058,88 @@ const EngineAdvert = () => {
     }
   };
 
+  const fetchEquipmentColumnsList = async (engineMake, engineModel) => {
+    const URL = `http://localhost:3001/api/advert_engine/columnsList/engine_equipment?engine_make=${encodeURIComponent(
+      engineMake
+    )}&engine_model=${encodeURIComponent(engineModel)}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      console.log("001 to json--", toJson);
+      //Equipment
+      setEngineManagementSystemOptions(toJson.EMS);
+      setEngineControlSystemOptions(toJson.engine_controlsystem);
+      setUnitInjectorsOptions(toJson.unit_injectors);
+      setTurboChargerOptions(toJson.turbocharger);
+      setTurboChargingOptions(toJson.turbo_charging);
+      setStarterMotorOptions(toJson.starter_motor);
+      setProtectionCoversOptions(toJson.protection_covers);
+      setClosedCrankcaseVentilationOptions(toJson.crankcase_ventilation);
+      setHeatExchangerOptions(toJson.heat_exchanger);
+      setHeatExchangerWithExpansionTankOptions(toJson.heat_exchanger_WET);
+      setSeaWaterPumpOptions(toJson.seawater_pump);
+      setSeaWaterCooledChargeAirCoolerOptions(toJson.charge_aircooler);
+      setWorkingPrincipleOptions(toJson.working_principle);
+      setCompressionRatioOptions(toJson.compression_ratio);
+      setPistonSpeedAt1500RpmOptions(toJson.pistonspeed_1500);
+      setPistonSpeedAt1800RpmOptions(toJson.pistonspeed_1800);
+      setFiringOrderOptions(toJson.firing_order);
+      setPistonsOptions(toJson.pistons);
+      setConnectionRodsOptions(toJson.connection_rods);
+      setAuxiliaryPowerTakeOffOptions(toJson.auxiliarypower_takeoff);
+      setRemoteControlSystemsOptions(toJson.remote_controlsystems);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fetchPerformanceColumnsList = async (engineMake, engineModel) => {
+    const URL = `http://localhost:3001/api/advert_engine/columnsList/engine_performance?engine_make=${encodeURIComponent(
+      engineMake
+    )}&engine_model=${encodeURIComponent(engineModel)}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      console.log("001 to json--", toJson);
+      //Performance
+      setNominalRatingOptions(toJson.nomial_rating);
+      setEnginePerformanceOptions(toJson.engine_performance);
+      setMaxPowerOutputOptions(toJson.max_powerOutput);
+      setMaxPowerBHPOptions(toJson.max_power);
+      setMaxSpeedKnotsOptions(toJson.max_speed);
+      setSuperchargedOptions(toJson.supercharged);
+      setValveTrainOptions(toJson.valve_train);
+      setGrossPowerFullLoadKwOptions(toJson.GP_fullloadKW);
+      setGrossPowerFullLoadOptions(toJson.GP_fullloadmetric);
+      setGrossPowerPropellerCurveKwOptions(toJson.GP_propellercurveKW);
+      setGrossPowerPropellerCurveOptions(toJson.GP_propellercurvemetric);
+      setGrossTorqueOptions(toJson.gross_torque);
+      setContinuousPowerOptions(toJson.continouspower_KWHP);
+      setMaxContinuousRatingOptions(toJson.Max_Continousrating);
+      setEngineSpeedRangeOptions(toJson.Engine_speedrange);
+      setEngineEfficiencyOptions(toJson.engine_efficiency);
+      setPowerToWeightRatioOptions(toJson.powertoweight_ratio);
+
+      //Cylinders
+      setCylinderConfigurationOptions(toJson.cylinder_configuration);
+      setNumberCylindersOptions(toJson.number_cylinders);
+      setCylindersArrangementOptions(toJson.cylinders_arrangement);
+      setNumberValvesOptions(toJson.number_valves);
+      setBoreStrokeOptions(toJson.bore_stroke);
+      setBoreOptions(toJson.bore);
+
+      setIdleRPMOptions(toJson.idle_rpm);
+      setRPMMaxPowerOptions(toJson.rpm_maxpower);
+      setRatedSpeedOptions(toJson.rated_speed);
+      setMaxTorqueOptions(toJson.max_torque);
+      setMaxTorqueRPMOptions(toJson.max_torquerpm);
+      setTorqueRatedSpeed(toJson.torque_ratedspeed);
+      setValvePerCylinderOptions(toJson.valve_percylinder);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const fetchMaintenanceColumnsList = async (engineMake, engineModel) => {
     const URL = `http://localhost:3001/api/advert_engine/columnsList/engine_maintenance?engine_make=${encodeURIComponent(
       engineMake
@@ -1253,6 +1335,8 @@ const EngineAdvert = () => {
                       fetchEmissionsColumnsList(form.engineMake, val)
                       fetchDimensionsColumnsList(form.engineMake, val)
                       fetchFuelColumnsList(form.engineMake, val)
+                      fetchPerformanceColumnsList(form.engineMake, val)
+                      fetchEquipmentColumnsList(form.engineMake, val)
                     }}
                     label={ENGINE_ADVERT.ENGINE_MODEL}
                     options={engineModelOptions}
