@@ -82,6 +82,10 @@
   overflow: hidden;
   transition: transform 0.2s;
 }
+.custom-card-link {
+  text-decoration: none;
+  color: inherit;
+}
 
 .custom-card:hover {
   transform: scale(1.02);
