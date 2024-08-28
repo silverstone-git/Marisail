@@ -16,6 +16,7 @@ import {
 import DropdownWithRadioButtons from "../DropdownWithRadioButtons";
 
 import "./engineSearch.scss";
+import Loader from "../Loader";
 const Engines = () => {
   const [columns, setColumns] = useState([]);
   const [selectedColumn, setSelectedColumn] = useState("");
@@ -120,7 +121,7 @@ const Engines = () => {
     //oil
     oil_filtertype: [],
   });
-  // todayyy
+
   const dropdownConfig = {
     marisail_vesselid: {
       tableName: "engine_general",
@@ -464,7 +465,7 @@ const Engines = () => {
       if (value && value.length > 0) {
         tables.add(tableName);
         columns.add(columnName);
-        values.push(value);
+        values.push(Array.isArray(value) ? value : [value]);
       }
     });
 
@@ -474,32 +475,6 @@ const Engines = () => {
       values: JSON.stringify(values),
     };
   };
-  function convertToArrayOfArrays(arr) {
-    if (!Array.isArray(arr)) {
-      console.error("Expected an array but got:", arr);
-      return []; // or handle as needed
-    }
-
-    return arr.map((item) => {
-      if (typeof item === "string") {
-        // Wrap the string in an array
-        return [item];
-      } else if (Array.isArray(item)) {
-        // Check if it's an array of arrays
-        return item.map((subItem) => {
-          // If subItem is a string, wrap it in an array
-          if (typeof subItem === "string") {
-            return [subItem];
-          }
-          // Otherwise, assume it's already an array
-          return subItem;
-        });
-      }
-      // Handle unexpected types if needed
-      console.warn("Unexpected item type:", typeof item);
-      return [];
-    });
-  }
 
   // Function to fetch results from the API
   const fetchResults = async () => {
@@ -508,11 +483,6 @@ const Engines = () => {
       setError(null);
 
       let { tables = [], columns = [], values = [] } = getSelectionData();
-
-      console.log("Extracted Tables:", tables);
-      console.log("Extracted Columns:", columns);
-      console.log("Extracted Values:", values);
-      console.log(convertToArrayOfArrays(values));
 
       // Construct the API URL
       const url = `http://localhost:3001/api/search_engine/engines?tables=${tables}&columns=${columns}&values=${values}&page=${pagination.currentPage}&limit=${pagination.limit}`;
@@ -2008,15 +1978,25 @@ const Engines = () => {
               </h1>
             </Col>
           </Row>
-          <Row>
-            {engines.map((engine) => (
-              <Col md={4}>
-                <EngineCard key={engine.engine_id} {...engine} />
-              </Col>
-            ))}
-          </Row>
-
-          <Pagination totalPages={pagination.totalPages} />
+          {loading ? (
+            // <p>Loading...</p>
+            <Loader />
+          ) : (
+            <Row>
+              {engines.length === 0 ? (
+                <Col md={12}>
+                  <p>No Results Found</p>
+                </Col>
+              ) : (
+                engines.map((engine) => (
+                  <Col key={engine.engine_id} md={4}>
+                    <EngineCard {...engine} />
+                  </Col>
+                ))
+              )}
+            </Row>
+          )}
+          {!loading ? <Pagination totalPages={pagination.totalPages} /> : <></>}
         </Col>
       </Row>
     </Container>

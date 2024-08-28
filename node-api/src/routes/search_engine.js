@@ -105,7 +105,6 @@ searchEngineRouter.get("/engine-detail/:id", async (req, res) => {
 // Desc     :   Endpoint to get columns against a table
 searchEngineRouter.get("/:tableName/:columnName", async (req, res) => {
   const { tableName, columnName } = req.params;
-  const { engine_make } = req.query; // Get the engine_make from the query parameters
   let connection;
 
   try {
@@ -135,21 +134,18 @@ searchEngineRouter.get("/:tableName/:columnName", async (req, res) => {
         .json({ ok: false, message: `Invalid column name: ${columnName}` });
     }
 
-    // SQL query to filter by engine_make, get distinct column values, and count them
-    let sql = `
-      SELECT DISTINCT ?? AS value, COUNT(*) AS count 
-      FROM ?? 
-      WHERE engine_make = ? 
-      GROUP BY ??
-      ORDER BY count DESC
-    `;
-    let queryParams = [columnName, tableName, engine_make, columnName];
-
-    const [rows] = await connection.query(sql, queryParams);
+    // Use placeholders for dynamic table and column names
+    const [rows] = await connection.query(
+      `SELECT ??, COUNT(*) as count FROM ?? GROUP BY ?? ORDER BY ??`,
+      [columnName, tableName, columnName, columnName]
+    );
 
     return res.status(200).json({
       ok: true,
-      result: rows,
+      result: rows.map((row) => ({
+        value: row[columnName],
+        count: row.count,
+      })),
     });
   } catch (err) {
     return res.status(500).json({ ok: false, message: err.message });
@@ -157,7 +153,6 @@ searchEngineRouter.get("/:tableName/:columnName", async (req, res) => {
     if (connection) connection.release();
   }
 });
-
 // Path     :   /api/search_engine/engines
 // Method   :   Get
 // Access   :   Public
