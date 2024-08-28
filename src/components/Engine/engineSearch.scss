@@ -468,6 +468,76 @@
 .pagination button:hover:not(.active):not(:disabled) {
   background-color: #e9ecef;
 }
+
+.details-panel-container {
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.details-panel-header {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.details-panel-content {
+  padding: 0.5rem 0;
+}
+
+.details-panel-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 2rem;
+}
+
+.details-panel-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.25rem 0;
+}
+
+.details-panel-item strong {
+  margin-right: 1rem;
+}
+// engine detail in tables
+.details-panel-container {
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.details-panel-header {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.details-panel-content {
+  padding: 0.5rem 0;
+}
+
+.details-panel-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.details-panel-table td {
+  padding: 0.5rem;
+  vertical-align: top;
+  padding-left: 163px;
+}
+
+.details-panel-key {
+  text-align: left;
+  width: 15%; /* Adjust width based on your preference */
+}
+
+.details-panel-value {
+  text-align: left;
+  width: 50%; /* Adjust width based on your preference */
+}
+
 //  CSS FOR IMAGE GALLERY
 .gallery-container {
   display: flex;
