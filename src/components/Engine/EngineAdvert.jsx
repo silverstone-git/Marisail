@@ -1214,8 +1214,6 @@ const EngineAdvert = () => {
                     setValue={(val) => {
                       setForm({ ...form, engineMake: val });
                       fetchGeneralColumnsList(val,"");
-                      // fetchEngineModel(val);
-                      // fetchEngineModelYear(val);
                     }}
                     label={ENGINE_ADVERT.ENGINE_MAKE}
                     options={engineMakeOptions}
@@ -1254,21 +1252,20 @@ const EngineAdvert = () => {
                     value={form.engineModel}
                     setValue={(val) => {
                       setForm({ ...form, engineModel: val });
-                      // fetchEngineModelYear(form.engineMake, val);
-                      // fetchGeneralColumnsList(form.engineMake, val);
-                      // fetchMountingColumnsList(form.engineMake, val)
-                      // fetchMaintenanceColumnsList(form.engineMake, val)
-                      // fetchSafetyColumnsList(form.engineMake, val)
-                      // fetchOilColumnsList(form.engineMake, val)
-                      // fetchTransmissionsColumnsList(form.engineMake, val)
-                      // fetchPropulsionColumnsList(form.engineMake, val)
-                      // fetchCoolingColumnsList(form.engineMake, val)
-                      // fetchElectricalColumnsList(form.engineMake, val)
-                      // fetchEmissionsColumnsList(form.engineMake, val)
-                      // fetchDimensionsColumnsList(form.engineMake, val)
-                      // fetchFuelColumnsList(form.engineMake, val)
-                      // fetchPerformanceColumnsList(form.engineMake, val)
-                      // fetchEquipmentColumnsList(form.engineMake, val)
+                      fetchGeneralColumnsList(form.engineMake, val);
+                      fetchMountingColumnsList(form.engineMake, val)
+                      fetchMaintenanceColumnsList(form.engineMake, val)
+                      fetchSafetyColumnsList(form.engineMake, val)
+                      fetchOilColumnsList(form.engineMake, val)
+                      fetchTransmissionsColumnsList(form.engineMake, val)
+                      fetchPropulsionColumnsList(form.engineMake, val)
+                      fetchCoolingColumnsList(form.engineMake, val)
+                      fetchElectricalColumnsList(form.engineMake, val)
+                      fetchEmissionsColumnsList(form.engineMake, val)
+                      fetchDimensionsColumnsList(form.engineMake, val)
+                      fetchFuelColumnsList(form.engineMake, val)
+                      fetchPerformanceColumnsList(form.engineMake, val)
+                      fetchEquipmentColumnsList(form.engineMake, val)
                     }}
                     label={ENGINE_ADVERT.ENGINE_MODEL}
                     options={engineModelOptions}
