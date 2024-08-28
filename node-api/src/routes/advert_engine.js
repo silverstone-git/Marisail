@@ -123,7 +123,7 @@ advertEngineRouter.get("/columnsList/:tableName", async (req, res) => {
           const columnName = column.Field;
 
           const [rows] = await connection.query(
-            `SELECT DISTINCT ?? FROM ?? WHERE engine_id IN (?) GROUP BY ?? ORDER BY count(*) DESC LIMIT 0,2`,
+            `SELECT DISTINCT ?? FROM ?? WHERE engine_id IN (?) GROUP BY ?? ORDER BY count(*) DESC LIMIT 0,1`,
             [
               columnName,
               tableName,
