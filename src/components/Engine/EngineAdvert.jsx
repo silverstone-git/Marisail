@@ -840,7 +840,7 @@ const EngineAdvert = () => {
 
   const fetchGeneralColumnsList = async (engineMake, engineModel) => {
     setLoading(true);
-    const URL = `http://localhost:3001/api/advert_engine/columnsList?engine_make=${encodeURIComponent(
+    const URL = `http://localhost:3001/api/advert_engine/columns?engine_make=${encodeURIComponent(
       engineMake
     )}&engine_model=${encodeURIComponent(engineModel)}`;
     try {
