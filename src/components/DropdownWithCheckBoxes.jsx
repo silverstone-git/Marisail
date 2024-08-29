@@ -15,12 +15,24 @@ const DropdownWithCheckBoxes = ({
   const [error, setError] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
 
+  // Extract engine make and model from selectedOptions, default to null if not present
+  const engineMake = selectedOptions["engine_make"]
+    ? selectedOptions["engine_make"][0]
+    : null;
+  const engineModel = selectedOptions["engine_model"]
+    ? selectedOptions["engine_model"][0]
+    : null;
+
   useEffect(() => {
     const loadDistinctValues = async () => {
       setLoading(true);
       try {
-        const values = await fetchDistinctValues(tableName, columnName);
-        // console.log(values);
+        const values = await fetchDistinctValues(
+          tableName,
+          columnName,
+          engineMake,
+          engineModel
+        );
         setDistinctValues(values);
       } catch (err) {
         setError(err.message);
@@ -32,7 +44,7 @@ const DropdownWithCheckBoxes = ({
     if (tableName && columnName) {
       loadDistinctValues();
     }
-  }, [tableName, columnName]);
+  }, [tableName, columnName, engineMake, engineModel]); // Add engineMake and engineModel as dependencies
 
   const handleDropdownToggle = () => {
     setIsOpen((prev) => !prev);
@@ -90,9 +102,9 @@ const DropdownWithCheckBoxes = ({
                       label={`${item.value} (${item.count || 5})`}
                       checked={
                         selectedOptions[category] &&
-                        selectedOptions[category].includes(item.value) // Compare using item.value
+                        selectedOptions[category].includes(item.value)
                       }
-                      onChange={() => handleOptionChange(item.value)} // Pass item.value to the handler
+                      onChange={() => handleOptionChange(item.value)}
                     />
                   </div>
                 ))
