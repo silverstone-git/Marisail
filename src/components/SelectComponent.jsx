@@ -16,9 +16,9 @@ function SelectComponent({
     e.stopPropagation();
     setValue("");
   };*/}
-  if(options == undefined) {
-    console.log("001 Options--",typeof options, label, options);
-  }
+  // if(options == undefined) {
+  //   console.log("001 Options--",typeof options, label, options);
+  // }
   
   return (
     <Accordion
