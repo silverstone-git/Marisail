@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import EngineDetailsPanel from "./EngineDetailPanel";
+import Loader from "../Loader";
+import { Col, Row } from "react-bootstrap";
 
 const EngineDetail = () => {
   const { id } = useParams();
@@ -44,36 +46,18 @@ const EngineDetail = () => {
           "Engine Model Year": engine.engine_modelyear,
           "Engine Type": engine.engine_type,
           "Type Designation": engine.type_designation,
-          "Engine Year": engine.engine_year,
-          "Engine Serial": engine.engine_serial,
-          "CE Design Category": engine.ce_category,
-          "Number Drives": engine.number_drives,
-          "Number Engines": engine.number_engines,
-          "Engine Range (Miles)": engine.engine_range,
-          "Cruising Speed (Knots)": engine.cruise_speed,
-          "Drive Type": engine.drive_type,
-          "Engine Hours": engine.engine_hours,
-          "Ignition System (Starting)": engine.ignition_system,
-          "Noise Level (dB)": engine.noiselevel_db,
-          "Engine Soundproofing Kits": engine.enginesound_proofingkits,
+          "Asking Price": engine.asking_price,
         },
       },
       {
-        title: "General",
+        title: "Condition",
         details: {
-          "Engine Classification": engine.engine_classifiable,
-          Certification: engine.engine_certification,
-          "Manufacturer Warranty": engine.manufacture_warranty,
-          "Engine Serial Number": engine.engine_serial,
-          "CE Design Category": engine.ce_category,
-          "Number Drives": engine.number_drives,
-          "Number Engines": engine.number_engines,
-          "Range (Miles)": engine.engine_range,
-          "Cruising Speed (Knots)": engine.cruise_speed,
-          "Drive Type": engine.drive_type,
-          "Ignition System (Starting)": engine.ignition_system,
-          "Noise Level (dB)": engine.noiselevel_db,
-          "Engine Soundproofing Kits": engine.enginesound_proofingkits,
+          Condition: engine.condition_1,
+          "Used Condition": engine.used_condition,
+          Seller: engine.seller,
+          "Offered By (Dealer)": engine.offered_by,
+          "Last Survey Date": engine.lastsurvey_date,
+          "Broker Valuation": engine.broker_valuation,
         },
       },
       {
@@ -88,6 +72,22 @@ const EngineDetail = () => {
           Camshaft: engine.camshaft,
           "Crankshaft Alloy": engine.crankshaft_alloy,
           "Crankcase Design": engine.crankcase_design,
+        },
+      },
+      {
+        title: "Dimensions",
+        details: {
+          Displacement: engine.displacement,
+          "Length (mm)": engine.length,
+          "Width (mm)": engine.width,
+          "Height (mm)": engine.height,
+          "Length From Front End To Edge Of Flywheel Housing (mm)":
+            engine.Engine_length,
+          "Engine Weight": engine.engine_weight,
+          "Dry Weight (Kg)": engine.dry_weight,
+          "Weight (Excl Oil And Coolant)": engine.weight_excloil,
+          "Weight With Heat Exchanger": engine.weight_heatexchanger,
+          "Weight With Keel Cooling": engine.weight_keelcooling,
         },
       },
       {
@@ -110,86 +110,6 @@ const EngineDetail = () => {
           "Availability of Spare Parts": engine.availability_spareparts,
           "Operation Mode": engine.operation_mode,
           "Last Service Date": engine.last_servicedate,
-        },
-      },
-      {
-        title: "Equipment",
-        details: {
-          "Engine Management System (EMS)": engine.engine_monitoringsystem,
-          "Engine Control System": engine.engine_controlsystem,
-          "Unit Injectors": engine.unit_injectors,
-          Turbocharger: engine.turbocharger,
-          Turbocharging: engine.turbocharging,
-          "Starter Motor": engine.starter_motor,
-          "Protection Covers": engine.protection_covers,
-          "Closed Crankcase Ventilation": engine.closed_crankcase_ventilation,
-          "Heat Exchanger": engine.heat_exchanger,
-          "Heat Exchanger With Expansion Tank":
-            engine.heat_exchanger_with_expansion_tank,
-          "Sea Water Pump": engine.sea_water_pump,
-          "Sea Water-Cooled Charge Air Cooler":
-            engine.sea_water_cooled_charge_air_cooler,
-          "Working Principle": engine.working_principle,
-          "Compression Ratio": engine.compression_ratio,
-          "Piston Speed At 1500 RPM": engine.piston_speed_at_1500_rpm,
-          "Piston Speed At 1800 RPM": engine.piston_speed_at_1800_rpm,
-          "Firing Order": engine.firing_order,
-          Pistons: engine.pistons,
-          "Connection Rods": engine.connection_rods,
-          "Auxiliary Power Take-Off (PTO)": engine.auxiliary_power_takeoff,
-          "Remote Control Systems": engine.remote_control_systems,
-        },
-      },
-      {
-        title: "Dimensions",
-        details: {
-          Displacement: engine.displacement,
-          "Length (mm)": engine.length,
-          "Width (mm)": engine.width,
-          "Height (mm)": engine.height,
-          "Length From Front End To Edge Of Flywheel Housing (mm)":
-            engine.Engine_length,
-          "Engine Weight": engine.engine_weight,
-          "Dry Weight (Kg)": engine.dry_weight,
-          "Weight (Excl Oil And Coolant)": engine.weight_excloil,
-          "Weight With Heat Exchanger": engine.weight_heatexchanger,
-          "Weight With Keel Cooling": engine.weight_keelcooling,
-        },
-      },
-      {
-        title: "Performance",
-        details: {
-          "Nominal Rating (Kw) (HP)": engine.nominal_rating,
-          "Engine Performance": engine.engine_performance,
-          "Max Power Output": engine.max_poweroutput,
-          "Max. Power (BHP)": engine.max_power,
-          "Max. Speed (Knots)": engine.max_speed,
-          Supercharged: engine.supercharged,
-          "Valve Train": engine.valve_train,
-          "Gross Power, Full Load (Kw)": engine.GP_fullloadKW,
-          "Gross Power, Full Load (Hp, Metric)": engine.GP_fullloadmetric,
-          "Gross Power, Propeller Curve (Kw)": engine.GP_propellercurveKW,
-          "Gross Power, Propeller Curve (Hp, Metric)":
-            engine.GP_propellercurvemetric,
-          "Gross Torque (Nm)": engine.gross_torque,
-          "Continuous Power (kW/HP)": engine.continuouspower_KWHP,
-          "Maximum Continuous Rating (MCR)": engine.Max_Continuousrating,
-          "Engine Speed Range (RPM)": engine.Engine_speedrange,
-          "Engine Efficiency": engine.engine_efficiency,
-          "Power-to-Weight Ratio": engine.powertoweight_ratio,
-        },
-      },
-      {
-        title: "Cylinders",
-        details: {
-          "Cylinder Configuration": engine.cylinder_configuration,
-          "Number Cylinders": engine.number_cylinders,
-          "Cylinders And Arrangement": engine.cylinders_arrangement,
-          "Number Valves": engine.number_valves,
-          "Valve per Cylinder": engine.valve_percylinder,
-          "Bore X Stroke": engine.bore_stroke,
-          Bore: engine.bore,
-          Stroke: engine.stroke,
         },
       },
       {
@@ -230,6 +150,102 @@ const EngineDetail = () => {
         },
       },
       {
+        title: "General",
+        details: {
+          "Engine Classification": engine.engine_classifiable,
+          Certification: engine.engine_certification,
+          "Manufacturer Warranty": engine.manufacture_warranty,
+          "Engine Serial Number": engine.engine_serial,
+          "CE Design Category": engine.ce_category,
+          "Number Drives": engine.number_drives,
+          "Number Engines": engine.number_engines,
+          "Range (Miles)": engine.engine_range,
+          "Cruising Speed (Knots)": engine.cruise_speed,
+          "Drive Type": engine.drive_type,
+          "Ignition System (Starting)": engine.ignition_system,
+          "Noise Level (dB)": engine.noiselevel_db,
+          "Engine Soundproofing Kits": engine.enginesound_proofingkits,
+        },
+      },
+
+      {
+        title: "Equipment",
+        details: {
+          "Engine Management System (EMS)": engine.EMS,
+          "Engine Control System": engine.engine_controlsystem,
+          "Unit Injectors": engine.unit_injectors,
+          Turbocharger: engine.turbocharger,
+          Turbocharging: engine.turbo_charging,
+          "Starter Motor": engine.starter_motor,
+          "Protection Covers": engine.protection_covers,
+          "Closed Crankcase Ventilation": engine.crankcase_ventilation,
+          "Heat Exchanger": engine.heat_exchanger,
+          "Heat Exchanger With Expansion Tank": engine.heat_exchanger_WET,
+          "Sea Water Pump": engine.sea_water_pump,
+          "Sea Water-Cooled Charge Air Cooler": engine.charge_aircooler,
+          "Working Principle": engine.working_principle,
+          "Compression Ratio": engine.compression_ratio,
+          "Piston Speed At 1500 RPM": engine.pistonspeed_1500,
+          "Piston Speed At 1800 RPM": engine.pistonspeed_1800,
+          "Firing Order": engine.firing_order,
+          Pistons: engine.pistons,
+          "Connection Rods": engine.connection_rods,
+          "Auxiliary Power Take-Off (PTO)": engine.auxiliarypower_takeoff,
+          "Remote Control Systems": engine.remote_controlsystems,
+        },
+      },
+
+      {
+        title: "Performance",
+        details: {
+          "Nominal Rating (Kw) (HP)": engine.nominal_rating,
+          "Engine Performance": engine.engine_performance,
+          "Max Power Output": engine.max_poweroutput,
+          "Max. Power (BHP)": engine.max_power,
+          "Max. Speed (Knots)": engine.max_speed,
+          Supercharged: engine.supercharged,
+          "Valve Train": engine.valve_train,
+          "Gross Power, Full Load (Kw)": engine.GP_fullloadKW,
+          "Gross Power, Full Load (Hp, Metric)": engine.GP_fullloadmetric,
+          "Gross Power, Propeller Curve (Kw)": engine.GP_propellercurveKW,
+          "Gross Power, Propeller Curve (Hp, Metric)":
+            engine.GP_propellercurvemetric,
+          "Gross Torque (Nm)": engine.gross_torque,
+          "Continuous Power (kW/HP)": engine.continuouspower_KWHP,
+          "Maximum Continuous Rating (MCR)": engine.Max_Continuousrating,
+          "Engine Speed Range (RPM)": engine.Engine_speedrange,
+          "Engine Efficiency": engine.engine_efficiency,
+          "Power-to-Weight Ratio": engine.powertoweight_ratio,
+        },
+      },
+      {
+        title: "Fuel System",
+        details: {
+          "Electronic Fuel Injection (EFI)": engine.electronic_fuel_injection,
+          "Fuel Pre-Filter": engine.fuel_pre_filter,
+          "Fuel Filter": engine.fuel_filter,
+          "Fuel Filter Type": engine.fuel_filter_type,
+          "Fuel Reserve (Holding Tank) (Litres)":
+            engine.fuel_reserve_holding_tank,
+          "Fuel System": engine.fuel_system,
+          "Fuel Tank Capacity (Litres)": engine.fuel_tank_capacity,
+          "Fuel Type": engine.fuel_type,
+          "Lowest Specific Fuel Consumption (G/Kwh)":
+            engine.lowest_specific_fuel_consumption,
+          "Recommended Fuel": engine.recommended_fuel,
+          "Fuel Consumption At Cruising Speed (Litres)":
+            engine.fuel_consumption_cruising_speed,
+          "Fuel Consumption Rate": engine.fuel_consumption_rate,
+          "Fuel Consumption At Full Load (G/Kwh)":
+            engine.fuel_consumption_full_load,
+          "Fuel Injection System Type": engine.fuel_injection_system_type,
+          "Fuel Delivery Pressure": engine.fuel_delivery_pressure,
+          "Fuel Tank Material": engine.fuel_tank_material,
+          "Fuel Line Diameter": engine.fuel_line_diameter,
+        },
+      },
+
+      {
         title: "Propulsion System",
         details: {
           Propulsion: engine.propulsion,
@@ -249,12 +265,89 @@ const EngineDetail = () => {
         },
       },
       {
+        title: "Fuel Consumption",
+        details: {
+          "Fuel Consumption": engine.fuel_consumption,
+          "Fuel Consumption At 3/4 Load (G/Kwh)":
+            engine.fuel_consumption_3_4_load,
+          "Fuel Consumption At 1/2 Load (G/Kwh)":
+            engine.fuel_consumption_1_2_load,
+          "Fuel Consumption, Propeller Curve (L/H)":
+            engine.fuel_consumption_propeller_curve,
+          "Heat Rejection To Coolant (Kw)": engine.heat_rejection_to_coolant,
+        },
+      },
+      {
         title: "Safety and Monitoring",
         details: {
           "Engine Monitoring Systems": engine.engine_monitoringsystem,
           "Overheat Protection": engine.overheat_protection,
           "Low Oil Pressure Alarm": engine.lowoil_pressurealarm,
           "Emergency Stop System": engine.emergency_stopsystem,
+        },
+      },
+
+      {
+        title: "Cylinders",
+        details: {
+          "Cylinder Configuration": engine.cylinder_configuration,
+          "Number Cylinders": engine.number_cylinders,
+          "Cylinders And Arrangement": engine.cylinders_arrangement,
+          "Number Valves": engine.number_valves,
+          "Valve per Cylinder": engine.valve_percylinder,
+          "Bore X Stroke": engine.bore_stroke,
+          Bore: engine.bore,
+          Stroke: engine.stroke,
+        },
+      },
+      {
+        title: "Electrical System",
+        details: {
+          Alternator: engine.alternator,
+          "Alternator Output": engine.alternator_output,
+          "Battery Type": engine.battery_type,
+          "Battery Voltage": engine.battery_voltage,
+          "Generator Output (kW)": engine.generator_output_kw,
+          "Alternator Output (Amps)": engine.alternator_output_amps,
+          "Starter Motor Voltage": engine.starter_motor_voltage,
+          "Engine Control Unit (ECU) Model": engine.ecu_model,
+          "Battery Charging System": engine.battery_charging_system,
+          "Integrated Generator": engine.integrated_generator,
+        },
+      },
+      {
+        title: "Oil System",
+        details: {
+          Oil: engine.oil,
+          "Oil Filter": engine.oil_filter,
+          "Oil Filter Type": engine.oil_filter_type,
+          "Centrifugal Oil Cleaner": engine.centrifugal_oil_cleaner,
+          "Oil Cooler": engine.oil_cooler,
+          "Oil Filler": engine.oil_filler,
+          "Oil Dipstick": engine.oil_dipstick,
+          "Recommended Oil": engine.recommended_oil,
+          "Oil Capacity": engine.oil_capacity,
+          "Oil Change Interval": engine.oil_change_interval,
+          "Oil Cooling Method": engine.oil_cooling_method,
+          "Lubrication Oil Pressure": engine.lubrication_oil_pressure,
+          "Oil Filter Bypass Valve": engine.oil_filter_bypass_valve,
+        },
+      },
+      {
+        title: "Emissions & Environment",
+        details: {
+          "Emission Compliance": engine.emission_compliance,
+          "Exhaust System": engine.exhaust_system,
+          "Exhaust System Type": engine.exhaust_system_type,
+          "Exhaust Gas After Treatment": engine.exhaust_gas_after_treatment,
+          "Exhaust Gas Status": engine.exhaust_gas_status,
+          "Exhaust Valve Timing": engine.exhaust_valve_timing,
+          "Intake Valve Timing": engine.intake_valve_timing,
+          "Emission Control Technology": engine.emission_control_technology,
+          "NOx Emissions (g/kWh)": engine.nox_emissions,
+          "SOx Emissions (g/kWh)": engine.sox_emissions,
+          "CO2 Emissions (g/kWh)": engine.co2_emissions,
+          "Compliance With IMO Standards": engine.compliance_with_imo_standards,
         },
       },
       {
@@ -301,7 +394,7 @@ const EngineDetail = () => {
     "https://cdn.pixabay.com/photo/2020/05/29/21/46/seascape-5236865_960_720.jpg",
     "https://cdn.pixabay.com/photo/2020/05/29/21/46/seascape-5236865_960_720.jpg",
   ];
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader />;
   if (error) return <p>Error: {error}</p>;
   if (!engine) return <p>No engine details available.</p>;
 
@@ -330,13 +423,16 @@ const EngineDetail = () => {
           </div>
         </div>
         <div>
-          {panelData.map((section) => (
-            <EngineDetailsPanel
-              key={section.title}
-              title={section.title}
-              details={section.details}
-            />
-          ))}
+          <Row>
+            {panelData.map((section, index) => (
+              <Col key={index} md={6}>
+                <EngineDetailsPanel
+                  title={section.title}
+                  details={section.details}
+                />
+              </Col>
+            ))}
+          </Row>
         </div>
       </div>
     </div>

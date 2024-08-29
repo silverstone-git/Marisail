@@ -11,7 +11,7 @@ const SearchBar = ({ selectedTags, removeTag, resetTags, onChange }) => {
           width: "80%",
         }}
       >
-        <h3 className="h3-0">Your Engine Search</h3>
+        {/* <h3 className="h3-0">Your Engine Search</h3> */}
         {selectedTags.length > 0 && (
           <span
             onClick={resetTags}
@@ -27,17 +27,14 @@ const SearchBar = ({ selectedTags, removeTag, resetTags, onChange }) => {
         )}
       </div>
 
-      <div
-        id="selected-tags"
-        style={{ borderBottom: "2px solid rgb(245, 245, 245)", width: "80%" }}
-      >
+      <div id="selected-tags">
         {selectedTags.map((tag, index) => (
           <div
             className="tag"
             key={index}
             style={{
               display: "inline-block",
-              margin: "5px",
+              marginBottom: "1rem",
               padding: "5px",
               background: "#e0e0e0",
               borderRadius: "5px",

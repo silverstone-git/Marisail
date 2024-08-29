@@ -540,18 +540,6 @@ const Engines = () => {
     loadColumns();
   }, []);
 
-  // useEffect(() => {
-  //   fetchEngines(
-  //     page,
-  //     limit,
-  //     search,
-  //     setLoading,
-  //     setError,
-  //     setEngines,
-  //     setPagination
-  //   );
-  // }, [page, search]);
-
   const handleSearchChange = (e) => {
     console.log("Search input changed:", e.target.value);
     setSearch(e.target.value);
@@ -599,11 +587,8 @@ const Engines = () => {
       <Row>
         <Col md={3}>
           <Row>
-            <h4
-              className="py-3"
-              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
-            >
-              Search an Engine
+            <h4 className="py-3" style={{ marginBottom: "0.5rem" }}>
+              Search For Engines
             </h4>
           </Row>
           <Row>
@@ -616,16 +601,8 @@ const Engines = () => {
           </Row>
           <Row>
             <fieldset>
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "2px",
-                }}
-              >
-                Engine Details
+              <legend className="fieldset-legend">
+                <h6>Engine Details</h6>
               </legend>
 
               <Row className="row-margin">
@@ -715,16 +692,8 @@ const Engines = () => {
             </fieldset>
 
             <fieldset>
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "2px",
-                }}
-              >
-                Condition
+              <legend className="fieldset-legend">
+                <h6>Condition</h6>
               </legend>
               <Row className="row-margin">
                 <Col md={12}>
@@ -799,16 +768,8 @@ const Engines = () => {
             </fieldset>
 
             <fieldset>
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "2px",
-                }}
-              >
-                General
+              <legend className="fieldset-legend">
+                <h6>General</h6>
               </legend>
 
               <Row className="row-margin">
@@ -983,16 +944,8 @@ const Engines = () => {
             </fieldset>
 
             <fieldset>
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "2px",
-                }}
-              >
-                Transmission
+              <legend className="fieldset-legend">
+                <h6>Transmission</h6>
               </legend>
               <Row className="row-margin">
                 <Col md={12}>
@@ -1025,16 +978,8 @@ const Engines = () => {
             </fieldset>
 
             <fieldset>
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "2px",
-                }}
-              >
-                Installation and Mounting
+              <legend className="fieldset-legend">
+                <h6> Installation and Mounting</h6>
               </legend>
               <Row className="row-margin">
                 <Col md={12}>
@@ -1067,16 +1012,8 @@ const Engines = () => {
             </fieldset>
 
             <fieldset>
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "2px",
-                }}
-              >
-                Service & Maintenance
+              <legend className="fieldset-legend">
+                <h6>Service & Maintenance</h6>
               </legend>
               <Row className="row-margin">
                 <Col md={12}>
@@ -1109,16 +1046,8 @@ const Engines = () => {
             </fieldset>
 
             <fieldset>
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "2px",
-                }}
-              >
-                Equipment
+              <legend className="fieldset-legend">
+                <h6>Equipment</h6>
               </legend>
               <Row className="row-margin">
                 <Col md={12}>
@@ -1193,16 +1122,8 @@ const Engines = () => {
             </fieldset>
 
             <fieldset>
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "2px",
-                }}
-              >
-                Dimensions
+              <legend className="fieldset-legend">
+                <h6>Dimensions</h6>
               </legend>
               <Row className="row-margin">
                 <Col md={12}>
@@ -1291,16 +1212,8 @@ const Engines = () => {
             </fieldset>
 
             <fieldset>
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "2px",
-                }}
-              >
-                Performance
+              <legend className="fieldset-legend">
+                <h6>Performance</h6>
               </legend>
               <Row className="row-margin">
                 <Col md={12}>
@@ -1389,16 +1302,8 @@ const Engines = () => {
             </fieldset>
 
             <fieldset>
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "2px",
-                }}
-              >
-                Cylinders
+              <legend className="fieldset-legend">
+                <h6>Cylinders</h6>
               </legend>
               <Row className="row-margin">
                 <Col md={12}>
@@ -1459,16 +1364,8 @@ const Engines = () => {
             </fieldset>
 
             <fieldset>
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "2px",
-                }}
-              >
-                RPM
+              <legend className="fieldset-legend">
+                <h6>RPM</h6>
               </legend>
               <Row className="row-margin">
                 <Col md={12}>
@@ -1487,16 +1384,8 @@ const Engines = () => {
             </fieldset>
 
             <fieldset>
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "2px",
-                }}
-              >
-                Torque
+              <legend className="fieldset-legend">
+                <h6>Torque</h6>
               </legend>
               <Row className="row-margin">
                 <Col md={12}>
@@ -1529,16 +1418,8 @@ const Engines = () => {
             </fieldset>
 
             <fieldset>
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "2px",
-                }}
-              >
-                Cooling System
+              <legend className="fieldset-legend">
+                <h6>Cooling System</h6>
               </legend>
               <Row className="row-margin">
                 <Col md={12}>
@@ -1641,16 +1522,8 @@ const Engines = () => {
             </fieldset>
 
             <fieldset>
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "2px",
-                }}
-              >
-                Propulsion System
+              <legend className="fieldset-legend">
+                <h6>Propulsion System</h6>
               </legend>
               <Row className="row-margin">
                 <Col md={12}>
@@ -1753,16 +1626,8 @@ const Engines = () => {
             </fieldset>
 
             <fieldset>
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "2px",
-                }}
-              >
-                Fuel System
+              <legend className="fieldset-legend">
+                <h6>Fuel System</h6>
               </legend>
               <Row className="row-margin">
                 <Col md={12}>
@@ -1852,16 +1717,8 @@ const Engines = () => {
             </fieldset>
 
             <fieldset>
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "2px",
-                }}
-              >
-                Oil
+              <legend className="fieldset-legend">
+                <h6>Oil</h6>
               </legend>
               <Row className="row-margin">
                 <Col md={12}>
@@ -1880,16 +1737,8 @@ const Engines = () => {
             </fieldset>
 
             <fieldset>
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "2px",
-                }}
-              >
-                Electrical System
+              <legend className="fieldset-legend">
+                <h6>Electrical System</h6>
               </legend>
               <Row className="row-margin">
                 <Col md={12}>
@@ -1922,16 +1771,8 @@ const Engines = () => {
             </fieldset>
 
             <fieldset>
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "2px",
-                }}
-              >
-                Emmissions & Environment
+              <legend className="fieldset-legend">
+                <h6>Emissions & Environment</h6>
               </legend>
               <Row className="row-margin">
                 <Col md={12}>
@@ -1969,7 +1810,7 @@ const Engines = () => {
             <Col md={12}>
               <h1
                 style={{
-                  fontSize: "28.8px",
+                  fontSize: "1.5rem",
                   fontWeight: "200",
                   padding: "20px",
                 }}

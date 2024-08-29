@@ -28,7 +28,9 @@ const EngineDetailsPanel = ({ title, details }) => {
   return (
     <div className="details-panel-container">
       <div className="details-panel-header">
-        <span className="panel-title">{title}</span>
+        <span className="panel-title ">
+          <h6>{title}</h6>
+        </span>
       </div>
       <div className="details-panel-content">
         <table className="details-panel-table">
