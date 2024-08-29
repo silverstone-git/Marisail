@@ -793,10 +793,12 @@ const EngineAdvert = () => {
   const checkRequired = () => {
     const errors = {};
     Object.keys(requiredField).forEach((key) => {
-      if(typeof form[key] !== 'string'){
-        console.log("001 form key--",form[key], key);
+      const value = form[key];
+
+      if(typeof value !== 'string'){
+        console.log("001 form key--",value, key);
       }
-      if (!form[key] || form[key].trim() === "") {
+      if (!value || (String(value).trim() === "") === "") {
         errors[key] = true;
         console.log("001 Error Key.", errors[key]);
       }
@@ -807,13 +809,13 @@ const EngineAdvert = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      if (checkRequired()) {
+      // if (checkRequired()) {
         // If no errors, proceed with form submission logic
         console.log("001 Form is valid, submitting...", form);
         localStorage.setItem("advertise_engine", JSON.stringify(form));
-      } else {
-        console.log("001 Form has errors, not submitting.", error);
-      }
+      // } else {
+        // console.log("001 Form has errors, not submitting.", error);
+      // }
     } catch (error) {
       console.log(error);
     }

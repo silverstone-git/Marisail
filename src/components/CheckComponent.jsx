@@ -57,7 +57,7 @@ CheckComponent.propTypes = {
   setOpenKey: PropTypes.func.isRequired,
   openKey: PropTypes.string,
   isMandatory: PropTypes.bool.isRequired,
-  value: PropTypes.array,
+  value: PropTypes.string,
   setValue: PropTypes.func,
   name: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
