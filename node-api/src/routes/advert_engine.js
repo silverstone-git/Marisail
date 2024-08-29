@@ -65,9 +65,9 @@ advertEngineRouter.get("/engine_model/", async (req, res) => {
   }
 });
 
-advertEngineRouter.get("/columnsList/:tableName", async (req, res) => {
-  let valid_tables = [];
-  valid_tables.push(req.params.tableName);
+advertEngineRouter.get("/columnsList/", async (req, res) => {
+  let valid_tables = [ "engine_general","engine_dimensions","engine_cooling","engine_electrical","engine_emissions","engine_fuel","engine_propulsion","engine_transmission","engine_oil", "engine_safety","engine_equipment","engine_performance","engine_maintenance","engine_mounting"];
+  // valid_tables.push(req.params.tableName);
   let connection;
   let filterOptions = "";
   try {
