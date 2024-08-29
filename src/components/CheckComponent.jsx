@@ -4,6 +4,7 @@ import Accordion from "react-bootstrap/Accordion";
 import PropTypes from "prop-types";
 
 function CheckComponent({
+  value,
   label,
   setValue,
   name,
@@ -32,6 +33,7 @@ function CheckComponent({
                 type="radio"
                 id={`${id}1`}
                 onChange={(e) => e.target.value && setValue("yes")}
+                checked={value === 'yes'}
               />
               <Form.Check
                 inline
@@ -39,7 +41,8 @@ function CheckComponent({
                 name={name}
                 type="radio"
                 id={`${id}2`}
-                onChange={(e) => e.target.value && setValue("No")}
+                onChange={(e) => e.target.value && setValue("no")}
+                checked={value === 'no'}
               />
             </Col>
           </Accordion.Body>
@@ -54,7 +57,7 @@ CheckComponent.propTypes = {
   setOpenKey: PropTypes.func.isRequired,
   openKey: PropTypes.string,
   isMandatory: PropTypes.bool.isRequired,
-  value: PropTypes.array,
+  value: PropTypes.string,
   setValue: PropTypes.func,
   name: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,

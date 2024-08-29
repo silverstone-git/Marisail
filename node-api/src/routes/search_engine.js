@@ -24,22 +24,80 @@ searchEngineRouter.get("/tables", async (req, res) => {
 // Method   :   Get
 // Access   :   Public
 // Desc     :   Endpoint to get columns for a specific table
-searchEngineRouter.get("/columns/:tableName", async (req, res) => {
-  const { tableName } = req.params;
+searchEngineRouter.get("/:tableName/:columnName", async (req, res) => {
+  const { tableName, columnName } = req.params;
+  const engineMake = req.query.engine_make;
+  const engineModel = req.query.engine_model;
   let connection;
+
   try {
     connection = await dbConnection.getConnection();
+
+    const [tables] = await connection.query("SHOW TABLES");
+    const validTable = tables.some(
+      (table) => Object.values(table)[0] === tableName
+    );
+
+    if (!validTable) {
+      return res
+        .status(400)
+        .json({ ok: false, message: `Invalid table name: ${tableName}` });
+    }
+
     const [columns] = await connection.query("SHOW COLUMNS FROM ??", [
       tableName,
     ]);
-    const columnNames = columns.map((column) => column.Field);
-    return res.status(200).json({ ok: true, columns: columnNames });
+    const validColumn = columns.some((column) => column.Field === columnName);
+
+    if (!validColumn) {
+      return res
+        .status(400)
+        .json({ ok: false, message: `Invalid column name: ${columnName}` });
+    }
+
+    let sql = `
+      SELECT ?? AS value, COUNT(*) AS count 
+      FROM ?? 
+      WHERE 1=1
+    `;
+
+    const params = [columnName, tableName];
+
+    // Add conditions if engine_make and engine_model are present in the query
+    if (engineMake) {
+      sql += " AND engine_make = ?";
+      params.push(engineMake);
+    }
+    if (engineModel) {
+      sql += " AND engine_model = ?";
+      params.push(engineModel);
+    }
+
+    sql += `
+      GROUP BY ?? 
+      ORDER BY value ASC
+    `;
+
+    params.push(columnName);
+
+    const [rows] = await connection.query(sql, params);
+    const recordCount = rows.length;
+
+    return res.status(200).json({
+      ok: true,
+      count: recordCount,
+      result: rows.map((row) => ({
+        value: row.value,
+        count: row.count,
+      })),
+    });
   } catch (err) {
     return res.status(500).json({ ok: false, message: err.message });
   } finally {
     if (connection) connection.release();
   }
 });
+
 // Path     :   /api/search_engine/engine-detail/:id
 // Method   :   Get
 // Access   :   Public
@@ -136,13 +194,17 @@ searchEngineRouter.get("/:tableName/:columnName", async (req, res) => {
 
     // Use placeholders for dynamic table and column names
     const [rows] = await connection.query(
-      `SELECT DISTINCT ?? FROM ?? ORDER BY ??`,
-      [columnName, tableName, columnName]
+      `SELECT ??, COUNT(*) as count FROM ?? GROUP BY ?? ORDER BY ??`,
+      [columnName, tableName, columnName, columnName]
     );
 
-    return res
-      .status(200)
-      .json({ ok: true, result: rows.map((row) => row[columnName]) });
+    return res.status(200).json({
+      ok: true,
+      result: rows.map((row) => ({
+        value: row[columnName],
+        count: row.count,
+      })),
+    });
   } catch (err) {
     return res.status(500).json({ ok: false, message: err.message });
   } finally {
@@ -155,67 +217,84 @@ searchEngineRouter.get("/:tableName/:columnName", async (req, res) => {
 // Desc     :   Endpoint to get engines
 searchEngineRouter.get("/engines", async (req, res) => {
   try {
-    let connection;
-    connection = await dbConnection.getConnection();
+    let connection = await dbConnection.getConnection();
+    console.log("Query Parameters:", req.query);
 
-    // Retrieve pagination parameters from query
-    const page = parseInt(req.query.page, 10) || 1; // Default to page 1
-    const limit = parseInt(req.query.limit, 10) || 27; // Default to 20 records per page
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 21;
     const offset = (page - 1) * limit;
 
-    // Base query for total count
-    let countQuery = "SELECT COUNT(*) AS total FROM engine_general e";
-    const countQueryParams = [];
+    const tables = JSON.parse(req.query.tables || "[]");
+    const columns = JSON.parse(req.query.columns || "[]");
+    const values = JSON.parse(req.query.values || "[]");
 
-    // Add search condition if provided
-    if (req.query.search) {
-      countQuery += " WHERE e.name LIKE ?";
-      countQueryParams.push(`%${req.query.search}%`);
+    if (
+      !Array.isArray(tables) ||
+      !Array.isArray(columns) ||
+      !Array.isArray(values)
+    ) {
+      return res
+        .status(400)
+        .json({ error: "Invalid query parameters format." });
     }
 
-    // Execute the count query
-    const [[countResult]] = await connection.query(
-      countQuery,
-      countQueryParams
-    );
-    const totalRecords = countResult.total;
-    const totalPages = Math.ceil(totalRecords / limit);
-
-    // Base query for data
     let dataQuery = `
-      SELECT e.*, t2.*, t3.*, t4.*, t5.*, t6.*, t7.*, t8.*, t9.*, t10.*, t11.*, t12.*, t13.*, t14.*, t15.*, t16.*
+      SELECT 
+      e.engine_id,
+        e.engine_make, 
+        e.engine_model, 
+        e.engine_modelyear
       FROM engine_general e
-      LEFT JOIN engine_condition t2 ON e.engine_id = t2.engine_id
-      LEFT JOIN engine_cooling t3 ON e.engine_id = t3.engine_id
-      LEFT JOIN engine_dimensions t4 ON e.engine_id = t4.engine_id
-      LEFT JOIN engine_electrical t5 ON e.engine_id = t5.engine_id
-      LEFT JOIN engine_emissions t6 ON e.engine_id = t6.engine_id
-      LEFT JOIN engine_equipment t7 ON e.engine_id = t7.engine_id
-      LEFT JOIN engine_fuel t8 ON e.engine_id = t8.engine_id
-      LEFT JOIN engine_location t9 ON e.engine_id = t9.engine_id
-      LEFT JOIN engine_maintenance t10 ON e.engine_id = t10.engine_id
-      LEFT JOIN engine_mounting t11 ON e.engine_id = t11.engine_id
-      LEFT JOIN engine_oil t12 ON e.engine_id = t12.engine_id
-      LEFT JOIN engine_performance t13 ON e.engine_id = t13.engine_id
-      LEFT JOIN engine_propulsion t14 ON e.engine_id = t14.engine_id
-      LEFT JOIN engine_safety t15 ON e.engine_id = t15.engine_id
-      LEFT JOIN engine_transmission t16 ON e.engine_id = t16.engine_id
     `;
 
-    // Add search condition if provided
-    if (req.query.search) {
-      dataQuery += " WHERE e.name LIKE ?";
-      countQueryParams.push(`%${req.query.search}%`);
+    let countQuery = "SELECT COUNT(*) AS total FROM engine_general e";
+    const queryParams = [];
+    const conditions = [];
+
+    // Construct conditions based on columns and values
+    columns.forEach((column, index) => {
+      const valueArray = values[index];
+      if (valueArray && valueArray.length) {
+        const columnConditions = valueArray
+          .map((value) => `e.${column} LIKE ?`)
+          .join(" OR ");
+        conditions.push(`(${columnConditions})`);
+        queryParams.push(...valueArray.map((value) => `%${value}%`));
+      }
+    });
+
+    // Add conditions to the query if any exist
+    if (conditions.length > 0) {
+      const whereClause = `WHERE ${conditions.join(" AND ")}`;
+      dataQuery += ` ${whereClause}`;
+      countQuery += ` ${whereClause}`;
     }
 
     // Add pagination
     dataQuery += " LIMIT ? OFFSET ?";
-    countQueryParams.push(limit, offset);
+    queryParams.push(limit, offset);
 
-    // Execute the data query
-    const [results] = await connection.query(dataQuery, countQueryParams);
+    console.log("Data Query:", dataQuery);
+    console.log("Data Query Params:", queryParams);
 
-    // Send the results as JSON
+    // Fetch the data
+    const [results] = await connection.query(dataQuery, queryParams);
+
+    // Prepare the count query for pagination purposes
+    console.log("Count Query:", countQuery);
+    console.log(
+      "Count Query Params:",
+      queryParams.slice(0, queryParams.length - 2)
+    );
+
+    const [[countResult]] = await connection.query(
+      countQuery,
+      queryParams.slice(0, queryParams.length - 2) // Remove LIMIT and OFFSET params
+    );
+    const totalRecords = countResult.total;
+    const totalPages = Math.ceil(totalRecords / limit);
+
+    // Respond with data and pagination
     res.json({
       data: results,
       pagination: {
@@ -226,9 +305,83 @@ searchEngineRouter.get("/engines", async (req, res) => {
       },
     });
   } catch (err) {
-    console.error("Error executing query:", err);
-    res.status(500).send("Server error");
+    console.error("Error executing query:", err.message, err.stack);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
+
+const validateJSON = (jsonString) => {
+  try {
+    const parsed = JSON.parse(jsonString);
+    if (Array.isArray(parsed)) {
+      return parsed;
+    } else {
+      throw new Error("Parsed JSON is not an array");
+    }
+  } catch (e) {
+    console.error("Invalid JSON:", e);
+    return [];
+  }
+};
+const buildQuery = (tables, columns, values, page, limit) => {
+  // Construct the WHERE clause based on the columns and values
+  let whereClauses = columns.map((column, index) => {
+    return `${column} LIKE ?`;
+  });
+
+  let whereSql = whereClauses.join(" AND ");
+
+  // Construct the SQL query
+  let query = `
+    SELECT e.*, t1.*, t2.*, t3.*, t4.*, t5.*, t6.*, t7.*, t8.*, t9.*, t10.*, t11.*, t12.*, t13.*, t14.*, t15.*
+    FROM ${tables.join(", ")}
+    WHERE ${whereSql}
+    LIMIT ? OFFSET ?
+  `;
+
+  // Calculate the offset
+  const offset = (page - 1) * limit;
+
+  return {
+    query,
+    params: [...values, limit, offset],
+  };
+};
+
+// Example usage in the route handler
+
+const getAllTables = async () => {
+  let connection;
+  connection = await dbConnection.getConnection();
+  try {
+    const [rows] = await connection.query(`
+      SELECT table_name
+      FROM information_schema.tables
+      WHERE table_schema = DATABASE();
+    `);
+    return rows.map((row) => row.table_name);
+  } catch (error) {
+    throw new Error(`Error fetching tables: ${error.message}`);
+  }
+};
+
+const getAllColumns = async (tableName) => {
+  let connection;
+  connection = await dbConnection.getConnection();
+  try {
+    const [rows] = await connection.query(
+      `
+      SELECT column_name
+      FROM information_schema.columns
+      WHERE table_schema = DATABASE()
+      AND table_name = ?;
+    `,
+      [tableName]
+    );
+    return rows.map((row) => row.column_name);
+  } catch (error) {
+    throw new Error(`Error fetching columns: ${error.message}`);
+  }
+};
 
 export default searchEngineRouter;

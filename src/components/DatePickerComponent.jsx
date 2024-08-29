@@ -38,7 +38,7 @@ function DatePickerComponent({
 DatePickerComponent.propTypes = {
   label: PropTypes.string.isRequired,
   setValue: PropTypes.func.isRequired,
-  value: PropTypes.string,
+  value: PropTypes.instanceOf(Date),
   setOpenKey: PropTypes.func.isRequired,
   openKey: PropTypes.string,
   type: PropTypes.string,

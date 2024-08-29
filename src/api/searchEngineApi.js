@@ -35,22 +35,66 @@ export async function fetchColumns(tableName) {
     return [];
   }
 }
-
-export async function fetchDistinctValues(tableName, columnName) {
+export async function fetchDistinctValues(
+  tableName,
+  columnName,
+  engineMake,
+  engineModel
+) {
   try {
+    // Construct query parameters only if values are present
+    const queryParams = new URLSearchParams();
+    if (engineMake) queryParams.append("engine_make", engineMake);
+    if (engineModel) queryParams.append("engine_model", engineModel);
+
     const response = await fetch(
-      `http://localhost:3001/api/search_engine/${tableName}/${columnName}`
+      `http://localhost:3001/api/search_engine/${tableName}/${columnName}?${queryParams}`
     );
+
     if (!response.ok) {
       throw new Error(`Error fetching distinct values: ${response.statusText}`);
     }
+
     const data = await response.json();
     if (!data.ok) {
       throw new Error(data.message);
     }
+
     return data.result;
   } catch (error) {
     console.error("Error:", error);
     return [];
   }
 }
+
+export const fetchEngines = async (
+  page,
+  limit,
+  search,
+  setLoading,
+  setError,
+  setEngines,
+  setPagination
+) => {
+  setLoading(true);
+  setError(null);
+
+  try {
+    const response = await fetch(
+      `http://localhost:3001/api/search_engine/engines?page=${page}&limit=${limit}&search=${encodeURIComponent(
+        search
+      )}`
+    );
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const data = await response.json();
+    setEngines(data.data);
+    setPagination(data.pagination);
+  } catch (err) {
+    setError("Failed to fetch engines");
+  } finally {
+    setLoading(false);
+  }
+};

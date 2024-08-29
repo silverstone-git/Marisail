@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import DropdownWithCheckBoxes from "../DropdownWithCheckBoxes";
 import EngineCard from "../EngineCard";
 import CustomDatePicker from "../CustomDatePicker";
 import SearchBar from "../SearchBar";
+import Pagination from "../CustomPagination";
+// import axios from "axios";
 import {
   fetchColumns,
   fetchDistinctValues,
   fetchTables,
+  fetchEngines,
 } from "../../api/searchEngineApi";
 import DropdownWithRadioButtons from "../DropdownWithRadioButtons";
 
 import "./engineSearch.scss";
+import Loader from "../Loader";
 const Engines = () => {
   const [columns, setColumns] = useState([]);
   const [selectedColumn, setSelectedColumn] = useState("");
@@ -26,8 +31,11 @@ const Engines = () => {
     currentPage: 1,
     totalPages: 1,
     totalRecords: 0,
-    limit: 20,
+    limit: 21,
   });
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [selectedOptions, setSelectedOptions] = useState({
     condition_1: "",
     used_condition: "",
@@ -39,18 +47,25 @@ const Engines = () => {
     engine_classifiable: [],
     engine_certification: [],
     engine_model: [],
-    Engine_Type: [],
-    Type_Designation: [],
-    Engine_Year: [],
-    CE_Category: [],
-    Number_Drives: [],
-    Number_Engines: [],
-    Range: [],
-    Cruise_Speed: [],
-    Drive_Type: [],
-    Engine_Hours: [],
-    Ignition_System: "",
+    engine_modelyear: "",
+    engine_type: [],
+    type_designation: [],
+    engine_year: [],
+    ce_category: [],
+    number_drives: [],
+    number_engines: [],
+    range: [],
+    cruise_speed: [],
+    drive_type: [],
+    engine_hours: [],
+    ignition_system: "",
     noiselevel_db: "",
+    asking_price: [],
+    // Transmission
+    transmission_type: [],
+    flywheel_SAE: [],
+    // Installation and mounting
+
     // dimentions
     engine_weight: [],
     height: [],
@@ -106,6 +121,409 @@ const Engines = () => {
     //oil
     oil_filtertype: [],
   });
+
+  const dropdownConfig = {
+    marisail_vesselid: {
+      tableName: "engine_general",
+      columnName: "marisail_vesselid",
+    },
+    engine_make: {
+      tableName: "engine_general",
+      columnName: "engine_make",
+    },
+    engine_model: {
+      tableName: "engine_general",
+      columnName: "engine_model",
+    },
+    engine_modelyear: {
+      tableName: "engine_general",
+      columnName: "engine_modelyear",
+    },
+    engine_type: {
+      tableName: "engine_general",
+      columnName: "engine_type",
+    },
+    type_designation: {
+      tableName: "engine_general",
+      columnName: "type_designation",
+    },
+    asking_price: {
+      tableName: "engine_general",
+      columnName: "asking_price",
+    },
+    condition_1: {
+      tableName: "engine_general",
+      columnName: "condition_1",
+    },
+    used_condition: {
+      tableName: "engine_general",
+      columnName: "used_condition",
+    },
+    seller: {
+      tableName: "engine_general",
+      columnName: "seller",
+    },
+    offered_by: {
+      tableName: "engine_general",
+      columnName: "offered_by",
+    },
+    broker_valuation: {
+      tableName: "engine_general",
+      columnName: "broker_valuation",
+    },
+    engine_classifiable: {
+      tableName: "engine_general",
+      columnName: "engine_classifiable",
+    },
+    engine_certification: {
+      tableName: "engine_general",
+      columnName: "engine_certification",
+    },
+    engine_year: {
+      tableName: "engine_general",
+      columnName: "engine_year",
+    },
+    ce_category: {
+      tableName: "engine_general",
+      columnName: "ce_category",
+    },
+    number_drives: {
+      tableName: "engine_general",
+      columnName: "number_drives",
+    },
+    number_engines: {
+      tableName: "engine_general",
+      columnName: "number_engines",
+    },
+    range: {
+      tableName: "engine_general",
+      columnName: "range",
+    },
+    engine_range: {
+      tableName: "engine_general",
+      columnName: "engine_range",
+    },
+    cruise_speed: {
+      tableName: "engine_general",
+      columnName: "cruise_speed",
+    },
+    drive_type: {
+      tableName: "engine_general",
+      columnName: "drive_type",
+    },
+    engine_hours: {
+      tableName: "engine_general",
+      columnName: "engine_hours",
+    },
+    ignition_system: {
+      tableName: "engine_general",
+      columnName: "ignition_system",
+    },
+    noiselevel_db: {
+      tableName: "engine_general",
+      columnName: "noiselevel_db",
+    },
+    transmission_type: {
+      tableName: "engine_transmission",
+      columnName: "transmission_type",
+    },
+    flywheel_SAE: {
+      tableName: "engine_transmission",
+      columnName: "flywheel_SAE",
+    },
+    engine_mountingtype: {
+      tableName: "engine_mounting",
+      columnName: "engine_mountingtype",
+    },
+    engine_block: {
+      tableName: "engine_mounting",
+      columnName: "engine_block",
+    },
+    availability_spareparts: {
+      tableName: "engine_maintenance",
+      columnName: "availability_spareparts",
+    },
+    last_servicedate: {
+      tableName: "engine_maintenance",
+      columnName: "last_servicedate",
+    },
+    EMS: {
+      tableName: "engine_equipment",
+      columnName: "EMS",
+    },
+    engine_controlsystem: {
+      tableName: "engine_equipment",
+      columnName: "engine_controlsystem",
+    },
+    turbo_charging: {
+      tableName: "engine_equipment",
+      columnName: "turbo_charging",
+    },
+    heat_exchanger: {
+      tableName: "engine_equipment",
+      columnName: "heat_exchanger",
+    },
+    seawater_pump: {
+      tableName: "engine_equipment",
+      columnName: "seawater_pump",
+    },
+    displacement: {
+      tableName: "engine_dimentions",
+      columnName: "displacement",
+    },
+    lenght: {
+      tableName: "engine_dimentions",
+      columnName: "lenght",
+    },
+    width: {
+      tableName: "engine_dimentions",
+      columnName: "width",
+    },
+    height: {
+      tableName: "engine_dimentions",
+      columnName: "height",
+    },
+    engine_weight: {
+      tableName: "engine_dimentions",
+      columnName: "engine_weight",
+    },
+    dry_weight: {
+      tableName: "engine_dimentions",
+      columnName: "dry_weight",
+    },
+    engine_performance: {
+      tableName: "engine_performance",
+      columnName: "engine_performance",
+    },
+    max_poweroutput: {
+      tableName: "engine_performance",
+      columnName: "max_poweroutput",
+    },
+    max_power: {
+      tableName: "engine_performance",
+      columnName: "max_power",
+    },
+    max_speed: {
+      tableName: "engine_performance",
+      columnName: "max_speed",
+    },
+    engine_speedrange: {
+      tableName: "engine_performance",
+      columnName: "engine_speedrange",
+    },
+    engine_efficiency: {
+      tableName: "engine_performance",
+      columnName: "engine_efficiency",
+    },
+    number_cylinders: {
+      tableName: "engine_performance",
+      columnName: "number_cylinders",
+    },
+    number_valves: {
+      tableName: "engine_performance",
+      columnName: "number_valves",
+    },
+    bore: {
+      tableName: "engine_performance",
+      columnName: "bore",
+    },
+    bore_stroke: {
+      tableName: "engine_performance",
+      columnName: "bore_stroke",
+    },
+    rated_speed: {
+      tableName: "engine_performance",
+      columnName: "rated_speed",
+    },
+    max_torque: {
+      tableName: "engine_performance",
+      columnName: "max_torque",
+    },
+    max_torquerpm: {
+      tableName: "engine_performance",
+      columnName: "max_torquerpm",
+    },
+    after_cooled: {
+      tableName: "engine_cooling",
+      columnName: "after_cooled",
+    },
+    cooling_system: {
+      tableName: "engine_cooling",
+      columnName: "cooling_system",
+    },
+    cooling_type: {
+      tableName: "engine_cooling",
+      columnName: "cooling_type",
+    },
+    lubrication_sytem: {
+      tableName: "engine_cooling",
+      columnName: "lubrication_sytem",
+    },
+    cooling_fluidtype: {
+      tableName: "engine_cooling",
+      columnName: "cooling_fluidtype",
+    },
+    circulation_pumptype: {
+      tableName: "engine_cooling",
+      columnName: "circulation_pumptype",
+    },
+    rawwater_pumptype: {
+      tableName: "engine_cooling",
+      columnName: "rawwater_pumptype",
+    },
+    propulsion: {
+      tableName: "engine_propulsion",
+      columnName: "propulsion",
+    },
+    bowthruster: {
+      tableName: "engine_propulsion",
+      columnName: "bowthruster",
+    },
+    propulsion_systemtype: {
+      tableName: "engine_propulsion",
+      columnName: "propulsion_systemtype",
+    },
+    propeller_bladematerial: {
+      tableName: "engine_propulsion",
+      columnName: "propeller_bladematerial",
+    },
+    steering_controltype: {
+      tableName: "engine_propulsion",
+      columnName: "steering_controltype",
+    },
+    trim_system: {
+      tableName: "engine_propulsion",
+      columnName: "trim_system",
+    },
+    trim_tab_type: {
+      tableName: "engine_propulsion",
+      columnName: "trim_tab_type",
+    },
+    fuel_filtertype: {
+      tableName: "engine_fuel",
+      columnName: "fuel_filtertype",
+    },
+    fuel_system: {
+      tableName: "engine_fuel",
+      columnName: "fuel_system",
+    },
+    fuel_type: {
+      tableName: "engine_fuel",
+      columnName: "fuel_type",
+    },
+    fuel_reserve: {
+      tableName: "engine_fuel",
+      columnName: "fuel_reserve",
+    },
+    fuel_consumptionrate: {
+      tableName: "engine_fuel",
+      columnName: "fuel_consumptionrate",
+    },
+    Fuel_tankmaterial: {
+      tableName: "engine_fuel",
+      columnName: "Fuel_tankmaterial",
+    },
+    oil_filtertype: {
+      tableName: "engine_oil",
+      columnName: "oil_filtertype",
+    },
+    alternator: {
+      tableName: "engine_electrical",
+      columnName: "alternator",
+    },
+    battery_type: {
+      tableName: "engine_electrical",
+      columnName: "battery_type",
+    },
+    exhaust_system: {
+      tableName: "engine_emissions",
+      columnName: "exhaust_system",
+    },
+    exhaust_systemtype: {
+      tableName: "engine_emissions",
+      columnName: "exhaust_systemtype",
+    },
+  };
+
+  const getSelectionData = () => {
+    const tables = new Set();
+    const columns = new Set();
+    const values = [];
+
+    Object.keys(selectedOptions).forEach((category) => {
+      const config = dropdownConfig[category];
+      if (!config) {
+        console.error(
+          `No config found for category "${category}". Skipping this category.`
+        );
+        return;
+      }
+
+      const { tableName, columnName } = config;
+      const value = selectedOptions[category];
+
+      if (value && value.length > 0) {
+        tables.add(tableName);
+        columns.add(columnName);
+        values.push(Array.isArray(value) ? value : [value]);
+      }
+    });
+
+    return {
+      tables: JSON.stringify(Array.from(tables)),
+      columns: JSON.stringify(Array.from(columns)),
+      values: JSON.stringify(values),
+    };
+  };
+
+  // Function to fetch results from the API
+  const fetchResults = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      let { tables = [], columns = [], values = [] } = getSelectionData();
+
+      // Construct the API URL
+      const url = `http://localhost:3001/api/search_engine/engines?tables=${tables}&columns=${columns}&values=${values}&page=${pagination.currentPage}&limit=${pagination.limit}`;
+      console.log("API URL:", url);
+
+      // Fetch data from the API
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch engines");
+      }
+
+      const data = await response.json();
+      console.log("API Response:", data);
+
+      // Update state with fetched data
+      setEngines(data.data);
+      setPagination({
+        currentPage: data.pagination.currentPage,
+        totalPages: data.pagination.totalPages,
+        totalRecords: data.pagination.totalRecords,
+        limit: data.pagination.limit,
+      });
+    } catch (error) {
+      console.error("Error fetching results:", error);
+      setError("Failed to fetch engines");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchResults();
+  }, [selectedOptions, pagination.currentPage]);
+
+  // today
   useEffect(() => {
     const loadColumns = async () => {
       try {
@@ -121,53 +539,7 @@ const Engines = () => {
 
     loadColumns();
   }, []);
-  useEffect(() => {
-    const loadDistinctValues = async () => {
-      if (selectedColumn) {
-        setLoading(true);
-        try {
-          const values = await fetchDistinctValues(tableName, selectedColumn);
-          setDistinctValues(values);
-        } catch (err) {
-          setError(err.message);
-        } finally {
-          setLoading(false);
-        }
-      }
-    };
 
-    loadDistinctValues();
-  }, [selectedColumn]);
-  useEffect(() => {
-    fetchEngines();
-  }, [page, search]);
-  useEffect(() => {
-    console.log("Search state changed:", search);
-  }, [search]);
-
-  const fetchEngines = async () => {
-    setLoading(true);
-    setError(null);
-
-    try {
-      const response = await fetch(
-        `http://localhost:3001/api/search_engine/engines?page=${page}&limit=${limit}&search=${encodeURIComponent(
-          search
-        )}`
-      );
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const data = await response.json();
-      setEngines(data.data);
-      setPagination(data.pagination);
-    } catch (err) {
-      setError("Failed to fetch engines");
-    } finally {
-      setLoading(false);
-    }
-  };
   const handleSearchChange = (e) => {
     console.log("Search input changed:", e.target.value);
     setSearch(e.target.value);
@@ -204,17 +576,19 @@ const Engines = () => {
       return newState;
     });
   };
+  const resetTags = () => {
+    setSelectedOptions([]);
+  };
+  // if (loading) return <p>Loading...</p>;
+  // if (error) return <p>Error: {error}</p>;
 
   return (
     <Container>
       <Row>
         <Col md={3}>
           <Row>
-            <h4
-              className="py-3"
-              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
-            >
-              Search an Engine
+            <h4 className="py-3" style={{ marginBottom: "0.5rem" }}>
+              Search For Engines
             </h4>
           </Row>
           <Row>
@@ -222,22 +596,104 @@ const Engines = () => {
               selectedTags={allSelectedOptions}
               removeTag={removeTag}
               onChange={handleSearchChange}
+              resetTags={resetTags}
             />
           </Row>
           <Row>
-            <fieldset
-              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
-            >
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "12px",
-                }}
-              >
-                Condition
+            <fieldset>
+              <legend className="fieldset-legend">
+                <h6>Engine Details</h6>
+              </legend>
+
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Engine Make"
+                      selectedOptions={selectedOptions}
+                      category="engine_make"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_general"
+                      columnName="engine_make"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Engine Model"
+                      selectedOptions={selectedOptions}
+                      category="engine_model"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_general"
+                      columnName="engine_model"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithRadioButtons
+                      title="Engine Model Year"
+                      selectedOptions={selectedOptions}
+                      category="engine_modelyear"
+                      onSelect={handleSingleSelectOption}
+                      tableName="engine_general"
+                      columnName="engine_modelyear"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Engine Type"
+                      selectedOptions={selectedOptions}
+                      category="engine_type"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_general"
+                      columnName="engine_type"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Type Designation"
+                      selectedOptions={selectedOptions}
+                      category="type_designation"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_general"
+                      columnName="type_designation"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="row-margin">
+                <Col md={12}>
+                  <Form.Group>
+                    <DropdownWithCheckBoxes
+                      title="Asking Price"
+                      selectedOptions={selectedOptions}
+                      category="asking_price"
+                      onSelect={handleMultiSelectOption}
+                      tableName="engine_general"
+                      columnName="asking_price"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+            </fieldset>
+
+            <fieldset>
+              <legend className="fieldset-legend">
+                <h6>Condition</h6>
               </legend>
               <Row className="row-margin">
                 <Col md={12}>
@@ -311,48 +767,11 @@ const Engines = () => {
               </Row>
             </fieldset>
 
-            <fieldset
-              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
-            >
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "12px",
-                }}
-              >
-                General
+            <fieldset>
+              <legend className="fieldset-legend">
+                <h6>General</h6>
               </legend>
-              <Row className="row-margin">
-                <Col md={12}>
-                  <Form.Group>
-                    <DropdownWithCheckBoxes
-                      title="Marisail Vessel ID"
-                      selectedOptions={selectedOptions}
-                      category="marisail_vesselid"
-                      onSelect={handleMultiSelectOption}
-                      tableName="engine_general"
-                      columnName="marisail_vesselid"
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Row className="row-margin">
-                <Col md={12}>
-                  <Form.Group>
-                    <DropdownWithCheckBoxes
-                      title="Engine Make"
-                      selectedOptions={selectedOptions}
-                      category="engine_make"
-                      onSelect={handleMultiSelectOption}
-                      tableName="engine_general"
-                      columnName="engine_make"
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
+
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
@@ -381,62 +800,7 @@ const Engines = () => {
                   </Form.Group>
                 </Col>
               </Row>
-              <Row className="row-margin">
-                <Col md={12}>
-                  <Form.Group>
-                    <DropdownWithCheckBoxes
-                      title="Engine Model"
-                      selectedOptions={selectedOptions}
-                      category="engine_model"
-                      onSelect={handleMultiSelectOption}
-                      tableName="engine_general"
-                      columnName="engine_model"
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Row className="row-margin">
-                <Col md={12}>
-                  <Form.Group>
-                    <DropdownWithRadioButtons
-                      title="Engine Model Year"
-                      selectedOptions={selectedOptions}
-                      category="engine_modelyear"
-                      onSelect={handleSingleSelectOption}
-                      tableName="engine_general"
-                      columnName="engine_modelyear"
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Row className="row-margin">
-                <Col md={12}>
-                  <Form.Group>
-                    <DropdownWithCheckBoxes
-                      title="Engine Type"
-                      selectedOptions={selectedOptions}
-                      category="engine_type"
-                      onSelect={handleMultiSelectOption}
-                      tableName="engine_general"
-                      columnName="engine_type"
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Row className="row-margin">
-                <Col md={12}>
-                  <Form.Group>
-                    <DropdownWithCheckBoxes
-                      title="Type Designation"
-                      selectedOptions={selectedOptions}
-                      category="type_designation"
-                      onSelect={handleMultiSelectOption}
-                      tableName="engine_general"
-                      columnName="type_designation"
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
+
               <Row className="row-margin">
                 <Col md={12}>
                   <Form.Group>
@@ -579,19 +943,9 @@ const Engines = () => {
               </Row>
             </fieldset>
 
-            <fieldset
-              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
-            >
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "12px",
-                }}
-              >
-                Transmission
+            <fieldset>
+              <legend className="fieldset-legend">
+                <h6>Transmission</h6>
               </legend>
               <Row className="row-margin">
                 <Col md={12}>
@@ -623,19 +977,9 @@ const Engines = () => {
               </Row>
             </fieldset>
 
-            <fieldset
-              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
-            >
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "12px",
-                }}
-              >
-                Installation and Mounting
+            <fieldset>
+              <legend className="fieldset-legend">
+                <h6> Installation and Mounting</h6>
               </legend>
               <Row className="row-margin">
                 <Col md={12}>
@@ -667,19 +1011,9 @@ const Engines = () => {
               </Row>
             </fieldset>
 
-            <fieldset
-              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
-            >
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "12px",
-                }}
-              >
-                Service & Maintenance
+            <fieldset>
+              <legend className="fieldset-legend">
+                <h6>Service & Maintenance</h6>
               </legend>
               <Row className="row-margin">
                 <Col md={12}>
@@ -711,19 +1045,9 @@ const Engines = () => {
               </Row>
             </fieldset>
 
-            <fieldset
-              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
-            >
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "12px",
-                }}
-              >
-                Equipment
+            <fieldset>
+              <legend className="fieldset-legend">
+                <h6>Equipment</h6>
               </legend>
               <Row className="row-margin">
                 <Col md={12}>
@@ -797,19 +1121,9 @@ const Engines = () => {
               </Row>
             </fieldset>
 
-            <fieldset
-              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
-            >
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "12px",
-                }}
-              >
-                Dimensions
+            <fieldset>
+              <legend className="fieldset-legend">
+                <h6>Dimensions</h6>
               </legend>
               <Row className="row-margin">
                 <Col md={12}>
@@ -897,19 +1211,9 @@ const Engines = () => {
               </Row>
             </fieldset>
 
-            <fieldset
-              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
-            >
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "12px",
-                }}
-              >
-                Performance
+            <fieldset>
+              <legend className="fieldset-legend">
+                <h6>Performance</h6>
               </legend>
               <Row className="row-margin">
                 <Col md={12}>
@@ -997,19 +1301,9 @@ const Engines = () => {
               </Row>
             </fieldset>
 
-            <fieldset
-              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
-            >
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "12px",
-                }}
-              >
-                Cylinders
+            <fieldset>
+              <legend className="fieldset-legend">
+                <h6>Cylinders</h6>
               </legend>
               <Row className="row-margin">
                 <Col md={12}>
@@ -1069,19 +1363,9 @@ const Engines = () => {
               </Row>
             </fieldset>
 
-            <fieldset
-              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
-            >
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "12px",
-                }}
-              >
-                RPM
+            <fieldset>
+              <legend className="fieldset-legend">
+                <h6>RPM</h6>
               </legend>
               <Row className="row-margin">
                 <Col md={12}>
@@ -1099,19 +1383,9 @@ const Engines = () => {
               </Row>
             </fieldset>
 
-            <fieldset
-              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
-            >
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "12px",
-                }}
-              >
-                Torque
+            <fieldset>
+              <legend className="fieldset-legend">
+                <h6>Torque</h6>
               </legend>
               <Row className="row-margin">
                 <Col md={12}>
@@ -1143,19 +1417,9 @@ const Engines = () => {
               </Row>
             </fieldset>
 
-            <fieldset
-              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
-            >
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "12px",
-                }}
-              >
-                Cooling System
+            <fieldset>
+              <legend className="fieldset-legend">
+                <h6>Cooling System</h6>
               </legend>
               <Row className="row-margin">
                 <Col md={12}>
@@ -1257,19 +1521,9 @@ const Engines = () => {
               </Row>
             </fieldset>
 
-            <fieldset
-              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
-            >
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "12px",
-                }}
-              >
-                Propulsion System
+            <fieldset>
+              <legend className="fieldset-legend">
+                <h6>Propulsion System</h6>
               </legend>
               <Row className="row-margin">
                 <Col md={12}>
@@ -1371,19 +1625,9 @@ const Engines = () => {
               </Row>
             </fieldset>
 
-            <fieldset
-              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
-            >
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "12px",
-                }}
-              >
-                Fuel System
+            <fieldset>
+              <legend className="fieldset-legend">
+                <h6>Fuel System</h6>
               </legend>
               <Row className="row-margin">
                 <Col md={12}>
@@ -1472,19 +1716,9 @@ const Engines = () => {
               </Row>
             </fieldset>
 
-            <fieldset
-              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
-            >
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "12px",
-                }}
-              >
-                Oil
+            <fieldset>
+              <legend className="fieldset-legend">
+                <h6>Oil</h6>
               </legend>
               <Row className="row-margin">
                 <Col md={12}>
@@ -1502,19 +1736,9 @@ const Engines = () => {
               </Row>
             </fieldset>
 
-            <fieldset
-              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
-            >
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "12px",
-                }}
-              >
-                Electrical System
+            <fieldset>
+              <legend className="fieldset-legend">
+                <h6>Electrical System</h6>
               </legend>
               <Row className="row-margin">
                 <Col md={12}>
@@ -1546,19 +1770,9 @@ const Engines = () => {
               </Row>
             </fieldset>
 
-            <fieldset
-              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
-            >
-              <legend
-                style={{
-                  // borderBottom: "2px solid #f5f5f5",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "12px",
-                }}
-              >
-                Emmissions & Environment
+            <fieldset>
+              <legend className="fieldset-legend">
+                <h6>Emissions & Environment</h6>
               </legend>
               <Row className="row-margin">
                 <Col md={12}>
@@ -1596,7 +1810,7 @@ const Engines = () => {
             <Col md={12}>
               <h1
                 style={{
-                  fontSize: "28.8px",
+                  fontSize: "1.5rem",
                   fontWeight: "200",
                   padding: "20px",
                 }}
@@ -1605,32 +1819,25 @@ const Engines = () => {
               </h1>
             </Col>
           </Row>
-          <Row>
-            {engines.map((engine) => (
-              <Col md={4}>
-                <EngineCard key={engine.engine_id} {...engine} />
-              </Col>
-            ))}
-          </Row>
-          <Row style={{ marginBottom: "20px" }}>
-            <div>
-              <button
-                onClick={() => handlePageChange(page - 1)}
-                disabled={page === 1}
-              >
-                Previous
-              </button>
-              <span>
-                Page {page} of {pagination.totalPages}
-              </span>
-              <button
-                onClick={() => handlePageChange(page + 1)}
-                disabled={page === pagination.totalPages}
-              >
-                Next
-              </button>
-            </div>
-          </Row>
+          {loading ? (
+            // <p>Loading...</p>
+            <Loader />
+          ) : (
+            <Row>
+              {engines.length === 0 ? (
+                <Col md={12}>
+                  <p>No Results Found</p>
+                </Col>
+              ) : (
+                engines.map((engine) => (
+                  <Col key={engine.engine_id} md={4}>
+                    <EngineCard {...engine} />
+                  </Col>
+                ))
+              )}
+            </Row>
+          )}
+          {!loading ? <Pagination totalPages={pagination.totalPages} /> : <></>}
         </Col>
       </Row>
     </Container>
