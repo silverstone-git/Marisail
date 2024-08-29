@@ -41,8 +41,8 @@ function CheckComponent({
                 name={name}
                 type="radio"
                 id={`${id}2`}
-                onChange={(e) => e.target.value && setValue("No")}
-                checked={value === 'No'}
+                onChange={(e) => e.target.value && setValue("no")}
+                checked={value === 'no'}
               />
             </Col>
           </Accordion.Body>
