@@ -9,8 +9,10 @@ import { useEffect, useState } from "react";
 import "./engineAdvert.module.scss";
 import "react-datepicker/dist/react-datepicker.css";
 import CheckComponent from "../CheckComponent";
+import { useRef } from "react";
 
 const EngineAdvert = () => {
+  const hasFetched = useRef(false);
   const [form, setForm] = useState({
     engineMake: "",
     engineModel: "",
@@ -1447,20 +1449,25 @@ const EngineAdvert = () => {
     }
   };
   useEffect(() => {
-    fetchGeneralColumnsList("", "");
-    fetchMountingColumnsList("", "");
-    fetchMaintenanceColumnsList("", "");
-    fetchSafetyColumnsList("", "");
-    fetchOilColumnsList("", "");
-    fetchTransmissionsColumnsList("", "");
-    fetchPropulsionColumnsList("", "");
-    fetchCoolingColumnsList("", "");
-    fetchElectricalColumnsList("", "");
-    fetchEmissionsColumnsList("", "");
-    fetchDimensionsColumnsList("", "");
-    fetchFuelColumnsList("", "");
-    fetchPerformanceColumnsList("", "");
-    fetchEquipmentColumnsList("", "");
+  }, []);
+  useEffect(() => {
+    if (!hasFetched.current) {
+      fetchGeneralColumnsList("", "");
+      fetchMountingColumnsList("", "");
+      fetchMaintenanceColumnsList("", "");
+      fetchSafetyColumnsList("", "");
+      fetchOilColumnsList("", "");
+      fetchTransmissionsColumnsList("", "");
+      fetchPropulsionColumnsList("", "");
+      fetchCoolingColumnsList("", "");
+      fetchElectricalColumnsList("", "");
+      fetchEmissionsColumnsList("", "");
+      fetchDimensionsColumnsList("", "");
+      fetchFuelColumnsList("", "");
+      fetchPerformanceColumnsList("", "");
+      fetchEquipmentColumnsList("", "");
+      hasFetched.current = true;
+    }
   }, []);
 
   const errorDisplay = (fieldName) => {
