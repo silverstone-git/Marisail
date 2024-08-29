@@ -24,22 +24,80 @@ searchEngineRouter.get("/tables", async (req, res) => {
 // Method   :   Get
 // Access   :   Public
 // Desc     :   Endpoint to get columns for a specific table
-searchEngineRouter.get("/columns/:tableName", async (req, res) => {
-  const { tableName } = req.params;
+searchEngineRouter.get("/:tableName/:columnName", async (req, res) => {
+  const { tableName, columnName } = req.params;
+  const engineMake = req.query.engine_make;
+  const engineModel = req.query.engine_model;
   let connection;
+
   try {
     connection = await dbConnection.getConnection();
+
+    const [tables] = await connection.query("SHOW TABLES");
+    const validTable = tables.some(
+      (table) => Object.values(table)[0] === tableName
+    );
+
+    if (!validTable) {
+      return res
+        .status(400)
+        .json({ ok: false, message: `Invalid table name: ${tableName}` });
+    }
+
     const [columns] = await connection.query("SHOW COLUMNS FROM ??", [
       tableName,
     ]);
-    const columnNames = columns.map((column) => column.Field);
-    return res.status(200).json({ ok: true, columns: columnNames });
+    const validColumn = columns.some((column) => column.Field === columnName);
+
+    if (!validColumn) {
+      return res
+        .status(400)
+        .json({ ok: false, message: `Invalid column name: ${columnName}` });
+    }
+
+    let sql = `
+      SELECT ?? AS value, COUNT(*) AS count 
+      FROM ?? 
+      WHERE 1=1
+    `;
+
+    const params = [columnName, tableName];
+
+    // Add conditions if engine_make and engine_model are present in the query
+    if (engineMake) {
+      sql += " AND engine_make = ?";
+      params.push(engineMake);
+    }
+    if (engineModel) {
+      sql += " AND engine_model = ?";
+      params.push(engineModel);
+    }
+
+    sql += `
+      GROUP BY ?? 
+      ORDER BY value ASC
+    `;
+
+    params.push(columnName);
+
+    const [rows] = await connection.query(sql, params);
+    const recordCount = rows.length;
+
+    return res.status(200).json({
+      ok: true,
+      count: recordCount,
+      result: rows.map((row) => ({
+        value: row.value,
+        count: row.count,
+      })),
+    });
   } catch (err) {
     return res.status(500).json({ ok: false, message: err.message });
   } finally {
     if (connection) connection.release();
   }
 });
+
 // Path     :   /api/search_engine/engine-detail/:id
 // Method   :   Get
 // Access   :   Public
