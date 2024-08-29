@@ -824,19 +824,29 @@ const EngineAdvert = () => {
       console.log(error);
     }
   };
-
-  // const fetchEngineModel = async (engineMake) => {
-  //   const URL = `http://localhost:3001/api/advert_engine/engine_model?engine_make=${encodeURIComponent(
-  //     engineMake
-  //   )}`;
-  //   try {
-  //     const res = await fetch(URL);
-  //     const toJson = await res.json();
-  //     setEngineModelOptions(toJson.result);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  const fetchEngineMake = async (
+    URL = "http://localhost:3001/api/advert_engine/engine_make"
+  ) => {
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      setEngineMakeOptions(toJson.result);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const fetchEngineModel = async (engineMake) => {
+    const URL = `http://localhost:3001/api/advert_engine/engine_model?engine_make=${encodeURIComponent(
+      engineMake
+    )}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      setEngineModelOptions(toJson.result);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const fetchGeneralColumnsList = async (engineMake, engineModel) => {
     setLoading(true);
@@ -846,13 +856,13 @@ const EngineAdvert = () => {
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      // console.log("001 to json--", toJson.result.engine_general.engine_make);
+      console.log("001 to json--", toJson.ok);
       if (toJson.ok) {
         // console.log("001 Before state update: ", toJson.result.engine_general.engine_make);
-        setEngineMakeOptions(toJson.result.engine_general.engine_make);
+        // setEngineMakeOptions(toJson.result.engine_general.engine_make);
         // console.log("001 After state update: ", engineMakeOptions);
 
-        setEngineModelOptions(toJson.result.engine_general.engine_model);
+        // setEngineModelOptions(toJson.result.engine_general.engine_model);
         setEngineModelYearOptions(
           toJson.result.engine_general.engine_modelyear
         );
@@ -1311,6 +1321,7 @@ const EngineAdvert = () => {
   };
   useEffect(() => {
     if (!hasFetched.current) {
+      fetchEngineMake();
       fetchGeneralColumnsList("", "");
       hasFetched.current = true;
     }
@@ -1340,8 +1351,7 @@ const EngineAdvert = () => {
                       value={form.engineMake}
                       setValue={(val) => {
                         setForm({ ...form, engineMake: val });
-                        // fetchEngineModel(val);
-                        fetchGeneralColumnsList(val, "");
+                        fetchEngineModel(val);
                       }}
                       label={ENGINE_ADVERT.ENGINE_MAKE}
                       options={engineMakeOptions}
@@ -1381,19 +1391,6 @@ const EngineAdvert = () => {
                       setValue={(val) => {
                         setForm({ ...form, engineModel: val });
                         fetchGeneralColumnsList(form.engineMake, val);
-                        fetchMountingColumnsList(form.engineMake, val);
-                        fetchMaintenanceColumnsList(form.engineMake, val);
-                        fetchSafetyColumnsList(form.engineMake, val);
-                        fetchOilColumnsList(form.engineMake, val);
-                        fetchTransmissionsColumnsList(form.engineMake, val);
-                        fetchPropulsionColumnsList(form.engineMake, val);
-                        fetchCoolingColumnsList(form.engineMake, val);
-                        fetchElectricalColumnsList(form.engineMake, val);
-                        fetchEmissionsColumnsList(form.engineMake, val);
-                        fetchDimensionsColumnsList(form.engineMake, val);
-                        fetchFuelColumnsList(form.engineMake, val);
-                        fetchPerformanceColumnsList(form.engineMake, val);
-                        fetchEquipmentColumnsList(form.engineMake, val);
                       }}
                       label={ENGINE_ADVERT.ENGINE_MODEL}
                       options={engineModelOptions}

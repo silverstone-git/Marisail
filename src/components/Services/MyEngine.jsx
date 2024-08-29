@@ -53,7 +53,7 @@ const MyEngine = () => {
         usedCondition: advertiseEngineData.usedCondition,
         seller: advertiseEngineData.seller,
         offeredBy: advertiseEngineData.offeredBy,
-        lastSurveyDate: advertiseEngineData.lastSurveyDate,
+        lastSurveyDate: new Date(advertiseEngineData.lastSurveyDate),
         brokerValuation: advertiseEngineData.brokerValuation,
 
         transmissionType: advertiseEngineData.transmissionType,
