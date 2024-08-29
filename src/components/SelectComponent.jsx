@@ -84,7 +84,11 @@ function SelectComponent({
 SelectComponent.propTypes = {
   label: PropTypes.string.isRequired,
   setValue: PropTypes.func.isRequired,
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.instanceOf(Date)
+  ]),
   setOpenKey: PropTypes.func.isRequired,
   openKey: PropTypes.string,
   type: PropTypes.string,
