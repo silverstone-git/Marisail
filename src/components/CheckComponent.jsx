@@ -41,8 +41,8 @@ function CheckComponent({
                 name={name}
                 type="radio"
                 id={`${id}2`}
-                onChange={(e) => e.target.value && setValue("No")}
-                checked={value === 'No'}
+                onChange={(e) => e.target.value && setValue("no")}
+                checked={value === 'no'}
               />
             </Col>
           </Accordion.Body>
@@ -57,7 +57,7 @@ CheckComponent.propTypes = {
   setOpenKey: PropTypes.func.isRequired,
   openKey: PropTypes.string,
   isMandatory: PropTypes.bool.isRequired,
-  value: PropTypes.array,
+  value: PropTypes.string,
   setValue: PropTypes.func,
   name: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,

@@ -17,7 +17,6 @@ import EngineDetailPage from "./components/Engine/EngineDetail";
 
 function App() {
   const navbarRef = useRef();
-
   return (
     <BrowserRouter>
       <HeaderNavbar {...{ navbarRef }}></HeaderNavbar>
@@ -36,7 +35,7 @@ function App() {
         <Route path="/berths" element={<Berths />}></Route>
         <Route path="/buy" element={<Buy />}></Route>
         <Route path="/sell" element={<Sell />}></Route>
-        <Route path="/services" element={<Services />}></Route>
+        <Route path="/services" element={<Services type="myEngines"/>}></Route>
         <Route path="/engines/:id" element={<EngineDetailPage />} />
       </Routes>
     </BrowserRouter>

@@ -17,7 +17,7 @@ function SelectComponent({
     setValue("");
   };*/}
   if(options == undefined) {
-    console.log("001 Options--",label,options);
+    console.log("001 Options--",typeof options, label, options);
   }
   
   return (
