@@ -840,7 +840,6 @@ const EngineAdvert = () => {
 
   const fetchGeneralColumnsList = async (engineMake, engineModel) => {
     setLoading(true);
-    const tableName = "engine_general";
     const URL = `http://localhost:3001/api/advert_engine/columnsList?engine_make=${encodeURIComponent(
       engineMake
     )}&engine_model=${encodeURIComponent(engineModel)}`;
@@ -3278,7 +3277,6 @@ const EngineAdvert = () => {
                       options={fuelConsumptionRateOptions}
                       isMandatory={true}
                     />
-                    {/* <div className="ms-2"><p><small>{error["fuelConsumptionRate"] && errorDisplay("Fuel Consumption Rate")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3293,7 +3291,6 @@ const EngineAdvert = () => {
                       options={fuelConsumtpionAtFullLoadOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["fuelConsumtpionAtFullLoad"] && errorDisplay("Fuel Consumption At Full Load (G/Kwh)")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3308,7 +3305,6 @@ const EngineAdvert = () => {
                       options={fuelInjectionSystemTypeOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["fuelInjectionSystemType"] && errorDisplay("Fuel Injection System Type")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
