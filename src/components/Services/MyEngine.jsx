@@ -12,15 +12,15 @@ const MyEngine = () => {
     // Retrieve the user object from localStorage
     const storedUser = localStorage.getItem("user");
     const formData = localStorage.getItem("advertise_engine");
-    let user;
+    // let user;
     let advertiseEngineData;
     // Parse the JSON string back into an object
     if (storedUser && formData) {
-        user = JSON.parse(storedUser);
+        // user = JSON.parse(storedUser);
         advertiseEngineData = JSON.parse(formData);
 
-        console.log("001 User", user);
-        console.log("001 Form Data", advertiseEngineData);
+        // console.log("001 User", user);
+        // console.log("001 Form Data", advertiseEngineData);
     }
 
     const [form, setForm] = useState({
