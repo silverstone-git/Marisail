@@ -38,11 +38,10 @@ export async function fetchColumns(tableName) {
 export async function fetchDistinctValues(
   tableName,
   columnName,
-  engineMake,
-  engineModel
+  engineMake = null,
+  engineModel = null
 ) {
   try {
-    // Construct query parameters only if values are present
     const queryParams = new URLSearchParams();
     if (engineMake) queryParams.append("engine_make", engineMake);
     if (engineModel) queryParams.append("engine_model", engineModel);
@@ -61,6 +60,8 @@ export async function fetchDistinctValues(
     }
 
     return data.result;
+
+    console.log("Distinct values:", data.result);
   } catch (error) {
     console.error("Error:", error);
     return [];

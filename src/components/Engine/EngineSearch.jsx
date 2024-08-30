@@ -61,12 +61,22 @@ const Engines = () => {
     ignition_system: "",
     noiselevel_db: "",
     asking_price: [],
+
     // Transmission
     transmission_type: [],
     flywheel_SAE: [],
     // Installation and mounting
+    engine_mounting_type: [],
+    engine_block: "",
+    availability_of_spare_parts: "",
+    last_service_date: [],
+    EMS: [],
+    engine_control_system: [],
+    turbocharger: [],
+    heat_exchanger: [],
+    sea_waterpump: [],
 
-    // dimentions
+    // dimensions
     engine_weight: [],
     height: [],
     width: [],
@@ -268,27 +278,27 @@ const Engines = () => {
       columnName: "seawater_pump",
     },
     displacement: {
-      tableName: "engine_dimentions",
+      tableName: "engine_dimensions",
       columnName: "displacement",
     },
     lenght: {
-      tableName: "engine_dimentions",
+      tableName: "engine_dimensions",
       columnName: "lenght",
     },
     width: {
-      tableName: "engine_dimentions",
+      tableName: "engine_dimensions",
       columnName: "width",
     },
     height: {
-      tableName: "engine_dimentions",
+      tableName: "engine_dimensions",
       columnName: "height",
     },
     engine_weight: {
-      tableName: "engine_dimentions",
+      tableName: "engine_dimensions",
       columnName: "engine_weight",
     },
     dry_weight: {
-      tableName: "engine_dimentions",
+      tableName: "engine_dimensions",
       columnName: "dry_weight",
     },
     engine_performance: {
@@ -486,7 +496,6 @@ const Engines = () => {
 
       // Construct the API URL
       const url = `http://localhost:3001/api/search_engine/engines?tables=${tables}&columns=${columns}&values=${values}&page=${pagination.currentPage}&limit=${pagination.limit}`;
-      console.log("API URL:", url);
 
       // Fetch data from the API
       const response = await fetch(url, {
@@ -501,7 +510,6 @@ const Engines = () => {
       }
 
       const data = await response.json();
-      console.log("API Response:", data);
 
       // Update state with fetched data
       setEngines(data.data);
@@ -1133,7 +1141,7 @@ const Engines = () => {
                       selectedOptions={selectedOptions}
                       category="displacement"
                       onSelect={handleMultiSelectOption}
-                      tableName="engine_dimentions"
+                      tableName="engine_dimensions"
                       columnName="displacement"
                     />
                   </Form.Group>
@@ -1147,7 +1155,7 @@ const Engines = () => {
                       selectedOptions={selectedOptions}
                       category="lenght"
                       onSelect={handleMultiSelectOption}
-                      tableName="engine_dimentions"
+                      tableName="engine_dimensions"
                       columnName="lenght"
                     />
                   </Form.Group>
@@ -1161,7 +1169,7 @@ const Engines = () => {
                       selectedOptions={selectedOptions}
                       category="width"
                       onSelect={handleMultiSelectOption}
-                      tableName="engine_dimentions"
+                      tableName="engine_dimensions"
                       columnName="width"
                     />
                   </Form.Group>
@@ -1175,7 +1183,7 @@ const Engines = () => {
                       selectedOptions={selectedOptions}
                       category="height"
                       onSelect={handleMultiSelectOption}
-                      tableName="engine_dimentions"
+                      tableName="engine_dimensions"
                       columnName="height"
                     />
                   </Form.Group>
@@ -1189,7 +1197,7 @@ const Engines = () => {
                       selectedOptions={selectedOptions}
                       category="engine_weight"
                       onSelect={handleMultiSelectOption}
-                      tableName="engine_dimentions"
+                      tableName="engine_dimensions"
                       columnName="engine_weight"
                     />
                   </Form.Group>
@@ -1203,7 +1211,7 @@ const Engines = () => {
                       selectedOptions={selectedOptions}
                       category="dry_weight"
                       onSelect={handleMultiSelectOption}
-                      tableName="engine_dimentions"
+                      tableName="engine_dimensions"
                       columnName="dry_weight"
                     />
                   </Form.Group>
