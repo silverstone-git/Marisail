@@ -14,12 +14,19 @@ const DropdownWithRadioButtons = ({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const engineMake = selectedOptions["engine_make"] || [];
+  const engineModel = selectedOptions["engine_model"] || [];
 
   useEffect(() => {
     const loadDistinctValues = async () => {
       setLoading(true);
       try {
-        const values = await fetchDistinctValues(tableName, columnName);
+        const values = await fetchDistinctValues(
+          tableName,
+          columnName,
+          engineMake.join(","), // Send multiple engine makes as a comma-separated string
+          engineModel.join(",") // Send multiple engine models as a comma-separated string
+        );
         setDistinctValues(values);
       } catch (err) {
         setError(err.message);
@@ -31,7 +38,7 @@ const DropdownWithRadioButtons = ({
     if (tableName && columnName) {
       loadDistinctValues();
     }
-  }, [tableName, columnName]);
+  }, [tableName, columnName, engineMake, engineModel]);
 
   const handleDropdownToggle = () => {
     setIsOpen((prev) => !prev);
