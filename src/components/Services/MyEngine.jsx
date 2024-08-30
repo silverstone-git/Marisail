@@ -820,7 +820,7 @@ const MyEngine = () => {
             if (typeof value !== "string") {
                 console.log("001 form key--", value, key);
             }
-            if (!value || (String(value).trim() === "") === "") {
+            if (!value || (String(value).trim() === "")) {
                 errors[key] = true;
                 console.log("001 Error Key.", errors[key]);
             }

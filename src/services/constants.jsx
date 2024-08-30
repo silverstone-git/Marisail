@@ -99,5 +99,11 @@ export const ENGINE_ADVERT = {
   INTAKE_VALVE_TIMING:"Intake Valve Timing",
   EXHAUST_VALVE_TIMING:"Exhaust Valve Timing",
   EXHAUST_GAS_AFTER_TREATMENT:"Exhaust Gas After Treatment",
-  EXHAUST_GAS_STATUS:"Exhaust Gas Status"
+  EXHAUST_GAS_STATUS:"Exhaust Gas Status",
+  AFTERCOOLED: "Aftercooled",
+  AFTERCOOLED_ID: "aftercooled",
+  INTERCOOLED: "Intercooled",
+  INTERCOOLED_ID: "intercooled",
+  SUPERCHARGED: "Supercharged",
+  SUPERCHARGED_ID: "supercharged",
 };
