@@ -26,14 +26,14 @@ const EngineAdvert = () => {
     engineClassification: "",
     certification: "",
     manufacturerWarranty: "",
-    engineSerialNumber: "",
+    engineSerialNumber: 0,
     ceDesignCategory: "",
-    numberDrives: "",
-    numberEngines: "",
-    rangeMiles: "",
+    numberDrives: 0,
+    numberEngines: 0,
+    rangeMiles: 0,
     cruisingSpeed: "",
     driveType: "",
-    engineHours: "",
+    engineHours: 0,
     ignitionSystem: "",
     noiseLevel: "",
     engineSoundproofingKits: "",
@@ -105,13 +105,13 @@ const EngineAdvert = () => {
     nominalRating: "",
     enginePerformance: "",
     maxPowerOutput: "",
-    maxPowerBHP: "",
-    maxSpeedKnots: "",
+    maxPowerBHP: 0,
+    maxSpeedKnots: 0,
     supercharged: "",
-    grossPowerFullLoadKW: "",
-    grossPowerFullLoadHpMetric: "",
-    GrossPowerPropellerCurveKw: "",
-    GrossPowerPropellerCurveHpMetric: "",
+    grossPowerFullLoadKW: 0,
+    grossPowerFullLoadHpMetric: 0,
+    GrossPowerPropellerCurveKw: 0,
+    GrossPowerPropellerCurveHpMetric: 0,
     grossTorque: "",
     powerToWeightRatio: "",
     engineEfficiency: "",
@@ -120,21 +120,21 @@ const EngineAdvert = () => {
     continuousPower: "",
 
     cylinderConfiguration: "",
-    numberCylinders: "",
+    numberCylinders: 0,
     cylindersAndArrangement: "",
-    numberValves: "",
+    numberValves: 0,
     valvePerCylinder: "",
     boreXStroke: "",
     bore: "",
     stroke: "",
 
     idleRPM: "",
-    ratedSpeedRPM: "",
+    ratedSpeedRPM: 0,
     rpmAtMaxPower: "",
 
-    maximumTorque: "",
-    maximumTorqueAtSpeed: "",
-    torqueAtRatedSpeed: "",
+    maximumTorque: 0,
+    maximumTorqueAtSpeed: 0,
+    torqueAtRatedSpeed: 0,
 
     afterCooled: "",
     coolingSystem: "",
@@ -679,7 +679,7 @@ const EngineAdvert = () => {
     valvePerCylinder: false,
     boreXStroke: false,
     bore: false,
-    stroke: true,
+    stroke: false,
 
     idleRPM: false,
     ratedSpeedRPM: true,
@@ -799,13 +799,9 @@ const EngineAdvert = () => {
     const errors = {};
     Object.keys(requiredField).forEach((key) => {
       const value = form[key];
-
-      if (typeof value !== "string") {
-        console.log("001 form key--", value, key);
-      }
-      if (!value || (String(value).trim() === "")) {
+      if (requiredField[key] && (String(value).trim() === "")) {
         errors[key] = true;
-        console.log("001 Error Key.", errors[key]);
+        // console.log("001 Error Key.", requiredField[key]);
       }
     });
     setError(errors);
@@ -1333,12 +1329,12 @@ const EngineAdvert = () => {
     }
   };
   useEffect(() => {
+    fetchEngineMake();
     if (!hasFetched.current) {
-      fetchEngineMake();
-      fetchGeneralColumnsList("", "");
+      fetchGeneralColumnsList(form.engineMake, form.engineModel);
       hasFetched.current = true;
     }
-  }, []);
+  }, [form.engineModel]);
 
   const errorDisplay = (fieldName) => {
     return <div style={{ color: "red" }}>{fieldName} field is required</div>;

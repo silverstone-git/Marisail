@@ -696,7 +696,7 @@ const MyEngine = () => {
         valvePerCylinder: false,
         boreXStroke: false,
         bore: false,
-        stroke: true,
+        stroke: false,
 
         idleRPM: false,
         ratedSpeedRPM: true,
@@ -817,12 +817,12 @@ const MyEngine = () => {
         Object.keys(requiredField).forEach((key) => {
             const value = form[key];
 
-            if (typeof value !== "string") {
-                console.log("001 form key--", value, key);
-            }
+            // if (typeof value !== "string") {
+            //     console.log("001 form key--", value, key);
+            // }
             if (!value || String(value).trim() === "") {
                 errors[key] = true;
-                console.log("001 Error Key.", errors[key]);
+                // console.log("001 Error Key.", errors[key]);
             }
         });
         setError(errors);
