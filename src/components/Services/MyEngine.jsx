@@ -820,7 +820,7 @@ const MyEngine = () => {
             if (typeof value !== "string") {
                 console.log("001 form key--", value, key);
             }
-            if (!value || (String(value).trim() === "")) {
+            if (!value || String(value).trim() === "") {
                 errors[key] = true;
                 console.log("001 Error Key.", errors[key]);
             }
@@ -1951,17 +1951,17 @@ const MyEngine = () => {
                                         </div>
                                     </Col>
                                     <Col xs={3} md={12} className="mb-2">
-                                        <SelectComponent
-                                            type="advertEngine"
+                                        <CheckComponent
                                             openKey={openKey}
                                             setOpenKey={setOpenKey}
-                                            value={form.supercharged}
+                                            label={ENGINE_ADVERT.SUPERCHARGED}
                                             setValue={(val) =>
                                                 setForm({ ...form, supercharged: val })
                                             }
-                                            label="Supercharged"
-                                            options={superchargedOptions}
+                                            name={ENGINE_ADVERT.SUPERCHARGED}
+                                            id={ENGINE_ADVERT.SUPERCHARGED_ID}
                                             isMandatory={false}
+                                            value={form.supercharged}
                                         />
                                     </Col>
                                     <Col xs={3} md={12} className="mb-2">
@@ -3234,15 +3234,15 @@ const MyEngine = () => {
                                 </h6>
                                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
                                     <Col xs={3} md={12} className="mb-2">
-                                        <SelectComponent
-                                            type="advertEngine"
+                                        <CheckComponent
                                             openKey={openKey}
                                             setOpenKey={setOpenKey}
-                                            value={form.afterCooled}
+                                            label={ENGINE_ADVERT.AFTERCOOLED}
                                             setValue={(val) => setForm({ ...form, afterCooled: val })}
-                                            label="Aftercooled"
-                                            options={afterCooledOptions}
+                                            name={ENGINE_ADVERT.AFTERCOOLED}
+                                            id={ENGINE_ADVERT.AFTERCOOLED_ID}
                                             isMandatory={false}
+                                            value={form.afterCooled}
                                         />
                                     </Col>
                                     <Col xs={3} md={12} className="mb-2">
@@ -3296,15 +3296,15 @@ const MyEngine = () => {
                                         />
                                     </Col>
                                     <Col xs={3} md={12} className="mb-2">
-                                        <SelectComponent
-                                            type="advertEngine"
+                                        <CheckComponent
                                             openKey={openKey}
                                             setOpenKey={setOpenKey}
-                                            value={form.intercooled}
+                                            label={ENGINE_ADVERT.INTERCOOLED}
                                             setValue={(val) => setForm({ ...form, intercooled: val })}
-                                            label="Intercooled"
-                                            options={intercooledOptions}
+                                            name={ENGINE_ADVERT.INTERCOOLED}
+                                            id={ENGINE_ADVERT.INTERCOOLED_ID}
                                             isMandatory={false}
+                                            value={form.intercooled}
                                         />
                                     </Col>
                                     <Col xs={3} md={12} className="mb-2">
