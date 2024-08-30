@@ -15,13 +15,9 @@ const DropdownWithCheckBoxes = ({
   const [error, setError] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
 
-  // Extract engine make and model from selectedOptions, default to null if not present
-  const engineMake = selectedOptions["engine_make"]
-    ? selectedOptions["engine_make"][0]
-    : null;
-  const engineModel = selectedOptions["engine_model"]
-    ? selectedOptions["engine_model"][0]
-    : null;
+  // Extract engine make and model from selectedOptions, allowing multiple values
+  const engineMake = selectedOptions["engine_make"] || [];
+  const engineModel = selectedOptions["engine_model"] || [];
 
   useEffect(() => {
     const loadDistinctValues = async () => {
@@ -30,8 +26,8 @@ const DropdownWithCheckBoxes = ({
         const values = await fetchDistinctValues(
           tableName,
           columnName,
-          engineMake,
-          engineModel
+          engineMake.join(","), // Send multiple engine makes as a comma-separated string
+          engineModel.join(",") // Send multiple engine models as a comma-separated string
         );
         setDistinctValues(values);
       } catch (err) {
@@ -44,7 +40,7 @@ const DropdownWithCheckBoxes = ({
     if (tableName && columnName) {
       loadDistinctValues();
     }
-  }, [tableName, columnName, engineMake, engineModel]); // Add engineMake and engineModel as dependencies
+  }, [tableName, columnName, engineMake, engineModel]);
 
   const handleDropdownToggle = () => {
     setIsOpen((prev) => !prev);

@@ -24,84 +24,6 @@ searchEngineRouter.get("/tables", async (req, res) => {
 // Method   :   Get
 // Access   :   Public
 // Desc     :   Endpoint to get columns for a specific table
-searchEngineRouter.get("/:tableName/:columnName", async (req, res) => {
-  const { tableName, columnName } = req.params;
-  const engineMake = req.query.engine_make;
-  const engineModel = req.query.engine_model;
-  let connection;
-
-  try {
-    connection = await dbConnection.getConnection();
-
-    const [tables] = await connection.query("SHOW TABLES");
-    const validTable = tables.some(
-      (table) => Object.values(table)[0] === tableName
-    );
-
-    if (!validTable) {
-      return res
-        .status(400)
-        .json({ ok: false, message: `Invalid table name: ${tableName}` });
-    }
-
-    const [columns] = await connection.query("SHOW COLUMNS FROM ??", [
-      tableName,
-    ]);
-    const validColumn = columns.some((column) => column.Field === columnName);
-
-    if (!validColumn) {
-      return res
-        .status(400)
-        .json({ ok: false, message: `Invalid column name: ${columnName}` });
-    }
-
-    let sql = `
-      SELECT ?? AS value, COUNT(*) AS count 
-      FROM ?? 
-      WHERE 1=1
-    `;
-
-    const params = [columnName, tableName];
-
-    // Add conditions if engine_make and engine_model are present in the query
-    if (engineMake) {
-      sql += " AND engine_make = ?";
-      params.push(engineMake);
-    }
-    if (engineModel) {
-      sql += " AND engine_model = ?";
-      params.push(engineModel);
-    }
-
-    sql += `
-      GROUP BY ?? 
-      ORDER BY value ASC
-    `;
-
-    params.push(columnName);
-
-    const [rows] = await connection.query(sql, params);
-    const recordCount = rows.length;
-
-    return res.status(200).json({
-      ok: true,
-      count: recordCount,
-      result: rows.map((row) => ({
-        value: row.value,
-        count: row.count,
-      })),
-    });
-  } catch (err) {
-    return res.status(500).json({ ok: false, message: err.message });
-  } finally {
-    if (connection) connection.release();
-  }
-});
-
-// Path     :   /api/search_engine/engine-detail/:id
-// Method   :   Get
-// Access   :   Public
-// Desc     :   Endpoint to get columns for a specific table
 searchEngineRouter.get("/engine-detail/:id", async (req, res) => {
   try {
     console.log("Engine ID:", req.params.id);
@@ -157,51 +79,72 @@ searchEngineRouter.get("/engine-detail/:id", async (req, res) => {
     res.status(500).send(`Server error: ${err.message}`);
   }
 });
-// Path     :   /api/search_engine/:tableName/:columnName
+
+// Path     :   /api/search_engine/engine-detail/:id
 // Method   :   Get
 // Access   :   Public
-// Desc     :   Endpoint to get columns against a table
+// Desc     :   Endpoint to get columns for a specific table
 searchEngineRouter.get("/:tableName/:columnName", async (req, res) => {
   const { tableName, columnName } = req.params;
-  let connection;
+  const { engine_make, engine_model } = req.query;
 
+  let connection;
   try {
     connection = await dbConnection.getConnection();
 
-    // Validate table name to prevent SQL injection
-    const [tables] = await connection.query("SHOW TABLES");
-    const validTable = tables.some(
-      (table) => Object.values(table)[0] === tableName
-    );
+    let query;
+    const parameters = [];
 
-    if (!validTable) {
-      return res
-        .status(400)
-        .json({ ok: false, message: `Invalid table name: ${tableName}` });
+    if (columnName === "engine_make") {
+      // Fetch all distinct engine_make values
+      query = `SELECT DISTINCT ${columnName} as value, COUNT(*) as count FROM ${tableName} GROUP BY ${columnName}`;
+    } else if (columnName === "engine_model") {
+      // Fetch all distinct engine_model values filtered by engine_make
+      query = `SELECT DISTINCT ${columnName} as value, COUNT(*) as count FROM ${tableName} WHERE 1=1`;
+
+      if (engine_make) {
+        const engineMakeArray = engine_make.split(",");
+        const engineMakeConditions = engineMakeArray.map(() => "?").join(",");
+        query += ` AND engine_make IN (${engineMakeConditions})`;
+        parameters.push(...engineMakeArray);
+      }
+
+      query += ` GROUP BY ${columnName}`;
+    } else {
+      // Apply filters for other columns
+      query = `SELECT DISTINCT ${columnName} as value, COUNT(*) as count FROM ${tableName} WHERE 1=1`;
+
+      if (engine_make) {
+        const engineMakeArray = engine_make.split(",");
+        const engineMakeConditions = engineMakeArray.map(() => "?").join(",");
+        query += ` AND engine_make IN (${engineMakeConditions})`;
+        parameters.push(...engineMakeArray);
+      }
+
+      if (engine_model) {
+        const engineModelArray = engine_model.split(",");
+        const engineModelConditions = engineModelArray.map(() => "?").join(",");
+        query += ` AND engine_model IN (${engineModelConditions})`;
+        parameters.push(...engineModelArray);
+      }
+
+      query += ` GROUP BY ${columnName}`;
     }
 
-    // Validate column name to prevent SQL injection
-    const [columns] = await connection.query("SHOW COLUMNS FROM ??", [
-      tableName,
-    ]);
-    const validColumn = columns.some((column) => column.Field === columnName);
+    console.log("Executing query:", query);
+    console.log("With parameters:", parameters);
 
-    if (!validColumn) {
-      return res
-        .status(400)
-        .json({ ok: false, message: `Invalid column name: ${columnName}` });
-    }
+    const [rows] = await connection.query(query, parameters);
+    console.log("Rows returned:", rows);
 
-    // Use placeholders for dynamic table and column names
-    const [rows] = await connection.query(
-      `SELECT ??, COUNT(*) as count FROM ?? GROUP BY ?? ORDER BY ??`,
-      [columnName, tableName, columnName, columnName]
-    );
+    const totalCountQuery = `SELECT COUNT(DISTINCT ${columnName}) as totalCount FROM ${tableName}`;
+    const [[{ totalCount }]] = await connection.query(totalCountQuery);
 
     return res.status(200).json({
       ok: true,
+      count: totalCount,
       result: rows.map((row) => ({
-        value: row[columnName],
+        value: row.value,
         count: row.count,
       })),
     });
@@ -211,6 +154,7 @@ searchEngineRouter.get("/:tableName/:columnName", async (req, res) => {
     if (connection) connection.release();
   }
 });
+
 // Path     :   /api/search_engine/engines
 // Method   :   Get
 // Access   :   Public
@@ -274,18 +218,8 @@ searchEngineRouter.get("/engines", async (req, res) => {
     dataQuery += " LIMIT ? OFFSET ?";
     queryParams.push(limit, offset);
 
-    console.log("Data Query:", dataQuery);
-    console.log("Data Query Params:", queryParams);
-
     // Fetch the data
     const [results] = await connection.query(dataQuery, queryParams);
-
-    // Prepare the count query for pagination purposes
-    console.log("Count Query:", countQuery);
-    console.log(
-      "Count Query Params:",
-      queryParams.slice(0, queryParams.length - 2)
-    );
 
     const [[countResult]] = await connection.query(
       countQuery,
