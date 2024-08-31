@@ -841,7 +841,305 @@ const EngineAdvert = () => {
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 Relevant data--", toJson);
+      console.log("001 Relevant data--", toJson.result);
+
+      form.engineMake = toJson.result.engine_general.engine_make;
+      form.engineModel = toJson.result.engine_general.engine_model;
+      form.engineModelYear = toJson.result.engine_general.engine_modelyear;
+      form.engineType = toJson.result.engine_general.engine_type;
+      form.typeDesignation = toJson.result.engine_general.type_designation;
+
+      form.engineClassification =
+        toJson.result.engine_general.engine_classifiable;
+      form.certification = toJson.result.engine_general.engine_certification;
+      form.manufacturerWarranty =
+        toJson.result.engine_general.manufacture_warranty;
+      form.engineSerialNumber = toJson.result.engine_general.engine_serial;
+      form.ceDesignCategory = toJson.result.engine_general.ce_category;
+      form.numberDrives = toJson.result.engine_general.number_drives;
+      form.numberEngines = toJson.result.engine_general.number_engines;
+      form.rangeMiles = toJson.result.engine_general.engine_range;
+      form.cruisingSpeed = toJson.result.engine_general.cruise_speed;
+      form.driveType = toJson.result.engine_general.drive_type;
+      form.engineHours = toJson.result.engine_general.engine_hours;
+      form.ignitionSystem = toJson.result.engine_general.ignition_system;
+      form.noiseLevel = toJson.result.engine_general.noiselevel_db;
+      form.engineSoundproofingKits =
+        toJson.result.engine_general.enginesound_proofingkits;
+
+      form.condition = toJson.result.engine_general.condition_1;
+      form.usedCondition = toJson.result.engine_general.used_condition;
+      form.seller = toJson.result.engine_general.seller;
+      form.offeredBy = toJson.result.engine_general.offered_by;
+      form.lastSurveyDate = toJson.result.engine_general.lastsurvey_date;
+      form.brokerValuation = toJson.result.engine_general.broker_valuation;
+
+      form.transmissionType =
+        toJson.result.engine_transmission.transmission_type;
+      form.gearShift = toJson.result.engine_transmission.gear_shift;
+      form.gearRatio = toJson.result.engine_transmission.gear_ratio;
+      form.gearShiftType = toJson.result.engine_transmission.gearshift_type;
+      form.flywheelSAE14 = toJson.result.engine_transmission.flywheel_SAE;
+      form.siluminFlywheelHousing =
+        toJson.result.engine_transmission.flywheel_housing;
+      form.camShaft = toJson.result.engine_transmission.camshaft;
+      form.camShaftAlloy = toJson.result.engine_transmission.crankshaft_alloy;
+      form.crankcaseDesign = toJson.result.engine_transmission.crankcase_design;
+
+      form.engineMountingOrientation =
+        toJson.result.engine_mounting.enginemounting_orientation;
+      form.engineSuspension = toJson.result.engine_mounting.engine_suspension;
+
+      form.mountingBracketMaterial =
+        toJson.result.engine_mounting.mountingbracket_material;
+      form.alignmentRequirements =
+        toJson.result.engine_mounting.alignment_requirements;
+      form.engineBlock = toJson.result.engine_mounting.engine_block;
+
+      form.scheduledMaintenancePlan =
+        toJson.result.engine_maintenance.scheduled_maintenanceplan;
+      form.serviceInterval = toJson.result.engine_maintenance.service_interval;
+      form.maintenanceLogRequirements =
+        toJson.result.engine_maintenance.maintenancelog_requirements;
+      form.availabilityOfSpareParts =
+        toJson.result.engine_maintenance.availability_spareparts;
+      form.operationMode = toJson.result.engine_maintenance.operation_mode;
+      form.lastServiceDate = toJson.result.engine_maintenance.last_servicedate;
+
+      form.engineManagementSystem = toJson.result.engine_equipment.EMS;
+      form.engineControlSystem =
+        toJson.result.engine_equipment.engine_controlsystem;
+      form.unitInjectors = toJson.result.engine_equipment.unit_injectors;
+      form.turboCharger = toJson.result.engine_equipment.turbocharger;
+      form.turboCharging = toJson.result.engine_equipment.turbo_charging;
+      form.starterMotor = toJson.result.engine_equipment.starter_motor;
+      form.protectionCovers = toJson.result.engine_equipment.protection_covers;
+      form.closedCrankcaseVentilation =
+        toJson.result.engine_equipment.crankcase_ventilation;
+      form.heatExchanger = toJson.result.engine_equipment.heat_exchanger;
+      form.heatExchangerWithExpansionTank =
+        toJson.result.engine_equipment.heat_exchanger_WET;
+      form.seaWaterPump = toJson.result.engine_equipment.seawater_pump;
+      form.seaWaterCooledChargeAirCooler =
+        toJson.result.engine_equipment.charge_aircooler;
+      form.workingPrinciple = toJson.result.engine_equipment.working_principle;
+      form.compressionRatio = toJson.result.engine_equipment.compression_ratio;
+      form.pistonSpeedAt1500Rpm =
+        toJson.result.engine_equipment.pistonspeed_1500;
+      form.pistonSpeedAt1800Rpm =
+        toJson.result.engine_equipment.pistonspeed_1800;
+      form.firingOrder = toJson.result.engine_equipment.firing_order;
+      form.pistons = toJson.result.engine_equipment.pistons;
+      form.connectionRods = toJson.result.engine_equipment.connection_rods;
+      form.auxiliaryPowerTakeOff =
+        toJson.result.engine_equipment.auxiliarypower_takeoff;
+      form.remoteControlSystems =
+        toJson.result.engine_equipment.remote_controlsystems;
+
+      form.displacement = toJson.result.engine_dimensions.displacement;
+      form.length = toJson.result.engine_dimensions.length;
+      form.width = toJson.result.engine_dimensions.width;
+      form.height = toJson.result.engine_dimensions.height;
+      form.lengthFromFrontEndOfFlywheelHousing =
+        toJson.result.engine_dimensions.Engine_length;
+      form.engineWeight = toJson.result.engine_dimensions.engine_weight;
+      form.dryWeight = toJson.result.engine_dimensions.dry_weight;
+      form.exclOilWeight = toJson.result.engine_dimensions.weight_excloil;
+      form.weightWithHeatExchanger =
+        toJson.result.engine_dimensions.weight_heatexchanger;
+      form.weightWithKeelCooling =
+        toJson.result.engine_dimensions.weight_keelcooling;
+
+      form.nominalRating = toJson.result.engine_performance.nominal_rating;
+      form.enginePerformance =
+        toJson.result.engine_performance.engine_performance;
+      form.maxPowerOutput = toJson.result.engine_performance.max_poweroutput;
+      form.maxPowerBHP = toJson.result.engine_performance.max_power;
+      form.maxSpeedKnots = toJson.result.engine_performance.max_speed;
+      form.supercharged = toJson.result.engine_performance.supercharged;
+      form.grossPowerFullLoadKW =
+        toJson.result.engine_performance.GP_fullloadKW;
+      form.grossPowerFullLoadHpMetric =
+        toJson.result.engine_performance.GP_fullloadmetric;
+      form.GrossPowerPropellerCurveKw =
+        toJson.result.engine_performance.GP_propellercurveKW;
+      form.GrossPowerPropellerCurveHpMetric =
+        toJson.result.engine_performance.GP_propellercurvemetric;
+      form.grossTorque = toJson.result.engine_performance.gross_torque;
+      form.powerToWeightRatio =
+        toJson.result.engine_performance.powertoweight_ratio;
+      form.engineEfficiency =
+        toJson.result.engine_performance.engine_efficiency;
+      form.engineSpeedRange =
+        toJson.result.engine_performance.Engine_speedrange;
+      form.maximumContinuousRating =
+        toJson.result.engine_performance.Max_Continuousrating;
+      form.continuousPower =
+        toJson.result.engine_performance.continuouspower_KWHP;
+
+      form.cylinderConfiguration =
+        toJson.result.engine_performance.cylinder_configuration;
+      form.numberCylinders = toJson.result.engine_performance.number_cylinders;
+      form.cylindersAndArrangement =
+        toJson.result.engine_performance.cylinders_arrangement;
+      form.numberValves = toJson.result.engine_performance.number_valves;
+      form.valvePerCylinder =
+        toJson.result.engine_performance.valve_percylinder;
+      form.boreXStroke = toJson.result.engine_performance.bore_stroke;
+      form.bore = toJson.result.engine_performance.bore;
+      form.stroke = toJson.result.engine_performance.bore_stroke;
+
+      form.idleRPM = "";
+      form.ratedSpeedRPM = "";
+      form.rpmAtMaxPower = "";
+
+      form.maximumTorque = "";
+      form.maximumTorqueAtSpeed = "";
+      form.torqueAtRatedSpeed = "";
+
+      form.afterCooled = toJson.result.engine_cooling.after_cooled;
+      form.coolingSystem = toJson.result.engine_cooling.cooling_system;
+      form.openCoolingSystem = toJson.result.engine_cooling.open_coolingsystem;
+      form.closedCoolingSystem =
+        toJson.result.engine_cooling.closed_coolingsystem;
+      form.intercooled = toJson.result.engine_cooling.cooling_system;
+      form.recommendedCoolant =
+        toJson.result.engine_cooling.recommended_coolant;
+      form.typeOfCooling = toJson.result.engine_cooling.cooling_type;
+      form.heatDissipationRate =
+        toJson.result.engine_cooling.heat_dissipationrate;
+      form.heatExchangerMaterial =
+        toJson.result.engine_cooling.heat_exchangermaterial;
+      form.engineLubrication = toJson.result.engine_cooling.engine_lubrication;
+      form.lubricationSystem = toJson.result.engine_cooling.lubrication_system;
+      form.coolingCapacity = toJson.result.engine_cooling.cooling_system;
+      form.coolingFluidType = toJson.result.engine_cooling.cooling_fluidtype;
+      form.coolingSystemPressure =
+        toJson.result.engine_cooling.cooling_systempressure;
+      form.airFilterType = toJson.result.engine_cooling.air_filtertype;
+      form.circulationPumpType =
+        toJson.result.engine_cooling.circulation_pumptype;
+      form.rawWaterpumpType = toJson.result.engine_cooling.rawwater_pumptype;
+
+      form.propulsion = toJson.result.engine_propulsion.propulsion;
+      form.bowthruster = toJson.result.engine_propulsion.bowthruster;
+      form.propulsionSystem =
+        toJson.result.engine_propulsion.propulsion_systemtype;
+      form.propulsionSystemType = toJson.result.engine_propulsion.propulsion;
+      form.propellerDiameter =
+        toJson.result.engine_propulsion.propeller_diameter;
+      form.propellerMaterial =
+        toJson.result.engine_propulsion.propeller_material;
+      form.propellerPitch = toJson.result.engine_propulsion.propeller_pitch;
+      form.propellerType = toJson.result.engine_propulsion.propeller_type;
+      form.propellerShaftDiameter =
+        toJson.result.engine_propulsion.propeller_shaftdiameter;
+      form.gearboxType = toJson.result.engine_propulsion.gearbox_type;
+      form.transmissionCooling =
+        toJson.result.engine_propulsion.transmission_cooling;
+      form.propellerBladeMaterial =
+        toJson.result.engine_propulsion.propeller_bladematerial;
+      form.propellerShaftMaterial =
+        toJson.result.engine_propulsion.propeller_shaftmaterial;
+      form.steeringSystem = toJson.result.engine_propulsion.steering_system;
+      form.steeringControlType =
+        toJson.result.engine_propulsion.steering_controltype;
+      form.trimSystem = toJson.result.engine_propulsion.trim_system;
+      form.trimTabMaterial = toJson.result.engine_propulsion.trim_tabmaterial;
+      form.trimTabType = toJson.result.engine_propulsion.trim_tab_type;
+
+      form.electronicFuelinjection = toJson.result.engine_fuel.EFI;
+      form.fuelPreFilter = toJson.result.engine_fuel.fuel_prefilter; //
+      form.fuelFilter = toJson.result.engine_fuel.fuel_filter;
+      form.fuelFilterType = toJson.result.engine_fuel.fuel_filtertype;
+      form.fuelReserve = toJson.result.engine_fuel.fuel_reserve;
+      form.fuelSystem = toJson.result.engine_fuel.fuel_system;
+      form.fuelTankCapacity = toJson.result.engine_fuel.fuel_tankcapacity;
+      form.fuelType = toJson.result.engine_fuel.fuel_type;
+      form.lowestSpecificFuelConsumption =
+        toJson.result.engine_fuel.lowest_fuelconsumption;
+      form.recommendedFuel = toJson.result.engine_fuel.recommended_fuel;
+      form.fuelConsumptionAtCruisingSpeed =
+        toJson.result.engine_fuel.fuel_prefilter; //
+      form.fuelConsumptionRate = toJson.result.engine_fuel.fuel_consumptionrate;
+      form.fuelConsumtpionAtFullLoad = toJson.result.engine_fuel.FC_fullload;
+      form.fuelInjectionSystemType =
+        toJson.result.engine_fuel.FuelInjection_systemtype;
+      form.fuelDeliveryPressure =
+        toJson.result.engine_fuel.Fuel_deliverypressure;
+      form.fuelTankMaterial = toJson.result.engine_fuel.Fuel_tankmaterial;
+      form.fuelLineDiameter = toJson.result.engine_fuel.fuel_linediameter;
+
+      form.fuelConsumption = toJson.result.engine_fuel.FC_3Quarterload;
+      form.fuelConsumptionHalfLoad = toJson.result.engine_fuel.FC_halfload;
+      form.fuelConsumptionPropellerCurve =
+        toJson.result.engine_fuel.FC_propellercurve;
+      form.heatRejectionToCoolant = toJson.result.engine_fuel.heat_rejection;
+
+      form.oilFilter = toJson.result.engine_oil.oil_filter;
+      form.oilFilterType = toJson.result.engine_oil.oil_filtertype;
+      form.centrifugalOilCleaner =
+        toJson.result.engine_oil.centrifugal_oilcleaner;
+      form.oilCooler = toJson.result.engine_oil.oil_cooler;
+      form.oilFiller = toJson.result.engine_oil.oil_filler;
+      form.oilDipstick = toJson.result.engine_oil.oil_dipstick;
+      form.recommendedOil = toJson.result.engine_oil.recommended_oil;
+      form.oilCapacity = toJson.result.engine_oil.oil_capacity;
+      form.oilChangeInterval = toJson.result.engine_oil.oil_changeinterval;
+      form.oilCoolingMethod = toJson.result.engine_oil.oil_coolingmethod;
+      form.lubricationOilPressure =
+        toJson.result.engine_oil.lubrication_oilpressure;
+      form.oilFilterBypassValve =
+        toJson.result.engine_oil.oilfilter_bypassvalve;
+
+      form.alternator = toJson.result.engine_electrical.alternator;
+      form.alternatorOutput =
+        toJson.result.engine_electrical.alternator_outputAMPS;
+      form.batteryType = toJson.result.engine_electrical.battery_type;
+      form.batteryVoltage = toJson.result.engine_electrical.battery_voltage;
+      form.generatorOutputKw =
+        toJson.result.engine_electrical.integrated_generator;
+      form.alternatorOutputAmps =
+        toJson.result.engine_electrical.integrated_generator;
+      form.starterMotorVoltage =
+        toJson.result.engine_electrical.starter_MotorVoltage;
+      form.engineControlUnitModel = toJson.result.engine_electrical.ECU_Model;
+      form.batteryChargingSystem =
+        toJson.result.engine_electrical.Battery_ChargingSystem;
+      form.integratedGenerator =
+        toJson.result.engine_electrical.integrated_generator;
+
+      form.emissionCompliance =
+        toJson.result.engine_emissions.Emission_compliance;
+      form.exhaustSystem = toJson.result.engine_emissions.exhaust_system;
+      form.exhaustSystemType =
+        toJson.result.engine_emissions.exhaust_systemtype;
+      form.exhaustGasAfterTreatment =
+        toJson.result.engine_emissions.exhaustgas_aftertreatment;
+      form.exhaustGasStatus = toJson.result.engine_emissions.exhaustGas_status;
+      form.exhaustValveTiming =
+        toJson.result.engine_emissions.exhaust_valvetiming;
+      form.intakeValveTiming =
+        toJson.result.engine_emissions.intake_valvetiming;
+      form.emissionControlTechnology =
+        toJson.result.engine_emissions.emission_controltechnology;
+      form.noxEmissions = toJson.result.engine_emissions.NOx_Emission;
+      form.coxEmissions = toJson.result.engine_emissions.COx_Emission;
+      form.soxEmissions = toJson.result.engine_emissions.SOx_Emission;
+      form.complianceWithIMOStandards =
+        toJson.result.engine_emissions.compliance_internationalmaritime;
+
+      form.emergencyStopSystem =
+        toJson.result.engine_safety.emergency_stopsystem;
+      form.engineMonitoringSystems =
+        toJson.result.engine_safety.engine_monitoringsystem;
+      form.overheatProtection = toJson.result.engine_safety.overheat_protection;
+      form.lowOilPressureAlarm =
+        toJson.result.engine_safety.lowoil_pressurealarm;
+
+      form.location = "";
+      form.distance = "";
+      form.globalAddressLookup = "";
       setRelevantOptions(toJson.result);
     } catch (err) {
       console.log(err);
@@ -1544,6 +1842,9 @@ const EngineAdvert = () => {
   };
   useEffect(() => {
     if (!hasFetched.current) {
+      fetchFuelColumnsList();
+      fetchPerformanceColumnsList();
+      fetchEquipmentColumnsList();
       fetchGeneralColumnsList();
       fetchMountingColumnsList();
       fetchMaintenanceColumnsList();
@@ -1555,9 +1856,6 @@ const EngineAdvert = () => {
       fetchElectricalColumnsList();
       fetchEmissionsColumnsList();
       fetchDimensionsColumnsList();
-      fetchFuelColumnsList();
-      fetchPerformanceColumnsList();
-      fetchEquipmentColumnsList();
       hasFetched.current = true;
     }
   }, []);

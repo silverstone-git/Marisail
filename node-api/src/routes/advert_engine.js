@@ -65,6 +65,7 @@ advertEngineRouter.get("/engine_model/", async (req, res) => {
 
 advertEngineRouter.get("/relevant_data/", async (req, res) => {
   let connection;
+  let valid_tables = [ "engine_general","engine_dimensions","engine_cooling","engine_electrical","engine_emissions","engine_fuel","engine_propulsion","engine_transmission","engine_oil", "engine_safety","engine_equipment","engine_performance","engine_maintenance","engine_mounting"];
   try {
     let filterOptions = "";
     let tableName = req.params.tableName;
@@ -85,25 +86,27 @@ advertEngineRouter.get("/relevant_data/", async (req, res) => {
     const [engineId] = await connection.query(
       `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
     );
-    const [columns] = await connection.query("SHOW COLUMNS FROM ??", [
-      tableName,
-    ]);
-    results[tableName] = {};
-    for (let column of columns) {
-      const columnName = column.Field;
-      if (columnName != "engine_id") {
-        const [rows] = await connection.query(
-          `SELECT DISTINCT ?? FROM ?? WHERE engine_id IN (?) GROUP BY ?? ORDER BY count(*) DESC LIMIT 0,1`,
-          [
-            columnName,
-            tableName,
-            engineId.map((row) => row.engine_id),
-            columnName,
-          ]
-        );
-        results[tableName][columnName] = rows.map(
-          (row) => row[columnName]
-        );
+    for (let tableName of valid_tables) {
+      const [columns] = await connection.query("SHOW COLUMNS FROM ??", [
+        tableName,
+      ]);
+      results[tableName] = {};
+      for (let column of columns) {
+        const columnName = column.Field;
+        if (columnName != "engine_id") {
+          const [rows] = await connection.query(
+            `SELECT DISTINCT ?? FROM ?? WHERE engine_id IN (?) GROUP BY ?? ORDER BY count(*) DESC LIMIT 0,1`,
+            [
+              columnName,
+              tableName,
+              engineId.map((row) => row.engine_id),
+              columnName,
+            ]
+          );
+          results[tableName][columnName] = rows.map(
+            (row) => row[columnName]
+          );
+        }
       }
     }
     return res.status(200).json({ ok: true, result: results });
