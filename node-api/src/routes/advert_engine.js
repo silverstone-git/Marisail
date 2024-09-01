@@ -23,23 +23,14 @@ advertEngineRouter.get("/:table/:column/distinct/", async (req, res) => {
     const orderBy = column;
     const filters = [];
     let queryParams;
-    if (req.query?.engine_make) {
-      queryParams = {
-        engine_make: req.query.engine_make
-      };
-    } else if (req.query?.engine_model) {
-      queryParams = {
-        engine_model: req.query.engine_model
-      };      
-    } else if (req.query?.engine_modelyear) {
-      queryParams = {
-        engine_modelyear: req.query.engine_modelyear
-      };
-    } else if (req.query?.type_designation) {
-      queryParams = {
-        type_designation: req.query.type_designation,
-      };
-    }
+
+    queryParams = {
+      engine_make: req.query?.engine_make,
+      engine_model: req.query?.engine_model,
+      engine_modelyear: req.query?.engine_modelyear,
+      engine_type: req.query?.engine_type,
+      type_designation: req.query?.type_designation,
+    };
 
     // Dynamically construct filter options
     for (const [key, value] of Object.entries(queryParams)) {
@@ -54,7 +45,9 @@ advertEngineRouter.get("/:table/:column/distinct/", async (req, res) => {
       const filterOptions = filters.length > 0 ? `WHERE ${filters.join(" AND ")}` : "";
       query = `SELECT DISTINCT ${column} FROM ${table} ${filterOptions} ORDER BY ${orderBy}`;
     }
-    console.log("QUERY--",query);
+    console.log("---------------------QUERY------------------",query);
+    console.log("---------------------------------------");
+
     const [results] = await connection.query(query);
     // results[table] = results.map((row) => row[column]);
     return res.status(200).json({ ok: true, result: results.map((row) => row[column]) });

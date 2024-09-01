@@ -1147,14 +1147,32 @@ const EngineAdvert = () => {
       console.log("001 Relevant options--", relevantOptions);
     }
   };
-  const fetchDistinctValues = async (engineMake) => {
-    const URL = `http://localhost:3001/api/advert_engine/engine_general/engine_model/distinct?engine_make=${encodeURIComponent(
+  const fetchDistinctValues = async (engineMake, engineModel, engineModelYear, engineType, typeDesignation, fetchColumn) => {
+    const URL = `http://localhost:3001/api/advert_engine/engine_general/${fetchColumn}/distinct?engine_make=${encodeURIComponent(
       engineMake
+    )}&engine_model=${encodeURIComponent(
+      engineModel
+    )}&engine_modelyear=${encodeURIComponent(
+      engineModelYear
+    )}&engine_type=${encodeURIComponent(
+      engineType
+    )}&type_designation=${encodeURIComponent(
+      typeDesignation
     )}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      setEngineModelOptions(toJson.result);
+      if(fetchColumn == 'engine_model'){
+        setEngineModelOptions(toJson.result);
+      } else if (fetchColumn == 'engine_make'){
+        setEngineMakeOptions(toJson.result);
+      } else if (fetchColumn == 'engine_modelyear'){
+        setEngineModelYearOptions(toJson.result);
+      } else if (fetchColumn == 'engine_type'){
+        setEngineTypeOptions(toJson.result);
+      } else if (fetchColumn == 'type_designation'){
+        setTypeDesignationOptions(toJson.result);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -1884,7 +1902,7 @@ const EngineAdvert = () => {
                       value={form.engineMake}
                       setValue={(val) => {
                         setForm({ ...form, engineMake: val });
-                        fetchDistinctValues(val);
+                        fetchDistinctValues(val,"", "", "", "", "engine_model");
                       }}
                       label={ENGINE_ADVERT.ENGINE_MAKE}
                       options={engineMakeOptions}
@@ -1923,6 +1941,7 @@ const EngineAdvert = () => {
                       value={form.engineModel}
                       setValue={(val) => {
                         setForm({ ...form, engineModel: val });
+                        fetchDistinctValues(form.engineMake, val, "", "", "", "engine_modelyear");
                       }}
                       label={ENGINE_ADVERT.ENGINE_MODEL}
                       options={engineModelOptions}
@@ -1945,6 +1964,7 @@ const EngineAdvert = () => {
                       value={form.engineModelYear}
                       setValue={(val) => {
                         setForm({ ...form, engineModelYear: val });
+                        fetchDistinctValues(form.engineMake, form.engineModel, val, "", "", "engine_type");
                       }}
                       label={ENGINE_ADVERT.ENGINE_MODEL_YEAR}
                       options={engineModelYearOptions}
@@ -1967,6 +1987,7 @@ const EngineAdvert = () => {
                       value={form.engineType}
                       setValue={(val) => {
                         setForm({ ...form, engineType: val });
+                        fetchDistinctValues(form.engineMake, form.engineModel, form.engineModelYear, val, "","type_designation");
                       }}
                       label={ENGINE_ADVERT.ENGINE_TYPE}
                       options={engineTypeOptions}
