@@ -15,77 +15,89 @@ advertEngineRouter.get("/main/", (req, res) => {
   res.json({ message: "advert engine main page route" });
 });
 
-function isValidString(str) {
-  if (str !== undefined && str.trim() !== "") {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-advertEngineRouter.get("/engine_make/", async (req, res) => {
+advertEngineRouter.get("/:table/:column/distinct/", async (req, res) => {
   let connection;
   try {
     connection = await dbConnection.getConnection();
-    const [rows] = await connection.query(
-      "SELECT DISTINCT engine_make FROM engine_general ORDER BY engine_make"
-    );
-    return res
-      .status(200)
-      .json({ ok: true, result: rows.map((row) => row.engine_make) });
-  } catch (err) {
-    return res.status(500).json({ ok: false, message: err.message });
-  } finally {
-    connection.release();
-  }
-});
-
-advertEngineRouter.get("/engine_model/", async (req, res) => {
-  let connection;
-  try {
-    let filterEngineMake = "";
-    connection = await dbConnection.getConnection();
-    if (req.query.engine_make) {
-      filterEngineMake = ` WHERE engine_make = '${req.query.engine_make}' ORDER BY engine_model`;
-    } else {
-      filterEngineMake = ` ORDER BY engine_model`;
+    const { table, column } = req.params;
+    const orderBy = column;
+    const filters = [];
+    let queryParams;
+    if (req.query?.engine_make) {
+      queryParams = {
+        engine_make: req.query.engine_make
+      };
+    } else if (req.query?.engine_model) {
+      queryParams = {
+        engine_model: req.query.engine_model
+      };      
+    } else if (req.query?.engine_modelyear) {
+      queryParams = {
+        engine_modelyear: req.query.engine_modelyear
+      };
+    } else if (req.query?.type_designation) {
+      queryParams = {
+        type_designation: req.query.type_designation,
+      };
     }
-    const [rows] = await connection.query(
-      `SELECT DISTINCT engine_model FROM engine_general ${filterEngineMake}`
-    );
-    return res
-      .status(200)
-      .json({ ok: true, result: rows.map((row) => row.engine_model) });
+
+    // Dynamically construct filter options
+    for (const [key, value] of Object.entries(queryParams)) {
+      if (value) {
+        filters.push(`${key} = '${value}'`);
+      }
+    }
+    let query;
+    if(column == 'engine_make'){
+      query = `SELECT DISTINCT ${column} FROM ${table} ORDER BY ${orderBy}`;
+    } else {
+      const filterOptions = filters.length > 0 ? `WHERE ${filters.join(" AND ")}` : "";
+      query = `SELECT DISTINCT ${column} FROM ${table} ${filterOptions} ORDER BY ${orderBy}`;
+    }
+    console.log("QUERY--",query);
+    const [results] = await connection.query(query);
+    // results[table] = results.map((row) => row[column]);
+    return res.status(200).json({ ok: true, result: results.map((row) => row[column]) });
   } catch (err) {
     return res.status(500).json({ ok: false, message: err.message });
   } finally {
-    connection.release();
+    if (connection) connection.release();
   }
 });
+
 
 advertEngineRouter.get("/relevant_data/", async (req, res) => {
   let connection;
-  let valid_tables = [ "engine_general","engine_dimensions","engine_cooling","engine_electrical","engine_emissions","engine_fuel","engine_propulsion","engine_transmission","engine_oil", "engine_safety","engine_equipment","engine_performance","engine_maintenance","engine_mounting"];
+  let valid_tables = ["engine_general"];
+  // ,"engine_dimensions","engine_cooling","engine_electrical","engine_emissions","engine_fuel","engine_propulsion","engine_transmission","engine_oil", "engine_safety","engine_equipment","engine_performance","engine_maintenance","engine_mounting"];
   try {
     let filterOptions = "";
-    let tableName = req.params.tableName;
     connection = await dbConnection.getConnection();
-    if (
-      isValidString(req.query.engine_make) &&
-      isValidString(req.query.engine_model)
-    ) {
-      filterOptions = ` WHERE engine_make = '${req.query.engine_make}' AND engine_model = '${req.query.engine_model}'`;
-    } else if (req.query.engine_make && !req.query.engine_model) {
-      filterOptions = ` WHERE engine_make = '${req.query.engine_make}'`;
-    } else if (!req.query.engine_make && req.query.engine_model) {
-      filterOptions = ` WHERE engine_model = '${req.query.engine_model}'`;
-    } else {
-      filterOptions = ``;
+    const filters = [];
+    const queryParams = {
+      engine_make: req.query.engine_make,
+      engine_model: req.query.engine_model,
+      engine_modelyear: req.query.engine_modelyear,
+      engine_type: req.query.engine_type,
+      type_designation: req.query.type_designation,
+    };
+
+    // Dynamically construct filter options
+    for (const [key, value] of Object.entries(queryParams)) {
+      if (value) {
+        filters.push(`${key} = '${value}'`);
+      }
     }
+
+    filterOptions = filters.length > 0 ? `WHERE ${filters.join(" AND ")}` : "";
+
     let results = {};
     const [engineId] = await connection.query(
       `SELECT DISTINCT engine_id FROM engine_general ${filterOptions} ORDER BY engine_id`
     );
+    if (engineId.length === 0) {
+      return res.status(404).json({ ok: false, message: "No data found" });
+    }
     for (let tableName of valid_tables) {
       const [columns] = await connection.query("SHOW COLUMNS FROM ??", [
         tableName,
@@ -103,9 +115,7 @@ advertEngineRouter.get("/relevant_data/", async (req, res) => {
               columnName,
             ]
           );
-          results[tableName][columnName] = rows.map(
-            (row) => row[columnName]
-          );
+          results[tableName][columnName] = rows.map((row) => row[columnName]);
         }
       }
     }
@@ -134,9 +144,7 @@ advertEngineRouter.get("/columns/:tableName", async (req, res) => {
           `SELECT DISTINCT ?? FROM ??  ORDER BY ??`,
           [columnName, tableName, columnName]
         );
-        results[tableName][columnName] = rows.map(
-          (row) => row[columnName]
-        );
+        results[tableName][columnName] = rows.map((row) => row[columnName]);
       }
     }
     return res.status(200).json({ ok: true, result: results });

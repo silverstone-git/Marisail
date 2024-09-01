@@ -1147,8 +1147,8 @@ const EngineAdvert = () => {
       console.log("001 Relevant options--", relevantOptions);
     }
   };
-  const fetchEngineModel = async (engineMake) => {
-    const URL = `http://localhost:3001/api/advert_engine/engine_model?engine_make=${encodeURIComponent(
+  const fetchDistinctValues = async (engineMake) => {
+    const URL = `http://localhost:3001/api/advert_engine/engine_general/engine_model/distinct?engine_make=${encodeURIComponent(
       engineMake
     )}`;
     try {
@@ -1842,20 +1842,20 @@ const EngineAdvert = () => {
   };
   useEffect(() => {
     if (!hasFetched.current) {
-      fetchFuelColumnsList();
-      fetchPerformanceColumnsList();
-      fetchEquipmentColumnsList();
+      // fetchFuelColumnsList();
+      // fetchPerformanceColumnsList();
+      // fetchEquipmentColumnsList();
       fetchGeneralColumnsList();
-      fetchMountingColumnsList();
-      fetchMaintenanceColumnsList();
-      fetchSafetyColumnsList();
-      fetchOilColumnsList();
-      fetchTransmissionsColumnsList();
-      fetchPropulsionColumnsList();
-      fetchCoolingColumnsList();
-      fetchElectricalColumnsList();
-      fetchEmissionsColumnsList();
-      fetchDimensionsColumnsList();
+      // fetchMountingColumnsList();
+      // fetchMaintenanceColumnsList();
+      // fetchSafetyColumnsList();
+      // fetchOilColumnsList();
+      // fetchTransmissionsColumnsList();
+      // fetchPropulsionColumnsList();
+      // fetchCoolingColumnsList();
+      // fetchElectricalColumnsList();
+      // fetchEmissionsColumnsList();
+      // fetchDimensionsColumnsList();
       hasFetched.current = true;
     }
   }, []);
@@ -1884,7 +1884,7 @@ const EngineAdvert = () => {
                       value={form.engineMake}
                       setValue={(val) => {
                         setForm({ ...form, engineMake: val });
-                        fetchEngineModel(val);
+                        fetchDistinctValues(val);
                       }}
                       label={ENGINE_ADVERT.ENGINE_MAKE}
                       options={engineMakeOptions}
