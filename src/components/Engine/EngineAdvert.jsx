@@ -8,7 +8,6 @@ import DatePickerComponent from "../DatePickerComponent";
 import { useEffect, useState } from "react";
 import "./engineAdvert.module.scss";
 import "react-datepicker/dist/react-datepicker.css";
-import CheckComponent from "../CheckComponent";
 import { useRef } from "react";
 import Loader from "../Loader";
 
@@ -244,7 +243,7 @@ const EngineAdvert = () => {
   });
   const [error, setError] = useState({});
   const [openKey, setOpenKey] = useState(null);
-  const [relevantOptions, setRelevantOptions] = useState([]);
+  // const [relevantOptions, setRelevantOptions] = useState([]);
   const [engineMakeOptions, setEngineMakeOptions] = useState([]);
   const [engineModelOptions, setEngineModelOptions] = useState([]);
   const [unitInjectorsOptions, setUnitInjectorsOptions] = useState([]);
@@ -258,6 +257,12 @@ const EngineAdvert = () => {
   const [offeredByOptions, setOfferedByOptions] = useState([]);
   const [certificationOptions, setCertificationOptions] = useState([]);
   const [engineSerialNumberOptions, setEngineSerialNumberOptions] = useState(
+    []
+  );
+  const [manufactureWarrantyOptions, setManufactureWarrantyOptions] = useState(
+    []
+  );
+  const [engineClassifiableOptions, setEngineClassifiableOptions] = useState(
     []
   );
   const [ceDesignCategoryOptions, setCEDesignCategoryOptions] = useState([]);
@@ -1204,6 +1209,13 @@ const EngineAdvert = () => {
         setEngineSoundproofingKits(
           toJson.result.engine_general.enginesound_proofingkits
         );
+        setManufactureWarrantyOptions(
+          toJson.result.engine_general.manufacture_warranty
+        );
+        setEngineClassifiableOptions(
+          toJson.result.engine_general.engine_classifiable
+        );
+
         //warranty
         //classification
         setConditionOptions(toJson.result.engine_general.condition_1);
@@ -2192,17 +2204,17 @@ const EngineAdvert = () => {
                       <div className="ms-2"><p><small>{error["marisailVesselId"] && errorDisplay(ENGINE_ADVERT.MARISAIL_VESSEL_ID)}</small></p></div>
                     </Col> */}
                   <Col xs={3} md={12} className="mb-2">
-                    <CheckComponent
+                    <SelectComponent
+                      type="advertEngine"
                       openKey={openKey}
                       setOpenKey={setOpenKey}
-                      label={ENGINE_ADVERT.ENGINE_CLASSIFICATION}
+                      value={form.engineClassification}
                       setValue={(val) =>
                         setForm({ ...form, engineClassification: val })
                       }
-                      name={ENGINE_ADVERT.ENGINE_CLASSIFICATION}
-                      id={ENGINE_ADVERT.ENGINE_CLASSIFICATION_ID}
+                      label={ENGINE_ADVERT.ENGINE_CLASSIFICATION}
+                      options={engineClassifiableOptions}
                       isMandatory={true}
-                      value={form.engineClassification}
                     />
                     <div className="ms-2">
                       <p>
@@ -2236,17 +2248,17 @@ const EngineAdvert = () => {
                     </div>
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
-                    <CheckComponent
+                    <SelectComponent
+                      type="advertEngine"
                       openKey={openKey}
                       setOpenKey={setOpenKey}
-                      label={ENGINE_ADVERT.MANUFACTURER_WARRANTY}
+                      value={form.manufacturerWarranty}
                       setValue={(val) =>
                         setForm({ ...form, manufacturerWarranty: val })
                       }
-                      name={ENGINE_ADVERT.MANUFACTURER_WARRANTY}
-                      id={ENGINE_ADVERT.MANUFACTURER_WARRANTY_ID}
-                      isMandatory={false}
-                      value={form.manufacturerWarranty}
+                      label={ENGINE_ADVERT.MANUFACTURER_WARRANTY}
+                      options={manufactureWarrantyOptions}
+                      isMandatory={true}
                     />
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
