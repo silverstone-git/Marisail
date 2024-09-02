@@ -8,13 +8,13 @@ import DatePickerComponent from "../DatePickerComponent";
 import { useEffect, useState } from "react";
 import "./engineAdvert.module.scss";
 import "react-datepicker/dist/react-datepicker.css";
-import CheckComponent from "../CheckComponent";
 import { useRef } from "react";
 import Loader from "../Loader";
 
 const EngineAdvert = () => {
+  const cache = {};
   const hasFetched = useRef(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     engineMake: "",
     engineModel: "",
@@ -25,14 +25,14 @@ const EngineAdvert = () => {
     engineClassification: "",
     certification: "",
     manufacturerWarranty: "",
-    engineSerialNumber: "",
+    engineSerialNumber: 0,
     ceDesignCategory: "",
-    numberDrives: "",
-    numberEngines: "",
-    rangeMiles: "",
+    numberDrives: 0,
+    numberEngines: 0,
+    rangeMiles: 0,
     cruisingSpeed: "",
     driveType: "",
-    engineHours: "",
+    engineHours: 0,
     ignitionSystem: "",
     noiseLevel: "",
     engineSoundproofingKits: "",
@@ -104,13 +104,13 @@ const EngineAdvert = () => {
     nominalRating: "",
     enginePerformance: "",
     maxPowerOutput: "",
-    maxPowerBHP: "",
-    maxSpeedKnots: "",
+    maxPowerBHP: 0,
+    maxSpeedKnots: 0,
     supercharged: "",
-    grossPowerFullLoadKW: "",
-    grossPowerFullLoadHpMetric: "",
-    GrossPowerPropellerCurveKw: "",
-    GrossPowerPropellerCurveHpMetric: "",
+    grossPowerFullLoadKW: 0,
+    grossPowerFullLoadHpMetric: 0,
+    GrossPowerPropellerCurveKw: 0,
+    GrossPowerPropellerCurveHpMetric: 0,
     grossTorque: "",
     powerToWeightRatio: "",
     engineEfficiency: "",
@@ -119,21 +119,21 @@ const EngineAdvert = () => {
     continuousPower: "",
 
     cylinderConfiguration: "",
-    numberCylinders: "",
+    numberCylinders: 0,
     cylindersAndArrangement: "",
-    numberValves: "",
+    numberValves: 0,
     valvePerCylinder: "",
     boreXStroke: "",
     bore: "",
     stroke: "",
 
     idleRPM: "",
-    ratedSpeedRPM: "",
+    ratedSpeedRPM: 0,
     rpmAtMaxPower: "",
 
-    maximumTorque: "",
-    maximumTorqueAtSpeed: "",
-    torqueAtRatedSpeed: "",
+    maximumTorque: 0,
+    maximumTorqueAtSpeed: 0,
+    torqueAtRatedSpeed: 0,
 
     afterCooled: "",
     coolingSystem: "",
@@ -243,6 +243,7 @@ const EngineAdvert = () => {
   });
   const [error, setError] = useState({});
   const [openKey, setOpenKey] = useState(null);
+  // const [relevantOptions, setRelevantOptions] = useState([]);
   const [engineMakeOptions, setEngineMakeOptions] = useState([]);
   const [engineModelOptions, setEngineModelOptions] = useState([]);
   const [unitInjectorsOptions, setUnitInjectorsOptions] = useState([]);
@@ -256,6 +257,12 @@ const EngineAdvert = () => {
   const [offeredByOptions, setOfferedByOptions] = useState([]);
   const [certificationOptions, setCertificationOptions] = useState([]);
   const [engineSerialNumberOptions, setEngineSerialNumberOptions] = useState(
+    []
+  );
+  const [manufactureWarrantyOptions, setManufactureWarrantyOptions] = useState(
+    []
+  );
+  const [engineClassifiableOptions, setEngineClassifiableOptions] = useState(
     []
   );
   const [ceDesignCategoryOptions, setCEDesignCategoryOptions] = useState([]);
@@ -678,7 +685,7 @@ const EngineAdvert = () => {
     valvePerCylinder: false,
     boreXStroke: false,
     bore: false,
-    stroke: true,
+    stroke: false,
 
     idleRPM: false,
     ratedSpeedRPM: true,
@@ -798,13 +805,9 @@ const EngineAdvert = () => {
     const errors = {};
     Object.keys(requiredField).forEach((key) => {
       const value = form[key];
-
-      if (typeof value !== "string") {
-        console.log("001 form key--", value, key);
-      }
-      if (!value || (String(value).trim() === "") === "") {
+      if (requiredField[key] && String(value).trim() === "") {
         errors[key] = true;
-        console.log("001 Error Key.", errors[key]);
+        // console.log("001 Error Key.", requiredField[key]);
       }
     });
     setError(errors);
@@ -824,34 +827,361 @@ const EngineAdvert = () => {
       console.log(error);
     }
   };
-
-  // const fetchEngineModel = async (engineMake) => {
-  //   const URL = `http://localhost:3001/api/advert_engine/engine_model?engine_make=${encodeURIComponent(
-  //     engineMake
-  //   )}`;
-  //   try {
-  //     const res = await fetch(URL);
-  //     const toJson = await res.json();
-  //     setEngineModelOptions(toJson.result);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  const fetchGeneralColumnsList = async (engineMake, engineModel) => {
-    setLoading(true);
-    const URL = `http://localhost:3001/api/advert_engine/columns?engine_make=${encodeURIComponent(
+  const fetchRelevantData = async (
+    engineMake,
+    engineModel,
+    engineModelYear,
+    engineType,
+    typeDesignation
+  ) => {
+    const URL = `http://localhost:3001/api/advert_engine/relevant_data?engine_make=${encodeURIComponent(
       engineMake
-    )}&engine_model=${encodeURIComponent(engineModel)}`;
+    )}&engine_model=${encodeURIComponent(
+      engineModel
+    )}&engine_modelyear=${encodeURIComponent(
+      engineModelYear
+    )}&engine_type=${encodeURIComponent(
+      engineType
+    )}&type_designation=${encodeURIComponent(typeDesignation)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      // console.log("001 to json--", toJson.result.engine_general.engine_make);
-      if (toJson.ok) {
-        // console.log("001 Before state update: ", toJson.result.engine_general.engine_make);
-        setEngineMakeOptions(toJson.result.engine_general.engine_make);
-        // console.log("001 After state update: ", engineMakeOptions);
+      console.log(
+        "001 Relevant data--",
+        toJson.result.engine_general.condition_1[0]
+      );
 
+      setForm((prevForm) => ({
+        ...prevForm,
+        engineMake: toJson.result.engine_general.engine_make[0] || "",
+        engineModel: toJson.result.engine_general.engine_model[0] || "",
+        engineModelYear: toJson.result.engine_general.engine_modelyear[0] || "",
+        engineType: toJson.result.engine_general.engine_type[0] || "",
+        typeDesignation: toJson.result.engine_general.type_designation[0] || "",
+        condition: toJson.result.engine_general.condition_1[0] || "",
+        usedCondition: toJson.result.engine_general.used_condition[0] || "",
+        seller: toJson.result.engine_general.seller[0] || "",
+        offeredBy: toJson.result.engine_general.offered_by[0] || "",
+        lastSurveyDate:
+          new Date(toJson.result.engine_general.lastsurvey_date[0]) ||
+          new Date(),
+        brokerValuation: toJson.result.engine_general.broker_valuation[0] || "",
+        engineClassification:
+          toJson.result.engine_general.engine_classifiable[0],
+        certification: toJson.result.engine_general.engine_certification,
+        manufacturerWarranty: toJson.result.engine_general.manufacture_warranty,
+        engineSerialNumber: toJson.result.engine_general.engine_serial,
+        ceDesignCategory: toJson.result.engine_general.ce_category,
+        numberDrives: toJson.result.engine_general.number_drives,
+        numberEngines: toJson.result.engine_general.number_engines,
+        rangeMiles: toJson.result.engine_general.engine_range,
+        cruisingSpeed: toJson.result.engine_general.cruise_speed,
+        driveType: toJson.result.engine_general.drive_type,
+        engineHours: toJson.result.engine_general.engine_hours,
+        ignitionSystem: toJson.result.engine_general.ignition_system,
+        noiseLevel: toJson.result.engine_general.noiselevel_db,
+        engineSoundproofingKits:
+          toJson.result.engine_general.enginesound_proofingkits,
+
+        transmissionType: toJson.result.engine_transmission.transmission_type,
+        gearShift: toJson.result.engine_transmission.gear_shift,
+        gearRatio: toJson.result.engine_transmission.gear_ratio,
+        gearShiftType: toJson.result.engine_transmission.gearshift_type,
+        flywheelSAE14: toJson.result.engine_transmission.flywheel_SAE,
+        siluminFlywheelHousing:
+          toJson.result.engine_transmission.flywheel_housing,
+        camShaft: toJson.result.engine_transmission.camshaft,
+        camShaftAlloy: toJson.result.engine_transmission.crankshaft_alloy,
+        crankcaseDesign: toJson.result.engine_transmission.crankcase_design,
+
+        engineMountingOrientation:
+          toJson.result.engine_mounting.enginemounting_orientation,
+        engineSuspension: toJson.result.engine_mounting.engine_suspension,
+
+        mountingBracketMaterial:
+          toJson.result.engine_mounting.mountingbracket_material,
+        alignmentRequirements:
+          toJson.result.engine_mounting.alignment_requirements,
+        engineBlock: toJson.result.engine_mounting.engine_block,
+
+        scheduledMaintenancePlan:
+          toJson.result.engine_maintenance.scheduled_maintenanceplan,
+        serviceInterval: toJson.result.engine_maintenance.service_interval,
+        maintenanceLogRequirements:
+          toJson.result.engine_maintenance.maintenancelog_requirements,
+        availabilityOfSpareParts:
+          toJson.result.engine_maintenance.availability_spareparts,
+        operationMode: toJson.result.engine_maintenance.operation_mode,
+        lastServiceDate: toJson.result.engine_maintenance.last_servicedate,
+
+        engineManagementSystem: toJson.result.engine_equipment.EMS,
+        engineControlSystem:
+          toJson.result.engine_equipment.engine_controlsystem,
+        unitInjectors: toJson.result.engine_equipment.unit_injectors,
+        turboCharger: toJson.result.engine_equipment.turbocharger,
+        turboCharging: toJson.result.engine_equipment.turbo_charging,
+        starterMotor: toJson.result.engine_equipment.starter_motor,
+        protectionCovers: toJson.result.engine_equipment.protection_covers,
+        closedCrankcaseVentilation:
+          toJson.result.engine_equipment.crankcase_ventilation,
+        heatExchanger: toJson.result.engine_equipment.heat_exchanger,
+        heatExchangerWithExpansionTank:
+          toJson.result.engine_equipment.heat_exchanger_WET,
+        seaWaterPump: toJson.result.engine_equipment.seawater_pump,
+        seaWaterCooledChargeAirCooler:
+          toJson.result.engine_equipment.charge_aircooler,
+        workingPrinciple: toJson.result.engine_equipment.working_principle,
+        compressionRatio: toJson.result.engine_equipment.compression_ratio,
+        pistonSpeedAt1500Rpm: toJson.result.engine_equipment.pistonspeed_1500,
+        pistonSpeedAt1800Rpm: toJson.result.engine_equipment.pistonspeed_1800,
+        firingOrder: toJson.result.engine_equipment.firing_order,
+        pistons: toJson.result.engine_equipment.pistons,
+        connectionRods: toJson.result.engine_equipment.connection_rods,
+        auxiliaryPowerTakeOff:
+          toJson.result.engine_equipment.auxiliarypower_takeoff,
+        remoteControlSystems:
+          toJson.result.engine_equipment.remote_controlsystems,
+
+        displacement: toJson.result.engine_dimensions.displacement,
+        length: toJson.result.engine_dimensions.length,
+        width: toJson.result.engine_dimensions.width,
+        height: toJson.result.engine_dimensions.height,
+        lengthFromFrontEndOfFlywheelHousing:
+          toJson.result.engine_dimensions.Engine_length,
+        engineWeight: toJson.result.engine_dimensions.engine_weight,
+        dryWeight: toJson.result.engine_dimensions.dry_weight,
+        exclOilWeight: toJson.result.engine_dimensions.weight_excloil,
+        weightWithHeatExchanger:
+          toJson.result.engine_dimensions.weight_heatexchanger,
+        weightWithKeelCooling:
+          toJson.result.engine_dimensions.weight_keelcooling,
+
+        nominalRating: toJson.result.engine_performance.nominal_rating,
+        enginePerformance: toJson.result.engine_performance.engine_performance,
+        maxPowerOutput: toJson.result.engine_performance.max_poweroutput,
+        maxPowerBHP: toJson.result.engine_performance.max_power,
+        maxSpeedKnots: toJson.result.engine_performance.max_speed,
+        supercharged: toJson.result.engine_performance.supercharged,
+        grossPowerFullLoadKW: toJson.result.engine_performance.GP_fullloadKW,
+        grossPowerFullLoadHpMetric:
+          toJson.result.engine_performance.GP_fullloadmetric,
+        GrossPowerPropellerCurveKw:
+          toJson.result.engine_performance.GP_propellercurveKW,
+        GrossPowerPropellerCurveHpMetric:
+          toJson.result.engine_performance.GP_propellercurvemetric,
+        grossTorque: toJson.result.engine_performance.gross_torque,
+        powerToWeightRatio:
+          toJson.result.engine_performance.powertoweight_ratio,
+        engineEfficiency: toJson.result.engine_performance.engine_efficiency,
+        engineSpeedRange: toJson.result.engine_performance.Engine_speedrange,
+        maximumContinuousRating:
+          toJson.result.engine_performance.Max_Continuousrating,
+        continuousPower: toJson.result.engine_performance.continuouspower_KWHP,
+
+        cylinderConfiguration:
+          toJson.result.engine_performance.cylinder_configuration,
+        numberCylinders: toJson.result.engine_performance.number_cylinders,
+        cylindersAndArrangement:
+          toJson.result.engine_performance.cylinders_arrangement,
+        numberValves: toJson.result.engine_performance.number_valves,
+        valvePerCylinder: toJson.result.engine_performance.valve_percylinder,
+        boreXStroke: toJson.result.engine_performance.bore_stroke,
+        bore: toJson.result.engine_performance.bore,
+        stroke: toJson.result.engine_performance.bore_stroke,
+
+        idleRPM: "",
+        ratedSpeedRPM: "",
+        rpmAtMaxPower: "",
+
+        maximumTorque: "",
+        maximumTorqueAtSpeed: "",
+        torqueAtRatedSpeed: "",
+
+        afterCooled: toJson.result.engine_cooling.after_cooled,
+        coolingSystem: toJson.result.engine_cooling.cooling_system,
+        openCoolingSystem: toJson.result.engine_cooling.open_coolingsystem,
+        closedCoolingSystem: toJson.result.engine_cooling.closed_coolingsystem,
+        intercooled: toJson.result.engine_cooling.cooling_system,
+        recommendedCoolant: toJson.result.engine_cooling.recommended_coolant,
+        typeOfCooling: toJson.result.engine_cooling.cooling_type,
+        heatDissipationRate: toJson.result.engine_cooling.heat_dissipationrate,
+        heatExchangerMaterial:
+          toJson.result.engine_cooling.heat_exchangermaterial,
+        engineLubrication: toJson.result.engine_cooling.engine_lubrication,
+        lubricationSystem: toJson.result.engine_cooling.lubrication_system,
+        coolingCapacity: toJson.result.engine_cooling.cooling_system,
+        coolingFluidType: toJson.result.engine_cooling.cooling_fluidtype,
+        coolingSystemPressure:
+          toJson.result.engine_cooling.cooling_systempressure,
+        airFilterType: toJson.result.engine_cooling.air_filtertype,
+        circulationPumpType: toJson.result.engine_cooling.circulation_pumptype,
+        rawWaterpumpType: toJson.result.engine_cooling.rawwater_pumptype,
+
+        propulsion: toJson.result.engine_propulsion.propulsion,
+        bowthruster: toJson.result.engine_propulsion.bowthruster,
+        propulsionSystem: toJson.result.engine_propulsion.propulsion_systemtype,
+        propulsionSystemType: toJson.result.engine_propulsion.propulsion,
+        propellerDiameter: toJson.result.engine_propulsion.propeller_diameter,
+        propellerMaterial: toJson.result.engine_propulsion.propeller_material,
+        propellerPitch: toJson.result.engine_propulsion.propeller_pitch,
+        propellerType: toJson.result.engine_propulsion.propeller_type,
+        propellerShaftDiameter:
+          toJson.result.engine_propulsion.propeller_shaftdiameter,
+        gearboxType: toJson.result.engine_propulsion.gearbox_type,
+        transmissionCooling:
+          toJson.result.engine_propulsion.transmission_cooling,
+        propellerBladeMaterial:
+          toJson.result.engine_propulsion.propeller_bladematerial,
+        propellerShaftMaterial:
+          toJson.result.engine_propulsion.propeller_shaftmaterial,
+        steeringSystem: toJson.result.engine_propulsion.steering_system,
+        steeringControlType:
+          toJson.result.engine_propulsion.steering_controltype,
+        trimSystem: toJson.result.engine_propulsion.trim_system,
+        trimTabMaterial: toJson.result.engine_propulsion.trim_tabmaterial,
+        trimTabType: toJson.result.engine_propulsion.trim_tab_type,
+
+        electronicFuelinjection: toJson.result.engine_fuel.EFI,
+        fuelPreFilter: toJson.result.engine_fuel.fuel_prefilter, //
+        fuelFilter: toJson.result.engine_fuel.fuel_filter,
+        fuelFilterType: toJson.result.engine_fuel.fuel_filtertype,
+        fuelReserve: toJson.result.engine_fuel.fuel_reserve,
+        fuelSystem: toJson.result.engine_fuel.fuel_system,
+        fuelTankCapacity: toJson.result.engine_fuel.fuel_tankcapacity,
+        fuelType: toJson.result.engine_fuel.fuel_type,
+        lowestSpecificFuelConsumption:
+          toJson.result.engine_fuel.lowest_fuelconsumption,
+        recommendedFuel: toJson.result.engine_fuel.recommended_fuel,
+        fuelConsumptionAtCruisingSpeed:
+          toJson.result.engine_fuel.fuel_prefilter, //
+        fuelConsumptionRate: toJson.result.engine_fuel.fuel_consumptionrate,
+        fuelConsumtpionAtFullLoad: toJson.result.engine_fuel.FC_fullload,
+        fuelInjectionSystemType:
+          toJson.result.engine_fuel.FuelInjection_systemtype,
+        fuelDeliveryPressure: toJson.result.engine_fuel.Fuel_deliverypressure,
+        fuelTankMaterial: toJson.result.engine_fuel.Fuel_tankmaterial,
+        fuelLineDiameter: toJson.result.engine_fuel.fuel_linediameter,
+
+        fuelConsumption: toJson.result.engine_fuel.FC_3Quarterload,
+        fuelConsumptionHalfLoad: toJson.result.engine_fuel.FC_halfload,
+        fuelConsumptionPropellerCurve:
+          toJson.result.engine_fuel.FC_propellercurve,
+        heatRejectionToCoolant: toJson.result.engine_fuel.heat_rejection,
+
+        oilFilter: toJson.result.engine_oil.oil_filter,
+        oilFilterType: toJson.result.engine_oil.oil_filtertype,
+        centrifugalOilCleaner: toJson.result.engine_oil.centrifugal_oilcleaner,
+        oilCooler: toJson.result.engine_oil.oil_cooler,
+        oilFiller: toJson.result.engine_oil.oil_filler,
+        oilDipstick: toJson.result.engine_oil.oil_dipstick,
+        recommendedOil: toJson.result.engine_oil.recommended_oil,
+        oilCapacity: toJson.result.engine_oil.oil_capacity,
+        oilChangeInterval: toJson.result.engine_oil.oil_changeinterval,
+        oilCoolingMethod: toJson.result.engine_oil.oil_coolingmethod,
+        lubricationOilPressure:
+          toJson.result.engine_oil.lubrication_oilpressure,
+        oilFilterBypassValve: toJson.result.engine_oil.oilfilter_bypassvalve,
+
+        alternator: toJson.result.engine_electrical.alternator,
+        alternatorOutput: toJson.result.engine_electrical.alternator_outputAMPS,
+        batteryType: toJson.result.engine_electrical.battery_type,
+        batteryVoltage: toJson.result.engine_electrical.battery_voltage,
+        generatorOutputKw: toJson.result.engine_electrical.integrated_generator,
+        alternatorOutputAmps:
+          toJson.result.engine_electrical.integrated_generator,
+        starterMotorVoltage:
+          toJson.result.engine_electrical.starter_MotorVoltage,
+        engineControlUnitModel: toJson.result.engine_electrical.ECU_Model,
+        batteryChargingSystem:
+          toJson.result.engine_electrical.Battery_ChargingSystem,
+        integratedGenerator:
+          toJson.result.engine_electrical.integrated_generator,
+
+        emissionCompliance: toJson.result.engine_emissions.Emission_compliance,
+        exhaustSystem: toJson.result.engine_emissions.exhaust_system,
+        exhaustSystemType: toJson.result.engine_emissions.exhaust_systemtype,
+        exhaustGasAfterTreatment:
+          toJson.result.engine_emissions.exhaustgas_aftertreatment,
+        exhaustGasStatus: toJson.result.engine_emissions.exhaustGas_status,
+        exhaustValveTiming: toJson.result.engine_emissions.exhaust_valvetiming,
+        intakeValveTiming: toJson.result.engine_emissions.intake_valvetiming,
+        emissionControlTechnology:
+          toJson.result.engine_emissions.emission_controltechnology,
+        noxEmissions: toJson.result.engine_emissions.NOx_Emission,
+        coxEmissions: toJson.result.engine_emissions.COx_Emission,
+        soxEmissions: toJson.result.engine_emissions.SOx_Emission,
+        complianceWithIMOStandards:
+          toJson.result.engine_emissions.compliance_internationalmaritime,
+
+        emergencyStopSystem: toJson.result.engine_safety.emergency_stopsystem,
+        engineMonitoringSystems:
+          toJson.result.engine_safety.engine_monitoringsystem,
+        overheatProtection: toJson.result.engine_safety.overheat_protection,
+        lowOilPressureAlarm: toJson.result.engine_safety.lowoil_pressurealarm,
+
+        location: "",
+        distance: "",
+        globalAddressLookup: "",
+      }));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      console.log("001 form options--", form);
+    }
+  };
+  const fetchDistinctValues = async (
+    engineMake,
+    engineModel,
+    engineModelYear,
+    engineType,
+    typeDesignation,
+    fetchColumn
+  ) => {
+    const URL = `http://localhost:3001/api/advert_engine/engine_general/${fetchColumn}/distinct?engine_make=${encodeURIComponent(
+      engineMake
+    )}&engine_model=${encodeURIComponent(
+      engineModel
+    )}&engine_modelyear=${encodeURIComponent(
+      engineModelYear
+    )}&engine_type=${encodeURIComponent(
+      engineType
+    )}&type_designation=${encodeURIComponent(typeDesignation)}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      if (fetchColumn == "engine_model") {
+        setEngineModelOptions(toJson.result);
+      } else if (fetchColumn == "engine_make") {
+        setEngineMakeOptions(toJson.result);
+      } else if (fetchColumn == "engine_modelyear") {
+        setEngineModelYearOptions(toJson.result);
+      } else if (fetchColumn == "engine_type") {
+        setEngineTypeOptions(toJson.result);
+      } else if (fetchColumn == "type_designation") {
+        setTypeDesignationOptions(toJson.result);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fetchGeneralColumnsList = async () => {
+    const tableName = "engine_general";
+    const cacheKey = tableName;
+    if (cache[cacheKey]) {
+      console.log("001 cache key if--", cacheKey);
+      // Return cached data if available
+      return cache[cacheKey];
+    }
+    const URL = `http://localhost:3001/api/advert_engine/columns/${tableName}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      cache[cacheKey] = toJson.result.engine_general;
+
+      console.log("001 to json--", toJson.result.engine_general);
+      if (toJson.ok) {
+        setEngineMakeOptions(toJson.result.engine_general.engine_make);
         setEngineModelOptions(toJson.result.engine_general.engine_model);
         setEngineModelYearOptions(
           toJson.result.engine_general.engine_modelyear
@@ -879,439 +1209,665 @@ const EngineAdvert = () => {
         setEngineSoundproofingKits(
           toJson.result.engine_general.enginesound_proofingkits
         );
+        setManufactureWarrantyOptions(
+          toJson.result.engine_general.manufacture_warranty
+        );
+        setEngineClassifiableOptions(
+          toJson.result.engine_general.engine_classifiable
+        );
+
         //warranty
         //classification
         setConditionOptions(toJson.result.engine_general.condition_1);
         setUsedConditionOptions(toJson.result.engine_general.used_condition);
         setSellerOptions(toJson.result.engine_general.seller);
         setOfferedByOptions(toJson.result.engine_general.offered_by);
-
-        // console.log("001 to json--", toJson.result.engine_maintenance);
-        //MaintenanceFields
-        setScheduledMaintenancePlanOptions(
-          toJson.result.engine_maintenance.scheduled_maintenanceplan
-        );
-        setServiceIntervalOptions(
-          toJson.result.engine_maintenance.service_interval
-        );
-        setMaintenanceLogRequirementsOptions(
-          toJson.result.engine_maintenance.maintenancelog_requirements
-        );
-        setAvailabilityOfSparePartsOptions(
-          toJson.result.engine_maintenance.availability_spareparts
-        );
-        setOperationModeOptions(
-          toJson.result.engine_maintenance.operation_mode
-        );
-        setLastServiceDateOptions(
-          toJson.result.engine_maintenance.last_servicedate
-        );
-        // console.log("001 to json--", toJson.result.engine_mounting);
-        //MountingFields
-        setEngineMountingOrientationOptions(
-          toJson.result.engine_mounting.enginemounting_orientation
-        );
-        setEngineSuspensionOptions(
-          toJson.result.engine_mounting.engine_suspension
-        );
-        setEngineMountingTypeOptions(
-          toJson.result.engine_mounting.engine_mountingtype
-        );
-        setMountingBracketMaterialOptions(
-          toJson.result.engine_mounting.mountingbracket_material
-        );
-        setAlignmentRequirementsOptions(
-          toJson.result.engine_mounting.alignment_requirements
-        );
-        setEngineBlockOptions(toJson.result.engine_mounting.engine_block);
-        // console.log("001 to json--", toJson.result.engine_performance);
-        //Performance
-        setNominalRatingOptions(
-          toJson.result.engine_performance.nominal_rating
-        );
-        setEnginePerformanceOptions(
-          toJson.result.engine_performance.engine_performance
-        );
-        setMaxPowerOutputOptions(
-          toJson.result.engine_performance.max_poweroutput
-        );
-        setMaxPowerBHPOptions(toJson.result.engine_performance.max_power);
-        setMaxSpeedKnotsOptions(toJson.result.engine_performance.max_speed);
-        setSuperchargedOptions(toJson.result.engine_performance.supercharged);
-        setValveTrainOptions(toJson.result.engine_performance.valve_train);
-        setGrossPowerFullLoadKwOptions(
-          toJson.result.engine_performance.GP_fullloadKW
-        );
-        setGrossPowerFullLoadOptions(
-          toJson.result.engine_performance.GP_fullloadmetric
-        );
-        setGrossPowerPropellerCurveKwOptions(
-          toJson.result.engine_performance.GP_propellercurveKW
-        );
-        setGrossPowerPropellerCurveOptions(
-          toJson.result.engine_performance.GP_propellercurvemetric
-        );
-        setGrossTorqueOptions(toJson.result.engine_performance.gross_torque);
-        setContinuousPowerOptions(
-          toJson.result.engine_performance.continuouspower_KWHP
-        );
-        setMaxContinuousRatingOptions(
-          toJson.result.engine_performance.Max_Continuousrating
-        );
-        setEngineSpeedRangeOptions(
-          toJson.result.engine_performance.Engine_speedrange
-        );
-        setEngineEfficiencyOptions(
-          toJson.result.engine_performance.engine_efficiency
-        );
-        setPowerToWeightRatioOptions(
-          toJson.result.engine_performance.powertoweight_ratio
-        );
-
-        //Cylinders
-        setCylinderConfigurationOptions(
-          toJson.result.engine_performance.cylinder_configuration
-        );
-        setNumberCylindersOptions(
-          toJson.result.engine_performance.number_cylinders
-        );
-        setCylindersArrangementOptions(
-          toJson.result.engine_performance.cylinders_arrangement
-        );
-        setNumberValvesOptions(toJson.result.engine_performance.number_valves);
-        setBoreStrokeOptions(toJson.result.engine_performance.bore_stroke);
-        setBoreOptions(toJson.result.engine_performance.bore);
-
-        setIdleRPMOptions(toJson.result.engine_performance.idle_rpm);
-        setRPMMaxPowerOptions(toJson.result.engine_performance.rpm_maxpower);
-        setRatedSpeedOptions(toJson.result.engine_performance.rated_speed);
-        setMaxTorqueOptions(toJson.result.engine_performance.max_torque);
-        setMaxTorqueRPMOptions(toJson.result.engine_performance.max_torquerpm);
-        setTorqueRatedSpeed(toJson.result.engine_performance.torque_ratedspeed);
-        setValvePerCylinderOptions(
-          toJson.result.engine_performance.valve_percylinder
-        );
-        // console.log("001 to json--", toJson.result.engine_equipment);
-        //Equipment
-        setEngineManagementSystemOptions(toJson.result.engine_equipment.EMS);
-        setEngineControlSystemOptions(
-          toJson.result.engine_equipment.engine_controlsystem
-        );
-        setUnitInjectorsOptions(toJson.result.engine_equipment.unit_injectors);
-        setTurboChargerOptions(toJson.result.engine_equipment.turbocharger);
-        setTurboChargingOptions(toJson.result.engine_equipment.turbo_charging);
-        setStarterMotorOptions(toJson.result.engine_equipment.starter_motor);
-        setProtectionCoversOptions(
-          toJson.result.engine_equipment.protection_covers
-        );
-        setClosedCrankcaseVentilationOptions(
-          toJson.result.engine_equipment.crankcase_ventilation
-        );
-        setHeatExchangerOptions(toJson.result.engine_equipment.heat_exchanger);
-        setHeatExchangerWithExpansionTankOptions(
-          toJson.result.engine_equipment.heat_exchanger_WET
-        );
-        setSeaWaterPumpOptions(toJson.result.engine_equipment.seawater_pump);
-        setSeaWaterCooledChargeAirCoolerOptions(
-          toJson.result.engine_equipment.charge_aircooler
-        );
-        setWorkingPrincipleOptions(
-          toJson.result.engine_equipment.working_principle
-        );
-        setCompressionRatioOptions(
-          toJson.result.engine_equipment.compression_ratio
-        );
-        setPistonSpeedAt1500RpmOptions(
-          toJson.result.engine_equipment.pistonspeed_1500
-        );
-        setPistonSpeedAt1800RpmOptions(
-          toJson.result.engine_equipment.pistonspeed_1800
-        );
-        setFiringOrderOptions(toJson.result.engine_equipment.firing_order);
-        setPistonsOptions(toJson.result.engine_equipment.pistons);
-        setConnectionRodsOptions(
-          toJson.result.engine_equipment.connection_rods
-        );
-        setAuxiliaryPowerTakeOffOptions(
-          toJson.result.engine_equipment.auxiliarypower_takeoff
-        );
-        setRemoteControlSystemsOptions(
-          toJson.result.engine_equipment.remote_controlsystems
-        );
-        // console.log("001 to json--", toJson.result.engine_safety);
-        //SafetyFields
-        setEngineMonitoringSystemsOptions(
-          toJson.result.engine_safety.engine_monitoringsystem
-        );
-        setOverheatProtectionOptions(
-          toJson.result.engine_safety.overheat_protection
-        );
-        setLowOilPressureAlarmOptions(
-          toJson.result.engine_safety.lowoil_pressurealarm
-        );
-        setEmergencyStopSystemOptions(
-          toJson.result.engine_safety.emergency_stopsystem
-        );
-
-        // console.log("001 to json--", toJson.result.engine_dimensions);
-
-        //DimensionFields
-        setDisplacementOptions(toJson.result.engine_dimensions.displacement);
-        setLengthOptions(toJson.result.engine_dimensions.length);
-        setWidthOptions(toJson.result.engine_dimensions.width);
-        setHeightOptions(toJson.result.engine_dimensions.height);
-        setLengthFromFrontEndOfFlywheelHousingOptions(
-          toJson.result.engine_dimensions.Engine_length
-        );
-        setEngineWeightOptions(toJson.result.engine_dimensions.engine_weight);
-        setDryWeightOptions(toJson.result.engine_dimensions.dry_weight);
-        setWeightWithKeelCoolingOptions(
-          toJson.result.engine_dimensions.weight_keelcooling
-        );
-        setExclOilWeightOptions(toJson.result.engine_dimensions.weight_excloil);
-        setWeightWithHeatExchangerOptions(
-          toJson.result.engine_dimensions.weight_heatexchanger
-        );
-        // console.log("001 to json--", toJson.result.engine_cooling);
-
-        //CoolingFields
-        setCoolingSystemOptions(toJson.result.engine_cooling.cooling_system);
-        setClosedCoolingSystemOptions(
-          toJson.result.engine_cooling.closed_coolingsystem
-        );
-        setOpenCoolingSystemOptions(
-          toJson.result.engine_cooling.open_coolingsystem
-        );
-        setIntercooledOptions(toJson.result.engine_cooling.intercooled);
-        setRecommendedCoolantOptions(
-          toJson.result.engine_cooling.recommended_coolant
-        );
-        setAfterCooledOptions(toJson.result.engine_cooling.after_cooled);
-        setTypeOfCoolingOptions(toJson.result.engine_cooling.cooling_type);
-        setHeatExchangerMaterialOptions(
-          toJson.result.engine_cooling.heat_exchangermaterial
-        );
-        setHeatDissipationRateOptions(
-          toJson.result.engine_cooling.heat_dissipationrate
-        );
-        setEngineLubricationOptions(
-          toJson.result.engine_cooling.engine_lubrication
-        );
-        setLubricationSystemOptions(
-          toJson.result.engine_cooling.lubrication_system
-        );
-        setCoolingFluidTypeOptions(
-          toJson.result.engine_cooling.cooling_fluidtype
-        );
-        setCoolingSystemPressureOptions(
-          toJson.result.engine_cooling.cooling_systempressure
-        );
-        setAirFilterTypeOptions(toJson.result.engine_cooling.air_filtertype);
-        setCirculationPumpTypeOptions(
-          toJson.result.engine_cooling.circulation_pumptype
-        );
-        setRawWaterpumpTypeOptions(
-          toJson.result.engine_cooling.rawwater_pumptype
-        );
-
-        // console.log("001 to json--", toJson.result.engine_electrical);
-
-        //ElectricalFields
-        // setBatteryVoltageNumberOptions(toJson.result.engine_electrical.battery_voltagenumber);
-        setIntegratedGeneratorOptions(
-          toJson.result.engine_electrical.integrated_generator
-        );
-        setBatteryChargingSystemOptions(
-          toJson.result.engine_electrical.Battery_ChargingSystem
-        );
-        setEngineControlUnitModelOptions(
-          toJson.result.engine_electrical.ECU_Model
-        );
-        setStarterMotorVoltageOptions(
-          toJson.result.engine_electrical.starter_MotorVoltage
-        );
-        setAlternatorOutputAmpsOptions(
-          toJson.result.engine_electrical.alternator_outputAMPS
-        );
-        setBatteryVoltageOptions(
-          toJson.result.engine_electrical.battery_voltage
-        );
-        setAlternatorOptions(toJson.result.engine_electrical.alternator);
-        setAlternatorOutputOptions(
-          toJson.result.engine_electrical.alternator_output
-        );
-        setBatteryTypeOptions(toJson.result.engine_electrical.battery_type);
-
-        // console.log("001 to json--", toJson.result.engine_emissions);
-
-        setEmissionComplianceOptions(
-          toJson.result.engine_emissions.Emission_compliance
-        );
-        setExhaustSystemOptions(toJson.result.engine_emissions.exhaust_system);
-        setExhaustSystemTypeOptions(
-          toJson.result.engine_emissions.exhaust_systemtype
-        );
-        setExhaustGasAfterTreatmentOptions(
-          toJson.result.engine_emissions.exhaustgas_aftertreatment
-        );
-        setExhaustGasStatusOptions(
-          toJson.result.engine_emissions.exhaustGas_status
-        );
-        setExhaustValveTimingOptions(
-          toJson.result.engine_emissions.exhaust_valvetiming
-        );
-        setIntakeValveTimingOptions(
-          toJson.result.engine_emissions.intake_valvetiming
-        );
-        setEmissionControlTechnologyOptions(
-          toJson.result.engine_emissions.emission_controltechnology
-        );
-        setNoxEmissionsOptions(toJson.result.engine_emissions.NOx_Emission);
-        setSoxEmissionsOptions(toJson.result.engine_emissions.SOx_Emission);
-        setCoxEmissionsOptions(toJson.result.engine_emissions.COx_Emission);
-        setComplianceWithIMOStandardsOptions(
-          toJson.result.engine_emissions.compliance_internationalmaritime
-        );
-
-        // console.log("001 to json--", toJson.result.engine_fuel);
-
-        setFuelPreFilterOptions(toJson.result.engine_fuel.fuel_prefilter);
-        setElectronicFuelinjectionOptions(toJson.result.engine_fuel.EFI);
-        setFuelFilterTypeOptions(toJson.result.engine_fuel.fuel_filtertype);
-        setFuelFilterOptions(toJson.result.engine_fuel.fuel_filter);
-        setFuelReserveOptions(toJson.result.engine_fuel.fuel_reserve);
-        setFuelSystemOptions(toJson.result.engine_fuel.fuel_system);
-        setFuelTankCapacityOptions(toJson.result.engine_fuel.fuel_tankcapacity);
-        setFuelTypeOptions(toJson.result.engine_fuel.fuel_type);
-        setLowestSpecificFuelConsumptionOptions(
-          toJson.result.engine_fuel.lowest_fuelconsumption
-        );
-        setFuelConsumptionRateOptions(
-          toJson.result.engine_fuel.fuel_consumptionrate
-        );
-        setFuelConsumtpionAtFullLoadOptions(
-          toJson.result.engine_fuel.FC_fullload
-        );
-        setFuelInjectionSystemTypeOptions(
-          toJson.result.engine_fuel.FuelInjection_systemtype
-        );
-        setDuelDeliveryPressureOptions(
-          toJson.result.engine_fuel.Fuel_deliverypressure
-        );
-        setFuelTankMaterialOptions(toJson.result.engine_fuel.Fuel_tankmaterial);
-        setFuelLineDiameterOptions(toJson.result.engine_fuel.fuel_linediameter);
-        setFuelConsumptionOptions(toJson.result.engine_fuel.FC_3Quarterload);
-        setFuelConsumptionHalfLoadOptions(
-          toJson.result.engine_fuel.FC_halfload
-        );
-        setFuelConsumptionPropellerCurveOptions(
-          toJson.result.engine_fuel.FC_propellercurve
-        );
-        setHeatRejectionToCoolantOptions(
-          toJson.result.engine_fuel.heat_rejection
-        );
-        setRecommendedFuelOptions(toJson.result.engine_fuel.recommended_fuel);
-
-        // console.log("001 to json--", toJson.result.engine_propulsion);
-
-        //PropulsionFields
-        setPropulsionOptions(toJson.result.engine_propulsion.propulsion);
-        setPropellerBladeMaterialOptions(
-          toJson.result.engine_propulsion.propeller_bladematerial
-        );
-        setPropellerShaftMaterialOptions(
-          toJson.result.engine_propulsion.propeller_shaftmaterial
-        );
-        setSteeringSystemOptions(
-          toJson.result.engine_propulsion.steering_system
-        );
-        setSteeringControlTypeOptions(
-          toJson.result.engine_propulsion.steering_controltype
-        );
-        setTrimSystemOptions(toJson.result.engine_propulsion.trim_system);
-        setTrimTabMaterialOptions(
-          toJson.result.engine_propulsion.trim_tabmaterial
-        );
-        setTrimTabTypeOptions(toJson.result.engine_propulsion.trim_tab_type);
-        setBowthrusterOptions(toJson.result.engine_propulsion.bowthruster);
-        setPropulsionSystemOptions(
-          toJson.result.engine_propulsion.propulsion_system
-        );
-        setPropulsionSystemTypeOptions(
-          toJson.result.engine_propulsion.propulsion_systemtype
-        );
-        setPropellerDiameterOptions(
-          toJson.result.engine_propulsion.propeller_diameter
-        );
-        setPropellerMaterialOptions(
-          toJson.result.engine_propulsion.propeller_material
-        );
-        setPropellerPitchOptions(
-          toJson.result.engine_propulsion.propeller_pitch
-        );
-        setPropellerTypeOptions(toJson.result.engine_propulsion.propeller_type);
-        setPropellerShaftDiameterOptions(
-          toJson.result.engine_propulsion.propeller_shaftdiameter
-        );
-        setGearboxTypeOptions(toJson.result.engine_propulsion.gearbox_type);
-        setTransmissionCoolingOptions(
-          toJson.result.engine_propulsion.transmission_cooling
-        );
-
-        // console.log("001 to json--", toJson.result.engine_oil);
-        //OilFields
-        setOilFilterOptions(toJson.result.engine_oil.oil_filter);
-        setOilFilterTypeOptions(toJson.result.engine_oil.oil_filtertype);
-        setCentrifugalOilCleanerOptions(
-          toJson.result.engine_oil.centrifugal_oilcleaner
-        );
-        setOilCoolerOptions(toJson.result.engine_oil.oil_cooler);
-        setOilFillerOptions(toJson.result.engine_oil.oil_filler);
-        setOilDipstickOptions(toJson.result.engine_oil.oil_dipstick);
-        setRecommendedOilOptions(toJson.result.engine_oil.recommended_oil);
-        setOilCapacityOptions(toJson.result.engine_oil.oil_capacity);
-        setOilChangeIntervalOptions(
-          toJson.result.engine_oil.oil_changeinterval
-        );
-        setOilCoolingMethodOptions(toJson.result.engine_oil.oil_coolingmethod);
-        setLubricationOilPressureOptions(
-          toJson.result.engine_oil.lubrication_oilpressure
-        );
-        setOilFilterBypassValveOptions(
-          toJson.result.engine_oil.oilfilter_bypassvalve
-        );
-
-        // console.log("001 to json--", toJson.result.engine_transmission);
-        //TransmissionFields
-        setTransmissionTypeOptions(
-          toJson.result.engine_transmission.transmission_type
-        );
-        setGearShiftOptions(toJson.result.engine_transmission.gear_shift);
-        setGearRatioOptions(toJson.result.engine_transmission.gear_ratio);
-        setGearShiftTypeOptions(
-          toJson.result.engine_transmission.gearshift_type
-        );
-        setFlywheelOptions(toJson.result.engine_transmission.flywheel_SAE);
-        setSiluminFlywheelHousingOptions(
-          toJson.result.engine_transmission.flywheel_housing
-        );
-        setCamShaftOptions(toJson.result.engine_transmission.camshaft);
-        setCamShaftAlloyOptions(
-          toJson.result.engine_transmission.crankshaft_alloy
-        );
-        setCrankcaseDesignOptions(
-          toJson.result.engine_transmission.crankcase_design
-        );
       }
     } catch (err) {
       console.log(err);
-    } finally {
-      setLoading(false);
+    }
+  };
+
+  const fetchDimensionsColumnsList = async () => {
+    const tableName = "engine_dimensions";
+    const cacheKey = tableName;
+    if (cache[cacheKey]) {
+      console.log("001 cache key if--", cacheKey);
+      // Return cached data if available
+      return cache[cacheKey];
+    }
+    const URL = `http://localhost:3001/api/advert_engine/columns/${tableName}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      cache[cacheKey] = toJson.result.engine_dimensions;
+      // console.log("001 to json--", toJson.result.engine_dimensions);
+
+      //DimensionFields
+      setDisplacementOptions(toJson.result.engine_dimensions.displacement);
+      setLengthOptions(toJson.result.engine_dimensions.length);
+      setWidthOptions(toJson.result.engine_dimensions.width);
+      setHeightOptions(toJson.result.engine_dimensions.height);
+      setLengthFromFrontEndOfFlywheelHousingOptions(
+        toJson.result.engine_dimensions.Engine_length
+      );
+      setEngineWeightOptions(toJson.result.engine_dimensions.engine_weight);
+      setDryWeightOptions(toJson.result.engine_dimensions.dry_weight);
+      setWeightWithKeelCoolingOptions(
+        toJson.result.engine_dimensions.weight_keelcooling
+      );
+      setExclOilWeightOptions(toJson.result.engine_dimensions.weight_excloil);
+      setWeightWithHeatExchangerOptions(
+        toJson.result.engine_dimensions.weight_heatexchanger
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fetchCoolingColumnsList = async () => {
+    const tableName = "engine_cooling";
+    const cacheKey = tableName;
+    if (cache[cacheKey]) {
+      console.log("001 cache key if--", cacheKey);
+      // Return cached data if available
+      return cache[cacheKey];
+    }
+    const URL = `http://localhost:3001/api/advert_engine/columns/${tableName}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      cache[cacheKey] = toJson.result.engine_cooling;
+      // console.log("001 to json--", toJson.result.engine_cooling);
+
+      //CoolingFields
+      setCoolingSystemOptions(toJson.result.engine_cooling.cooling_system);
+      setClosedCoolingSystemOptions(
+        toJson.result.engine_cooling.closed_coolingsystem
+      );
+      setOpenCoolingSystemOptions(
+        toJson.result.engine_cooling.open_coolingsystem
+      );
+      setIntercooledOptions(toJson.result.engine_cooling.intercooled);
+      setRecommendedCoolantOptions(
+        toJson.result.engine_cooling.recommended_coolant
+      );
+      setAfterCooledOptions(toJson.result.engine_cooling.after_cooled);
+      setTypeOfCoolingOptions(toJson.result.engine_cooling.cooling_type);
+      setHeatExchangerMaterialOptions(
+        toJson.result.engine_cooling.heat_exchangermaterial
+      );
+      setHeatDissipationRateOptions(
+        toJson.result.engine_cooling.heat_dissipationrate
+      );
+      setEngineLubricationOptions(
+        toJson.result.engine_cooling.engine_lubrication
+      );
+      setLubricationSystemOptions(
+        toJson.result.engine_cooling.lubrication_system
+      );
+      setCoolingFluidTypeOptions(
+        toJson.result.engine_cooling.cooling_fluidtype
+      );
+      setCoolingSystemPressureOptions(
+        toJson.result.engine_cooling.cooling_systempressure
+      );
+      setAirFilterTypeOptions(toJson.result.engine_cooling.air_filtertype);
+      setCirculationPumpTypeOptions(
+        toJson.result.engine_cooling.circulation_pumptype
+      );
+      setRawWaterpumpTypeOptions(
+        toJson.result.engine_cooling.rawwater_pumptype
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fetchElectricalColumnsList = async () => {
+    const tableName = "engine_electrical";
+    const cacheKey = tableName;
+    if (cache[cacheKey]) {
+      console.log("001 cache key if--", cacheKey);
+      // Return cached data if available
+      return cache[cacheKey];
+    }
+    const URL = `http://localhost:3001/api/advert_engine/columns/${tableName}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      cache[cacheKey] = toJson.result.engine_electrical;
+      // console.log("001 to json--", toJson.result.engine_electrical);
+
+      //ElectricalFields
+      // setBatteryVoltageNumberOptions(toJson.result.engine_electrical.battery_voltagenumber);
+      setIntegratedGeneratorOptions(
+        toJson.result.engine_electrical.integrated_generator
+      );
+      setBatteryChargingSystemOptions(
+        toJson.result.engine_electrical.Battery_ChargingSystem
+      );
+      setEngineControlUnitModelOptions(
+        toJson.result.engine_electrical.ECU_Model
+      );
+      setStarterMotorVoltageOptions(
+        toJson.result.engine_electrical.starter_MotorVoltage
+      );
+      setAlternatorOutputAmpsOptions(
+        toJson.result.engine_electrical.alternator_outputAMPS
+      );
+      setBatteryVoltageOptions(toJson.result.engine_electrical.battery_voltage);
+      setAlternatorOptions(toJson.result.engine_electrical.alternator);
+      setAlternatorOutputOptions(
+        toJson.result.engine_electrical.alternator_output
+      );
+      setBatteryTypeOptions(toJson.result.engine_electrical.battery_type);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fetchEmissionsColumnsList = async () => {
+    const tableName = "engine_emissions";
+    const cacheKey = tableName;
+    if (cache[cacheKey]) {
+      console.log("001 cache key if--", cacheKey);
+      // Return cached data if available
+      return cache[cacheKey];
+    }
+    const URL = `http://localhost:3001/api/advert_engine/columns/${tableName}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      cache[cacheKey] = toJson.result.engine_emissions;
+      // console.log("001 to json--", toJson.result.engine_emissions);
+
+      setEmissionComplianceOptions(
+        toJson.result.engine_emissions.Emission_compliance
+      );
+      setExhaustSystemOptions(toJson.result.engine_emissions.exhaust_system);
+      setExhaustSystemTypeOptions(
+        toJson.result.engine_emissions.exhaust_systemtype
+      );
+      setExhaustGasAfterTreatmentOptions(
+        toJson.result.engine_emissions.exhaustgas_aftertreatment
+      );
+      setExhaustGasStatusOptions(
+        toJson.result.engine_emissions.exhaustGas_status
+      );
+      setExhaustValveTimingOptions(
+        toJson.result.engine_emissions.exhaust_valvetiming
+      );
+      setIntakeValveTimingOptions(
+        toJson.result.engine_emissions.intake_valvetiming
+      );
+      setEmissionControlTechnologyOptions(
+        toJson.result.engine_emissions.emission_controltechnology
+      );
+      setNoxEmissionsOptions(toJson.result.engine_emissions.NOx_Emission);
+      setSoxEmissionsOptions(toJson.result.engine_emissions.SOx_Emission);
+      setCoxEmissionsOptions(toJson.result.engine_emissions.COx_Emission);
+      setComplianceWithIMOStandardsOptions(
+        toJson.result.engine_emissions.compliance_internationalmaritime
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fetchFuelColumnsList = async () => {
+    const tableName = "engine_fuel";
+    const cacheKey = tableName;
+    if (cache[cacheKey]) {
+      console.log("001 cache key if--", cacheKey);
+      // Return cached data if available
+      return cache[cacheKey];
+    }
+    const URL = `http://localhost:3001/api/advert_engine/columns/${tableName}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      cache[cacheKey] = toJson.result.engine_general;
+      // console.log("001 to json--", toJson.result.engine_fuel);
+
+      setFuelPreFilterOptions(toJson.result.engine_fuel.fuel_prefilter);
+      setElectronicFuelinjectionOptions(toJson.result.engine_fuel.EFI);
+      setFuelFilterTypeOptions(toJson.result.engine_fuel.fuel_filtertype);
+      setFuelFilterOptions(toJson.result.engine_fuel.fuel_filter);
+      setFuelReserveOptions(toJson.result.engine_fuel.fuel_reserve);
+      setFuelSystemOptions(toJson.result.engine_fuel.fuel_system);
+      setFuelTankCapacityOptions(toJson.result.engine_fuel.fuel_tankcapacity);
+      setFuelTypeOptions(toJson.result.engine_fuel.fuel_type);
+      setLowestSpecificFuelConsumptionOptions(
+        toJson.result.engine_fuel.lowest_fuelconsumption
+      );
+      setFuelConsumptionRateOptions(
+        toJson.result.engine_fuel.fuel_consumptionrate
+      );
+      setFuelConsumtpionAtFullLoadOptions(
+        toJson.result.engine_fuel.FC_fullload
+      );
+      setFuelInjectionSystemTypeOptions(
+        toJson.result.engine_fuel.FuelInjection_systemtype
+      );
+      setDuelDeliveryPressureOptions(
+        toJson.result.engine_fuel.Fuel_deliverypressure
+      );
+      setFuelTankMaterialOptions(toJson.result.engine_fuel.Fuel_tankmaterial);
+      setFuelLineDiameterOptions(toJson.result.engine_fuel.fuel_linediameter);
+      setFuelConsumptionOptions(toJson.result.engine_fuel.FC_3Quarterload);
+      setFuelConsumptionHalfLoadOptions(toJson.result.engine_fuel.FC_halfload);
+      setFuelConsumptionPropellerCurveOptions(
+        toJson.result.engine_fuel.FC_propellercurve
+      );
+      setHeatRejectionToCoolantOptions(
+        toJson.result.engine_fuel.heat_rejection
+      );
+      setRecommendedFuelOptions(toJson.result.engine_fuel.recommended_fuel);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fetchPropulsionColumnsList = async () => {
+    const tableName = "engine_propulsion";
+    const cacheKey = tableName;
+    if (cache[cacheKey]) {
+      console.log("001 cache key if--", cacheKey);
+      // Return cached data if available
+      return cache[cacheKey];
+    }
+    const URL = `http://localhost:3001/api/advert_engine/columns/${tableName}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      cache[cacheKey] = toJson.result.engine_propulsion;
+      // console.log("001 to json--", toJson.result.engine_propulsion);
+
+      //PropulsionFields
+      setPropulsionOptions(toJson.result.engine_propulsion.propulsion);
+      setPropellerBladeMaterialOptions(
+        toJson.result.engine_propulsion.propeller_bladematerial
+      );
+      setPropellerShaftMaterialOptions(
+        toJson.result.engine_propulsion.propeller_shaftmaterial
+      );
+      setSteeringSystemOptions(toJson.result.engine_propulsion.steering_system);
+      setSteeringControlTypeOptions(
+        toJson.result.engine_propulsion.steering_controltype
+      );
+      setTrimSystemOptions(toJson.result.engine_propulsion.trim_system);
+      setTrimTabMaterialOptions(
+        toJson.result.engine_propulsion.trim_tabmaterial
+      );
+      setTrimTabTypeOptions(toJson.result.engine_propulsion.trim_tab_type);
+      setBowthrusterOptions(toJson.result.engine_propulsion.bowthruster);
+      setPropulsionSystemOptions(
+        toJson.result.engine_propulsion.propulsion_system
+      );
+      setPropulsionSystemTypeOptions(
+        toJson.result.engine_propulsion.propulsion_systemtype
+      );
+      setPropellerDiameterOptions(
+        toJson.result.engine_propulsion.propeller_diameter
+      );
+      setPropellerMaterialOptions(
+        toJson.result.engine_propulsion.propeller_material
+      );
+      setPropellerPitchOptions(toJson.result.engine_propulsion.propeller_pitch);
+      setPropellerTypeOptions(toJson.result.engine_propulsion.propeller_type);
+      setPropellerShaftDiameterOptions(
+        toJson.result.engine_propulsion.propeller_shaftdiameter
+      );
+      setGearboxTypeOptions(toJson.result.engine_propulsion.gearbox_type);
+      setTransmissionCoolingOptions(
+        toJson.result.engine_propulsion.transmission_cooling
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fetchTransmissionsColumnsList = async () => {
+    const tableName = "engine_transmission";
+    const cacheKey = tableName;
+    if (cache[cacheKey]) {
+      console.log("001 cache key if--", cacheKey);
+      // Return cached data if available
+      return cache[cacheKey];
+    }
+    const URL = `http://localhost:3001/api/advert_engine/columns/${tableName}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      cache[cacheKey] = toJson.result.engine_oil;
+      // console.log("001 to json--", toJson.result.engine_transmission);
+      //TransmissionFields
+      setTransmissionTypeOptions(
+        toJson.result.engine_transmission.transmission_type
+      );
+      setGearShiftOptions(toJson.result.engine_transmission.gear_shift);
+      setGearRatioOptions(toJson.result.engine_transmission.gear_ratio);
+      setGearShiftTypeOptions(toJson.result.engine_transmission.gearshift_type);
+      setFlywheelOptions(toJson.result.engine_transmission.flywheel_SAE);
+      setSiluminFlywheelHousingOptions(
+        toJson.result.engine_transmission.flywheel_housing
+      );
+      setCamShaftOptions(toJson.result.engine_transmission.camshaft);
+      setCamShaftAlloyOptions(
+        toJson.result.engine_transmission.crankshaft_alloy
+      );
+      setCrankcaseDesignOptions(
+        toJson.result.engine_transmission.crankcase_design
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fetchOilColumnsList = async () => {
+    const tableName = "engine_oil";
+    const cacheKey = tableName;
+    if (cache[cacheKey]) {
+      console.log("001 cache key if--", cacheKey);
+      // Return cached data if available
+      return cache[cacheKey];
+    }
+    const URL = `http://localhost:3001/api/advert_engine/columns/${tableName}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      cache[cacheKey] = toJson.result.engine_oil;
+      // console.log("001 to json--", toJson.result.engine_oil);
+      //OilFields
+      setOilFilterOptions(toJson.result.engine_oil.oil_filter);
+      setOilFilterTypeOptions(toJson.result.engine_oil.oil_filtertype);
+      setCentrifugalOilCleanerOptions(
+        toJson.result.engine_oil.centrifugal_oilcleaner
+      );
+      setOilCoolerOptions(toJson.result.engine_oil.oil_cooler);
+      setOilFillerOptions(toJson.result.engine_oil.oil_filler);
+      setOilDipstickOptions(toJson.result.engine_oil.oil_dipstick);
+      setRecommendedOilOptions(toJson.result.engine_oil.recommended_oil);
+      setOilCapacityOptions(toJson.result.engine_oil.oil_capacity);
+      setOilChangeIntervalOptions(toJson.result.engine_oil.oil_changeinterval);
+      setOilCoolingMethodOptions(toJson.result.engine_oil.oil_coolingmethod);
+      setLubricationOilPressureOptions(
+        toJson.result.engine_oil.lubrication_oilpressure
+      );
+      setOilFilterBypassValveOptions(
+        toJson.result.engine_oil.oilfilter_bypassvalve
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fetchSafetyColumnsList = async () => {
+    const tableName = "engine_safety";
+    const cacheKey = tableName;
+    if (cache[cacheKey]) {
+      console.log("001 cache key if--", cacheKey);
+      // Return cached data if available
+      return cache[cacheKey];
+    }
+    const URL = `http://localhost:3001/api/advert_engine/columns/${tableName}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      cache[cacheKey] = toJson.result.engine_safety;
+      // console.log("001 to json--", toJson.result.engine_safety);
+      //SafetyFields
+      setEngineMonitoringSystemsOptions(
+        toJson.result.engine_safety.engine_monitoringsystem
+      );
+      setOverheatProtectionOptions(
+        toJson.result.engine_safety.overheat_protection
+      );
+      setLowOilPressureAlarmOptions(
+        toJson.result.engine_safety.lowoil_pressurealarm
+      );
+      setEmergencyStopSystemOptions(
+        toJson.result.engine_safety.emergency_stopsystem
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fetchEquipmentColumnsList = async () => {
+    const tableName = "engine_equipment";
+    const cacheKey = tableName;
+    if (cache[cacheKey]) {
+      console.log("001 cache key if--", cacheKey);
+      // Return cached data if available
+      return cache[cacheKey];
+    }
+    const URL = `http://localhost:3001/api/advert_engine/columns/${tableName}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      cache[cacheKey] = toJson.result.engine_equipment;
+      // console.log("001 to json--", toJson.result.engine_equipment);
+      //Equipment
+      setEngineManagementSystemOptions(toJson.result.engine_equipment.EMS);
+      setEngineControlSystemOptions(
+        toJson.result.engine_equipment.engine_controlsystem
+      );
+      setUnitInjectorsOptions(toJson.result.engine_equipment.unit_injectors);
+      setTurboChargerOptions(toJson.result.engine_equipment.turbocharger);
+      setTurboChargingOptions(toJson.result.engine_equipment.turbo_charging);
+      setStarterMotorOptions(toJson.result.engine_equipment.starter_motor);
+      setProtectionCoversOptions(
+        toJson.result.engine_equipment.protection_covers
+      );
+      setClosedCrankcaseVentilationOptions(
+        toJson.result.engine_equipment.crankcase_ventilation
+      );
+      setHeatExchangerOptions(toJson.result.engine_equipment.heat_exchanger);
+      setHeatExchangerWithExpansionTankOptions(
+        toJson.result.engine_equipment.heat_exchanger_WET
+      );
+      setSeaWaterPumpOptions(toJson.result.engine_equipment.seawater_pump);
+      setSeaWaterCooledChargeAirCoolerOptions(
+        toJson.result.engine_equipment.charge_aircooler
+      );
+      setWorkingPrincipleOptions(
+        toJson.result.engine_equipment.working_principle
+      );
+      setCompressionRatioOptions(
+        toJson.result.engine_equipment.compression_ratio
+      );
+      setPistonSpeedAt1500RpmOptions(
+        toJson.result.engine_equipment.pistonspeed_1500
+      );
+      setPistonSpeedAt1800RpmOptions(
+        toJson.result.engine_equipment.pistonspeed_1800
+      );
+      setFiringOrderOptions(toJson.result.engine_equipment.firing_order);
+      setPistonsOptions(toJson.result.engine_equipment.pistons);
+      setConnectionRodsOptions(toJson.result.engine_equipment.connection_rods);
+      setAuxiliaryPowerTakeOffOptions(
+        toJson.result.engine_equipment.auxiliarypower_takeoff
+      );
+      setRemoteControlSystemsOptions(
+        toJson.result.engine_equipment.remote_controlsystems
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fetchPerformanceColumnsList = async () => {
+    const tableName = "engine_performance";
+    const cacheKey = tableName;
+    if (cache[cacheKey]) {
+      console.log("001 cache key if--", cacheKey);
+      // Return cached data if available
+      return cache[cacheKey];
+    }
+    const URL = `http://localhost:3001/api/advert_engine/columns/${tableName}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      cache[cacheKey] = toJson.result.engine_performance;
+      // console.log("001 to json--", toJson.result.engine_performance);
+      //Performance
+      setNominalRatingOptions(toJson.result.engine_performance.nominal_rating);
+      setEnginePerformanceOptions(
+        toJson.result.engine_performance.engine_performance
+      );
+      setMaxPowerOutputOptions(
+        toJson.result.engine_performance.max_poweroutput
+      );
+      setMaxPowerBHPOptions(toJson.result.engine_performance.max_power);
+      setMaxSpeedKnotsOptions(toJson.result.engine_performance.max_speed);
+      setSuperchargedOptions(toJson.result.engine_performance.supercharged);
+      setValveTrainOptions(toJson.result.engine_performance.valve_train);
+      setGrossPowerFullLoadKwOptions(
+        toJson.result.engine_performance.GP_fullloadKW
+      );
+      setGrossPowerFullLoadOptions(
+        toJson.result.engine_performance.GP_fullloadmetric
+      );
+      setGrossPowerPropellerCurveKwOptions(
+        toJson.result.engine_performance.GP_propellercurveKW
+      );
+      setGrossPowerPropellerCurveOptions(
+        toJson.result.engine_performance.GP_propellercurvemetric
+      );
+      setGrossTorqueOptions(toJson.result.engine_performance.gross_torque);
+      setContinuousPowerOptions(
+        toJson.result.engine_performance.continuouspower_KWHP
+      );
+      setMaxContinuousRatingOptions(
+        toJson.result.engine_performance.Max_Continuousrating
+      );
+      setEngineSpeedRangeOptions(
+        toJson.result.engine_performance.Engine_speedrange
+      );
+      setEngineEfficiencyOptions(
+        toJson.result.engine_performance.engine_efficiency
+      );
+      setPowerToWeightRatioOptions(
+        toJson.result.engine_performance.powertoweight_ratio
+      );
+
+      //Cylinders
+      setCylinderConfigurationOptions(
+        toJson.result.engine_performance.cylinder_configuration
+      );
+      setNumberCylindersOptions(
+        toJson.result.engine_performance.number_cylinders
+      );
+      setCylindersArrangementOptions(
+        toJson.result.engine_performance.cylinders_arrangement
+      );
+      setNumberValvesOptions(toJson.result.engine_performance.number_valves);
+      setBoreStrokeOptions(toJson.result.engine_performance.bore_stroke);
+      setBoreOptions(toJson.result.engine_performance.bore);
+
+      setIdleRPMOptions(toJson.result.engine_performance.idle_rpm);
+      setRPMMaxPowerOptions(toJson.result.engine_performance.rpm_maxpower);
+      setRatedSpeedOptions(toJson.result.engine_performance.rated_speed);
+      setMaxTorqueOptions(toJson.result.engine_performance.max_torque);
+      setMaxTorqueRPMOptions(toJson.result.engine_performance.max_torquerpm);
+      setTorqueRatedSpeed(toJson.result.engine_performance.torque_ratedspeed);
+      setValvePerCylinderOptions(
+        toJson.result.engine_performance.valve_percylinder
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fetchMaintenanceColumnsList = async () => {
+    const tableName = "engine_maintenance";
+    const cacheKey = tableName;
+    if (cache[cacheKey]) {
+      console.log("001 cache key if--", cacheKey);
+      // Return cached data if available
+      return cache[cacheKey];
+    }
+    const URL = `http://localhost:3001/api/advert_engine/columns/${tableName}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      cache[cacheKey] = toJson.result.engine_maintenance;
+      // console.log("001 to json--", toJson.result.engine_maintenance);
+      //MaintenanceFields
+      setScheduledMaintenancePlanOptions(
+        toJson.result.engine_maintenance.scheduled_maintenanceplan
+      );
+      setServiceIntervalOptions(
+        toJson.result.engine_maintenance.service_interval
+      );
+      setMaintenanceLogRequirementsOptions(
+        toJson.result.engine_maintenance.maintenancelog_requirements
+      );
+      setAvailabilityOfSparePartsOptions(
+        toJson.result.engine_maintenance.availability_spareparts
+      );
+      setOperationModeOptions(toJson.result.engine_maintenance.operation_mode);
+      setLastServiceDateOptions(
+        toJson.result.engine_maintenance.last_servicedate
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fetchMountingColumnsList = async () => {
+    const tableName = "engine_mounting";
+    const cacheKey = tableName;
+    if (cache[cacheKey]) {
+      console.log("001 cache key if--", cacheKey);
+      // Return cached data if available
+      return cache[cacheKey];
+    }
+    const URL = `http://localhost:3001/api/advert_engine/columns/${tableName}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      cache[cacheKey] = toJson.result.engine_mounting;
+      // console.log("001 to json--", toJson.result.engine_mounting);
+      //MountingFields
+      setEngineMountingOrientationOptions(
+        toJson.result.engine_mounting.enginemounting_orientation
+      );
+      setEngineSuspensionOptions(
+        toJson.result.engine_mounting.engine_suspension
+      );
+      setEngineMountingTypeOptions(
+        toJson.result.engine_mounting.engine_mountingtype
+      );
+      setMountingBracketMaterialOptions(
+        toJson.result.engine_mounting.mountingbracket_material
+      );
+      setAlignmentRequirementsOptions(
+        toJson.result.engine_mounting.alignment_requirements
+      );
+      setEngineBlockOptions(toJson.result.engine_mounting.engine_block);
+    } catch (err) {
+      console.log(err);
     }
   };
   useEffect(() => {
     if (!hasFetched.current) {
-      fetchGeneralColumnsList("", "");
+      // fetchFuelColumnsList();
+      // fetchPerformanceColumnsList();
+      // fetchEquipmentColumnsList();
+      fetchGeneralColumnsList();
+      // fetchMountingColumnsList();
+      // fetchMaintenanceColumnsList();
+      // fetchSafetyColumnsList();
+      // fetchOilColumnsList();
+      // fetchTransmissionsColumnsList();
+      // fetchPropulsionColumnsList();
+      // fetchCoolingColumnsList();
+      // fetchElectricalColumnsList();
+      // fetchEmissionsColumnsList();
+      // fetchDimensionsColumnsList();
       hasFetched.current = true;
     }
   }, []);
@@ -1340,8 +1896,14 @@ const EngineAdvert = () => {
                       value={form.engineMake}
                       setValue={(val) => {
                         setForm({ ...form, engineMake: val });
-                        // fetchEngineModel(val);
-                        fetchGeneralColumnsList(val, "");
+                        fetchDistinctValues(
+                          val,
+                          "",
+                          "",
+                          "",
+                          "",
+                          "engine_model"
+                        );
                       }}
                       label={ENGINE_ADVERT.ENGINE_MAKE}
                       options={engineMakeOptions}
@@ -1380,20 +1942,14 @@ const EngineAdvert = () => {
                       value={form.engineModel}
                       setValue={(val) => {
                         setForm({ ...form, engineModel: val });
-                        fetchGeneralColumnsList(form.engineMake, val);
-                        fetchMountingColumnsList(form.engineMake, val);
-                        fetchMaintenanceColumnsList(form.engineMake, val);
-                        fetchSafetyColumnsList(form.engineMake, val);
-                        fetchOilColumnsList(form.engineMake, val);
-                        fetchTransmissionsColumnsList(form.engineMake, val);
-                        fetchPropulsionColumnsList(form.engineMake, val);
-                        fetchCoolingColumnsList(form.engineMake, val);
-                        fetchElectricalColumnsList(form.engineMake, val);
-                        fetchEmissionsColumnsList(form.engineMake, val);
-                        fetchDimensionsColumnsList(form.engineMake, val);
-                        fetchFuelColumnsList(form.engineMake, val);
-                        fetchPerformanceColumnsList(form.engineMake, val);
-                        fetchEquipmentColumnsList(form.engineMake, val);
+                        fetchDistinctValues(
+                          form.engineMake,
+                          val,
+                          "",
+                          "",
+                          "",
+                          "engine_modelyear"
+                        );
                       }}
                       label={ENGINE_ADVERT.ENGINE_MODEL}
                       options={engineModelOptions}
@@ -1416,7 +1972,14 @@ const EngineAdvert = () => {
                       value={form.engineModelYear}
                       setValue={(val) => {
                         setForm({ ...form, engineModelYear: val });
-                        // fetchEngineType(form.engineMake, form.engineModel, val);
+                        fetchDistinctValues(
+                          form.engineMake,
+                          form.engineModel,
+                          val,
+                          "",
+                          "",
+                          "engine_type"
+                        );
                       }}
                       label={ENGINE_ADVERT.ENGINE_MODEL_YEAR}
                       options={engineModelYearOptions}
@@ -1439,12 +2002,14 @@ const EngineAdvert = () => {
                       value={form.engineType}
                       setValue={(val) => {
                         setForm({ ...form, engineType: val });
-                        // fetchTypeDesignation(
-                        //   form.engineMake,
-                        //   form.engineModel,
-                        //   form.engineModelYear,
-                        //   val
-                        // );
+                        fetchDistinctValues(
+                          form.engineMake,
+                          form.engineModel,
+                          form.engineModelYear,
+                          val,
+                          "",
+                          "type_designation"
+                        );
                       }}
                       label={ENGINE_ADVERT.ENGINE_TYPE}
                       options={engineTypeOptions}
@@ -1467,13 +2032,13 @@ const EngineAdvert = () => {
                       value={form.typeDesignation}
                       setValue={(val) => {
                         setForm({ ...form, typeDesignation: val });
-                        // fetchCondition(
-                        //   form.engineMake,
-                        //   form.engineModel,
-                        //   form.engineModelYear,
-                        //   form.engineType,
-                        //   val
-                        // );
+                        fetchRelevantData(
+                          form.engineMake,
+                          form.engineModel,
+                          form.engineModelYear,
+                          form.engineType,
+                          val
+                        );
                       }}
                       label={ENGINE_ADVERT.TYPE_DESIGNATION}
                       options={typeDesignationOptions}
@@ -1568,7 +2133,6 @@ const EngineAdvert = () => {
                       options={offeredByOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["offeredBy"] && errorDisplay(ENGINE_ADVERT.OFFERED_BY)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <div className="customDatePickerWidth">
@@ -1640,17 +2204,17 @@ const EngineAdvert = () => {
                       <div className="ms-2"><p><small>{error["marisailVesselId"] && errorDisplay(ENGINE_ADVERT.MARISAIL_VESSEL_ID)}</small></p></div>
                     </Col> */}
                   <Col xs={3} md={12} className="mb-2">
-                    <CheckComponent
+                    <SelectComponent
+                      type="advertEngine"
                       openKey={openKey}
                       setOpenKey={setOpenKey}
-                      label={ENGINE_ADVERT.ENGINE_CLASSIFICATION}
+                      value={form.engineClassification}
                       setValue={(val) =>
                         setForm({ ...form, engineClassification: val })
                       }
-                      name={ENGINE_ADVERT.ENGINE_CLASSIFICATION}
-                      id={ENGINE_ADVERT.ENGINE_CLASSIFICATION_ID}
+                      label={ENGINE_ADVERT.ENGINE_CLASSIFICATION}
+                      options={engineClassifiableOptions}
                       isMandatory={true}
-                      value={form.engineClassification}
                     />
                     <div className="ms-2">
                       <p>
@@ -1684,17 +2248,17 @@ const EngineAdvert = () => {
                     </div>
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
-                    <CheckComponent
+                    <SelectComponent
+                      type="advertEngine"
                       openKey={openKey}
                       setOpenKey={setOpenKey}
-                      label={ENGINE_ADVERT.MANUFACTURER_WARRANTY}
+                      value={form.manufacturerWarranty}
                       setValue={(val) =>
                         setForm({ ...form, manufacturerWarranty: val })
                       }
-                      name={ENGINE_ADVERT.MANUFACTURER_WARRANTY}
-                      id={ENGINE_ADVERT.MANUFACTURER_WARRANTY_ID}
-                      isMandatory={false}
-                      value={form.manufacturerWarranty}
+                      label={ENGINE_ADVERT.MANUFACTURER_WARRANTY}
+                      options={manufactureWarrantyOptions}
+                      isMandatory={true}
                     />
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
@@ -1710,7 +2274,6 @@ const EngineAdvert = () => {
                       options={engineSerialNumberOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["engineSerialNumber"] && errorDisplay(ENGINE_ADVERT.ENGINE_SERIAL_NUMBER)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -1915,7 +2478,6 @@ const EngineAdvert = () => {
                       options={engineSoundproofingKits}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["engineSoundproofingKits"] && errorDisplay(ENGINE_ADVERT.ENGINE_SOUNDPROOFING_KITS)}</small></p></div> */}
                   </Col>
                 </Col>
               </Col>
@@ -1937,7 +2499,6 @@ const EngineAdvert = () => {
                       options={nominalRatingOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["nominalRating"] && errorDisplay("Nominal Rating (Kw) (HP)")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -1952,7 +2513,6 @@ const EngineAdvert = () => {
                       options={enginePerformanceOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["enginePerformance"] && errorDisplay("Engine Performance")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -1967,7 +2527,6 @@ const EngineAdvert = () => {
                       options={maxPowerOutputOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["maxPowerOutput"] && errorDisplay("Max Power Output")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2020,11 +2579,10 @@ const EngineAdvert = () => {
                       setValue={(val) =>
                         setForm({ ...form, supercharged: val })
                       }
-                      label="Supercharged"
+                      label={ENGINE_ADVERT.SUPERCHARGED}
                       options={superchargedOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["supercharged"] && errorDisplay("Supercharged")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2037,7 +2595,6 @@ const EngineAdvert = () => {
                       options={valveTrainOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["valveTrain"] && errorDisplay("Valve Train")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2052,7 +2609,6 @@ const EngineAdvert = () => {
                       options={grossPowerFullLoadKwOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["grossPowerFullLoadKW"] && errorDisplay("Gross Power, Full Load (Kw)")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2067,7 +2623,6 @@ const EngineAdvert = () => {
                       options={grossPowerFullLoadOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["grossPowerFullLoadHpMetric"] && errorDisplay("Gross Power, Full Load (Hp, Metric)")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2082,7 +2637,6 @@ const EngineAdvert = () => {
                       options={grossPowerPropellerCurveKwOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["GrossPowerPropellerCurveKw"] && errorDisplay("Gross Power, Propeller Curve (Kw)")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2100,7 +2654,6 @@ const EngineAdvert = () => {
                       options={grossPowerPropellerCurveOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["GrossPowerPropellerCurveHpMetric"] && errorDisplay("Gross Power, Propeller Curve (Hp, Metric)")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2113,7 +2666,6 @@ const EngineAdvert = () => {
                       options={grossTorqueOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["grossTorque"] && errorDisplay("Gross Torque (Nm)")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2128,7 +2680,6 @@ const EngineAdvert = () => {
                       options={continuousPowerOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["continuousPower"] && errorDisplay("Continuous Power (kW/HP)")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2143,7 +2694,6 @@ const EngineAdvert = () => {
                       options={maxContinuousRatingOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["maximumContinuousRating"] && errorDisplay("Maximum Continuous Rating (MCR)")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2202,7 +2752,6 @@ const EngineAdvert = () => {
                       options={powerToWeightRatioOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["powerToWeightRatio"] && errorDisplay("Power-to-Weight Ratio")}</small></p></div> */}
                   </Col>
                 </Col>
               </Col>
@@ -2244,7 +2793,6 @@ const EngineAdvert = () => {
                       isMandatory={false}
                       options={gearShiftOptions}
                     />
-                    {/* <div className="ms-2"><p><small>{error["gearShift"] && errorDisplay(ENGINE_ADVERT.GEAR_SHIFT)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2257,7 +2805,6 @@ const EngineAdvert = () => {
                       isMandatory={false}
                       options={gearRatioOptions}
                     />
-                    {/* <div className="ms-2"><p><small>{error["gearRatio"] && errorDisplay(ENGINE_ADVERT.GEAR_RATIO)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2272,7 +2819,6 @@ const EngineAdvert = () => {
                       isMandatory={false}
                       options={gearShiftTypeOptions}
                     />
-                    {/* <div className="ms-2"><p><small>{error["gearShiftType"] && errorDisplay(ENGINE_ADVERT.GEAR_SHIFT_TYPE)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2287,7 +2833,6 @@ const EngineAdvert = () => {
                       isMandatory={false}
                       options={flywheelOptions}
                     />
-                    {/* <div className="ms-2"><p><small>{error["flywheelSAE14"] && errorDisplay(ENGINE_ADVERT.FLYWHEEL_SAE14)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2302,7 +2847,6 @@ const EngineAdvert = () => {
                       options={siluminFlywheelHousingOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["siluminFlywheelHousing"] && errorDisplay(ENGINE_ADVERT.SILUMIN_FLYWHEEL_HOUSING)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2315,7 +2859,6 @@ const EngineAdvert = () => {
                       options={camShaftOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["camShaft"] && errorDisplay(ENGINE_ADVERT.CAMSHAFT)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2330,7 +2873,6 @@ const EngineAdvert = () => {
                       options={camShaftAlloyOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["camShaftAlloy"] && errorDisplay(ENGINE_ADVERT.CRANKSHAFT_ALLOY)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2345,7 +2887,6 @@ const EngineAdvert = () => {
                       options={crankcaseDesignOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["crankcaseDesign"] && errorDisplay(ENGINE_ADVERT.CRANKCASE_DESIGN)}</small></p></div> */}
                   </Col>
                 </Col>
               </Col>
@@ -2365,7 +2906,6 @@ const EngineAdvert = () => {
                       options={cylinderConfigurationOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["cylinderConfiguration"] && errorDisplay("Cylinder Configuration")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2402,7 +2942,6 @@ const EngineAdvert = () => {
                       options={cylindersArrangementOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["cylindersAndArrangement"] && errorDisplay("Cylinders And Arrangement")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2439,7 +2978,6 @@ const EngineAdvert = () => {
                       options={valvePerCylinderOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["valvePerCylinder"] && errorDisplay("Valve per Cylinder")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2452,7 +2990,6 @@ const EngineAdvert = () => {
                       options={boreStrokeOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["boreXStroke"] && errorDisplay("Bore X Stroke")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2465,7 +3002,6 @@ const EngineAdvert = () => {
                       options={boreOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["bore"] && errorDisplay("Bore")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2478,7 +3014,6 @@ const EngineAdvert = () => {
                       options={boreStrokeOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["stroke"] && errorDisplay("Stroke")}</small></p></div> */}
                   </Col>
                 </Col>
               </Col>
@@ -2498,7 +3033,6 @@ const EngineAdvert = () => {
                       options={engineManagementSystemOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["engineManagementSystem"] && errorDisplay(ENGINE_ADVERT.ENGINE_MANAGEMENT_SYSTEM)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2513,7 +3047,6 @@ const EngineAdvert = () => {
                       options={engineControlSystemOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["engineControlSystem"] && errorDisplay(ENGINE_ADVERT.ENGINE_CONTROL_SYSTEM)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2528,7 +3061,6 @@ const EngineAdvert = () => {
                       options={unitInjectorsOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["unitInjectors"] && errorDisplay(ENGINE_ADVERT.UNIT_INJECTORS)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2543,7 +3075,6 @@ const EngineAdvert = () => {
                       options={turboChargerOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["turboCharger"] && errorDisplay(ENGINE_ADVERT.TURBO_CHARGER)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2558,7 +3089,6 @@ const EngineAdvert = () => {
                       options={turboChargingOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["turboCharging"] && errorDisplay(ENGINE_ADVERT.TURBO_CHARGING)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2573,7 +3103,6 @@ const EngineAdvert = () => {
                       options={starterMotorOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["starterMotor"] && errorDisplay(ENGINE_ADVERT.STARTER_MOTOR)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2588,7 +3117,6 @@ const EngineAdvert = () => {
                       options={protectionCoversOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["protectionCovers"] && errorDisplay(ENGINE_ADVERT.PROTECTION_COVERS)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2603,7 +3131,6 @@ const EngineAdvert = () => {
                       options={closedCrankcaseVentilationOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["closedCrankcaseVentilationOptions"] && errorDisplay(ENGINE_ADVERT.CLOSED_CRANKCASE_VENTILATION)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2618,7 +3145,6 @@ const EngineAdvert = () => {
                       options={heatExchangerOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["heatExchanger"] && errorDisplay(ENGINE_ADVERT.HEAT_EXCHANGER)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2636,7 +3162,6 @@ const EngineAdvert = () => {
                       options={heatExchangerWithExpansionTankOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["heatExchangerWithExpansionTank"] && errorDisplay(ENGINE_ADVERT.HEAT_EXCHANGER_WITH_EXPANSION_TANK)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2651,7 +3176,6 @@ const EngineAdvert = () => {
                       options={seaWaterPumpOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["seaWaterPump"] && errorDisplay(ENGINE_ADVERT.SEA_WATER_PUMP)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2666,7 +3190,6 @@ const EngineAdvert = () => {
                       options={seaWaterCooledChargeAirCoolerOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["seaWaterCooledChargeAirCooler"] && errorDisplay(ENGINE_ADVERT.SEA_WATER_COOLED_CHARGE_AIR_COOLER)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2681,7 +3204,6 @@ const EngineAdvert = () => {
                       options={workingPrincipleOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["workingPrinciple"] && errorDisplay(ENGINE_ADVERT.WORKING_PRINCIPLE)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2696,7 +3218,6 @@ const EngineAdvert = () => {
                       options={compressionRatioOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["compressionRatio"] && errorDisplay(ENGINE_ADVERT.COMPRESSION_RATIO)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2711,7 +3232,6 @@ const EngineAdvert = () => {
                       options={PistonSpeedAt1500RpmOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["pistonSpeedAt1500Rpm"] && errorDisplay(ENGINE_ADVERT.PISTON_SPEED_AT_1500)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2726,7 +3246,6 @@ const EngineAdvert = () => {
                       options={PistonSpeedAt1800RpmOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["pistonSpeedAt1800Rpm"] && errorDisplay(ENGINE_ADVERT.PISTON_SPEED_AT_1800)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2739,7 +3258,6 @@ const EngineAdvert = () => {
                       options={firingOrderOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["firingOrder"] && errorDisplay(ENGINE_ADVERT.FIRING_ORDER)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2752,7 +3270,6 @@ const EngineAdvert = () => {
                       options={pistonsOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["pistons"] && errorDisplay(ENGINE_ADVERT.PISTONS)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2767,7 +3284,6 @@ const EngineAdvert = () => {
                       options={connectionRodsOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["connectionRods"] && errorDisplay(ENGINE_ADVERT.CONNECTION_RODS)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2782,7 +3298,6 @@ const EngineAdvert = () => {
                       options={auxiliaryPowerTakeOffOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["auxiliaryPowerTakeOff"] && errorDisplay(ENGINE_ADVERT.AUXILIARY_POWER_TAKEOFF)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2797,7 +3312,6 @@ const EngineAdvert = () => {
                       options={remoteControlSystemsOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["remoteControlSystems"] && errorDisplay(ENGINE_ADVERT.REMOTE_CONTROL_SYSTEMS)}</small></p></div> */}
                   </Col>
                 </Col>
               </Col>
@@ -2857,7 +3371,6 @@ const EngineAdvert = () => {
                       options={propulsionSystemOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["propulsionSystem"] && errorDisplay("Propulsion System")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2872,7 +3385,6 @@ const EngineAdvert = () => {
                       options={propulsionSystemTypeOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["propulsionSystemType"] && errorDisplay("Propulsion System Type")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2887,7 +3399,6 @@ const EngineAdvert = () => {
                       options={propellerDiameterOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["propellerDiameter"] && errorDisplay("Propeller Diameter")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2902,7 +3413,6 @@ const EngineAdvert = () => {
                       options={propellerMaterialOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["propellerMaterial"] && errorDisplay("Propeller Material")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2917,7 +3427,6 @@ const EngineAdvert = () => {
                       isMandatory={false}
                       options={propellerPitchOptions}
                     />
-                    {/* <div className="ms-2"><p><small>{error["propellerPitch"] && errorDisplay("Propeller Pitch")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2932,7 +3441,6 @@ const EngineAdvert = () => {
                       options={propellerTypeOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["propellerType"] && errorDisplay("Propeller Type")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2947,7 +3455,6 @@ const EngineAdvert = () => {
                       options={propellerShaftDiameterOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["propellerShaftDiameter"] && errorDisplay("Propeller Shaft Diameter")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2960,7 +3467,6 @@ const EngineAdvert = () => {
                       options={gearboxTypeOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["gearboxType"] && errorDisplay("Gearbox Type")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2975,7 +3481,6 @@ const EngineAdvert = () => {
                       options={transmissionCoolingOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["transmissionCooling"] && errorDisplay("Transmission Cooling")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3012,7 +3517,6 @@ const EngineAdvert = () => {
                       options={propellerShaftMaterialOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["propellerShaftMaterial"] && errorDisplay("Propeller Shaft Material")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3027,7 +3531,6 @@ const EngineAdvert = () => {
                       isMandatory={false}
                       options={steeringSystemOptions}
                     />
-                    {/* <div className="ms-2"><p><small>{error["steeringSystem"] && errorDisplay("Steering System")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3042,7 +3545,6 @@ const EngineAdvert = () => {
                       isMandatory={false}
                       options={steeringControlTypeOptions}
                     />
-                    {/* <div className="ms-2"><p><small>{error["steeringControlType"] && errorDisplay("Steering Control Type")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3055,7 +3557,6 @@ const EngineAdvert = () => {
                       isMandatory={false}
                       options={trimSystemOptions}
                     />
-                    {/* <div className="ms-2"><p><small>{error["trimSystem"] && errorDisplay("Trim System")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3070,7 +3571,6 @@ const EngineAdvert = () => {
                       options={trimTabMaterialOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["trimTabMaterial"] && errorDisplay("Trim Tab Material")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3083,7 +3583,6 @@ const EngineAdvert = () => {
                       isMandatory={false}
                       options={trimTabTypeOptions}
                     />
-                    {/* <div className="ms-2"><p><small>{error["trimTabType"] && errorDisplay("Trim Tab Type")}</small></p></div> */}
                   </Col>
                 </Col>
               </Col>
@@ -3105,7 +3604,6 @@ const EngineAdvert = () => {
                       options={electronicFuelinjectionOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["electronicFuelinjection"] && errorDisplay("Electronic Fuel Injection (EFI)")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3120,7 +3618,6 @@ const EngineAdvert = () => {
                       isMandatory={false}
                       options={fuelPreFilterOptions}
                     />
-                    {/* <div className="ms-2"><p><small>{error["fuelPreFilter"] && errorDisplay("Fuel Pre-Filter")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3133,7 +3630,6 @@ const EngineAdvert = () => {
                       options={fuelFilterOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["fuelFilter"] && errorDisplay("Fuel Filter")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3148,7 +3644,6 @@ const EngineAdvert = () => {
                       options={fuelFilterTypeOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["fuelFilterType"] && errorDisplay("Fuel Filter Type")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3161,7 +3656,6 @@ const EngineAdvert = () => {
                       options={fuelReserveOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["fuelReserve"] && errorDisplay("Fuel Reserve (Holding Tank) (Litres)")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3195,7 +3689,6 @@ const EngineAdvert = () => {
                       options={fuelTankCapacityOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["fuelTankCapacity"] && errorDisplay("Fuel Tank Capacity (Litres)")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3229,7 +3722,6 @@ const EngineAdvert = () => {
                       options={lowestSpecificFuelConsumptionOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["lowestSpecificFuelConsumption"] && errorDisplay("Lowest Specific Fuel Consumption (G/Kwh)")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3244,7 +3736,6 @@ const EngineAdvert = () => {
                       options={recommendedFuelOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["recommendedFuel"] && errorDisplay("Recommended Fuel")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3262,7 +3753,6 @@ const EngineAdvert = () => {
                       options={fuelReserveOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["fuelConsumptionAtCruisingSpeed"] && errorDisplay("Fuel Consumption At Cruising Speed (Litres)")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3319,7 +3809,6 @@ const EngineAdvert = () => {
                       options={fuelDeliveryPressureOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["fuelDeliveryPressure"] && errorDisplay("Fuel Delivery Pressure")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3356,7 +3845,6 @@ const EngineAdvert = () => {
                       options={fuelLineDiameterOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["fuelLineDiameter"] && errorDisplay("Fuel Line Diameter")}</small></p></div> */}
                   </Col>
                 </Col>
               </Col>
@@ -3372,11 +3860,10 @@ const EngineAdvert = () => {
                       setOpenKey={setOpenKey}
                       value={form.afterCooled}
                       setValue={(val) => setForm({ ...form, afterCooled: val })}
-                      label="Aftercooled"
+                      label={ENGINE_ADVERT.AFTERCOOLED}
                       options={afterCooledOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["afterCooled"] && errorDisplay("Aftercooled")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3413,7 +3900,6 @@ const EngineAdvert = () => {
                       options={closedCoolingSystemOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["closedCoolingSystem"] && errorDisplay("Closed Cooling System")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3428,7 +3914,6 @@ const EngineAdvert = () => {
                       options={openCoolingSystemOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["openCoolingSystem"] && errorDisplay("Open Cooling System")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3437,11 +3922,10 @@ const EngineAdvert = () => {
                       setOpenKey={setOpenKey}
                       value={form.intercooled}
                       setValue={(val) => setForm({ ...form, intercooled: val })}
-                      label="Intercooled"
+                      label={ENGINE_ADVERT.INTERCOOLED}
                       options={intercooledOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["intercooled"] && errorDisplay("Intercooled")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3456,7 +3940,6 @@ const EngineAdvert = () => {
                       options={recommendedCoolantOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["recommendedCoolant"] && errorDisplay("Recommended Coolant")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3471,7 +3954,6 @@ const EngineAdvert = () => {
                       options={typeOfCoolingOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["typeOfCooling"] && errorDisplay("Type Of Cooling")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3486,7 +3968,6 @@ const EngineAdvert = () => {
                       options={heatExchangerMaterialOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["heatExchangerMaterial"] && errorDisplay("Heat Exchanger Material")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3501,7 +3982,6 @@ const EngineAdvert = () => {
                       options={heatDissipationRateOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["heatDissipationRate"] && errorDisplay("Heat Dissipation Rate")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3516,7 +3996,6 @@ const EngineAdvert = () => {
                       options={engineLubricationOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["engineLubrication"] && errorDisplay("Engine Lubrication")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3531,7 +4010,6 @@ const EngineAdvert = () => {
                       options={lubricationSystemOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["lubricationSystem"] && errorDisplay("Lubrication System")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3546,7 +4024,6 @@ const EngineAdvert = () => {
                       options={coolingCapacityOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["coolingCapacity"] && errorDisplay("Cooling Capacity (L/min)")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3583,7 +4060,6 @@ const EngineAdvert = () => {
                       options={coolingSystemPressureOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["coolingSystemPressure"] && errorDisplay("Cooling System Pressure")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3598,7 +4074,6 @@ const EngineAdvert = () => {
                       options={airFilterTypeOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["airFilterType"] && errorDisplay("Air Filter Type")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3613,7 +4088,6 @@ const EngineAdvert = () => {
                       options={circulationPumpTypeOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["circulationPumpType"] && errorDisplay("Circulation Pump Type")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3628,7 +4102,6 @@ const EngineAdvert = () => {
                       options={rawWaterpumpTypeOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["rawWaterpumpType"] && errorDisplay("Raw Water Pump Type")}</small></p></div> */}
                   </Col>
                 </Col>
               </Col>
@@ -3650,7 +4123,6 @@ const EngineAdvert = () => {
                       options={engineMountingOrientationOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["engineMountingOrientation"] && errorDisplay(ENGINE_ADVERT.ENGINE_MOUNTING_ORIENTATION)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3665,7 +4137,6 @@ const EngineAdvert = () => {
                       options={engineSuspensionOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["engineSuspension"] && errorDisplay(ENGINE_ADVERT.ENGINE_SUSPENSION)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3680,7 +4151,6 @@ const EngineAdvert = () => {
                       options={engineMountingTypeOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["engineMountingType"] && errorDisplay(ENGINE_ADVERT.ENGINE_MOUNTING_TYPE)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3695,7 +4165,6 @@ const EngineAdvert = () => {
                       options={mountingBracketMaterialOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["mountingBracketMaterial"] && errorDisplay(ENGINE_ADVERT.MOUNTING_BRACKET_MATERIAL)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3710,7 +4179,6 @@ const EngineAdvert = () => {
                       options={alignmentRequirementsOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["alignmentRequirements"] && errorDisplay(ENGINE_ADVERT.ALIGNMENT_REQUIREMENTS)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3723,7 +4191,6 @@ const EngineAdvert = () => {
                       options={engineBlockOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["engineBlock"] && errorDisplay(ENGINE_ADVERT.ENGINE_BLOCK)}</small></p></div> */}
                   </Col>
                 </Col>
               </Col>
@@ -3745,7 +4212,6 @@ const EngineAdvert = () => {
                       options={scheduledMaintenancePlanOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["scheduledMaintenancePlan"] && errorDisplay(ENGINE_ADVERT.SCHEDULED_MAINTENANCE_PLAN)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3760,7 +4226,6 @@ const EngineAdvert = () => {
                       options={serviceIntervalOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["serviceInterval"] && errorDisplay(ENGINE_ADVERT.SERVICE_INTERVAL)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3775,7 +4240,6 @@ const EngineAdvert = () => {
                       options={maintenanceLogRequirementsOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["maintenanceLogRequirements"] && errorDisplay(ENGINE_ADVERT.MAINTENANCE_LOG_REQUIREMENTS)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3814,7 +4278,6 @@ const EngineAdvert = () => {
                       options={operationModeOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["operationMode"] && errorDisplay(ENGINE_ADVERT.OPERATION_MODE)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3858,7 +4321,6 @@ const EngineAdvert = () => {
                       options={fuelConsumptionOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["fuelConsumption"] && errorDisplay("Fuel Consumption At 3/4 Load (G/Kwh)")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3873,7 +4335,6 @@ const EngineAdvert = () => {
                       options={fuelConsumptionHalfLoadOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["fuelConsumptionHalfLoad"] && errorDisplay("Fuel Consumption At 1/2 Load (G/Kwh)")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3888,7 +4349,6 @@ const EngineAdvert = () => {
                       options={fuelConsumptionPropellerCurveOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["fuelConsumptionPropellerCurve"] && errorDisplay("Fuel Consumption, Propeller Curve (L/H)")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3903,7 +4363,6 @@ const EngineAdvert = () => {
                       options={heatRejectionToCoolantOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["heatRejectionToCoolant"] && errorDisplay("Heat Rejection To Coolant (Kw)")}</small></p></div> */}
                   </Col>
                 </Col>
               </Col>
@@ -3925,7 +4384,6 @@ const EngineAdvert = () => {
                       isMandatory={false}
                       options={engineMonitoringSystemsOptions}
                     />
-                    {/* <div className="ms-2"><p><small>{error["engineMonitoringSystems"] && errorDisplay("Engine Monitoring Systems")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3940,7 +4398,6 @@ const EngineAdvert = () => {
                       isMandatory={false}
                       options={overheatProtectionOptions}
                     />
-                    {/* <div className="ms-2"><p><small>{error["overheatProtection"] && errorDisplay("Overheat Protection")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3955,7 +4412,6 @@ const EngineAdvert = () => {
                       isMandatory={false}
                       options={lowOilPressureAlarmOptions}
                     />
-                    {/* <div className="ms-2"><p><small>{error["lowOilPressureAlarm"] && errorDisplay("Low Oil Pressure Alarm")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3970,7 +4426,6 @@ const EngineAdvert = () => {
                       isMandatory={false}
                       options={emergencyStopSystemOptions}
                     />
-                    {/* <div className="ms-2"><p><small>{error["emergencyStopSystem"] && errorDisplay("Emergency Stop System")}</small></p></div> */}
                   </Col>
                 </Col>
               </Col>
@@ -3990,7 +4445,6 @@ const EngineAdvert = () => {
                       options={maxTorqueOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["maximumTorque"] && errorDisplay("Maximum Torque (Nm)")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -4005,7 +4459,6 @@ const EngineAdvert = () => {
                       options={maxTorqueRPMOptions}
                       isMandatory={true}
                     />
-                    {/* <div className="ms-2"><p><small>{error["maximumTorqueAtSpeed"] && errorDisplay("Maximum Torque At Speed (RPM)")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -4020,7 +4473,6 @@ const EngineAdvert = () => {
                       options={torqueRatedSpeedOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["torqueAtRatedSpeed"] && errorDisplay("Torque At Rated Speed (Nm)")}</small></p></div> */}
                   </Col>
                 </Col>
               </Col>
@@ -4038,7 +4490,6 @@ const EngineAdvert = () => {
                       options={idleRPMOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["idleRPM"] && errorDisplay("Idle RPM")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -4053,7 +4504,6 @@ const EngineAdvert = () => {
                       options={ratedSpeedOptions}
                       isMandatory={true}
                     />
-                    {/* <div className="ms-2"><p><small>{error["ratedSpeedRPM"] && errorDisplay("Rated Speed (RPM)")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -4068,7 +4518,6 @@ const EngineAdvert = () => {
                       options={rpmMaxPowerOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["rpmAtMaxPower"] && errorDisplay("RPM at Max Power")}</small></p></div> */}
                   </Col>
                 </Col>
               </Col>
@@ -4086,7 +4535,6 @@ const EngineAdvert = () => {
                       options={oilFilterOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["oilFilter"] && errorDisplay("Oil Filter")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -4101,7 +4549,6 @@ const EngineAdvert = () => {
                       options={oilFilterTypeOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["oilFilterType"] && errorDisplay("Oil Filter Type")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -4116,7 +4563,6 @@ const EngineAdvert = () => {
                       options={centrifugalOilCleanerOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["centrifugalOilCleaner"] && errorDisplay("Centrifugal Oil Cleaner")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -4129,7 +4575,6 @@ const EngineAdvert = () => {
                       options={oilCoolerOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["oilCooler"] && errorDisplay("Oil Cooler")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -4142,7 +4587,6 @@ const EngineAdvert = () => {
                       options={oilFillerOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["oilFiller"] && errorDisplay("Oil Filler")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -4155,7 +4599,6 @@ const EngineAdvert = () => {
                       options={oilDipstickOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["oilDipstick"] && errorDisplay("Oil Dipstick")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -4170,7 +4613,6 @@ const EngineAdvert = () => {
                       options={recommendedOilOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["recommendedOil"] && errorDisplay("Recommended Oil")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -4183,7 +4625,6 @@ const EngineAdvert = () => {
                       options={oilCapacityOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["oilCapacity"] && errorDisplay("Oil Capacity")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -4198,7 +4639,6 @@ const EngineAdvert = () => {
                       options={oilChangeIntervalOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["oilChangeInterval"] && errorDisplay("Oil Change Interval")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -4213,7 +4653,6 @@ const EngineAdvert = () => {
                       options={oilCoolingMethodOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["oilCoolingMethod"] && errorDisplay("Oil Cooling Method")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -4228,7 +4667,6 @@ const EngineAdvert = () => {
                       options={lubricationOilPressureOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["lubricationOilPressure"] && errorDisplay("Lubrication Oil Pressure")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -4243,7 +4681,6 @@ const EngineAdvert = () => {
                       options={oilFilterBypassValveOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["oilFilterBypassValve"] && errorDisplay("Oil Filter Bypass Valve")}</small></p></div> */}
                   </Col>
                 </Col>
               </Col>
@@ -4265,7 +4702,6 @@ const EngineAdvert = () => {
                       options={emissionComplianceOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["emissionCompliance"] && errorDisplay("Emission Compliance")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -4280,7 +4716,6 @@ const EngineAdvert = () => {
                       isMandatory={false}
                       options={exhaustSystemOptions}
                     />
-                    {/* <div className="ms-2"><p><small>{error["exhaustSystem"] && errorDisplay("Exhaust System")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -4295,7 +4730,6 @@ const EngineAdvert = () => {
                       isMandatory={false}
                       options={exhaustSystemTypeOptions}
                     />
-                    {/* <div className="ms-2"><p><small>{error["exhaustSystemType"] && errorDisplay("Exhaust System Type")}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -4310,7 +4744,6 @@ const EngineAdvert = () => {
                       options={exhaustGasAfterTreatmentOptions}
                       isMandatory={false}
                     />
-                    {/* <div className="ms-2"><p><small>{error["exhaustGasAfterTreatment"] && errorDisplay(ENGINE_ADVERT.EXHAUST_GAS_AFTER_TREATMENT)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -4325,7 +4758,6 @@ const EngineAdvert = () => {
                       isMandatory={false}
                       options={exhaustGasStatusOptions}
                     />
-                    {/* <div className="ms-2"><p><small>{error["exhaustGasStatus"] && errorDisplay(ENGINE_ADVERT.EXHAUST_GAS_STATUS)}</small></p></div> */}
                   </Col>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent

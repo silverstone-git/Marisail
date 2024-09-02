@@ -28,237 +28,237 @@ const MyEngine = () => {
     const [loading, setLoading] = useState(true);
 
     const [form, setForm] = useState({
-        engineMake: advertiseEngineData.engineMake,
-        engineModel: advertiseEngineData.engineModel,
-        engineModelYear: advertiseEngineData.engineModelYear,
-        engineType: advertiseEngineData.engineType,
-        typeDesignation: advertiseEngineData.typeDesignation,
+        engineMake: advertiseEngineData?.engineMake,
+        engineModel: advertiseEngineData?.engineModel,
+        engineModelYear: advertiseEngineData?.engineModelYear,
+        engineType: advertiseEngineData?.engineType,
+        typeDesignation: advertiseEngineData?.typeDesignation,
 
-        engineClassification: advertiseEngineData.engineClassification,
-        certification: advertiseEngineData.certification,
-        manufacturerWarranty: advertiseEngineData.manufacturerWarranty,
-        engineSerialNumber: advertiseEngineData.engineSerialNumber,
-        ceDesignCategory: advertiseEngineData.ceDesignCategory,
-        numberDrives: advertiseEngineData.numberDrives,
-        numberEngines: advertiseEngineData.numberEngines,
-        rangeMiles: advertiseEngineData.rangeMiles,
-        cruisingSpeed: advertiseEngineData.cruisingSpeed,
-        driveType: advertiseEngineData.driveType,
-        engineHours: advertiseEngineData.engineHours,
-        ignitionSystem: advertiseEngineData.ignitionSystem,
-        noiseLevel: advertiseEngineData.noiseLevel,
-        engineSoundproofingKits: advertiseEngineData.engineSoundproofingKits,
+        engineClassification: advertiseEngineData?.engineClassification,
+        certification: advertiseEngineData?.certification,
+        manufacturerWarranty: advertiseEngineData?.manufacturerWarranty,
+        engineSerialNumber: advertiseEngineData?.engineSerialNumber,
+        ceDesignCategory: advertiseEngineData?.ceDesignCategory,
+        numberDrives: advertiseEngineData?.numberDrives,
+        numberEngines: advertiseEngineData?.numberEngines,
+        rangeMiles: advertiseEngineData?.rangeMiles,
+        cruisingSpeed: advertiseEngineData?.cruisingSpeed,
+        driveType: advertiseEngineData?.driveType,
+        engineHours: advertiseEngineData?.engineHours,
+        ignitionSystem: advertiseEngineData?.ignitionSystem,
+        noiseLevel: advertiseEngineData?.noiseLevel,
+        engineSoundproofingKits: advertiseEngineData?.engineSoundproofingKits,
 
-        condition: advertiseEngineData.condition,
-        usedCondition: advertiseEngineData.usedCondition,
-        seller: advertiseEngineData.seller,
-        offeredBy: advertiseEngineData.offeredBy,
-        lastSurveyDate: advertiseEngineData.lastSurveyDate,
-        brokerValuation: advertiseEngineData.brokerValuation,
+        condition: advertiseEngineData?.condition,
+        usedCondition: advertiseEngineData?.usedCondition,
+        seller: advertiseEngineData?.seller,
+        offeredBy: advertiseEngineData?.offeredBy,
+        lastSurveyDate: new Date(advertiseEngineData?.lastSurveyDate),
+        brokerValuation: advertiseEngineData?.brokerValuation,
 
-        transmissionType: advertiseEngineData.transmissionType,
-        gearShift: advertiseEngineData.gearShift,
-        gearRatio: advertiseEngineData.gearRatio,
-        gearShiftType: advertiseEngineData.gearShiftType,
-        flywheelSAE14: advertiseEngineData.flywheelSAE14,
-        siluminFlywheelHousing: advertiseEngineData.siluminFlywheelHousing,
-        camShaft: advertiseEngineData.camShaft,
-        camShaftAlloy: advertiseEngineData.camShaftAlloy,
-        crankcaseDesign: advertiseEngineData.crankcaseDesign,
+        transmissionType: advertiseEngineData?.transmissionType,
+        gearShift: advertiseEngineData?.gearShift,
+        gearRatio: advertiseEngineData?.gearRatio,
+        gearShiftType: advertiseEngineData?.gearShiftType,
+        flywheelSAE14: advertiseEngineData?.flywheelSAE14,
+        siluminFlywheelHousing: advertiseEngineData?.siluminFlywheelHousing,
+        camShaft: advertiseEngineData?.camShaft,
+        camShaftAlloy: advertiseEngineData?.camShaftAlloy,
+        crankcaseDesign: advertiseEngineData?.crankcaseDesign,
 
-        engineMountingOrientation: advertiseEngineData.engineMountingOrientation,
-        engineSuspension: advertiseEngineData.engineSuspension,
+        engineMountingOrientation: advertiseEngineData?.engineMountingOrientation,
+        engineSuspension: advertiseEngineData?.engineSuspension,
 
-        mountingBracketMaterial: advertiseEngineData.mountingBracketMaterial,
-        alignmentRequirements: advertiseEngineData.alignmentRequirements,
-        engineBlock: advertiseEngineData.engineBlock,
+        mountingBracketMaterial: advertiseEngineData?.mountingBracketMaterial,
+        alignmentRequirements: advertiseEngineData?.alignmentRequirements,
+        engineBlock: advertiseEngineData?.engineBlock,
 
-        scheduledMaintenancePlan: advertiseEngineData.scheduledMaintenancePlan,
-        serviceInterval: advertiseEngineData.serviceInterval,
-        maintenanceLogRequirements: advertiseEngineData.maintenanceLogRequirements,
-        availabilityOfSpareParts: advertiseEngineData.availabilityOfSpareParts,
-        operationMode: advertiseEngineData.operationMode,
-        lastServiceDate: advertiseEngineData.lastServiceDate,
+        scheduledMaintenancePlan: advertiseEngineData?.scheduledMaintenancePlan,
+        serviceInterval: advertiseEngineData?.serviceInterval,
+        maintenanceLogRequirements: advertiseEngineData?.maintenanceLogRequirements,
+        availabilityOfSpareParts: advertiseEngineData?.availabilityOfSpareParts,
+        operationMode: advertiseEngineData?.operationMode,
+        lastServiceDate: advertiseEngineData?.lastServiceDate,
 
-        engineManagementSystem: advertiseEngineData.engineManagementSystem,
-        engineControlSystem: advertiseEngineData.engineControlSystem,
-        unitInjectors: advertiseEngineData.unitInjectors,
-        turboCharger: advertiseEngineData.turboCharger,
-        turboCharging: advertiseEngineData.turboCharging,
-        starterMotor: advertiseEngineData.starterMotor,
-        protectionCovers: advertiseEngineData.protectionCovers,
-        closedCrankcaseVentilation: advertiseEngineData.closedCrankcaseVentilation,
-        heatExchanger: advertiseEngineData.heatExchanger,
+        engineManagementSystem: advertiseEngineData?.engineManagementSystem,
+        engineControlSystem: advertiseEngineData?.engineControlSystem,
+        unitInjectors: advertiseEngineData?.unitInjectors,
+        turboCharger: advertiseEngineData?.turboCharger,
+        turboCharging: advertiseEngineData?.turboCharging,
+        starterMotor: advertiseEngineData?.starterMotor,
+        protectionCovers: advertiseEngineData?.protectionCovers,
+        closedCrankcaseVentilation: advertiseEngineData?.closedCrankcaseVentilation,
+        heatExchanger: advertiseEngineData?.heatExchanger,
         heatExchangerWithExpansionTank:
-            advertiseEngineData.heatExchangerWithExpansionTank,
-        seaWaterPump: advertiseEngineData.seaWaterPump,
+            advertiseEngineData?.heatExchangerWithExpansionTank,
+        seaWaterPump: advertiseEngineData?.seaWaterPump,
         seaWaterCooledChargeAirCooler:
-            advertiseEngineData.seaWaterCooledChargeAirCooler,
-        workingPrinciple: advertiseEngineData.workingPrinciple,
-        compressionRatio: advertiseEngineData.compressionRatio,
-        pistonSpeedAt1500Rpm: advertiseEngineData.pistonSpeedAt1500Rpm,
-        pistonSpeedAt1800Rpm: advertiseEngineData.pistonSpeedAt1800Rpm,
-        firingOrder: advertiseEngineData.firingOrder,
-        pistons: advertiseEngineData.pistons,
-        connectionRods: advertiseEngineData.connectionRods,
-        auxiliaryPowerTakeOff: advertiseEngineData.auxiliaryPowerTakeOff,
-        remoteControlSystems: advertiseEngineData.remoteControlSystems,
+            advertiseEngineData?.seaWaterCooledChargeAirCooler,
+        workingPrinciple: advertiseEngineData?.workingPrinciple,
+        compressionRatio: advertiseEngineData?.compressionRatio,
+        pistonSpeedAt1500Rpm: advertiseEngineData?.pistonSpeedAt1500Rpm,
+        pistonSpeedAt1800Rpm: advertiseEngineData?.pistonSpeedAt1800Rpm,
+        firingOrder: advertiseEngineData?.firingOrder,
+        pistons: advertiseEngineData?.pistons,
+        connectionRods: advertiseEngineData?.connectionRods,
+        auxiliaryPowerTakeOff: advertiseEngineData?.auxiliaryPowerTakeOff,
+        remoteControlSystems: advertiseEngineData?.remoteControlSystems,
 
-        displacement: advertiseEngineData.displacement,
-        length: advertiseEngineData.length,
-        width: advertiseEngineData.width,
-        height: advertiseEngineData.height,
+        displacement: advertiseEngineData?.displacement,
+        length: advertiseEngineData?.length,
+        width: advertiseEngineData?.width,
+        height: advertiseEngineData?.height,
         lengthFromFrontEndOfFlywheelHousing:
-            advertiseEngineData.lengthFromFrontEndOfFlywheelHousing,
-        engineWeight: advertiseEngineData.engineWeight,
-        dryWeight: advertiseEngineData.dryWeight,
-        exclOilWeight: advertiseEngineData.exclOilWeight,
-        weightWithHeatExchanger: advertiseEngineData.weightWithHeatExchanger,
-        weightWithKeelCooling: advertiseEngineData.weightWithKeelCooling,
+            advertiseEngineData?.lengthFromFrontEndOfFlywheelHousing,
+        engineWeight: advertiseEngineData?.engineWeight,
+        dryWeight: advertiseEngineData?.dryWeight,
+        exclOilWeight: advertiseEngineData?.exclOilWeight,
+        weightWithHeatExchanger: advertiseEngineData?.weightWithHeatExchanger,
+        weightWithKeelCooling: advertiseEngineData?.weightWithKeelCooling,
 
-        nominalRating: advertiseEngineData.nominalRating,
-        enginePerformance: advertiseEngineData.enginePerformance,
-        maxPowerOutput: advertiseEngineData.maxPowerOutput,
-        maxPowerBHP: advertiseEngineData.maxPowerBHP,
-        maxSpeedKnots: advertiseEngineData.maxSpeedKnots,
-        supercharged: advertiseEngineData.supercharged,
-        grossPowerFullLoadKW: advertiseEngineData.grossPowerFullLoadKW,
-        grossPowerFullLoadHpMetric: advertiseEngineData.grossPowerFullLoadHpMetric,
-        GrossPowerPropellerCurveKw: advertiseEngineData.GrossPowerPropellerCurveKw,
+        nominalRating: advertiseEngineData?.nominalRating,
+        enginePerformance: advertiseEngineData?.enginePerformance,
+        maxPowerOutput: advertiseEngineData?.maxPowerOutput,
+        maxPowerBHP: advertiseEngineData?.maxPowerBHP,
+        maxSpeedKnots: advertiseEngineData?.maxSpeedKnots,
+        supercharged: advertiseEngineData?.supercharged,
+        grossPowerFullLoadKW: advertiseEngineData?.grossPowerFullLoadKW,
+        grossPowerFullLoadHpMetric: advertiseEngineData?.grossPowerFullLoadHpMetric,
+        GrossPowerPropellerCurveKw: advertiseEngineData?.GrossPowerPropellerCurveKw,
         GrossPowerPropellerCurveHpMetric:
-            advertiseEngineData.GrossPowerPropellerCurveHpMetric,
-        grossTorque: advertiseEngineData.grossTorque,
-        powerToWeightRatio: advertiseEngineData.powerToWeightRatio,
-        engineEfficiency: advertiseEngineData.engineEfficiency,
-        engineSpeedRange: advertiseEngineData.engineSpeedRange,
-        maximumContinuousRating: advertiseEngineData.maximumContinuousRating,
-        continuousPower: advertiseEngineData.continuousPower,
+            advertiseEngineData?.GrossPowerPropellerCurveHpMetric,
+        grossTorque: advertiseEngineData?.grossTorque,
+        powerToWeightRatio: advertiseEngineData?.powerToWeightRatio,
+        engineEfficiency: advertiseEngineData?.engineEfficiency,
+        engineSpeedRange: advertiseEngineData?.engineSpeedRange,
+        maximumContinuousRating: advertiseEngineData?.maximumContinuousRating,
+        continuousPower: advertiseEngineData?.continuousPower,
 
-        cylinderConfiguration: advertiseEngineData.cylinderConfiguration,
-        numberCylinders: advertiseEngineData.numberCylinders,
-        cylindersAndArrangement: advertiseEngineData.cylindersAndArrangement,
-        numberValves: advertiseEngineData.numberValves,
-        valvePerCylinder: advertiseEngineData.valvePerCylinder,
-        boreXStroke: advertiseEngineData.boreXStroke,
-        bore: advertiseEngineData.bore,
-        stroke: advertiseEngineData.stroke,
+        cylinderConfiguration: advertiseEngineData?.cylinderConfiguration,
+        numberCylinders: advertiseEngineData?.numberCylinders,
+        cylindersAndArrangement: advertiseEngineData?.cylindersAndArrangement,
+        numberValves: advertiseEngineData?.numberValves,
+        valvePerCylinder: advertiseEngineData?.valvePerCylinder,
+        boreXStroke: advertiseEngineData?.boreXStroke,
+        bore: advertiseEngineData?.bore,
+        stroke: advertiseEngineData?.stroke,
 
-        idleRPM: advertiseEngineData.idleRPM,
-        ratedSpeedRPM: advertiseEngineData.ratedSpeedRPM,
-        rpmAtMaxPower: advertiseEngineData.rpmAtMaxPower,
+        idleRPM: advertiseEngineData?.idleRPM,
+        ratedSpeedRPM: advertiseEngineData?.ratedSpeedRPM,
+        rpmAtMaxPower: advertiseEngineData?.rpmAtMaxPower,
 
-        maximumTorque: advertiseEngineData.maximumTorque,
-        maximumTorqueAtSpeed: advertiseEngineData.maximumTorqueAtSpeed,
-        torqueAtRatedSpeed: advertiseEngineData.torqueAtRatedSpeed,
+        maximumTorque: advertiseEngineData?.maximumTorque,
+        maximumTorqueAtSpeed: advertiseEngineData?.maximumTorqueAtSpeed,
+        torqueAtRatedSpeed: advertiseEngineData?.torqueAtRatedSpeed,
 
-        afterCooled: advertiseEngineData.afterCooled,
-        coolingSystem: advertiseEngineData.coolingSystem,
-        openCoolingSystem: advertiseEngineData.openCoolingSystem,
-        closedCoolingSystem: advertiseEngineData.closedCoolingSystem,
-        intercooled: advertiseEngineData.intercooled,
-        recommendedCoolant: advertiseEngineData.recommendedCoolant,
-        typeOfCooling: advertiseEngineData.typeOfCooling,
-        heatDissipationRate: advertiseEngineData.heatDissipationRate,
-        heatExchangerMaterial: advertiseEngineData.heatExchangerMaterial,
-        engineLubrication: advertiseEngineData.engineLubrication,
-        lubricationSystem: advertiseEngineData.lubricationSystem,
-        coolingCapacity: advertiseEngineData.coolingCapacity,
-        coolingFluidType: advertiseEngineData.coolingFluidType,
-        coolingSystemPressure: advertiseEngineData.coolingSystemPressure,
-        airFilterType: advertiseEngineData.airFilterType,
-        circulationPumpType: advertiseEngineData.circulationPumpType,
-        rawWaterpumpType: advertiseEngineData.rawWaterpumpType,
+        afterCooled: advertiseEngineData?.afterCooled,
+        coolingSystem: advertiseEngineData?.coolingSystem,
+        openCoolingSystem: advertiseEngineData?.openCoolingSystem,
+        closedCoolingSystem: advertiseEngineData?.closedCoolingSystem,
+        intercooled: advertiseEngineData?.intercooled,
+        recommendedCoolant: advertiseEngineData?.recommendedCoolant,
+        typeOfCooling: advertiseEngineData?.typeOfCooling,
+        heatDissipationRate: advertiseEngineData?.heatDissipationRate,
+        heatExchangerMaterial: advertiseEngineData?.heatExchangerMaterial,
+        engineLubrication: advertiseEngineData?.engineLubrication,
+        lubricationSystem: advertiseEngineData?.lubricationSystem,
+        coolingCapacity: advertiseEngineData?.coolingCapacity,
+        coolingFluidType: advertiseEngineData?.coolingFluidType,
+        coolingSystemPressure: advertiseEngineData?.coolingSystemPressure,
+        airFilterType: advertiseEngineData?.airFilterType,
+        circulationPumpType: advertiseEngineData?.circulationPumpType,
+        rawWaterpumpType: advertiseEngineData?.rawWaterpumpType,
 
-        propulsion: advertiseEngineData.propulsion,
-        bowthruster: advertiseEngineData.bowthruster,
-        propulsionSystem: advertiseEngineData.propulsionSystem,
-        propulsionSystemType: advertiseEngineData.propulsionSystemType,
-        propellerDiameter: advertiseEngineData.propellerDiameter,
-        propellerMaterial: advertiseEngineData.propellerMaterial,
-        propellerPitch: advertiseEngineData.propellerPitch,
-        propellerType: advertiseEngineData.propellerType,
-        propellerShaftDiameter: advertiseEngineData.propellerShaftDiameter,
-        gearboxType: advertiseEngineData.gearboxType,
-        transmissionCooling: advertiseEngineData.transmissionCooling,
-        propellerBladeMaterial: advertiseEngineData.propellerBladeMaterial,
-        propellerShaftMaterial: advertiseEngineData.propellerShaftMaterial,
-        steeringSystem: advertiseEngineData.steeringSystem,
-        steeringControlType: advertiseEngineData.steeringControlType,
-        trimSystem: advertiseEngineData.trimSystem,
-        trimTabMaterial: advertiseEngineData.trimTabMaterial,
-        trimTabType: advertiseEngineData.trimTabType,
+        propulsion: advertiseEngineData?.propulsion,
+        bowthruster: advertiseEngineData?.bowthruster,
+        propulsionSystem: advertiseEngineData?.propulsionSystem,
+        propulsionSystemType: advertiseEngineData?.propulsionSystemType,
+        propellerDiameter: advertiseEngineData?.propellerDiameter,
+        propellerMaterial: advertiseEngineData?.propellerMaterial,
+        propellerPitch: advertiseEngineData?.propellerPitch,
+        propellerType: advertiseEngineData?.propellerType,
+        propellerShaftDiameter: advertiseEngineData?.propellerShaftDiameter,
+        gearboxType: advertiseEngineData?.gearboxType,
+        transmissionCooling: advertiseEngineData?.transmissionCooling,
+        propellerBladeMaterial: advertiseEngineData?.propellerBladeMaterial,
+        propellerShaftMaterial: advertiseEngineData?.propellerShaftMaterial,
+        steeringSystem: advertiseEngineData?.steeringSystem,
+        steeringControlType: advertiseEngineData?.steeringControlType,
+        trimSystem: advertiseEngineData?.trimSystem,
+        trimTabMaterial: advertiseEngineData?.trimTabMaterial,
+        trimTabType: advertiseEngineData?.trimTabType,
 
-        electronicFuelinjection: advertiseEngineData.electronicFuelinjection,
-        fuelPreFilter: advertiseEngineData.fuelPreFilter,
-        fuelFilter: advertiseEngineData.fuelFilter,
-        fuelFilterType: advertiseEngineData.fuelFilterType,
-        fuelReserve: advertiseEngineData.fuelReserve,
-        fuelSystem: advertiseEngineData.fuelSystem,
-        fuelTankCapacity: advertiseEngineData.fuelTankCapacity,
-        fuelType: advertiseEngineData.fuelType,
+        electronicFuelinjection: advertiseEngineData?.electronicFuelinjection,
+        fuelPreFilter: advertiseEngineData?.fuelPreFilter,
+        fuelFilter: advertiseEngineData?.fuelFilter,
+        fuelFilterType: advertiseEngineData?.fuelFilterType,
+        fuelReserve: advertiseEngineData?.fuelReserve,
+        fuelSystem: advertiseEngineData?.fuelSystem,
+        fuelTankCapacity: advertiseEngineData?.fuelTankCapacity,
+        fuelType: advertiseEngineData?.fuelType,
         lowestSpecificFuelConsumption:
-            advertiseEngineData.lowestSpecificFuelConsumption,
-        recommendedFuel: advertiseEngineData.recommendedFuel,
+            advertiseEngineData?.lowestSpecificFuelConsumption,
+        recommendedFuel: advertiseEngineData?.recommendedFuel,
         fuelConsumptionAtCruisingSpeed:
-            advertiseEngineData.fuelConsumptionAtCruisingSpeed,
-        fuelConsumptionRate: advertiseEngineData.fuelConsumptionRate,
-        fuelConsumtpionAtFullLoad: advertiseEngineData.fuelConsumtpionAtFullLoad,
-        fuelInjectionSystemType: advertiseEngineData.fuelInjectionSystemType,
-        fuelDeliveryPressure: advertiseEngineData.fuelDeliveryPressure,
-        fuelTankMaterial: advertiseEngineData.fuelTankMaterial,
-        fuelLineDiameter: advertiseEngineData.fuelLineDiameter,
+            advertiseEngineData?.fuelConsumptionAtCruisingSpeed,
+        fuelConsumptionRate: advertiseEngineData?.fuelConsumptionRate,
+        fuelConsumtpionAtFullLoad: advertiseEngineData?.fuelConsumtpionAtFullLoad,
+        fuelInjectionSystemType: advertiseEngineData?.fuelInjectionSystemType,
+        fuelDeliveryPressure: advertiseEngineData?.fuelDeliveryPressure,
+        fuelTankMaterial: advertiseEngineData?.fuelTankMaterial,
+        fuelLineDiameter: advertiseEngineData?.fuelLineDiameter,
 
-        fuelConsumption: advertiseEngineData.fuelConsumption,
-        fuelConsumptionHalfLoad: advertiseEngineData.fuelConsumptionHalfLoad,
+        fuelConsumption: advertiseEngineData?.fuelConsumption,
+        fuelConsumptionHalfLoad: advertiseEngineData?.fuelConsumptionHalfLoad,
         fuelConsumptionPropellerCurve:
-            advertiseEngineData.fuelConsumptionPropellerCurve,
-        heatRejectionToCoolant: advertiseEngineData.heatRejectionToCoolant,
+            advertiseEngineData?.fuelConsumptionPropellerCurve,
+        heatRejectionToCoolant: advertiseEngineData?.heatRejectionToCoolant,
 
-        oilFilter: advertiseEngineData.oilFilter,
-        oilFilterType: advertiseEngineData.oilFilterType,
-        centrifugalOilCleaner: advertiseEngineData.centrifugalOilCleaner,
-        oilCooler: advertiseEngineData.oilCooler,
-        oilFiller: advertiseEngineData.oilFiller,
-        oilDipstick: advertiseEngineData.oilDipstick,
-        recommendedOil: advertiseEngineData.recommendedOil,
-        oilCapacity: advertiseEngineData.oilCapacity,
-        oilChangeInterval: advertiseEngineData.oilChangeInterval,
-        oilCoolingMethod: advertiseEngineData.oilCoolingMethod,
-        lubricationOilPressure: advertiseEngineData.lubricationOilPressure,
-        oilFilterBypassValve: advertiseEngineData.oilFilterBypassValve,
+        oilFilter: advertiseEngineData?.oilFilter,
+        oilFilterType: advertiseEngineData?.oilFilterType,
+        centrifugalOilCleaner: advertiseEngineData?.centrifugalOilCleaner,
+        oilCooler: advertiseEngineData?.oilCooler,
+        oilFiller: advertiseEngineData?.oilFiller,
+        oilDipstick: advertiseEngineData?.oilDipstick,
+        recommendedOil: advertiseEngineData?.recommendedOil,
+        oilCapacity: advertiseEngineData?.oilCapacity,
+        oilChangeInterval: advertiseEngineData?.oilChangeInterval,
+        oilCoolingMethod: advertiseEngineData?.oilCoolingMethod,
+        lubricationOilPressure: advertiseEngineData?.lubricationOilPressure,
+        oilFilterBypassValve: advertiseEngineData?.oilFilterBypassValve,
 
-        alternator: advertiseEngineData.alternator,
-        alternatorOutput: advertiseEngineData.alternatorOutput,
-        batteryType: advertiseEngineData.batteryType,
-        batteryVoltage: advertiseEngineData.batteryVoltage,
-        generatorOutputKw: advertiseEngineData.generatorOutputKw,
-        alternatorOutputAmps: advertiseEngineData.alternatorOutputAmps,
-        starterMotorVoltage: advertiseEngineData.starterMotorVoltage,
-        engineControlUnitModel: advertiseEngineData.engineControlUnitModel,
-        batteryChargingSystem: advertiseEngineData.batteryChargingSystem,
-        integratedGenerator: advertiseEngineData.integratedGenerator,
+        alternator: advertiseEngineData?.alternator,
+        alternatorOutput: advertiseEngineData?.alternatorOutput,
+        batteryType: advertiseEngineData?.batteryType,
+        batteryVoltage: advertiseEngineData?.batteryVoltage,
+        generatorOutputKw: advertiseEngineData?.generatorOutputKw,
+        alternatorOutputAmps: advertiseEngineData?.alternatorOutputAmps,
+        starterMotorVoltage: advertiseEngineData?.starterMotorVoltage,
+        engineControlUnitModel: advertiseEngineData?.engineControlUnitModel,
+        batteryChargingSystem: advertiseEngineData?.batteryChargingSystem,
+        integratedGenerator: advertiseEngineData?.integratedGenerator,
 
-        emissionCompliance: advertiseEngineData.emissionCompliance,
-        exhaustSystem: advertiseEngineData.exhaustSystem,
-        exhaustSystemType: advertiseEngineData.exhaustSystemType,
-        exhaustGasAfterTreatment: advertiseEngineData.exhaustGasAfterTreatment,
-        exhaustGasStatus: advertiseEngineData.exhaustGasStatus,
-        exhaustValveTiming: advertiseEngineData.exhaustValveTiming,
-        intakeValveTiming: advertiseEngineData.intakeValveTiming,
-        emissionControlTechnology: advertiseEngineData.emissionControlTechnology,
-        noxEmissions: advertiseEngineData.noxEmissions,
-        coxEmissions: advertiseEngineData.coxEmissions,
-        soxEmissions: advertiseEngineData.soxEmissions,
-        complianceWithIMOStandards: advertiseEngineData.complianceWithIMOStandards,
+        emissionCompliance: advertiseEngineData?.emissionCompliance,
+        exhaustSystem: advertiseEngineData?.exhaustSystem,
+        exhaustSystemType: advertiseEngineData?.exhaustSystemType,
+        exhaustGasAfterTreatment: advertiseEngineData?.exhaustGasAfterTreatment,
+        exhaustGasStatus: advertiseEngineData?.exhaustGasStatus,
+        exhaustValveTiming: advertiseEngineData?.exhaustValveTiming,
+        intakeValveTiming: advertiseEngineData?.intakeValveTiming,
+        emissionControlTechnology: advertiseEngineData?.emissionControlTechnology,
+        noxEmissions: advertiseEngineData?.noxEmissions,
+        coxEmissions: advertiseEngineData?.coxEmissions,
+        soxEmissions: advertiseEngineData?.soxEmissions,
+        complianceWithIMOStandards: advertiseEngineData?.complianceWithIMOStandards,
 
-        emergencyStopSystem: advertiseEngineData.emergencyStopSystem,
-        engineMonitoringSystems: advertiseEngineData.engineMonitoringSystems,
-        overheatProtection: advertiseEngineData.overheatProtection,
-        lowOilPressureAlarm: advertiseEngineData.lowOilPressureAlarm,
+        emergencyStopSystem: advertiseEngineData?.emergencyStopSystem,
+        engineMonitoringSystems: advertiseEngineData?.engineMonitoringSystems,
+        overheatProtection: advertiseEngineData?.overheatProtection,
+        lowOilPressureAlarm: advertiseEngineData?.lowOilPressureAlarm,
 
-        location: advertiseEngineData.location,
-        distance: advertiseEngineData.distance,
-        globalAddressLookup: advertiseEngineData.globalAddressLookup,
+        location: advertiseEngineData?.location,
+        distance: advertiseEngineData?.distance,
+        globalAddressLookup: advertiseEngineData?.globalAddressLookup,
     });
     const [error, setError] = useState({});
     const [openKey, setOpenKey] = useState(null);
@@ -696,7 +696,7 @@ const MyEngine = () => {
         valvePerCylinder: false,
         boreXStroke: false,
         bore: false,
-        stroke: true,
+        stroke: false,
 
         idleRPM: false,
         ratedSpeedRPM: true,
@@ -816,13 +816,8 @@ const MyEngine = () => {
         const errors = {};
         Object.keys(requiredField).forEach((key) => {
             const value = form[key];
-
-            if (typeof value !== "string") {
-                console.log("001 form key--", value, key);
-            }
-            if (!value || (String(value).trim() === "") === "") {
+            if (!value || String(value).trim() === "") {
                 errors[key] = true;
-                console.log("001 Error Key.", errors[key]);
             }
         });
         setError(errors);
@@ -832,7 +827,6 @@ const MyEngine = () => {
         e.preventDefault();
         try {
             if (checkRequired()) {
-                // If no errors, proceed with form submission logic
                 console.log("001 Form is valid, submitting...");
             } else {
                 console.log("001 Form has errors, not submitting.");
@@ -1315,7 +1309,7 @@ const MyEngine = () => {
     };
     useEffect(() => {
         if (!hasFetched.current) {
-            fetchGeneralColumnsList("", "");
+            // fetchGeneralColumnsList("", "");
             hasFetched.current = true;
         }
     }, []);
@@ -1951,17 +1945,17 @@ const MyEngine = () => {
                                         </div>
                                     </Col>
                                     <Col xs={3} md={12} className="mb-2">
-                                        <SelectComponent
-                                            type="advertEngine"
+                                        <CheckComponent
                                             openKey={openKey}
                                             setOpenKey={setOpenKey}
-                                            value={form.supercharged}
+                                            label={ENGINE_ADVERT.SUPERCHARGED}
                                             setValue={(val) =>
                                                 setForm({ ...form, supercharged: val })
                                             }
-                                            label="Supercharged"
-                                            options={superchargedOptions}
+                                            name={ENGINE_ADVERT.SUPERCHARGED}
+                                            id={ENGINE_ADVERT.SUPERCHARGED_ID}
                                             isMandatory={false}
+                                            value={form.supercharged}
                                         />
                                     </Col>
                                     <Col xs={3} md={12} className="mb-2">
@@ -3234,15 +3228,15 @@ const MyEngine = () => {
                                 </h6>
                                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
                                     <Col xs={3} md={12} className="mb-2">
-                                        <SelectComponent
-                                            type="advertEngine"
+                                        <CheckComponent
                                             openKey={openKey}
                                             setOpenKey={setOpenKey}
-                                            value={form.afterCooled}
+                                            label={ENGINE_ADVERT.AFTERCOOLED}
                                             setValue={(val) => setForm({ ...form, afterCooled: val })}
-                                            label="Aftercooled"
-                                            options={afterCooledOptions}
+                                            name={ENGINE_ADVERT.AFTERCOOLED}
+                                            id={ENGINE_ADVERT.AFTERCOOLED_ID}
                                             isMandatory={false}
+                                            value={form.afterCooled}
                                         />
                                     </Col>
                                     <Col xs={3} md={12} className="mb-2">
@@ -3296,15 +3290,15 @@ const MyEngine = () => {
                                         />
                                     </Col>
                                     <Col xs={3} md={12} className="mb-2">
-                                        <SelectComponent
-                                            type="advertEngine"
+                                        <CheckComponent
                                             openKey={openKey}
                                             setOpenKey={setOpenKey}
-                                            value={form.intercooled}
+                                            label={ENGINE_ADVERT.INTERCOOLED}
                                             setValue={(val) => setForm({ ...form, intercooled: val })}
-                                            label="Intercooled"
-                                            options={intercooledOptions}
+                                            name={ENGINE_ADVERT.INTERCOOLED}
+                                            id={ENGINE_ADVERT.INTERCOOLED_ID}
                                             isMandatory={false}
+                                            value={form.intercooled}
                                         />
                                     </Col>
                                     <Col xs={3} md={12} className="mb-2">
