@@ -1884,7 +1884,7 @@ const EngineAdvert = () => {
           <Form onSubmit={handleSubmit}>
             <Row>
               <Col md={6} className="mt-4">
-                <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>
+                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>
                   Make and Model
                 </h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
@@ -2056,7 +2056,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} className="mt-4">
-                <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>Condition</h6>
+                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>Condition</h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2186,7 +2186,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>General</h6>
+                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>General</h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
                   {/* <Col xs={3} md={12} className="mb-2">
                       <SelectComponent
@@ -2482,7 +2482,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>
+                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>
                   Performance
                 </h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
@@ -2756,7 +2756,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>
+                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>
                   Transmission
                 </h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
@@ -2891,7 +2891,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>Cylinders</h6>
+                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>Cylinders</h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3018,7 +3018,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>Equipment</h6>
+                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>Equipment</h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3316,7 +3316,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>
+                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>
                   Propulsion System
                 </h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
@@ -3587,7 +3587,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>
+                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>
                   Fuel System
                 </h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
@@ -3849,7 +3849,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>
+                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>
                   Cooling System
                 </h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
@@ -4106,7 +4106,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>
+                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>
                   Installation and Mounting
                 </h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
@@ -4195,7 +4195,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>
+                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>
                   Service & Maintenance
                 </h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
@@ -4304,7 +4304,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>
+                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>
                   Fuel Consumption
                 </h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
@@ -4367,7 +4367,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>
+                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>
                   Safety and Monitoring
                 </h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
@@ -4430,7 +4430,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>Torque</h6>
+                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>Torque</h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -4477,7 +4477,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>RPM</h6>
+                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>RPM</h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -4522,7 +4522,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>Oil</h6>
+                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>Oil</h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -4685,7 +4685,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>
+                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>
                   Emmissions & Environment
                 </h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
@@ -4860,7 +4860,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>Dimensions</h6>
+                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>Dimensions</h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -5049,7 +5049,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>
+                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>
                   Electrical System
                 </h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
@@ -5192,7 +5192,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: 10, color: "#1F75FE" }}>Location</h6>
+                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>Location</h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
