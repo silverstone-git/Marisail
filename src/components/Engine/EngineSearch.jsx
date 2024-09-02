@@ -495,7 +495,7 @@ const Engines = () => {
       let { tables = [], columns = [], values = [] } = getSelectionData();
 
       // Construct the API URL
-      const url = `http://localhost:3001/api/search_engine/engines?tables=${tables}&columns=${columns}&values=${values}&page=${pagination.currentPage}&limit=${pagination.limit}`;
+      const url = `http://localhost:3001/api/search_engine/engines?tables=${tables}&columns=${columns}&values=${values}&page=${pagination.currentPage}&limit=${pagination.limit}`; 
 
       // Fetch data from the API
       const response = await fetch(url, {
