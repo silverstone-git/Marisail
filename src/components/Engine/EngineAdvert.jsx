@@ -243,7 +243,6 @@ const EngineAdvert = () => {
   });
   const [error, setError] = useState({});
   const [openKey, setOpenKey] = useState(null);
-  // const [relevantOptions, setRelevantOptions] = useState([]);
   const [engineMakeOptions, setEngineMakeOptions] = useState([]);
   const [engineModelOptions, setEngineModelOptions] = useState([]);
   const [unitInjectorsOptions, setUnitInjectorsOptions] = useState([]);
@@ -827,14 +826,15 @@ const EngineAdvert = () => {
       console.log(error);
     }
   };
-  const fetchRelevantData = async (
+  const fetchRelevantGeneralTableData = async (
     engineMake,
     engineModel,
     engineModelYear,
     engineType,
     typeDesignation
   ) => {
-    const URL = `http://localhost:3001/api/advert_engine/relevant_data?engine_make=${encodeURIComponent(
+    const tableName = "engine_general";
+    const URL = `http://localhost:3001/api/advert_engine/relevant_data/${tableName}?engine_make=${encodeURIComponent(
       engineMake
     )}&engine_model=${encodeURIComponent(
       engineModel
@@ -846,10 +846,7 @@ const EngineAdvert = () => {
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log(
-        "001 Relevant data--",
-        toJson.result.engine_general.condition_1[0]
-      );
+      console.log("001 Relevant data--", toJson.result.engine_general);
 
       setForm((prevForm) => ({
         ...prevForm,
@@ -867,266 +864,671 @@ const EngineAdvert = () => {
           new Date(),
         brokerValuation: toJson.result.engine_general.broker_valuation[0] || "",
         engineClassification:
-          toJson.result.engine_general.engine_classifiable[0],
-        certification: toJson.result.engine_general.engine_certification,
-        manufacturerWarranty: toJson.result.engine_general.manufacture_warranty,
-        engineSerialNumber: toJson.result.engine_general.engine_serial,
-        ceDesignCategory: toJson.result.engine_general.ce_category,
-        numberDrives: toJson.result.engine_general.number_drives,
-        numberEngines: toJson.result.engine_general.number_engines,
-        rangeMiles: toJson.result.engine_general.engine_range,
-        cruisingSpeed: toJson.result.engine_general.cruise_speed,
-        driveType: toJson.result.engine_general.drive_type,
-        engineHours: toJson.result.engine_general.engine_hours,
-        ignitionSystem: toJson.result.engine_general.ignition_system,
-        noiseLevel: toJson.result.engine_general.noiselevel_db,
+          toJson.result.engine_general.engine_classifiable[0] || "",
+        certification: toJson.result.engine_general.engine_certification[0] || "",
+        manufacturerWarranty: toJson.result.engine_general.manufacture_warranty[0] || "",
+        engineSerialNumber: toJson.result.engine_general.engine_serial[0] || "",
+        ceDesignCategory: toJson.result.engine_general.ce_category[0] || "",
+        numberDrives: toJson.result.engine_general.number_drives[0] || "",
+        numberEngines: toJson.result.engine_general.number_engines[0] || "",
+        rangeMiles: toJson.result.engine_general.engine_range[0] || "",
+        cruisingSpeed: toJson.result.engine_general.cruise_speed[0] || "",
+        driveType: toJson.result.engine_general.drive_type[0] || "",
+        engineHours: toJson.result.engine_general.engine_hours[0] || "",
+        ignitionSystem: toJson.result.engine_general.ignition_system[0] || "",
+        noiseLevel: toJson.result.engine_general.noiselevel_db[0] || "",
         engineSoundproofingKits:
-          toJson.result.engine_general.enginesound_proofingkits,
+          toJson.result.engine_general.enginesound_proofingkits[0] || "",
+      }));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      // //console.log("001 form options--", form);
+    }
+  };
+  const fetchRelevantDimensionTableData = async (
+    engineMake,
+    engineModel,
+    engineModelYear,
+    engineType,
+    typeDesignation
+  ) => {
+    const tableName = "engine_dimensions";
+    const URL = `http://localhost:3001/api/advert_engine/relevant_data/${tableName}?engine_make=${encodeURIComponent(
+      engineMake
+    )}&engine_model=${encodeURIComponent(
+      engineModel
+    )}&engine_modelyear=${encodeURIComponent(
+      engineModelYear
+    )}&engine_type=${encodeURIComponent(
+      engineType
+    )}&type_designation=${encodeURIComponent(typeDesignation)}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      console.log(
+        "001 Relevant data dimesnions--",
+        toJson.result.engine_dimensions.displacement[0]
+      );
 
-        transmissionType: toJson.result.engine_transmission.transmission_type,
-        gearShift: toJson.result.engine_transmission.gear_shift,
-        gearRatio: toJson.result.engine_transmission.gear_ratio,
-        gearShiftType: toJson.result.engine_transmission.gearshift_type,
-        flywheelSAE14: toJson.result.engine_transmission.flywheel_SAE,
-        siluminFlywheelHousing:
-          toJson.result.engine_transmission.flywheel_housing,
-        camShaft: toJson.result.engine_transmission.camshaft,
-        camShaftAlloy: toJson.result.engine_transmission.crankshaft_alloy,
-        crankcaseDesign: toJson.result.engine_transmission.crankcase_design,
-
-        engineMountingOrientation:
-          toJson.result.engine_mounting.enginemounting_orientation,
-        engineSuspension: toJson.result.engine_mounting.engine_suspension,
-
-        mountingBracketMaterial:
-          toJson.result.engine_mounting.mountingbracket_material,
-        alignmentRequirements:
-          toJson.result.engine_mounting.alignment_requirements,
-        engineBlock: toJson.result.engine_mounting.engine_block,
-
-        scheduledMaintenancePlan:
-          toJson.result.engine_maintenance.scheduled_maintenanceplan,
-        serviceInterval: toJson.result.engine_maintenance.service_interval,
-        maintenanceLogRequirements:
-          toJson.result.engine_maintenance.maintenancelog_requirements,
-        availabilityOfSpareParts:
-          toJson.result.engine_maintenance.availability_spareparts,
-        operationMode: toJson.result.engine_maintenance.operation_mode,
-        lastServiceDate: toJson.result.engine_maintenance.last_servicedate,
-
-        engineManagementSystem: toJson.result.engine_equipment.EMS,
-        engineControlSystem:
-          toJson.result.engine_equipment.engine_controlsystem,
-        unitInjectors: toJson.result.engine_equipment.unit_injectors,
-        turboCharger: toJson.result.engine_equipment.turbocharger,
-        turboCharging: toJson.result.engine_equipment.turbo_charging,
-        starterMotor: toJson.result.engine_equipment.starter_motor,
-        protectionCovers: toJson.result.engine_equipment.protection_covers,
-        closedCrankcaseVentilation:
-          toJson.result.engine_equipment.crankcase_ventilation,
-        heatExchanger: toJson.result.engine_equipment.heat_exchanger,
-        heatExchangerWithExpansionTank:
-          toJson.result.engine_equipment.heat_exchanger_WET,
-        seaWaterPump: toJson.result.engine_equipment.seawater_pump,
-        seaWaterCooledChargeAirCooler:
-          toJson.result.engine_equipment.charge_aircooler,
-        workingPrinciple: toJson.result.engine_equipment.working_principle,
-        compressionRatio: toJson.result.engine_equipment.compression_ratio,
-        pistonSpeedAt1500Rpm: toJson.result.engine_equipment.pistonspeed_1500,
-        pistonSpeedAt1800Rpm: toJson.result.engine_equipment.pistonspeed_1800,
-        firingOrder: toJson.result.engine_equipment.firing_order,
-        pistons: toJson.result.engine_equipment.pistons,
-        connectionRods: toJson.result.engine_equipment.connection_rods,
-        auxiliaryPowerTakeOff:
-          toJson.result.engine_equipment.auxiliarypower_takeoff,
-        remoteControlSystems:
-          toJson.result.engine_equipment.remote_controlsystems,
-
-        displacement: toJson.result.engine_dimensions.displacement,
-        length: toJson.result.engine_dimensions.length,
-        width: toJson.result.engine_dimensions.width,
-        height: toJson.result.engine_dimensions.height,
+      setForm((prevForm) => ({
+        ...prevForm,
+        displacement: toJson.result.engine_dimensions.displacement[0] || "",
+        length: toJson.result.engine_dimensions.length[0] || "",
+        width: toJson.result.engine_dimensions.width[0] || "",
+        height: toJson.result.engine_dimensions.height[0] || "",
         lengthFromFrontEndOfFlywheelHousing:
-          toJson.result.engine_dimensions.Engine_length,
-        engineWeight: toJson.result.engine_dimensions.engine_weight,
-        dryWeight: toJson.result.engine_dimensions.dry_weight,
-        exclOilWeight: toJson.result.engine_dimensions.weight_excloil,
+          toJson.result.engine_dimensions.Engine_length[0] || "",
+        engineWeight: toJson.result.engine_dimensions.engine_weight[0] || "",
+        dryWeight: toJson.result.engine_dimensions.dry_weight[0] || "",
+        exclOilWeight: toJson.result.engine_dimensions.weight_excloil[0] || "",
         weightWithHeatExchanger:
-          toJson.result.engine_dimensions.weight_heatexchanger,
+          toJson.result.engine_dimensions.weight_heatexchanger[0] || "",
         weightWithKeelCooling:
-          toJson.result.engine_dimensions.weight_keelcooling,
-
-        nominalRating: toJson.result.engine_performance.nominal_rating,
-        enginePerformance: toJson.result.engine_performance.engine_performance,
-        maxPowerOutput: toJson.result.engine_performance.max_poweroutput,
-        maxPowerBHP: toJson.result.engine_performance.max_power,
-        maxSpeedKnots: toJson.result.engine_performance.max_speed,
-        supercharged: toJson.result.engine_performance.supercharged,
-        grossPowerFullLoadKW: toJson.result.engine_performance.GP_fullloadKW,
-        grossPowerFullLoadHpMetric:
-          toJson.result.engine_performance.GP_fullloadmetric,
-        GrossPowerPropellerCurveKw:
-          toJson.result.engine_performance.GP_propellercurveKW,
-        GrossPowerPropellerCurveHpMetric:
-          toJson.result.engine_performance.GP_propellercurvemetric,
-        grossTorque: toJson.result.engine_performance.gross_torque,
-        powerToWeightRatio:
-          toJson.result.engine_performance.powertoweight_ratio,
-        engineEfficiency: toJson.result.engine_performance.engine_efficiency,
-        engineSpeedRange: toJson.result.engine_performance.Engine_speedrange,
-        maximumContinuousRating:
-          toJson.result.engine_performance.Max_Continuousrating,
-        continuousPower: toJson.result.engine_performance.continuouspower_KWHP,
-
-        cylinderConfiguration:
-          toJson.result.engine_performance.cylinder_configuration,
-        numberCylinders: toJson.result.engine_performance.number_cylinders,
-        cylindersAndArrangement:
-          toJson.result.engine_performance.cylinders_arrangement,
-        numberValves: toJson.result.engine_performance.number_valves,
-        valvePerCylinder: toJson.result.engine_performance.valve_percylinder,
-        boreXStroke: toJson.result.engine_performance.bore_stroke,
-        bore: toJson.result.engine_performance.bore,
-        stroke: toJson.result.engine_performance.bore_stroke,
-
-        idleRPM: "",
-        ratedSpeedRPM: "",
-        rpmAtMaxPower: "",
-
-        maximumTorque: "",
-        maximumTorqueAtSpeed: "",
-        torqueAtRatedSpeed: "",
-
-        afterCooled: toJson.result.engine_cooling.after_cooled,
-        coolingSystem: toJson.result.engine_cooling.cooling_system,
-        openCoolingSystem: toJson.result.engine_cooling.open_coolingsystem,
-        closedCoolingSystem: toJson.result.engine_cooling.closed_coolingsystem,
-        intercooled: toJson.result.engine_cooling.cooling_system,
-        recommendedCoolant: toJson.result.engine_cooling.recommended_coolant,
-        typeOfCooling: toJson.result.engine_cooling.cooling_type,
-        heatDissipationRate: toJson.result.engine_cooling.heat_dissipationrate,
-        heatExchangerMaterial:
-          toJson.result.engine_cooling.heat_exchangermaterial,
-        engineLubrication: toJson.result.engine_cooling.engine_lubrication,
-        lubricationSystem: toJson.result.engine_cooling.lubrication_system,
-        coolingCapacity: toJson.result.engine_cooling.cooling_system,
-        coolingFluidType: toJson.result.engine_cooling.cooling_fluidtype,
-        coolingSystemPressure:
-          toJson.result.engine_cooling.cooling_systempressure,
-        airFilterType: toJson.result.engine_cooling.air_filtertype,
-        circulationPumpType: toJson.result.engine_cooling.circulation_pumptype,
-        rawWaterpumpType: toJson.result.engine_cooling.rawwater_pumptype,
-
-        propulsion: toJson.result.engine_propulsion.propulsion,
-        bowthruster: toJson.result.engine_propulsion.bowthruster,
-        propulsionSystem: toJson.result.engine_propulsion.propulsion_systemtype,
-        propulsionSystemType: toJson.result.engine_propulsion.propulsion,
-        propellerDiameter: toJson.result.engine_propulsion.propeller_diameter,
-        propellerMaterial: toJson.result.engine_propulsion.propeller_material,
-        propellerPitch: toJson.result.engine_propulsion.propeller_pitch,
-        propellerType: toJson.result.engine_propulsion.propeller_type,
-        propellerShaftDiameter:
-          toJson.result.engine_propulsion.propeller_shaftdiameter,
-        gearboxType: toJson.result.engine_propulsion.gearbox_type,
-        transmissionCooling:
-          toJson.result.engine_propulsion.transmission_cooling,
-        propellerBladeMaterial:
-          toJson.result.engine_propulsion.propeller_bladematerial,
-        propellerShaftMaterial:
-          toJson.result.engine_propulsion.propeller_shaftmaterial,
-        steeringSystem: toJson.result.engine_propulsion.steering_system,
-        steeringControlType:
-          toJson.result.engine_propulsion.steering_controltype,
-        trimSystem: toJson.result.engine_propulsion.trim_system,
-        trimTabMaterial: toJson.result.engine_propulsion.trim_tabmaterial,
-        trimTabType: toJson.result.engine_propulsion.trim_tab_type,
-
-        electronicFuelinjection: toJson.result.engine_fuel.EFI,
-        fuelPreFilter: toJson.result.engine_fuel.fuel_prefilter, //
-        fuelFilter: toJson.result.engine_fuel.fuel_filter,
-        fuelFilterType: toJson.result.engine_fuel.fuel_filtertype,
-        fuelReserve: toJson.result.engine_fuel.fuel_reserve,
-        fuelSystem: toJson.result.engine_fuel.fuel_system,
-        fuelTankCapacity: toJson.result.engine_fuel.fuel_tankcapacity,
-        fuelType: toJson.result.engine_fuel.fuel_type,
-        lowestSpecificFuelConsumption:
-          toJson.result.engine_fuel.lowest_fuelconsumption,
-        recommendedFuel: toJson.result.engine_fuel.recommended_fuel,
-        fuelConsumptionAtCruisingSpeed:
-          toJson.result.engine_fuel.fuel_prefilter, //
-        fuelConsumptionRate: toJson.result.engine_fuel.fuel_consumptionrate,
-        fuelConsumtpionAtFullLoad: toJson.result.engine_fuel.FC_fullload,
-        fuelInjectionSystemType:
-          toJson.result.engine_fuel.FuelInjection_systemtype,
-        fuelDeliveryPressure: toJson.result.engine_fuel.Fuel_deliverypressure,
-        fuelTankMaterial: toJson.result.engine_fuel.Fuel_tankmaterial,
-        fuelLineDiameter: toJson.result.engine_fuel.fuel_linediameter,
-
-        fuelConsumption: toJson.result.engine_fuel.FC_3Quarterload,
-        fuelConsumptionHalfLoad: toJson.result.engine_fuel.FC_halfload,
-        fuelConsumptionPropellerCurve:
-          toJson.result.engine_fuel.FC_propellercurve,
-        heatRejectionToCoolant: toJson.result.engine_fuel.heat_rejection,
-
-        oilFilter: toJson.result.engine_oil.oil_filter,
-        oilFilterType: toJson.result.engine_oil.oil_filtertype,
-        centrifugalOilCleaner: toJson.result.engine_oil.centrifugal_oilcleaner,
-        oilCooler: toJson.result.engine_oil.oil_cooler,
-        oilFiller: toJson.result.engine_oil.oil_filler,
-        oilDipstick: toJson.result.engine_oil.oil_dipstick,
-        recommendedOil: toJson.result.engine_oil.recommended_oil,
-        oilCapacity: toJson.result.engine_oil.oil_capacity,
-        oilChangeInterval: toJson.result.engine_oil.oil_changeinterval,
-        oilCoolingMethod: toJson.result.engine_oil.oil_coolingmethod,
-        lubricationOilPressure:
-          toJson.result.engine_oil.lubrication_oilpressure,
-        oilFilterBypassValve: toJson.result.engine_oil.oilfilter_bypassvalve,
-
-        alternator: toJson.result.engine_electrical.alternator,
-        alternatorOutput: toJson.result.engine_electrical.alternator_outputAMPS,
-        batteryType: toJson.result.engine_electrical.battery_type,
-        batteryVoltage: toJson.result.engine_electrical.battery_voltage,
-        generatorOutputKw: toJson.result.engine_electrical.integrated_generator,
-        alternatorOutputAmps:
-          toJson.result.engine_electrical.integrated_generator,
-        starterMotorVoltage:
-          toJson.result.engine_electrical.starter_MotorVoltage,
-        engineControlUnitModel: toJson.result.engine_electrical.ECU_Model,
-        batteryChargingSystem:
-          toJson.result.engine_electrical.Battery_ChargingSystem,
-        integratedGenerator:
-          toJson.result.engine_electrical.integrated_generator,
-
-        emissionCompliance: toJson.result.engine_emissions.Emission_compliance,
-        exhaustSystem: toJson.result.engine_emissions.exhaust_system,
-        exhaustSystemType: toJson.result.engine_emissions.exhaust_systemtype,
-        exhaustGasAfterTreatment:
-          toJson.result.engine_emissions.exhaustgas_aftertreatment,
-        exhaustGasStatus: toJson.result.engine_emissions.exhaustGas_status,
-        exhaustValveTiming: toJson.result.engine_emissions.exhaust_valvetiming,
-        intakeValveTiming: toJson.result.engine_emissions.intake_valvetiming,
-        emissionControlTechnology:
-          toJson.result.engine_emissions.emission_controltechnology,
-        noxEmissions: toJson.result.engine_emissions.NOx_Emission,
-        coxEmissions: toJson.result.engine_emissions.COx_Emission,
-        soxEmissions: toJson.result.engine_emissions.SOx_Emission,
-        complianceWithIMOStandards:
-          toJson.result.engine_emissions.compliance_internationalmaritime,
-
-        emergencyStopSystem: toJson.result.engine_safety.emergency_stopsystem,
-        engineMonitoringSystems:
-          toJson.result.engine_safety.engine_monitoringsystem,
-        overheatProtection: toJson.result.engine_safety.overheat_protection,
-        lowOilPressureAlarm: toJson.result.engine_safety.lowoil_pressurealarm,
-
-        location: "",
-        distance: "",
-        globalAddressLookup: "",
+          toJson.result.engine_dimensions.weight_keelcooling[0] || "",
       }));
     } catch (err) {
       console.log(err);
     } finally {
       console.log("001 form options--", form);
+    }
+  };
+  const fetchRelevantCoolingTableData = async (
+    engineMake,
+    engineModel,
+    engineModelYear,
+    engineType,
+    typeDesignation
+  ) => {
+    const tableName = "engine_cooling";
+    const URL = `http://localhost:3001/api/advert_engine/relevant_data/${tableName}?engine_make=${encodeURIComponent(
+      engineMake
+    )}&engine_model=${encodeURIComponent(
+      engineModel
+    )}&engine_modelyear=${encodeURIComponent(
+      engineModelYear
+    )}&engine_type=${encodeURIComponent(
+      engineType
+    )}&type_designation=${encodeURIComponent(typeDesignation)}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      console.log("001 Relevant data cooling--", toJson.result.engine_cooling);
+
+      setForm((prevForm) => ({
+        ...prevForm,
+        afterCooled: toJson.result.engine_cooling.after_cooled[0] || "",
+        coolingSystem: toJson.result.engine_cooling.cooling_system[0] || "",
+        openCoolingSystem: toJson.result.engine_cooling.open_coolingsystem[0] || "",
+        closedCoolingSystem: toJson.result.engine_cooling.closed_coolingsystem[0] || "",
+        intercooled: toJson.result.engine_cooling.cooling_system[0] || "",
+        recommendedCoolant: toJson.result.engine_cooling.recommended_coolant[0] || "",
+        typeOfCooling: toJson.result.engine_cooling.cooling_type[0] || "",
+        heatDissipationRate: toJson.result.engine_cooling.heat_dissipationrate[0] || "",
+        heatExchangerMaterial:
+          toJson.result.engine_cooling.heat_exchangermaterial[0] || "",
+        engineLubrication: toJson.result.engine_cooling.engine_lubrication[0] || "",
+        lubricationSystem: toJson.result.engine_cooling.lubrication_system[0] || "",
+        coolingCapacity: toJson.result.engine_cooling.cooling_system[0] || "",
+        coolingFluidType: toJson.result.engine_cooling.cooling_fluidtype[0] || "",
+        coolingSystemPressure:
+          toJson.result.engine_cooling.cooling_systempressure[0] || "",
+        airFilterType: toJson.result.engine_cooling.air_filtertype[0] || "",
+        circulationPumpType: toJson.result.engine_cooling.circulation_pumptype[0] || "",
+        rawWaterpumpType: toJson.result.engine_cooling.rawwater_pumptype[0] || "",
+      }));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      //console.log("001 form options--", form);
+    }
+  };
+  const fetchRelevantElectricalTableData = async (
+    engineMake,
+    engineModel,
+    engineModelYear,
+    engineType,
+    typeDesignation
+  ) => {
+    const tableName = "engine_electrical";
+    const URL = `http://localhost:3001/api/advert_engine/relevant_data/${tableName}?engine_make=${encodeURIComponent(
+      engineMake
+    )}&engine_model=${encodeURIComponent(
+      engineModel
+    )}&engine_modelyear=${encodeURIComponent(
+      engineModelYear
+    )}&engine_type=${encodeURIComponent(
+      engineType
+    )}&type_designation=${encodeURIComponent(typeDesignation)}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      console.log(
+        "001 Relevant data electrical--",
+        toJson.result.engine_electrical
+      );
+
+      setForm((prevForm) => ({
+        ...prevForm,
+        alternator: toJson.result.engine_electrical.alternator[0] || "",
+        alternatorOutput: toJson.result.engine_electrical.alternator_outputAMPS[0] || "",
+        batteryType: toJson.result.engine_electrical.battery_type[0] || "",
+        batteryVoltage: toJson.result.engine_electrical.battery_voltage[0] || "",
+        generatorOutputKw: toJson.result.engine_electrical.integrated_generator[0] || "",
+        alternatorOutputAmps:
+          toJson.result.engine_electrical.integrated_generator[0] || "",
+        starterMotorVoltage:
+          toJson.result.engine_electrical.starter_MotorVoltage[0] || "",
+        engineControlUnitModel: toJson.result.engine_electrical.ECU_Model[0] || "",
+        batteryChargingSystem:
+          toJson.result.engine_electrical.Battery_ChargingSystem[0] || "",
+        integratedGenerator:
+          toJson.result.engine_electrical.integrated_generator[0] || "",
+      }));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      //console.log("001 form options--", form);
+    }
+  };
+  const fetchRelevantEmissionsTableData = async (
+    engineMake,
+    engineModel,
+    engineModelYear,
+    engineType,
+    typeDesignation
+  ) => {
+    const tableName = "engine_emissions";
+    const URL = `http://localhost:3001/api/advert_engine/relevant_data/${tableName}?engine_make=${encodeURIComponent(
+      engineMake
+    )}&engine_model=${encodeURIComponent(
+      engineModel
+    )}&engine_modelyear=${encodeURIComponent(
+      engineModelYear
+    )}&engine_type=${encodeURIComponent(
+      engineType
+    )}&type_designation=${encodeURIComponent(typeDesignation)}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      console.log(
+        "001 Relevant data emission--",
+        toJson.result.engine_emissions
+      );
+
+      setForm((prevForm) => ({
+        ...prevForm,
+        emissionCompliance: toJson.result.engine_emissions.Emission_compliance[0] || "",
+        exhaustSystem: toJson.result.engine_emissions.exhaust_system[0] || "",
+        exhaustSystemType: toJson.result.engine_emissions.exhaust_systemtype[0] || "",
+        exhaustGasAfterTreatment:
+          toJson.result.engine_emissions.exhaustgas_aftertreatment[0] || "",
+        exhaustGasStatus: toJson.result.engine_emissions.exhaustGas_status[0] || "",
+        exhaustValveTiming: toJson.result.engine_emissions.exhaust_valvetiming[0] || "",
+        intakeValveTiming: toJson.result.engine_emissions.intake_valvetiming[0] || "",
+        emissionControlTechnology:
+          toJson.result.engine_emissions.emission_controltechnology[0] || "",
+        noxEmissions: toJson.result.engine_emissions.NOx_Emission[0] || "",
+        coxEmissions: toJson.result.engine_emissions.COx_Emission[0] || "",
+        soxEmissions: toJson.result.engine_emissions.SOx_Emission[0] || "",
+        complianceWithIMOStandards:
+          toJson.result.engine_emissions.compliance_internationalmaritime[0] || "",
+      }));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      //console.log("001 form options--", form);
+    }
+  };
+  const fetchRelevantFuelTableData = async (
+    engineMake,
+    engineModel,
+    engineModelYear,
+    engineType,
+    typeDesignation
+  ) => {
+    const tableName = "engine_fuel";
+    const URL = `http://localhost:3001/api/advert_engine/relevant_data/${tableName}?engine_make=${encodeURIComponent(
+      engineMake
+    )}&engine_model=${encodeURIComponent(
+      engineModel
+    )}&engine_modelyear=${encodeURIComponent(
+      engineModelYear
+    )}&engine_type=${encodeURIComponent(
+      engineType
+    )}&type_designation=${encodeURIComponent(typeDesignation)}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      console.log("001 Relevant data fuel--", toJson.result.engine_fuel);
+
+      setForm((prevForm) => ({
+        ...prevForm,
+        electronicFuelinjection: toJson.result.engine_fuel.EFI[0] || "",
+        fuelPreFilter: toJson.result.engine_fuel.fuel_prefilter[0] || "", //
+        fuelFilter: toJson.result.engine_fuel.fuel_filter[0] || "",
+        fuelFilterType: toJson.result.engine_fuel.fuel_filtertype[0] || "",
+        fuelReserve: toJson.result.engine_fuel.fuel_reserve[0] || "",
+        fuelSystem: toJson.result.engine_fuel.fuel_system[0] || "",
+        fuelTankCapacity: toJson.result.engine_fuel.fuel_tankcapacity[0] || "",
+        fuelType: toJson.result.engine_fuel.fuel_type[0] || "",
+        lowestSpecificFuelConsumption:
+          toJson.result.engine_fuel.lowest_fuelconsumption[0] || "",
+        recommendedFuel: toJson.result.engine_fuel.recommended_fuel[0] || "",
+        fuelConsumptionAtCruisingSpeed:
+          toJson.result.engine_fuel.fuel_prefilter[0] || "", //
+        fuelConsumptionRate: toJson.result.engine_fuel.fuel_consumptionrate[0] || "",
+        fuelConsumtpionAtFullLoad: toJson.result.engine_fuel.FC_fullload[0] || "",
+        fuelInjectionSystemType:
+          toJson.result.engine_fuel.FuelInjection_systemtype[0] || "",
+        fuelDeliveryPressure: toJson.result.engine_fuel.Fuel_deliverypressure[0] || "",
+        fuelTankMaterial: toJson.result.engine_fuel.Fuel_tankmaterial[0] || "",
+        fuelLineDiameter: toJson.result.engine_fuel.fuel_linediameter[0] || "",
+
+        fuelConsumption: toJson.result.engine_fuel.FC_3Quarterload[0] || "",
+        fuelConsumptionHalfLoad: toJson.result.engine_fuel.FC_halfload[0] || "",
+        fuelConsumptionPropellerCurve:
+          toJson.result.engine_fuel.FC_propellercurve[0] || "",
+        heatRejectionToCoolant: toJson.result.engine_fuel.heat_rejection[0] || "",
+      }));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      //console.log("001 form options--", form);
+    }
+  };
+  const fetchRelevantPropulsionTableData = async (
+    engineMake,
+    engineModel,
+    engineModelYear,
+    engineType,
+    typeDesignation
+  ) => {
+    const tableName = "engine_propulsion";
+    const URL = `http://localhost:3001/api/advert_engine/relevant_data/${tableName}?engine_make=${encodeURIComponent(
+      engineMake
+    )}&engine_model=${encodeURIComponent(
+      engineModel
+    )}&engine_modelyear=${encodeURIComponent(
+      engineModelYear
+    )}&engine_type=${encodeURIComponent(
+      engineType
+    )}&type_designation=${encodeURIComponent(typeDesignation)}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      console.log(
+        "001 Relevant data propulsion--",
+        toJson.result.engine_propulsion
+      );
+
+      setForm((prevForm) => ({
+        ...prevForm,
+        propulsion: toJson.result.engine_propulsion.propulsion[0] || "",
+        bowthruster: toJson.result.engine_propulsion.bowthruster[0] || "",
+        propulsionSystem: toJson.result.engine_propulsion.propulsion_systemtype[0] || "",
+        propulsionSystemType: toJson.result.engine_propulsion.propulsion[0] || "",
+        propellerDiameter: toJson.result.engine_propulsion.propeller_diameter[0] || "",
+        propellerMaterial: toJson.result.engine_propulsion.propeller_material[0] || "",
+        propellerPitch: toJson.result.engine_propulsion.propeller_pitch[0] || "",
+        propellerType: toJson.result.engine_propulsion.propeller_type[0] || "",
+        propellerShaftDiameter:
+          toJson.result.engine_propulsion.propeller_shaftdiameter[0] || "",
+        gearboxType: toJson.result.engine_propulsion.gearbox_type[0] || "",
+        transmissionCooling:
+          toJson.result.engine_propulsion.transmission_cooling[0] || "",
+        propellerBladeMaterial:
+          toJson.result.engine_propulsion.propeller_bladematerial[0] || "",
+        propellerShaftMaterial:
+          toJson.result.engine_propulsion.propeller_shaftmaterial[0] || "",
+        steeringSystem: toJson.result.engine_propulsion.steering_system[0] || "",
+        steeringControlType:
+          toJson.result.engine_propulsion.steering_controltype[0] || "",
+        trimSystem: toJson.result.engine_propulsion.trim_system[0] || "",
+        trimTabMaterial: toJson.result.engine_propulsion.trim_tabmaterial[0] || "",
+        trimTabType: toJson.result.engine_propulsion.trim_tab_type[0] || "",
+      }));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      //console.log("001 form options--", form);
+    }
+  };
+  const fetchRelevantTransmissionTableData = async (
+    engineMake,
+    engineModel,
+    engineModelYear,
+    engineType,
+    typeDesignation
+  ) => {
+    const tableName = "engine_transmission";
+    const URL = `http://localhost:3001/api/advert_engine/relevant_data/${tableName}?engine_make=${encodeURIComponent(
+      engineMake
+    )}&engine_model=${encodeURIComponent(
+      engineModel
+    )}&engine_modelyear=${encodeURIComponent(
+      engineModelYear
+    )}&engine_type=${encodeURIComponent(
+      engineType
+    )}&type_designation=${encodeURIComponent(typeDesignation)}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      console.log(
+        "001 Relevant data transmission--",
+        toJson.result.engine_transmission
+      );
+
+      setForm((prevForm) => ({
+        ...prevForm,
+        transmissionType: toJson.result.engine_transmission.transmission_type[0] || "",
+        gearShift: toJson.result.engine_transmission.gear_shift[0] || "",
+        gearRatio: toJson.result.engine_transmission.gear_ratio[0] || "",
+        gearShiftType: toJson.result.engine_transmission.gearshift_type[0] || "",
+        flywheelSAE14: toJson.result.engine_transmission.flywheel_SAE[0] || "",
+        siluminFlywheelHousing:
+          toJson.result.engine_transmission.flywheel_housing[0] || "",
+        camShaft: toJson.result.engine_transmission.camshaft[0] || "",
+        camShaftAlloy: toJson.result.engine_transmission.crankshaft_alloy[0] || "",
+        crankcaseDesign: toJson.result.engine_transmission.crankcase_design[0] || "",
+      }));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      //console.log("001 form options--", form);
+    }
+  };
+  const fetchRelevantOilTableData = async (
+    engineMake,
+    engineModel,
+    engineModelYear,
+    engineType,
+    typeDesignation
+  ) => {
+    const tableName = "engine_oil";
+    const URL = `http://localhost:3001/api/advert_engine/relevant_data/${tableName}?engine_make=${encodeURIComponent(
+      engineMake
+    )}&engine_model=${encodeURIComponent(
+      engineModel
+    )}&engine_modelyear=${encodeURIComponent(
+      engineModelYear
+    )}&engine_type=${encodeURIComponent(
+      engineType
+    )}&type_designation=${encodeURIComponent(typeDesignation)}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      console.log("001 Relevant data oil--", toJson.result.engine_oil);
+
+      setForm((prevForm) => ({
+        ...prevForm,
+        oilFilter: toJson.result.engine_oil.oil_filter[0] || "",
+        oilFilterType: toJson.result.engine_oil.oil_filtertype[0] || "",
+        centrifugalOilCleaner: toJson.result.engine_oil.centrifugal_oilcleaner[0] || "",
+        oilCooler: toJson.result.engine_oil.oil_cooler[0] || "",
+        oilFiller: toJson.result.engine_oil.oil_filler[0] || "",
+        oilDipstick: toJson.result.engine_oil.oil_dipstick[0] || "",
+        recommendedOil: toJson.result.engine_oil.recommended_oil[0] || "",
+        oilCapacity: toJson.result.engine_oil.oil_capacity[0] || "",
+        oilChangeInterval: toJson.result.engine_oil.oil_changeinterval[0] || "",
+        oilCoolingMethod: toJson.result.engine_oil.oil_coolingmethod[0] || "",
+        lubricationOilPressure:
+          toJson.result.engine_oil.lubrication_oilpressure[0] || "",
+        oilFilterBypassValve: toJson.result.engine_oil.oilfilter_bypassvalve[0] || "",
+      }));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      //console.log("001 form options--", form);
+    }
+  };
+  const fetchRelevantSafetyTableData = async (
+    engineMake,
+    engineModel,
+    engineModelYear,
+    engineType,
+    typeDesignation
+  ) => {
+    const tableName = "engine_safety";
+    const URL = `http://localhost:3001/api/advert_engine/relevant_data/${tableName}?engine_make=${encodeURIComponent(
+      engineMake
+    )}&engine_model=${encodeURIComponent(
+      engineModel
+    )}&engine_modelyear=${encodeURIComponent(
+      engineModelYear
+    )}&engine_type=${encodeURIComponent(
+      engineType
+    )}&type_designation=${encodeURIComponent(typeDesignation)}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      console.log("001 Relevant data safety--", toJson.result.engine_safety);
+
+      setForm((prevForm) => ({
+        ...prevForm,
+        emergencyStopSystem: toJson.result.engine_safety.emergency_stopsystem[0] || "",
+        engineMonitoringSystems:
+          toJson.result.engine_safety.engine_monitoringsystem[0] || "",
+        overheatProtection: toJson.result.engine_safety.overheat_protection[0] || "",
+        lowOilPressureAlarm: toJson.result.engine_safety.lowoil_pressurealarm[0] || "",
+      }));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      //console.log("001 form options--", form);
+    }
+  };
+  const fetchRelevantEquipmentTableData = async (
+    engineMake,
+    engineModel,
+    engineModelYear,
+    engineType,
+    typeDesignation
+  ) => {
+    const tableName = "engine_equipment";
+    const URL = `http://localhost:3001/api/advert_engine/relevant_data/${tableName}?engine_make=${encodeURIComponent(
+      engineMake
+    )}&engine_model=${encodeURIComponent(
+      engineModel
+    )}&engine_modelyear=${encodeURIComponent(
+      engineModelYear
+    )}&engine_type=${encodeURIComponent(
+      engineType
+    )}&type_designation=${encodeURIComponent(typeDesignation)}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      console.log(
+        "001 Relevant data equipment--",
+        toJson.result.engine_equipment
+      );
+
+      setForm((prevForm) => ({
+        ...prevForm,
+        engineManagementSystem: toJson.result.engine_equipment.EMS[0] || "",
+        engineControlSystem:
+          toJson.result.engine_equipment.engine_controlsystem[0] || "",
+        unitInjectors: toJson.result.engine_equipment.unit_injectors[0] || "",
+        turboCharger: toJson.result.engine_equipment.turbocharger[0] || "",
+        turboCharging: toJson.result.engine_equipment.turbo_charging[0] || "",
+        starterMotor: toJson.result.engine_equipment.starter_motor[0] || "",
+        protectionCovers: toJson.result.engine_equipment.protection_covers[0] || "",
+        closedCrankcaseVentilation:
+          toJson.result.engine_equipment.crankcase_ventilation[0] || "",
+        heatExchanger: toJson.result.engine_equipment.heat_exchanger[0] || "",
+        heatExchangerWithExpansionTank:
+          toJson.result.engine_equipment.heat_exchanger_WET[0] || "",
+        seaWaterPump: toJson.result.engine_equipment.seawater_pump[0] || "",
+        seaWaterCooledChargeAirCooler:
+          toJson.result.engine_equipment.charge_aircooler[0] || "",
+        workingPrinciple: toJson.result.engine_equipment.working_principle[0] || "",
+        compressionRatio: toJson.result.engine_equipment.compression_ratio[0] || "",
+        pistonSpeedAt1500Rpm: toJson.result.engine_equipment.pistonspeed_1500[0] || "",
+        pistonSpeedAt1800Rpm: toJson.result.engine_equipment.pistonspeed_1800[0] || "",
+        firingOrder: toJson.result.engine_equipment.firing_order[0] || "",
+        pistons: toJson.result.engine_equipment.pistons[0] || "",
+        connectionRods: toJson.result.engine_equipment.connection_rods[0] || "",
+        auxiliaryPowerTakeOff:
+          toJson.result.engine_equipment.auxiliarypower_takeoff[0] || "",
+        remoteControlSystems:
+          toJson.result.engine_equipment.remote_controlsystems[0] || "",
+      }));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      //console.log("001 form options--", form);
+    }
+  };
+  const fetchRelevantPerformanceTableData = async (
+    engineMake,
+    engineModel,
+    engineModelYear,
+    engineType,
+    typeDesignation
+  ) => {
+    const tableName = "engine_performance";
+    const URL = `http://localhost:3001/api/advert_engine/relevant_data/${tableName}?engine_make=${encodeURIComponent(
+      engineMake
+    )}&engine_model=${encodeURIComponent(
+      engineModel
+    )}&engine_modelyear=${encodeURIComponent(
+      engineModelYear
+    )}&engine_type=${encodeURIComponent(
+      engineType
+    )}&type_designation=${encodeURIComponent(typeDesignation)}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      console.log(
+        "001 Relevant data performance--",
+        toJson.result.engine_performance
+      );
+
+      setForm((prevForm) => ({
+        ...prevForm,
+        nominalRating: toJson.result.engine_performance.nominal_rating[0] || "",
+        enginePerformance: toJson.result.engine_performance.engine_performance[0] || "",
+        maxPowerOutput: toJson.result.engine_performance.max_poweroutput[0] || "",
+        maxPowerBHP: toJson.result.engine_performance.max_power[0] || "",
+        maxSpeedKnots: toJson.result.engine_performance.max_speed[0] || "",
+        supercharged: toJson.result.engine_performance.supercharged[0] || "",
+        grossPowerFullLoadKW: toJson.result.engine_performance.GP_fullloadKW[0] || "",
+        grossPowerFullLoadHpMetric:
+          toJson.result.engine_performance.GP_fullloadmetric[0] || "",
+        GrossPowerPropellerCurveKw:
+          toJson.result.engine_performance.GP_propellercurveKW[0] || "",
+        GrossPowerPropellerCurveHpMetric:
+          toJson.result.engine_performance.GP_propellercurvemetric[0] || "",
+        grossTorque: toJson.result.engine_performance.gross_torque[0] || "",
+        powerToWeightRatio:
+          toJson.result.engine_performance.powertoweight_ratio[0] || "",
+        engineEfficiency: toJson.result.engine_performance.engine_efficiency[0] || "",
+        engineSpeedRange: toJson.result.engine_performance.Engine_speedrange[0] || "",
+        maximumContinuousRating:
+          toJson.result.engine_performance.Max_Continuousrating[0] || "",
+        continuousPower: toJson.result.engine_performance.continuouspower_KWHP[0] || "",
+
+        cylinderConfiguration:
+          toJson.result.engine_performance.cylinder_configuration[0] || "",
+        numberCylinders: toJson.result.engine_performance.number_cylinders[0] || "",
+        cylindersAndArrangement:
+          toJson.result.engine_performance.cylinders_arrangement[0] || "",
+        numberValves: toJson.result.engine_performance.number_valves[0] || "",
+        valvePerCylinder: toJson.result.engine_performance.valve_percylinder[0] || "",
+        boreXStroke: toJson.result.engine_performance.bore_stroke[0] || "",
+        bore: toJson.result.engine_performance.bore[0] || "",
+        stroke: toJson.result.engine_performance.bore_stroke[0] || "",
+      }));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      //console.log("001 form options--", form);
+    }
+  };
+  const fetchRelevantMaintenanceTableData = async (
+    engineMake,
+    engineModel,
+    engineModelYear,
+    engineType,
+    typeDesignation
+  ) => {
+    const tableName = "engine_maintenance";
+    const URL = `http://localhost:3001/api/advert_engine/relevant_data/${tableName}?engine_make=${encodeURIComponent(
+      engineMake
+    )}&engine_model=${encodeURIComponent(
+      engineModel
+    )}&engine_modelyear=${encodeURIComponent(
+      engineModelYear
+    )}&engine_type=${encodeURIComponent(
+      engineType
+    )}&type_designation=${encodeURIComponent(typeDesignation)}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      console.log(
+        "001 Relevant data maintenance--",
+        toJson.result.engine_maintenance
+      );
+
+      setForm((prevForm) => ({
+        ...prevForm,
+        scheduledMaintenancePlan:
+          toJson.result.engine_maintenance.scheduled_maintenanceplan[0] || "",
+        serviceInterval: toJson.result.engine_maintenance.service_interval[0] || "",
+        maintenanceLogRequirements:
+          toJson.result.engine_maintenance.maintenancelog_requirements[0] || "",
+        availabilityOfSpareParts:
+          toJson.result.engine_maintenance.availability_spareparts[0] || "",
+        operationMode: toJson.result.engine_maintenance.operation_mode[0] || "",
+        lastServiceDate: toJson.result.engine_maintenance.last_servicedate[0] || "",
+      }));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      //console.log("001 form options--", form);
+    }
+  };
+  const fetchRelevantMountingTableData = async (
+    engineMake,
+    engineModel,
+    engineModelYear,
+    engineType,
+    typeDesignation
+  ) => {
+    const tableName = "engine_mounting";
+    const URL = `http://localhost:3001/api/advert_engine/relevant_data/${tableName}?engine_make=${encodeURIComponent(
+      engineMake
+    )}&engine_model=${encodeURIComponent(
+      engineModel
+    )}&engine_modelyear=${encodeURIComponent(
+      engineModelYear
+    )}&engine_type=${encodeURIComponent(
+      engineType
+    )}&type_designation=${encodeURIComponent(typeDesignation)}`;
+    try {
+      const res = await fetch(URL);
+      const toJson = await res.json();
+      console.log(
+        "001 Relevant data mounting--",
+        toJson.result.engine_mounting
+      );
+
+      setForm((prevForm) => ({
+        ...prevForm,
+        engineMountingOrientation:
+          toJson.result.engine_mounting.enginemounting_orientation[0] || "",
+        engineSuspension: toJson.result.engine_mounting.engine_suspension[0] || "",
+
+        mountingBracketMaterial:
+          toJson.result.engine_mounting.mountingbracket_material[0] || "",
+        alignmentRequirements:
+          toJson.result.engine_mounting.alignment_requirements[0] || "",
+        engineBlock: toJson.result.engine_mounting.engine_block[0] || "",
+      }));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      //console.log("001 form options--", form);
     }
   };
   const fetchDistinctValues = async (
@@ -1884,7 +2286,7 @@ const EngineAdvert = () => {
           <Form onSubmit={handleSubmit}>
             <Row>
               <Col md={6} className="mt-4">
-                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>
+                <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
                   Make and Model
                 </h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
@@ -2032,7 +2434,98 @@ const EngineAdvert = () => {
                       value={form.typeDesignation}
                       setValue={(val) => {
                         setForm({ ...form, typeDesignation: val });
-                        fetchRelevantData(
+                        fetchRelevantGeneralTableData(
+                          form.engineMake,
+                          form.engineModel,
+                          form.engineModelYear,
+                          form.engineType,
+                          val
+                        );
+                        fetchRelevantCoolingTableData(
+                          form.engineMake,
+                          form.engineModel,
+                          form.engineModelYear,
+                          form.engineType,
+                          val
+                        );
+                        fetchRelevantDimensionTableData(
+                          form.engineMake,
+                          form.engineModel,
+                          form.engineModelYear,
+                          form.engineType,
+                          val
+                        );
+                        fetchRelevantElectricalTableData(
+                          form.engineMake,
+                          form.engineModel,
+                          form.engineModelYear,
+                          form.engineType,
+                          val
+                        );
+                        fetchRelevantEmissionsTableData(
+                          form.engineMake,
+                          form.engineModel,
+                          form.engineModelYear,
+                          form.engineType,
+                          val
+                        );
+                        fetchRelevantEquipmentTableData(
+                          form.engineMake,
+                          form.engineModel,
+                          form.engineModelYear,
+                          form.engineType,
+                          val
+                        );
+                        fetchRelevantFuelTableData(
+                          form.engineMake,
+                          form.engineModel,
+                          form.engineModelYear,
+                          form.engineType,
+                          val
+                        );
+                        fetchRelevantMaintenanceTableData(
+                          form.engineMake,
+                          form.engineModel,
+                          form.engineModelYear,
+                          form.engineType,
+                          val
+                        );
+                        fetchRelevantMountingTableData(
+                          form.engineMake,
+                          form.engineModel,
+                          form.engineModelYear,
+                          form.engineType,
+                          val
+                        );
+                        fetchRelevantOilTableData(
+                          form.engineMake,
+                          form.engineModel,
+                          form.engineModelYear,
+                          form.engineType,
+                          val
+                        );
+                        fetchRelevantPerformanceTableData(
+                          form.engineMake,
+                          form.engineModel,
+                          form.engineModelYear,
+                          form.engineType,
+                          val
+                        );
+                        fetchRelevantPropulsionTableData(
+                          form.engineMake,
+                          form.engineModel,
+                          form.engineModelYear,
+                          form.engineType,
+                          val
+                        );
+                        fetchRelevantSafetyTableData(
+                          form.engineMake,
+                          form.engineModel,
+                          form.engineModelYear,
+                          form.engineType,
+                          val
+                        );
+                        fetchRelevantTransmissionTableData(
                           form.engineMake,
                           form.engineModel,
                           form.engineModelYear,
@@ -2056,7 +2549,9 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} className="mt-4">
-                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>Condition</h6>
+                <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
+                  Condition
+                </h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -2186,7 +2681,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>General</h6>
+                <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>General</h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
                   {/* <Col xs={3} md={12} className="mb-2">
                       <SelectComponent
@@ -2482,7 +2977,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>
+                <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
                   Performance
                 </h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
@@ -2756,7 +3251,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>
+                <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
                   Transmission
                 </h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
@@ -2891,7 +3386,9 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>Cylinders</h6>
+                <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
+                  Cylinders
+                </h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3018,7 +3515,9 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>Equipment</h6>
+                <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
+                  Equipment
+                </h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -3316,7 +3815,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>
+                <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
                   Propulsion System
                 </h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
@@ -3587,7 +4086,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>
+                <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
                   Fuel System
                 </h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
@@ -3849,7 +4348,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>
+                <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
                   Cooling System
                 </h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
@@ -4106,7 +4605,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>
+                <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
                   Installation and Mounting
                 </h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
@@ -4195,7 +4694,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>
+                <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
                   Service & Maintenance
                 </h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
@@ -4304,7 +4803,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>
+                <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
                   Fuel Consumption
                 </h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
@@ -4367,7 +4866,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>
+                <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
                   Safety and Monitoring
                 </h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
@@ -4430,7 +4929,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>Torque</h6>
+                <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>Torque</h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -4477,7 +4976,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>RPM</h6>
+                <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>RPM</h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -4522,7 +5021,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>Oil</h6>
+                <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>Oil</h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -4685,7 +5184,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>
+                <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
                   Emmissions & Environment
                 </h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
@@ -4860,7 +5359,9 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>Dimensions</h6>
+                <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
+                  Dimensions
+                </h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
@@ -5049,7 +5550,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>
+                <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
                   Electrical System
                 </h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
@@ -5192,7 +5693,7 @@ const EngineAdvert = () => {
                 </Col>
               </Col>
               <Col md={6} style={{ marginTop: 40 }}>
-                <h6 style={{ marginLeft: '4%', color: "#1F75FE" }}>Location</h6>
+                <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>Location</h6>
                 <Col md={12} className="mt-4 mr-3" style={{ width: 480 }}>
                   <Col xs={3} md={12} className="mb-2">
                     <SelectComponent
