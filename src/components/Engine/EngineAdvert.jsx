@@ -961,7 +961,7 @@ const EngineAdvert = () => {
         coolingSystem: toJson.result.engine_cooling.cooling_system[0] || "",
         openCoolingSystem: toJson.result.engine_cooling.open_coolingsystem[0] || "",
         closedCoolingSystem: toJson.result.engine_cooling.closed_coolingsystem[0] || "",
-        intercooled: toJson.result.engine_cooling.cooling_system[0] || "",
+        intercooled: toJson.result.engine_cooling.intercooled[0] || "",
         recommendedCoolant: toJson.result.engine_cooling.recommended_coolant[0] || "",
         typeOfCooling: toJson.result.engine_cooling.cooling_type[0] || "",
         heatDissipationRate: toJson.result.engine_cooling.heat_dissipationrate[0] || "",
@@ -1116,7 +1116,7 @@ const EngineAdvert = () => {
           toJson.result.engine_fuel.lowest_fuelconsumption[0] || "",
         recommendedFuel: toJson.result.engine_fuel.recommended_fuel[0] || "",
         fuelConsumptionAtCruisingSpeed:
-          toJson.result.engine_fuel.fuel_prefilter[0] || "", //
+          toJson.result.engine_fuel.fuel_reserve[0] || "", //
         fuelConsumptionRate: toJson.result.engine_fuel.fuel_consumptionrate[0] || "",
         fuelConsumtpionAtFullLoad: toJson.result.engine_fuel.FC_fullload[0] || "",
         fuelInjectionSystemType:
@@ -1167,7 +1167,7 @@ const EngineAdvert = () => {
         propulsion: toJson.result.engine_propulsion.propulsion[0] || "",
         bowthruster: toJson.result.engine_propulsion.bowthruster[0] || "",
         propulsionSystem: toJson.result.engine_propulsion.propulsion_systemtype[0] || "",
-        propulsionSystemType: toJson.result.engine_propulsion.propulsion[0] || "",
+        propulsionSystemType: toJson.result.engine_propulsion.propulsion_systemtype[0] || "",
         propellerDiameter: toJson.result.engine_propulsion.propeller_diameter[0] || "",
         propellerMaterial: toJson.result.engine_propulsion.propeller_material[0] || "",
         propellerPitch: toJson.result.engine_propulsion.propeller_pitch[0] || "",
