@@ -906,12 +906,12 @@ const EngineAdvert = () => {
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log(
-        "001 Relevant data dimesnions--",
-        toJson.result.engine_dimensions.displacement[0]
-      );
+      // console.log(
+      //   "001 Relevant data dimesnions--",
+      //   toJson.result.engine_dimensions.displacement[0]
+      // );
 
-      setForm((prevForm) => ({
+      await setForm((prevForm) => ({
         ...prevForm,
         displacement: toJson.result.engine_dimensions.displacement[0] || "",
         length: toJson.result.engine_dimensions.length[0] || "",
@@ -953,7 +953,7 @@ const EngineAdvert = () => {
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 Relevant data cooling--", toJson.result.engine_cooling);
+      //console.log("001 Relevant data cooling--", toJson.result.engine_cooling);
 
       setForm((prevForm) => ({
         ...prevForm,
@@ -1003,10 +1003,10 @@ const EngineAdvert = () => {
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log(
-        "001 Relevant data electrical--",
-        toJson.result.engine_electrical
-      );
+      // console.log(
+      //   "001 Relevant data electrical--",
+      //   toJson.result.engine_electrical
+      // );
 
       setForm((prevForm) => ({
         ...prevForm,
@@ -1051,10 +1051,10 @@ const EngineAdvert = () => {
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log(
-        "001 Relevant data emission--",
-        toJson.result.engine_emissions
-      );
+      // console.log(
+      //   "001 Relevant data emission--",
+      //   toJson.result.engine_emissions
+      // );
 
       setForm((prevForm) => ({
         ...prevForm,
@@ -1100,7 +1100,7 @@ const EngineAdvert = () => {
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 Relevant data fuel--", toJson.result.engine_fuel);
+      //console.log("001 Relevant data fuel--", toJson.result.engine_fuel);
 
       setForm((prevForm) => ({
         ...prevForm,
@@ -1157,10 +1157,10 @@ const EngineAdvert = () => {
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log(
-        "001 Relevant data propulsion--",
-        toJson.result.engine_propulsion
-      );
+      // console.log(
+      //   "001 Relevant data propulsion--",
+      //   toJson.result.engine_propulsion
+      // );
 
       setForm((prevForm) => ({
         ...prevForm,
@@ -1214,10 +1214,10 @@ const EngineAdvert = () => {
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log(
-        "001 Relevant data transmission--",
-        toJson.result.engine_transmission
-      );
+      // console.log(
+      //   "001 Relevant data transmission--",
+      //   toJson.result.engine_transmission
+      // );
 
       setForm((prevForm) => ({
         ...prevForm,
@@ -1258,7 +1258,7 @@ const EngineAdvert = () => {
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 Relevant data oil--", toJson.result.engine_oil);
+      //console.log("001 Relevant data oil--", toJson.result.engine_oil);
 
       setForm((prevForm) => ({
         ...prevForm,
@@ -1302,7 +1302,7 @@ const EngineAdvert = () => {
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log("001 Relevant data safety--", toJson.result.engine_safety);
+      //console.log("001 Relevant data safety--", toJson.result.engine_safety);
 
       setForm((prevForm) => ({
         ...prevForm,
@@ -1338,10 +1338,10 @@ const EngineAdvert = () => {
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log(
-        "001 Relevant data equipment--",
-        toJson.result.engine_equipment
-      );
+      // console.log(
+      //   "001 Relevant data equipment--",
+      //   toJson.result.engine_equipment
+      // );
 
       setForm((prevForm) => ({
         ...prevForm,
@@ -1399,10 +1399,10 @@ const EngineAdvert = () => {
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log(
-        "001 Relevant data performance--",
-        toJson.result.engine_performance
-      );
+      // console.log(
+      //   "001 Relevant data performance--",
+      //   toJson.result.engine_performance
+      // );
 
       setForm((prevForm) => ({
         ...prevForm,
@@ -1465,10 +1465,10 @@ const EngineAdvert = () => {
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log(
-        "001 Relevant data maintenance--",
-        toJson.result.engine_maintenance
-      );
+      // console.log(
+      //   "001 Relevant data maintenance--",
+      //   toJson.result.engine_maintenance
+      // );
 
       setForm((prevForm) => ({
         ...prevForm,
@@ -1508,10 +1508,10 @@ const EngineAdvert = () => {
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      console.log(
-        "001 Relevant data mounting--",
-        toJson.result.engine_mounting
-      );
+      // console.log(
+      //   "001 Relevant data mounting--",
+      //   toJson.result.engine_mounting
+      // );
 
       setForm((prevForm) => ({
         ...prevForm,
@@ -2256,20 +2256,20 @@ const EngineAdvert = () => {
   };
   useEffect(() => {
     if (!hasFetched.current) {
-      // fetchFuelColumnsList();
-      // fetchPerformanceColumnsList();
-      // fetchEquipmentColumnsList();
+      fetchFuelColumnsList();
+      fetchPerformanceColumnsList();
+      fetchEquipmentColumnsList();
       fetchGeneralColumnsList();
-      // fetchMountingColumnsList();
-      // fetchMaintenanceColumnsList();
-      // fetchSafetyColumnsList();
-      // fetchOilColumnsList();
-      // fetchTransmissionsColumnsList();
-      // fetchPropulsionColumnsList();
-      // fetchCoolingColumnsList();
-      // fetchElectricalColumnsList();
-      // fetchEmissionsColumnsList();
-      // fetchDimensionsColumnsList();
+      fetchMountingColumnsList();
+      fetchMaintenanceColumnsList();
+      fetchSafetyColumnsList();
+      fetchOilColumnsList();
+      fetchTransmissionsColumnsList();
+      fetchPropulsionColumnsList();
+      fetchCoolingColumnsList();
+      fetchElectricalColumnsList();
+      fetchEmissionsColumnsList();
+      fetchDimensionsColumnsList();
       hasFetched.current = true;
     }
   }, []);
