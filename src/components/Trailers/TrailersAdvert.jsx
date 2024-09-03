@@ -330,17 +330,6 @@ const TrailersAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                   />
-                  {/* <SelectComponent
-                    options={trailerOptions.Make}
-                    value={form.manufacturer}
-                    setValue={(val) => {
-                      setForm({ ...form, manufacturer: val });
-                    }}
-                    label="Manufacturer"
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    isMandatory={true}
-                  /> */}
                   <div className="ms-2">
                     <p>
                       <small>
@@ -350,16 +339,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.Make}
-                    value={form.Make}
-                    setValue={(val) => {
-                      setForm({ ...form, Make: val });
-                    }}
-                    label="Make"
+                  <RadioOptions
+                    title="Make"
+                    selectedOption={form.Make}
+                    category="Make"
+                    onSelect={handleSingleSelectOption}
+                    tableName="Trailers_ID"
+                    columnName="make"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -368,16 +357,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.Model}
+                  <RadioOptions
+                    title="Model"
+                    selectedOption={form.Model}
+                    category="Model"
+                    onSelect={handleSingleSelectOption}
+                    tableName="Trailers_ID"
+                    columnName="model"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.Model}
-                    setValue={(val) => {
-                      setForm({ ...form, Model: val });
-                    }}
-                    label="Model"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -386,16 +375,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.Year}
+                  <RadioOptions
+                    title="Year"
+                    selectedOption={form.Year}
+                    category="Year"
+                    onSelect={handleSingleSelectOption}
+                    tableName="Trailers_ID"
+                    columnName="year"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.Year}
-                    setValue={(val) => {
-                      setForm({ ...form, Year: val });
-                    }}
-                    label="Year"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -491,14 +480,16 @@ const TrailersAdvert = () => {
               <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>General</h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.Type}
+                  <RadioOptions
+                    title="Type"
+                    selectedOption={form.Type}
+                    category="Type"
+                    onSelect={handleSingleSelectOption}
+                    tableName="Trailers_ID"
+                    columnName="type"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.Type}
-                    setValue={(val) => setForm({ ...form, Type: val })}
-                    label="Type"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -507,14 +498,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.GVWR}
+                  <RadioOptions
+                    title="GVWR"
+                    selectedOption={form.GVWR}
+                    category="GVWR"
+                    onSelect={handleSingleSelectOption}
+                    tableName="Trailers_ID"
+                    columnName="gvwr"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.GVWR}
-                    setValue={(val) => setForm({ ...form, GVWR: val })}
-                    label="GVWR"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -523,14 +516,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.LoadCapacity}
+                  <RadioOptions
+                    title="Load Capacity"
+                    selectedOption={form.GVWR}
+                    category="LoadCapacity"
+                    onSelect={handleSingleSelectOption}
+                    tableName="Trailers_ID"
+                    columnName="load_capacity"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.LoadCapacity}
-                    setValue={(val) => setForm({ ...form, LoadCapacity: val })}
-                    label="Load Capacity"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -541,14 +536,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.Length}
+                  <RadioOptions
+                    title="Length"
+                    selectedOption={form.Length}
+                    category="Length"
+                    onSelect={handleSingleSelectOption}
+                    tableName="Trailers_ID"
+                    columnName="length"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.Length}
-                    setValue={(val) => setForm({ ...form, Length: val })}
-                    label="Length"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -557,14 +554,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.Width}
+                  <RadioOptions
+                    title="Width"
+                    selectedOption={form.Width}
+                    category="Width"
+                    onSelect={handleSingleSelectOption}
+                    tableName="Trailers_ID"
+                    columnName="width"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.Width}
-                    setValue={(val) => setForm({ ...form, Width: val })}
-                    label="Width"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>

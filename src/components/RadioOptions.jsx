@@ -17,10 +17,10 @@ const RadioOptions = ({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const trailerManufacturer = selectedOption["manufacturer"] || ["Load Rite"];
-  const trailerMake = selectedOption["Make"] || ["CT177"];
-  const trailerModel = selectedOption["Model"] || ["Custom"];
-  const trailerYear = selectedOption["Year"] || ["2022"];
+  const trailerManufacturer = selectedOption["manufacturer"] || [""];
+  const trailerMake = selectedOption["Make"] || [""];
+  const trailerModel = selectedOption["Model"] || [""];
+  const trailerYear = selectedOption["Year"] || [""];
 
   const handleOptionChange = (optionName) => {
     onSelect(category, optionName);
