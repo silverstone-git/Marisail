@@ -400,14 +400,16 @@ const TrailersAdvert = () => {
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.WheelLocks}
+                  <RadioOptions
+                    title="WheelLocks"
+                    selectedOption={form.WheelLocks}
+                    category="WheelLocks"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.WheelLocks}
-                    setValue={(val) => setForm({ ...form, WheelLocks: val })}
-                    label="WheelLocks"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -418,14 +420,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.LockType}
+                  <RadioOptions
+                    title="Lock Type"
+                    selectedOption={form.LockType}
+                    category="Lock Type"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="security_lock"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.LockType}
-                    setValue={(val) => setForm({ ...form, LockType: val })}
-                    label="Lock Type"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -436,14 +440,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.AlarmSystem}
+                  <RadioOptions
+                    title="Alarm System"
+                    selectedOption={form.AlarmSystem}
+                    category="Alarm System"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="alarm"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.AlarmSystem}
-                    setValue={(val) => setForm({ ...form, AlarmSystem: val })}
-                    label="Alarm System"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -454,16 +460,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.GPSTrackingDevice}
+                  <RadioOptions
+                    title="GPS Tracking Device"
+                    selectedOption={form.GPSTrackingDevice}
+                    category="GPS Tracking Device"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="gps_tracking_device"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.GPSTrackingDevice}
-                    setValue={(val) =>
-                      setForm({ ...form, GPSTrackingDevice: val })
-                    }
-                    label="GPS Tracking Device"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -620,14 +626,16 @@ const TrailersAdvert = () => {
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.FrameMaterial}
+                  <RadioOptions
+                    title="Frame Material"
+                    selectedOption={form.FrameMaterial}
+                    category="FrameMaterial"
+                    onSelect={handleSingleSelectOption}
+                    tableName="construction"
+                    columnName="frame_material"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.FrameMaterial}
-                    setValue={(val) => setForm({ ...form, FrameMaterial: val })}
-                    label="Frame Material"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -639,14 +647,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.FrameCoating}
+                  <RadioOptions
+                    title="Frame Coating"
+                    selectedOption={form.FrameCoating}
+                    category="FrameCoating"
+                    onSelect={handleSingleSelectOption}
+                    tableName="construction"
+                    columnName="frame_coating"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.FrameCoating}
-                    setValue={(val) => setForm({ ...form, FrameCoating: val })}
-                    label="Frame Coating"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -657,15 +667,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
+                  <RadioOptions
+                    title="Frame Crossmember Type"
+                    selectedOption={form.FrameCrossmemberType}
+                    category="FrameCrossmemberType"
+                    onSelect={handleSingleSelectOption}
+                    tableName="construction"
+                    columnName="frame_crossmember"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.FrameCrossmemberType}
-                    setValue={(val) =>
-                      setForm({ ...form, FrameCrossmemberType: val })
-                    }
-                    label="Frame Crossmember Type"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -677,41 +688,42 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.FrameWeldType}
+                  <RadioOptions
+                    title="FrameWeld Type"
+                    selectedOption={form.FrameWeldType}
+                    category="FrameWeldType"
+                    onSelect={handleSingleSelectOption}
+                    tableName="construction"
+                    columnName="frame_Weld"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.FrameWeldType}
-                    setValue={(val) => setForm({ ...form, FrameWeldType: val })}
-                    label="FrameWeld Type"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.MaximumAngleofApproach}
+                  <RadioOptions
+                    title="Maximum Angle of Approach"
+                    selectedOption={form.MaximumAngleofApproach}
+                    category="MaximumAngleofApproach"
+                    onSelect={handleSingleSelectOption}
+                    tableName="construction"
+                    columnName="maximum_approach"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.MaximumAngleofApproach}
-                    setValue={(val) =>
-                      setForm({
-                        ...form,
-                        MaximumAngleofApproach: val,
-                      })
-                    }
-                    isMandatory={false}
-                    label="Maximum Angle of Approach"
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.FloorMaterial}
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.FloorMaterial}
-                    setValue={(val) => setForm({ ...form, FloorMaterial: val })}
-                    label="Floor Material"
+                  <RadioOptions
+                    title="Floor Material"
+                    selectedOption={form.FloorMaterial}
+                    category="FloorMaterial"
+                    onSelect={handleSingleSelectOption}
+                    tableName="construction"
+                    columnName="floor_material"
                     isMandatory={true}
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
                   />
                   <div className="ms-2">
                     <p>
@@ -723,14 +735,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.SidesMaterial}
+                  <RadioOptions
+                    title="Sides Material"
+                    selectedOption={form.SidesMaterial}
+                    category="SidesMaterial"
+                    onSelect={handleSingleSelectOption}
+                    tableName="construction"
+                    columnName="sides_material"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.SidesMaterial}
-                    setValue={(val) => setForm({ ...form, SidesMaterial: val })}
-                    label="Sides Material"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -742,14 +756,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.RoofMaterial}
+                  <RadioOptions
+                    title="Roof Material"
+                    selectedOption={form.RoofMaterial}
+                    category="RoofMaterial"
+                    onSelect={handleSingleSelectOption}
+                    tableName="construction"
+                    columnName="roof_material"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.RoofMaterial}
-                    setValue={(val) => setForm({ ...form, RoofMaterial: val })}
-                    label="Roof Material"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -767,25 +783,29 @@ const TrailersAdvert = () => {
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.Storage}
+                  <RadioOptions
+                    title="Storage"
+                    selectedOption={form.Storage}
+                    category="Storage"
+                    onSelect={handleSingleSelectOption}
+                    tableName="construction"
+                    columnName="storage"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.Storage}
-                    setValue={(val) => setForm({ ...form, Storage: val })}
-                    label="Storage"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.TieDownPoints}
+                  <RadioOptions
+                    title="Tie Down Points"
+                    selectedOption={form.TieDownPoints}
+                    category="TieDownPoints"
+                    onSelect={handleSingleSelectOption}
+                    tableName="construction"
+                    columnName="tie_down_points"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.TieDownPoints}
-                    setValue={(val) => setForm({ ...form, TieDownPoints: val })}
-                    label="Tie Down Points"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -797,25 +817,29 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.ToolBox}
+                  <RadioOptions
+                    title="Tool Box"
+                    selectedOption={form.ToolBox}
+                    category="ToolBox"
+                    onSelect={handleSingleSelectOption}
+                    tableName="construction"
+                    columnName="tool_box"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.ToolBox}
-                    setValue={(val) => setForm({ ...form, ToolBox: val })}
-                    label="Tool Box"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.BumperType}
+                  <RadioOptions
+                    title="Bumper Type"
+                    selectedOption={form.BumperType}
+                    category="BumperType"
+                    onSelect={handleSingleSelectOption}
+                    tableName="construction"
+                    columnName="bumper"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.BumperType}
-                    setValue={(val) => setForm({ ...form, BumperType: val })}
-                    label="Bumper Type"
-                    isMandatory={false}
                   />
                 </Col>
               </Col>
@@ -826,14 +850,16 @@ const TrailersAdvert = () => {
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.HydraulicTilt}
+                  <RadioOptions
+                    title="Hydraulic Tilt"
+                    selectedOption={form.HydraulicTilt}
+                    category="HydraulicTilt"
+                    onSelect={handleSingleSelectOption}
+                    tableName="features"
+                    columnName="hydraulic_tilt"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.HydraulicTilt}
-                    setValue={(val) => setForm({ ...form, HydraulicTilt: val })}
-                    label="Hydraulic Tilt"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -845,16 +871,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.HydraulicTilt}
+                  <RadioOptions
+                    title="Extendable Tongue"
+                    selectedOption={form.ExtendableTongue}
+                    category="ExtendableTongue"
+                    onSelect={handleSingleSelectOption}
+                    tableName="features"
+                    columnName="extendable_tongue"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.ExtendableTongue}
-                    setValue={(val) =>
-                      setForm({ ...form, ExtendableTongue: val })
-                    }
-                    label="Extendable Tongue"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -866,29 +892,29 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.HydraulicTilt}
+                  <RadioOptions
+                    title="Adjustable Deck Height"
+                    selectedOption={form.AdjustableDeckHeight}
+                    category="AdjustableDeckHeight"
+                    onSelect={handleSingleSelectOption}
+                    tableName="features"
+                    columnName="deck_height"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.AdjustableDeckHeight}
-                    setValue={(val) =>
-                      setForm({ ...form, AdjustableDeckHeight: val })
-                    }
-                    label="Adjustable Deck Height"
-                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.DetachableSidePanels}
+                  <RadioOptions
+                    title="Detachable Side Panels"
+                    selectedOption={form.DetachableSidePanels}
+                    category="DetachableSidePanels"
+                    onSelect={handleSingleSelectOption}
+                    tableName="features"
+                    columnName="side_panels"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.DetachableSidePanels}
-                    setValue={(val) =>
-                      setForm({ ...form, DetachableSidePanels: val })
-                    }
-                    label="Detachable Side Panels"
-                    isMandatory={true}
                   />
                 </Col>
               </Col>
@@ -899,14 +925,16 @@ const TrailersAdvert = () => {
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.RampType}
+                  <RadioOptions
+                    title="Ramp Type"
+                    selectedOption={form.RampType}
+                    category="RampType"
+                    onSelect={handleSingleSelectOption}
+                    tableName="features"
+                    columnName="ramp"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.RampType}
-                    setValue={(val) => setForm({ ...form, RampType: val })}
-                    label="Ramp Type"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -917,14 +945,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.WinchPost}
+                  <RadioOptions
+                    title="Winch Post"
+                    selectedOption={form.WinchPost}
+                    category="WinchPost"
+                    onSelect={handleSingleSelectOption}
+                    tableName="features"
+                    columnName="winch_post"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.WinchPost}
-                    setValue={(val) => setForm({ ...form, WinchPost: val })}
-                    label="Winch Post"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -935,14 +965,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.SplashGuards}
+                  <RadioOptions
+                    title="Splash Guards"
+                    selectedOption={form.SplashGuards}
+                    category="SplashGuards"
+                    onSelect={handleSingleSelectOption}
+                    tableName="features"
+                    columnName="splash_guards"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.SplashGuards}
-                    setValue={(val) => setForm({ ...form, SplashGuards: val })}
-                    label="Splash Guards"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -953,14 +985,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.Fenders}
+                  <RadioOptions
+                    title="Fenders"
+                    selectedOption={form.Fenders}
+                    category="Fenders"
+                    onSelect={handleSingleSelectOption}
+                    tableName="features"
+                    columnName="fenders"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.Fenders}
-                    setValue={(val) => setForm({ ...form, Fenders: val })}
-                    label="Fenders"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -971,14 +1005,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.SideRails}
+                  <RadioOptions
+                    title="Side Rails"
+                    selectedOption={form.SideRails}
+                    category="SideRails"
+                    onSelect={handleSingleSelectOption}
+                    tableName="features"
+                    columnName="side _rails"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.SideRails}
-                    setValue={(val) => setForm({ ...form, SideRails: val })}
-                    label="Side Rails"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -996,14 +1032,16 @@ const TrailersAdvert = () => {
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.Color}
+                  <RadioOptions
+                    title="Color"
+                    selectedOption={form.Color}
+                    category="Color"
+                    onSelect={handleSingleSelectOption}
+                    tableName="features"
+                    columnName="color"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.Color}
-                    setValue={(val) => setForm({ ...form, Color: val })}
-                    label="Color"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -1012,51 +1050,55 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.Decals}
+                  <RadioOptions
+                    title="Decals"
+                    selectedOption={form.Decals}
+                    category="Decals"
+                    onSelect={handleSingleSelectOption}
+                    tableName="features"
+                    columnName="decals"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.Decals}
-                    setValue={(val) => setForm({ ...form, Decals: val })}
-                    label="Decals"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.StorageBox}
+                  <RadioOptions
+                    title="Storage Box"
+                    selectedOption={form.StorageBox}
+                    category="StorageBox"
+                    onSelect={handleSingleSelectOption}
+                    tableName="features"
+                    columnName="storage_box"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.StorageBox}
-                    setValue={(val) => setForm({ ...form, StorageBox: val })}
-                    label="Storage Box"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.LightingPackage}
+                  <RadioOptions
+                    title="Lighting Package"
+                    selectedOption={form.LightingPackage}
+                    category="LightingPackage"
+                    onSelect={handleSingleSelectOption}
+                    tableName="features"
+                    columnName="lighting_package"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.LightingPackage}
-                    setValue={(val) =>
-                      setForm({ ...form, LightingPackage: val })
-                    }
-                    label="Lighting Package"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.SuspensionUpgrade}
+                  <RadioOptions
+                    title="Suspension Upgrade"
+                    selectedOption={form.SuspensionUpgrade}
+                    category="SuspensionUpgrade"
+                    onSelect={handleSingleSelectOption}
+                    tableName="features"
+                    columnName="suspension_upgrade"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.SuspensionUpgrade}
-                    setValue={(val) =>
-                      setForm({ ...form, SuspensionUpgrade: val })
-                    }
-                    label="Suspension Upgrade"
-                    isMandatory={false}
                   />
                 </Col>
               </Col>
@@ -1067,14 +1109,16 @@ const TrailersAdvert = () => {
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.AxleType}
+                  <RadioOptions
+                    title="Axle Type"
+                    selectedOption={form.AxleType}
+                    category="AxleType"
+                    onSelect={handleSingleSelectOption}
+                    tableName="axles"
+                    columnName="axle"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.AxleType}
-                    setValue={(val) => setForm({ ...form, AxleType: val })}
-                    label="Axle Type"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -1085,14 +1129,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.AxleCapacity}
+                  <RadioOptions
+                    title="AxleCapacity"
+                    selectedOption={form.AxleCapacity}
+                    category="AxleCapacity"
+                    onSelect={handleSingleSelectOption}
+                    tableName="axles"
+                    columnName="axle_capacity"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.AxleCapacity}
-                    setValue={(val) => setForm({ ...form, AxleCapacity: val })}
-                    label="Axle Capacity"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -1103,25 +1149,29 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.AxleSealType}
+                  <RadioOptions
+                    title="Axle Seal Type"
+                    selectedOption={form.AxleSealType}
+                    category="AxleSealType"
+                    onSelect={handleSingleSelectOption}
+                    tableName="axles"
+                    columnName="axle_seal"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.AxleSealType}
-                    setValue={(val) => setForm({ ...form, AxleSealType: val })}
-                    label="Axle Seal Type"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.AxleHubSize}
+                  <RadioOptions
+                    title="Axle Hub Size"
+                    selectedOption={form.AxleHubSize}
+                    category="AxleHubSize"
+                    onSelect={handleSingleSelectOption}
+                    tableName="axles"
+                    columnName="axle_hub"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.AxleHubSize}
-                    setValue={(val) => setForm({ ...form, AxleHubSize: val })}
-                    label="Axle Hub Size"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -1132,14 +1182,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.AxlePosition}
+                  <RadioOptions
+                    title="Axle Position"
+                    selectedOption={form.AxlePosition}
+                    category="AxlePosition"
+                    onSelect={handleSingleSelectOption}
+                    tableName="axles"
+                    columnName="axle_position"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.AxlePosition}
-                    setValue={(val) => setForm({ ...form, AxlePosition: val })}
-                    label="Axle Position"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -1150,29 +1202,29 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.AxlePosition}
+                  <RadioOptions
+                    title="Drop Axle Option"
+                    selectedOption={form.DropAxleOption}
+                    category="DropAxleOption"
+                    onSelect={handleSingleSelectOption}
+                    tableName="axles"
+                    columnName="drop_axle_option"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.DropAxleOption}
-                    setValue={(val) =>
-                      setForm({ ...form, DropAxleOption: val })
-                    }
-                    label="Drop Axle Option"
-                    isMandatory={true}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.SuspensionType}
+                  <RadioOptions
+                    title="Suspension Type"
+                    selectedOption={form.SuspensionType}
+                    category="SuspensionType"
+                    onSelect={handleSingleSelectOption}
+                    tableName="axles"
+                    columnName="suspension"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.SuspensionType}
-                    setValue={(val) =>
-                      setForm({ ...form, SuspensionType: val })
-                    }
-                    label="Suspension Type"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -1184,16 +1236,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.SuspensionCapacity}
+                  <RadioOptions
+                    title="Suspension Capacity"
+                    selectedOption={form.SuspensionCapacity}
+                    category="SuspensionCapacity"
+                    onSelect={handleSingleSelectOption}
+                    tableName="axles"
+                    columnName="suspension_capacity"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.SuspensionCapacity}
-                    setValue={(val) =>
-                      setForm({ ...form, SuspensionCapacity: val })
-                    }
-                    label="Suspension Capacity"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -1205,16 +1257,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.SuspensionAdjustment}
+                  <RadioOptions
+                    title="Suspension Adjustment"
+                    selectedOption={form.SuspensionAdjustment}
+                    category="SuspensionAdjustment"
+                    onSelect={handleSingleSelectOption}
+                    tableName="axles"
+                    columnName="suspension_adjustment"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.SuspensionAdjustment}
-                    setValue={(val) =>
-                      setForm({ ...form, SuspensionAdjustment: val })
-                    }
-                    label="Suspension Adjustment"
-                    isMandatory={false}
                   />
                 </Col>
               </Col>
@@ -1225,14 +1277,16 @@ const TrailersAdvert = () => {
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.LoadingSystem}
+                  <RadioOptions
+                    title="Loading System"
+                    selectedOption={form.LoadingSystem}
+                    category="LoadingSystem"
+                    onSelect={handleSingleSelectOption}
+                    tableName="loading_transport_features"
+                    columnName="loading"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.LoadingSystem}
-                    setValue={(val) => setForm({ ...form, LoadingSystem: val })}
-                    label="Loading System"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -1244,99 +1298,107 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.Bunks}
+                  <RadioOptions
+                    title="Bunks"
+                    selectedOption={form.Bunks}
+                    category="Bunks"
+                    onSelect={handleSingleSelectOption}
+                    tableName="loading_transport_features"
+                    columnName="bunks"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.Bunks}
-                    setValue={(val) => setForm({ ...form, Bunks: val })}
-                    label="Bunks"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.BunkMaterial}
+                  <RadioOptions
+                    title="Bunk Material"
+                    selectedOption={form.BunkMaterial}
+                    category="BunkMaterial"
+                    onSelect={handleSingleSelectOption}
+                    tableName="loading_transport_features"
+                    columnName="bunk_material"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.BunkMaterial}
-                    setValue={(val) => setForm({ ...form, BunkMaterial: val })}
-                    label="Bunk Material"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.BunkWidth}
+                  <RadioOptions
+                    title="Bunk Width"
+                    selectedOption={form.BunkWidth}
+                    category="BunkWidth"
+                    onSelect={handleSingleSelectOption}
+                    tableName="loading_transport_features"
+                    columnName="bunk_width"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.BunkWidth}
-                    setValue={(val) => setForm({ ...form, BunkWidth: val })}
-                    label="Bunk Width"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.BunkHeightAdjustment}
+                  <RadioOptions
+                    title="Bunk Height Adjustment"
+                    selectedOption={form.BunkHeightAdjustment}
+                    category="BunkHeightAdjustment"
+                    onSelect={handleSingleSelectOption}
+                    tableName="loading_transport_features"
+                    columnName="bunk_height_adjustment"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.BunkHeightAdjustment}
-                    setValue={(val) =>
-                      setForm({ ...form, BunkHeightAdjustment: val })
-                    }
-                    label="Bunk Height Adjustment"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.BunkMountingBracketMaterial}
+                  <RadioOptions
+                    title="Bunk Mounting Bracket Material"
+                    selectedOption={form.BunkMountingBracketMaterial}
+                    category="BunkMountingBracketMaterial"
+                    onSelect={handleSingleSelectOption}
+                    tableName="loading_transport_features"
+                    columnName="bunk_mounting_bracket_material"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.BunkMountingBracketMaterial}
-                    setValue={(val) =>
-                      setForm({ ...form, BunkMountingBracketMaterial: val })
-                    }
-                    label="Bunk Mounting Bracket Material"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.Rollers}
+                  <RadioOptions
+                    title="Rollers"
+                    selectedOption={form.Rollers}
+                    category="Rollers"
+                    onSelect={handleSingleSelectOption}
+                    tableName="loading_transport_features"
+                    columnName="rollers"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.Rollers}
-                    setValue={(val) => setForm({ ...form, Rollers: val })}
-                    label="Rollers"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.RollerMaterial}
+                  <RadioOptions
+                    title="Roller Material"
+                    selectedOption={form.RollerMaterial}
+                    category="RollerMaterial"
+                    onSelect={handleSingleSelectOption}
+                    tableName="loading_transport_features"
+                    columnName="roller_material"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.RollerMaterial}
-                    setValue={(val) =>
-                      setForm({ ...form, RollerMaterial: val })
-                    }
-                    label="Roller Material"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.RollerAxleDiameter}
+                  <RadioOptions
+                    title="Roller Axle Diameter"
+                    selectedOption={form.RollerAxleDiameter}
+                    category="RollerAxleDiameter"
+                    onSelect={handleSingleSelectOption}
+                    tableName="loading_transport_features"
+                    columnName="roller_axle_diameter"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.RollerAxleDiameter}
-                    setValue={(val) =>
-                      setForm({ ...form, RollerAxleDiameter: val })
-                    }
-                    label="Roller Axle Diameter"
-                    isMandatory={false}
                   />
                 </Col>
               </Col>
@@ -1347,14 +1409,16 @@ const TrailersAdvert = () => {
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.BrakeType}
+                  <RadioOptions
+                    title="BrakeType"
+                    selectedOption={form.BrakeType}
+                    category="BrakeType"
+                    onSelect={handleSingleSelectOption}
+                    tableName="tyres_brakes"
+                    columnName="brake"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.BrakeType}
-                    setValue={(val) => setForm({ ...form, BrakeType: val })}
-                    label="Brake Type"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -1365,14 +1429,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.BrakeActuator}
+                  <RadioOptions
+                    title="Brake Actuator"
+                    selectedOption={form.BrakeActuator}
+                    category="BrakeActuator"
+                    onSelect={handleSingleSelectOption}
+                    tableName="tyres_brakes"
+                    columnName="brake_actuator"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.BrakeActuator}
-                    setValue={(val) => setForm({ ...form, BrakeActuator: val })}
-                    label="Brake Actuator"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -1384,64 +1450,68 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.BrakeLineMaterial}
+                  <RadioOptions
+                    title="Brake Line Material"
+                    selectedOption={form.BrakeLineMaterial}
+                    category="BrakeLineMaterial"
+                    onSelect={handleSingleSelectOption}
+                    tableName="tyres_brakes"
+                    columnName="brake_line"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.BrakeLineMaterial}
-                    setValue={(val) =>
-                      setForm({ ...form, BrakeLineMaterial: val })
-                    }
-                    label="Brake Line Material"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.BrakeDrumDiameter}
+                  <RadioOptions
+                    title="Brake Drum Diameter"
+                    selectedOption={form.BrakeDrumDiameter}
+                    category="BrakeDrumDiameter"
+                    onSelect={handleSingleSelectOption}
+                    tableName="tyres_brakes"
+                    columnName="brake_drum"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.BrakeDrumDiameter}
-                    setValue={(val) =>
-                      setForm({ ...form, BrakeDrumDiameter: val })
-                    }
-                    label="Brake Drum Diameter"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.BrakeFluidType}
+                  <RadioOptions
+                    title="Brake Fluid Type"
+                    selectedOption={form.BrakeFluidType}
+                    category="BrakeFluidType"
+                    onSelect={handleSingleSelectOption}
+                    tableName="tyres_brakes"
+                    columnName="brake_fluid"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.BrakeFluidType}
-                    setValue={(val) =>
-                      setForm({ ...form, BrakeFluidType: val })
-                    }
-                    label="Brake Fluid Type"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.BrakeFluidType}
+                  <RadioOptions
+                    title="Brakes"
+                    selectedOption={form.Brakes}
+                    category="Brakes"
+                    onSelect={handleSingleSelectOption}
+                    tableName="tyres_brakes"
+                    columnName="brakes"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.Brakes}
-                    setValue={(val) => setForm({ ...form, Brakes: val })}
-                    label="Drop Axle Option"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.CouplerSize}
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.CouplerSize}
-                    setValue={(val) => setForm({ ...form, CouplerSize: val })}
-                    label="Coupler Size"
+                  <RadioOptions
+                    title="Coupler Size"
+                    selectedOption={form.CouplerSize}
+                    category="CouplerSize"
+                    onSelect={handleSingleSelectOption}
+                    tableName="tyres_brakes"
+                    columnName="coupler_size"
                     isMandatory={true}
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
                   />
                   <div className="ms-2">
                     <p>
@@ -1452,17 +1522,30 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.CouplerType}
+                  <RadioOptions
+                    title="Coupler Type"
+                    selectedOption={form.CouplerType}
+                    category="CouplerType"
+                    onSelect={handleSingleSelectOption}
+                    tableName="tyres_brakes"
+                    columnName="coupler_type"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.CouplerType}
-                    setValue={(val) => setForm({ ...form, CouplerType: val })}
-                    label="Coupler Type"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
+                  <RadioOptions
+                    title="Coupler Lock Type"
+                    selectedOption={form.CouplerLockType}
+                    category="CouplerLockType"
+                    onSelect={handleSingleSelectOption}
+                    tableName="tyres_brakes"
+                    columnName="coupler_type"
+                    isMandatory={false}
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                  />
                   <SelectComponent
                     options={trailerOptions.CouplerLockType}
                     openKey={openKey}
@@ -1476,27 +1559,29 @@ const TrailersAdvert = () => {
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.HitchClass}
+                  <RadioOptions
+                    title="Hitch Class"
+                    selectedOption={form.HitchClass}
+                    category="HitchClass"
+                    onSelect={handleSingleSelectOption}
+                    tableName="tyres_brakes"
+                    columnName="hitch_class"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.HitchClass}
-                    setValue={(val) => setForm({ ...form, HitchClass: val })}
-                    label="Hitch Class"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.HitchReceiverSize}
+                  <RadioOptions
+                    title="Hitch Receiver Size"
+                    selectedOption={form.HitchReceiverSize}
+                    category="HitchReceiverSize"
+                    onSelect={handleSingleSelectOption}
+                    tableName="tyres_brakes"
+                    columnName="hitch_receiver"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.HitchReceiverSize}
-                    setValue={(val) =>
-                      setForm({ ...form, HitchReceiverSize: val })
-                    }
-                    label="Hitch Receiver Size"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -1508,27 +1593,29 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.SafetyChains}
+                  <RadioOptions
+                    title="Safety Chains"
+                    selectedOption={form.SafetyChains}
+                    category="SafetyChains"
+                    onSelect={handleSingleSelectOption}
+                    tableName="tyres_brakes"
+                    columnName="safety_chains"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.SafetyChains}
-                    setValue={(val) => setForm({ ...form, SafetyChains: val })}
-                    label="Safety Chains"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.BreakawaySystem}
+                  <RadioOptions
+                    title="Breakaway System"
+                    selectedOption={form.BreakawaySystem}
+                    category="BreakawaySystem"
+                    onSelect={handleSingleSelectOption}
+                    tableName="tyres_brakes"
+                    columnName="breakaway"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.BreakawaySystem}
-                    setValue={(val) =>
-                      setForm({ ...form, BreakawaySystem: val })
-                    }
-                    label="Breakaway System"
-                    isMandatory={false}
                   />
                 </Col>
               </Col>
@@ -1539,14 +1626,16 @@ const TrailersAdvert = () => {
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.WinchType}
+                  <RadioOptions
+                    title="Winch Type"
+                    selectedOption={form.WinchType}
+                    category="WinchType"
+                    onSelect={handleSingleSelectOption}
+                    tableName="winches_lighting"
+                    columnName="winch"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.WinchType}
-                    setValue={(val) => setForm({ ...form, WinchType: val })}
-                    label="Winch Type"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -1557,14 +1646,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.WinchCapacity}
+                  <RadioOptions
+                    title="WinchCapacity"
+                    selectedOption={form.WinchCapacity}
+                    category="WinchCapacity"
+                    onSelect={handleSingleSelectOption}
+                    tableName="winches_lighting"
+                    columnName="winch_capacity"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.WinchCapacity}
-                    setValue={(val) => setForm({ ...form, WinchCapacity: val })}
-                    label="Winch Capacity"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -1576,16 +1667,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.WinchRopeLength}
+                  <RadioOptions
+                    title="Winch Rope Length"
+                    selectedOption={form.WinchRopeLength}
+                    category="WinchRopeLength"
+                    onSelect={handleSingleSelectOption}
+                    tableName="winches_lighting"
+                    columnName="winch_rope_length"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.WinchRopeLength}
-                    setValue={(val) =>
-                      setForm({ ...form, WinchRopeLength: val })
-                    }
-                    label="Winch Rope Length"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -1597,105 +1688,107 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.WinchDrumMaterial}
+                  <RadioOptions
+                    title="Winch Drum Material"
+                    selectedOption={form.WinchDrumMaterial}
+                    category="WinchDrumMaterial"
+                    onSelect={handleSingleSelectOption}
+                    tableName="winches_lighting"
+                    columnName="winch_drum_material"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.WinchDrumMaterial}
-                    setValue={(val) =>
-                      setForm({ ...form, WinchDrumMaterial: val })
-                    }
-                    label="Winch Drum Material"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.WinchGearRatio}
+                  <RadioOptions
+                    title="Winch Gear Ratio"
+                    selectedOption={form.WinchGearRatio}
+                    category="WinchGearRatio"
+                    onSelect={handleSingleSelectOption}
+                    tableName="winches_lighting"
+                    columnName="winch_gear_ratio"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.WinchGearRatio}
-                    setValue={(val) =>
-                      setForm({ ...form, WinchGearRatio: val })
-                    }
-                    label="Winch Gear Ratio"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.WinchRemoteControl}
+                  <RadioOptions
+                    title="Winch Remote Control"
+                    selectedOption={form.WinchRemoteControl}
+                    category="WinchRemoteControl"
+                    onSelect={handleSingleSelectOption}
+                    tableName="winches_lighting"
+                    columnName="winch_remote_control"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.WinchRemoteControl}
-                    setValue={(val) =>
-                      setForm({ ...form, WinchRemoteControl: val })
-                    }
-                    label="Winch Remote Control"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.WinchBrakeType}
+                  <RadioOptions
+                    title="Winch Brake Type"
+                    selectedOption={form.WinchBrakeType}
+                    category="WinchBrakeType"
+                    onSelect={handleSingleSelectOption}
+                    tableName="winches_lighting"
+                    columnName="winch_brake"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.WinchBrakeType}
-                    setValue={(val) =>
-                      setForm({ ...form, WinchBrakeType: val })
-                    }
-                    label="Winch Brake Type"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.WinchCableType}
+                  <RadioOptions
+                    title="Winch Cable Type"
+                    selectedOption={form.WinchCableType}
+                    category="WinchCableType"
+                    onSelect={handleSingleSelectOption}
+                    tableName="winches_lighting"
+                    columnName="winch_cable"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.WinchCableType}
-                    setValue={(val) =>
-                      setForm({ ...form, WinchCableType: val })
-                    }
-                    label="Winch Cable Type"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.WinchStrapLength}
+                  <RadioOptions
+                    title="Winch Strap Length"
+                    selectedOption={form.WinchStrapLength}
+                    category="WinchStrapLength"
+                    onSelect={handleSingleSelectOption}
+                    tableName="winches_lighting"
+                    columnName="winch_strap_length"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.WinchStrapLength}
-                    setValue={(val) =>
-                      setForm({ ...form, WinchStrapLength: val })
-                    }
-                    label="Winch Strap Length"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.WinchHandleLength}
+                  <RadioOptions
+                    title="Winch Handle Length"
+                    selectedOption={form.WinchHandleLength}
+                    category="WinchHandleLength"
+                    onSelect={handleSingleSelectOption}
+                    tableName="winches_lighting"
+                    columnName="winch_handle_length"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.WinchHandleLength}
-                    setValue={(val) =>
-                      setForm({ ...form, WinchHandleLength: val })
-                    }
-                    label="Winch Handle Length"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.WinchMounting}
+                  <RadioOptions
+                    title="Winch Mounting"
+                    selectedOption={form.WinchMounting}
+                    category="WinchMounting"
+                    onSelect={handleSingleSelectOption}
+                    tableName="winches_lighting"
+                    columnName="winch_mounting"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.WinchMounting}
-                    setValue={(val) => setForm({ ...form, WinchMounting: val })}
-                    label="Winch Mounting"
-                    isMandatory={false}
                   />
                 </Col>
               </Col>
@@ -1706,14 +1799,16 @@ const TrailersAdvert = () => {
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.Lighting}
+                  <RadioOptions
+                    title="Lighting"
+                    selectedOption={form.Lighting}
+                    category="Lighting"
+                    onSelect={handleSingleSelectOption}
+                    tableName="winches_lighting"
+                    columnName="lighting"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.Lighting}
-                    setValue={(val) => setForm({ ...form, Lighting: val })}
-                    label="Lighting"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -1724,27 +1819,29 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.LightMountingPosition}
+                  <RadioOptions
+                    title="Light Mounting Position"
+                    selectedOption={form.LightMountingPosition}
+                    category="LightMountingPosition"
+                    onSelect={handleSingleSelectOption}
+                    tableName="winches_lighting"
+                    columnName="light_mounting_position"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.LightMountingPosition}
-                    setValue={(val) =>
-                      setForm({ ...form, LightMountingPosition: val })
-                    }
-                    label="Light Mounting Position"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.LightType}
+                  <RadioOptions
+                    title="Light Type"
+                    selectedOption={form.LightType}
+                    category="LightType"
+                    onSelect={handleSingleSelectOption}
+                    tableName="winches_lighting"
+                    columnName="light"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.LightType}
-                    setValue={(val) => setForm({ ...form, LightType: val })}
-                    label="Light Type"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -1755,16 +1852,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.ElectricalConnectorType}
+                  <RadioOptions
+                    title="Electrical Connector Type"
+                    selectedOption={form.ElectricalConnectorType}
+                    category="ElectricalConnectorType"
+                    onSelect={handleSingleSelectOption}
+                    tableName="winches_lighting"
+                    columnName="wheel_locks"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.ElectricalConnectorType}
-                    setValue={(val) =>
-                      setForm({ ...form, ElectricalConnectorType: val })
-                    }
-                    label="Electrical Connector Type"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -1776,16 +1873,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.ElectricalWiringType}
+                  <RadioOptions
+                    title="Electrical Wiring Type"
+                    selectedOption={form.ElectricalWiringType}
+                    category="WheelLocks"
+                    onSelect={handleSingleSelectOption}
+                    tableName="winches_lighting"
+                    columnName="wheel_locks"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.ElectricalWiringType}
-                    setValue={(val) =>
-                      setForm({ ...form, ElectricalWiringType: val })
-                    }
-                    label="Electrical Wiring Type"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -1797,14 +1894,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.BatteryType}
+                  <RadioOptions
+                    title="BatteryType"
+                    selectedOption={form.BatteryType}
+                    category="BatteryType"
+                    onSelect={handleSingleSelectOption}
+                    tableName="winches_lighting"
+                    columnName="battery"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.BatteryType}
-                    setValue={(val) => setForm({ ...form, BatteryType: val })}
-                    label="Battery Type"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -1815,16 +1914,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.BatteryChargerType}
+                  <RadioOptions
+                    title="Battery Charger Type"
+                    selectedOption={form.BatteryChargerType}
+                    category="BatteryChargerType"
+                    onSelect={handleSingleSelectOption}
+                    tableName="winches_lighting"
+                    columnName="battery_charger"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.BatteryChargerType}
-                    setValue={(val) =>
-                      setForm({ ...form, BatteryChargerType: val })
-                    }
-                    label="Battery Charger Type"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -1843,16 +1942,16 @@ const TrailersAdvert = () => {
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.SpareTyreCarrier}
+                  <RadioOptions
+                    title="Spare Tyre Carrier"
+                    selectedOption={form.SpareTyreCarrier}
+                    category="SpareTyreCarrier"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.SpareTyreCarrier}
-                    setValue={(val) =>
-                      setForm({ ...form, SpareTyreCarrier: val })
-                    }
-                    label="Spare Tyre Carrier"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -1864,14 +1963,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.SpareTyreSize}
+                  <RadioOptions
+                    title="Spare Tyre Size"
+                    selectedOption={form.SpareTyreSize}
+                    category="SpareTyreSize"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.SpareTyreSize}
-                    setValue={(val) => setForm({ ...form, SpareTyreSize: val })}
-                    label="Spare Tyre Size"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -1883,49 +1984,55 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.SpareTyreMountingLocation}
+                  <RadioOptions
+                    title="Spare Tyre Mounting Location"
+                    selectedOption={form.SpareTyreMountingLocation}
+                    category="SpareTyreMountingLocation"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.SpareTyreMountingLocation}
-                    setValue={(val) =>
-                      setForm({ ...form, SpareTyreMountingLocation: val })
-                    }
-                    label="Spare Tyre Mounting Location"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.JackType}
+                  <RadioOptions
+                    title="Jack Type"
+                    selectedOption={form.JackType}
+                    category="JackType"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.JackType}
-                    setValue={(val) => setForm({ ...form, JackType: val })}
-                    label="Jack Type"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.JackWheelType}
+                  <RadioOptions
+                    title="Jack Wheel Type"
+                    selectedOption={form.JackWheelType}
+                    category="JackWheelType"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.JackWheelType}
-                    setValue={(val) => setForm({ ...form, JackWheelType: val })}
-                    label="Jack Wheel Type"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.JackCapacity}
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.JackCapacity}
-                    setValue={(val) => setForm({ ...form, JackCapacity: val })}
-                    label="Jack Capacity"
+                  <RadioOptions
+                    title="Jack Capacity"
+                    selectedOption={form.JackCapacity}
+                    category="JackCapacity"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
                     isMandatory={true}
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
                   />
                   <div className="ms-2">
                     <p>
@@ -1936,16 +2043,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.JackLiftHeight}
+                  <RadioOptions
+                    title="Jack Lift Height"
+                    selectedOption={form.JackLiftHeight}
+                    category="JackLiftHeight"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.JackLiftHeight}
-                    setValue={(val) =>
-                      setForm({ ...form, JackLiftHeight: val })
-                    }
-                    label="Jack Lift Height"
-                    isMandatory={false}
                   />
                 </Col>
               </Col>
@@ -1956,38 +2063,42 @@ const TrailersAdvert = () => {
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.GreasePoints}
+                  <RadioOptions
+                    title="GreasePoints"
+                    selectedOption={form.GreasePoints}
+                    category="Grease Points"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.GreasePoints}
-                    setValue={(val) => setForm({ ...form, GreasePoints: val })}
-                    label="Grease Points"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.BearingType}
+                  <RadioOptions
+                    title="Bearing Type"
+                    selectedOption={form.BearingType}
+                    category="BearingType"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.BearingType}
-                    setValue={(val) => setForm({ ...form, BearingType: val })}
-                    label="Bearing Type"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.MaintenanceSchedule}
+                  <RadioOptions
+                    title="Maintenance Schedule"
+                    selectedOption={form.MaintenanceSchedule}
+                    category="MaintenanceSchedule"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.MaintenanceSchedule}
-                    setValue={(val) =>
-                      setForm({ ...form, MaintenanceSchedule: val })
-                    }
-                    label="Maintenance Schedule"
-                    isMandatory={false}
                   />
                 </Col>
               </Col>
@@ -1998,16 +2109,16 @@ const TrailersAdvert = () => {
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.CorrosionProtection}
+                  <RadioOptions
+                    title="Corrosion Protection"
+                    selectedOption={form.CorrosionProtection}
+                    category="CorrosionProtection"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.CorrosionProtection}
-                    setValue={(val) =>
-                      setForm({ ...form, CorrosionProtection: val })
-                    }
-                    label="Corrosion Protection"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -2019,16 +2130,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.RustInhibitors}
+                  <RadioOptions
+                    title="RustInhibitors"
+                    selectedOption={form.RustInhibitors}
+                    category="Rust Inhibitors"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.RustInhibitors}
-                    setValue={(val) =>
-                      setForm({ ...form, RustInhibitors: val })
-                    }
-                    label="Rust Inhibitors"
-                    isMandatory={false}
                   />
                 </Col>
               </Col>
@@ -2039,16 +2150,16 @@ const TrailersAdvert = () => {
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.MaximumSpeedRating}
+                  <RadioOptions
+                    title="Maximum Speed Rating"
+                    selectedOption={form.MaximumSpeedRating}
+                    category="MaximumSpeedRating"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.MaximumSpeedRating}
-                    setValue={(val) =>
-                      setForm({ ...form, MaximumSpeedRating: val })
-                    }
-                    label="Maximum Speed Rating"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -2060,14 +2171,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.TurningRadius}
+                  <RadioOptions
+                    title="Turning Radius"
+                    selectedOption={form.TurningRadius}
+                    category="TurningRadius"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.TurningRadius}
-                    setValue={(val) => setForm({ ...form, TurningRadius: val })}
-                    label="Turning Radius"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -2086,25 +2199,29 @@ const TrailersAdvert = () => {
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.OwnerManual}
+                  <RadioOptions
+                    title="OwnerManual"
+                    selectedOption={form.OwnerManual}
+                    category="OwnerManual"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.OwnerManual}
-                    setValue={(val) => setForm({ ...form, OwnerManual: val })}
-                    label="Owner Manual"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.Warranty}
+                  <RadioOptions
+                    title="Warranty"
+                    selectedOption={form.Warranty}
+                    category="Warranty"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.Warranty}
-                    setValue={(val) => setForm({ ...form, Warranty: val })}
-                    label="Warranty"
-                    isMandatory={false}
                   />
                 </Col>
               </Col>
@@ -2113,40 +2230,42 @@ const TrailersAdvert = () => {
               <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>Tongue</h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.TongueMaterial}
+                  <RadioOptions
+                    title="Tongue Material"
+                    selectedOption={form.TongueMaterial}
+                    category="TongueMaterial"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.TongueMaterial}
-                    setValue={(val) =>
-                      setForm({ ...form, TongueMaterial: val })
-                    }
-                    label="Tongue Material"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.TongueShape}
+                  <RadioOptions
+                    title="Tongue Shape"
+                    selectedOption={form.TongueShape}
+                    category="TongueShape"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.TongueShape}
-                    setValue={(val) => setForm({ ...form, TongueShape: val })}
-                    label="Tongue Shape"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.TongueJackWheelSize}
-                    openKey={openKey}
-                    setOpenKey={setOpenKey}
-                    value={form.TongueJackWheelSize}
-                    setValue={(val) =>
-                      setForm({ ...form, TongueJackWheelSize: val })
-                    }
-                    label="Tongue Jack Wheel Size"
+                  <RadioOptions
+                    title="Tongue Jack Wheel Size"
+                    selectedOption={form.TongueJackWheelSize}
+                    category="TongueJackWheelSize"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
                     isMandatory={true}
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
                   />
                   <div className="ms-2">
                     <p>
@@ -2158,27 +2277,29 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.TongueJackType}
+                  <RadioOptions
+                    title="Tongue Jack Type"
+                    selectedOption={form.TongueJackType}
+                    category="TongueJackType"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.TongueJackType}
-                    setValue={(val) =>
-                      setForm({ ...form, TongueJackType: val })
-                    }
-                    label="Tongue Jack Type"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.TongueWeight}
+                  <RadioOptions
+                    title="Tongue Weight"
+                    selectedOption={form.TongueWeight}
+                    category="TongueWeight"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.TongueWeight}
-                    setValue={(val) => setForm({ ...form, TongueWeight: val })}
-                    label="Tongue Weight"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -2189,16 +2310,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.TongueWeightRatio}
+                  <RadioOptions
+                    title="Tongue Weight Ratio"
+                    selectedOption={form.TongueWeightRatio}
+                    category="TongueWeightRatio"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.TongueWeightRatio}
-                    setValue={(val) =>
-                      setForm({ ...form, TongueWeightRatio: val })
-                    }
-                    label="Tongue Weight Ratio"
-                    isMandatory={false}
                   />
                 </Col>
               </Col>
@@ -2209,14 +2330,16 @@ const TrailersAdvert = () => {
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.TyreSize}
+                  <RadioOptions
+                    title="TyreSize"
+                    selectedOption={form.TyreSize}
+                    category="TyreSize"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.TyreSize}
-                    setValue={(val) => setForm({ ...form, TyreSize: val })}
-                    label="Tyre Size"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -2227,14 +2350,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.TyreLoadRange}
+                  <RadioOptions
+                    title="TyreLoadRange"
+                    selectedOption={form.TyreLoadRange}
+                    category="TyreLoadRange"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.TyreLoadRange}
-                    setValue={(val) => setForm({ ...form, TyreLoadRange: val })}
-                    label="Tyre Load Range"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -2246,14 +2371,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.TyreType}
+                  <RadioOptions
+                    title="Tyre Type"
+                    selectedOption={form.TyreType}
+                    category="TyreType"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.TyreType}
-                    setValue={(val) => setForm({ ...form, TyreType: val })}
-                    label="Tyre Type"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -2264,14 +2391,16 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.WheelType}
+                  <RadioOptions
+                    title="Wheel Type"
+                    selectedOption={form.WheelType}
+                    category="WheelType"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
+                    isMandatory={true}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.WheelType}
-                    setValue={(val) => setForm({ ...form, WheelType: val })}
-                    label="Wheel Type"
-                    isMandatory={true}
                   />
                   <div className="ms-2">
                     <p>
@@ -2282,29 +2411,29 @@ const TrailersAdvert = () => {
                   </div>
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.WheelBoltPattern}
+                  <RadioOptions
+                    title="WheelBoltPattern"
+                    selectedOption={form.WheelBoltPattern}
+                    category="WheelBoltPattern"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.WheelBoltPattern}
-                    setValue={(val) =>
-                      setForm({ ...form, WheelBoltPattern: val })
-                    }
-                    label="Wheel Bolt Pattern"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.HubLubricationSystem}
+                  <RadioOptions
+                    title="Hub Lubrication System"
+                    selectedOption={form.HubLubricationSystem}
+                    category="HubLubricationSystem"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.HubLubricationSystem}
-                    setValue={(val) =>
-                      setForm({ ...form, HubLubricationSystem: val })
-                    }
-                    label="Hub Lubrication System"
-                    isMandatory={false}
                   />
                 </Col>
               </Col>
@@ -2315,51 +2444,55 @@ const TrailersAdvert = () => {
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.DOTCompliance}
+                  <RadioOptions
+                    title="DOT Compliance"
+                    selectedOption={form.DOTCompliance}
+                    category="DOTCompliance"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.DOTCompliance}
-                    setValue={(val) => setForm({ ...form, DOTCompliance: val })}
-                    label="DOT Compliance"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.NATMCertification}
+                  <RadioOptions
+                    title="NATM Certification"
+                    selectedOption={form.NATMCertification}
+                    category="NATMCertification"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.NATMCertification}
-                    setValue={(val) =>
-                      setForm({ ...form, NATMCertification: val })
-                    }
-                    label="NATM Certification"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.EUTypeApproval}
+                  <RadioOptions
+                    title="EU Type Approval"
+                    selectedOption={form.EUTypeApproval}
+                    category="EUTypeApproval"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.EUTypeApproval}
-                    setValue={(val) =>
-                      setForm({ ...form, EUTypeApproval: val })
-                    }
-                    label="EU Type Approval"
-                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
-                    options={trailerOptions.ADRCompliance}
+                  <RadioOptions
+                    title="ADR Compliance"
+                    selectedOption={form.ADRCompliance}
+                    category="ADRCompliance"
+                    onSelect={handleSingleSelectOption}
+                    tableName="security_features"
+                    columnName="wheel_locks"
+                    isMandatory={false}
                     openKey={openKey}
                     setOpenKey={setOpenKey}
-                    value={form.ADRCompliance}
-                    setValue={(val) => setForm({ ...form, ADRCompliance: val })}
-                    label="ADR Compliance"
-                    isMandatory={false}
                   />
                 </Col>
               </Col>
