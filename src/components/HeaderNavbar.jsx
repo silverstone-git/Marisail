@@ -94,7 +94,7 @@ const HeaderNavbar = ({ navbarRef }) => {
                   to="/trailers"
                   className="text-capitalize"
                 >
-                  find an trailers
+                  find a trailer
                 </NavDropdown.Item>
 
                 <NavDropdown.Item

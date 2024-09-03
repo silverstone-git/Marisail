@@ -8,6 +8,7 @@ import Transport from "./pages/Transport";
 import Charter from "./pages/Charter";
 import Engines from "./pages/Engines";
 import Trailers from "./pages/Trailers";
+import Trailers2 from "./pages/Trailers2";
 import Chandlery from "./pages/Chandlery";
 import Berths from "./pages/Berths";
 import Buy from "./pages/Buy";
@@ -26,6 +27,8 @@ function App() {
         <Route path="/charter" element={<Charter />}></Route>
         <Route path="/engines" element={<Engines type="advert" />} />
         <Route path="/advert-engines" element={<Engines type="search" />} />
+        <Route path="/trailers2" element={<Trailers2 />}></Route>
+        {/* <Route path="/trailers3" element={<Trailers3 />}></Route> */}
         <Route path="/trailers" element={<Trailers type="advert" />}></Route>
         <Route
           path="/advert-trailers"
