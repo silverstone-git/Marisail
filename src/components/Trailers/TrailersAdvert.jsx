@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import SelectComponent from "../SelectComponent";
 import InputComponent from "../InputComponent";
+import RadioOptions from "../RadioOptions";
 
 const TrailersAdvert = () => {
   const [trailerOptions, setTrailerOptions] = useState([]);
@@ -218,40 +219,64 @@ const TrailersAdvert = () => {
       if (!checkRequired()) {
         return console.log("Form has errors");
       }
-      console.log("Form submitted", form);
+      console.log("Form", form);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const fetchAll = async (URL = "http://localhost:3001/api/trailers/All") => {
+  const fetchDistinctValues = async (
+    trailerID,
+    manufacturer,
+    make,
+    model,
+    year,
+    fetchColumn
+  ) => {
+    const URL = `http://localhost:3001/api/trailers/Trailers_ID/${fetchColumn}/distinct?marisail_trailer_id=${encodeURIComponent(
+      trailerID
+    )}&manufacturer=${encodeURIComponent(
+      manufacturer
+    )}&make=${encodeURIComponent(make)}&model=${encodeURIComponent(
+      model
+    )}&year=${encodeURIComponent(year)}`;
     try {
       const res = await fetch(URL);
       const toJson = await res.json();
-      setTrailerOptions(toJson);
-      setForm({
-        ...form,
-        HydraulicTilt: "yes",
-        ExtendableTongue: "yes",
-        AdjustableDeckHeight: "yes",
-        DetachableSidePanels: "yes",
-        SplashGuards: "yes",
-        SideRails: "yes",
-        DropAxleOption: "yes",
-        Brakes: "yes",
-        BreakawaySystem: "yes",
-        DOTCompliance: "yes",
-        NATMCertification: "yes",
-        EUTypeApproval: "yes",
-        ADRCompliance: "yes",
-      });
+      console.log("001 JSON--", toJson);
+
+      // if (fetchColumn == "marisail_trailer_id") {
+      //   setMarisailTrailerIdOptions(toJson.result);
+      // } else if (fetchColumn == "manufacturer") {
+      //   setManufacturerOptions(toJson.result);
+      // } else if (fetchColumn == "make") {
+      //   setMakeOptions(toJson.result);
+      // } else if (fetchColumn == "model") {
+      //   setModelOptions(toJson.result);
+      // } else if (fetchColumn == "year") {
+      //   setYearOptions(toJson.result);
+      // }
     } catch (err) {
       console.log(err);
     }
   };
 
+  const handleSingleSelectOption = (category, option) => {
+    setForm((prevOptions) => ({
+      ...prevOptions,
+      [category]: option,
+    }));
+  };
+
   useEffect(() => {
-    fetchAll();
+    // fetchDistinctValues(
+    //   form.MarisailID,
+    //   form.manufacturer,
+    //   form.make,
+    //   form.model,
+    //   form.year,
+    //   "make"
+    // );
   }, []);
   const errorDisplay = (fieldName) => {
     return <div style={{ color: "red" }}>{fieldName} field is required</div>;
@@ -277,7 +302,7 @@ const TrailersAdvert = () => {
                     setOpenKey={setOpenKey}
                     isMandatory={false}
                   /> */}
-                  <InputComponent
+                  {/* <InputComponent
                     label="Marisail Trailer ID"
                     openKey={openKey}
                     setOpenKey={setOpenKey}
@@ -291,10 +316,21 @@ const TrailersAdvert = () => {
                         MarisailID: e.target.value,
                       })
                     }
-                  />
+                  /> */}
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
-                  <SelectComponent
+                  <RadioOptions
+                    title="Manufacturer"
+                    selectedOption={form.manufacturer}
+                    category="manufacturer"
+                    onSelect={handleSingleSelectOption}
+                    tableName="Trailers_ID"
+                    columnName="manufacturer"
+                    isMandatory={true}
+                    openKey={openKey}
+                    setOpenKey={setOpenKey}
+                  />
+                  {/* <SelectComponent
                     options={trailerOptions.Make}
                     value={form.manufacturer}
                     setValue={(val) => {
@@ -304,7 +340,7 @@ const TrailersAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     isMandatory={true}
-                  />
+                  /> */}
                   <div className="ms-2">
                     <p>
                       <small>
@@ -649,6 +685,7 @@ const TrailersAdvert = () => {
                     value={form.FrameWeldType}
                     setValue={(val) => setForm({ ...form, FrameWeldType: val })}
                     label="FrameWeld Type"
+                    isMandatory={false}
                   />
                 </Col>
                 <Col xs={3} md={12} className="mb-2">
@@ -663,6 +700,7 @@ const TrailersAdvert = () => {
                         MaximumAngleofApproach: val,
                       })
                     }
+                    isMandatory={false}
                     label="Maximum Angle of Approach"
                   />
                 </Col>
@@ -813,7 +851,9 @@ const TrailersAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.ExtendableTongue}
-                    setValue={(val) => setForm({ ...form, ExtendableTongue: val })}
+                    setValue={(val) =>
+                      setForm({ ...form, ExtendableTongue: val })
+                    }
                     label="Extendable Tongue"
                     isMandatory={true}
                   />
@@ -832,7 +872,9 @@ const TrailersAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.AdjustableDeckHeight}
-                    setValue={(val) => setForm({ ...form, AdjustableDeckHeight: val })}
+                    setValue={(val) =>
+                      setForm({ ...form, AdjustableDeckHeight: val })
+                    }
                     label="Adjustable Deck Height"
                     isMandatory={true}
                   />
@@ -843,7 +885,9 @@ const TrailersAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.DetachableSidePanels}
-                    setValue={(val) => setForm({ ...form, DetachableSidePanels: val })}
+                    setValue={(val) =>
+                      setForm({ ...form, DetachableSidePanels: val })
+                    }
                     label="Detachable Side Panels"
                     isMandatory={true}
                   />
@@ -1112,7 +1156,9 @@ const TrailersAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.DropAxleOption}
-                    setValue={(val) => setForm({ ...form, DropAxleOption: val })}
+                    setValue={(val) =>
+                      setForm({ ...form, DropAxleOption: val })
+                    }
                     label="Drop Axle Option"
                     isMandatory={true}
                   />
@@ -1383,9 +1429,7 @@ const TrailersAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.Brakes}
-                    setValue={(val) =>
-                      setForm({ ...form, Brakes: val })
-                    }
+                    setValue={(val) => setForm({ ...form, Brakes: val })}
                     label="Drop Axle Option"
                     isMandatory={false}
                   />
@@ -1481,7 +1525,9 @@ const TrailersAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.BreakawaySystem}
-                    setValue={(val) => setForm({ ...form, BreakawaySystem: val })}
+                    setValue={(val) =>
+                      setForm({ ...form, BreakawaySystem: val })
+                    }
                     label="Breakaway System"
                     isMandatory={false}
                   />
@@ -2275,9 +2321,7 @@ const TrailersAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.DOTCompliance}
-                    setValue={(val) =>
-                      setForm({ ...form, DOTCompliance: val })
-                    }
+                    setValue={(val) => setForm({ ...form, DOTCompliance: val })}
                     label="DOT Compliance"
                     isMandatory={false}
                   />
@@ -2314,9 +2358,7 @@ const TrailersAdvert = () => {
                     openKey={openKey}
                     setOpenKey={setOpenKey}
                     value={form.ADRCompliance}
-                    setValue={(val) =>
-                      setForm({ ...form, ADRCompliance: val })
-                    }
+                    setValue={(val) => setForm({ ...form, ADRCompliance: val })}
                     label="ADR Compliance"
                     isMandatory={false}
                   />
