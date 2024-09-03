@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Form } from "react-bootstrap";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 // import { fetchDistinctValues } from "../api/searchEngineApi";
 // import { set } from "react-datepicker/dist/date_utils";
 // import { set } from "react-datepicker/dist/date_utils";
@@ -26,7 +26,7 @@ const DropdownWithCheckBoxes = ({
     setInputText(e.target.value);
     // var lowerCase = e.target.value.toLowerCase();
     console.log(inputText);
-  }
+  };
 
   const handleOptionChange = (optionName) => {
     console.log(optionName);
@@ -37,25 +37,25 @@ const DropdownWithCheckBoxes = ({
         console.log(prev);
         return { ...prev };
       });
-
     } else {
       setSelectedOptions((prev) => {
         return { ...prev, [optionName]: heading };
       });
       console.log(selectedOptions);
     }
-
   };
 
   useEffect(() => {
-
     if (inputText === "") {
       setList(options);
     } else {
-      setList(options.filter((item) => item[0].toLowerCase().includes(inputText.toLowerCase())));
+      setList(
+        options.filter((item) =>
+          item[0].toLowerCase().includes(inputText.toLowerCase())
+        )
+      );
     }
-
-  }, [inputText]);
+  }, [inputText, options]);
 
   // if (loading) return <p>Loading...</p>;
   // if (error) return <p>Error: {error}</p>;
@@ -89,37 +89,41 @@ const DropdownWithCheckBoxes = ({
         </span>
       </div>
       {isOpen && (
-        <div id="dropdown-content" className="custom-dropdown-content"> {
+        <div>
+        {
           options.length > 5 ? (
-        <input type="text" placeholder="Search.." id="myInput" value={inputText} onChange={inputHandler}></input>) : null
+        <input type="text" placeholder="Search.." id="myInput" style={
+          {width: "100%", padding: "8px 0px 8px 14px", margin: "0px 0 12px 0", display: "inline-block", border: "1px solid #fff", borderRadius: "4px", outline: "none", boxSizing: "", backgroundColor: "#f5f5f5"}
+        }  value={inputText}  onChange={inputHandler}></input>) : null
         }
-          <div className="custom-dropdown-options">
-            <Form>
-              {list.length > 0 ? (
-                list.map((item) => (
-                  <div key={item[0]} className="custom-dropdown-option">
-                    <Form.Check
-                      type="checkbox"
-                      name={`checkbox-options`}
-                      label={`${item[0]} (${item[1]})`}
-                      checked={Boolean(selectedOptions[item[0]])}
-                      onChange={() => handleOptionChange(item[0])}
-                    />
+          <div id="dropdown-content" className="custom-dropdown-content">
+            <div className="custom-dropdown-options">
+              <Form>
+                {list.length > 0 ? (
+                  list.map((item) => (
+                    <div key={item[0]} className="custom-dropdown-option">
+                      <Form.Check
+                        type="checkbox"
+                        name={`checkbox-options`}
+                        label={`${item[0]} (${item[1]})`}
+                        checked={Boolean(selectedOptions[item[0]])}
+                        onChange={() => handleOptionChange(item[0])}
+                      />
+                    </div>
+                  ))
+                ) : (
+                  <div className="custom-dropdown-no-results">
+                    No options available
                   </div>
-                ))
-              ) : (
-                <div className="custom-dropdown-no-results">
-                  No options available
-                </div>
-              )}
-            </Form>
+                )}
+              </Form>
+            </div>
           </div>
         </div>
       )}
     </div>
   );
 };
-
 
 DropdownWithCheckBoxes.propTypes = {
   heading: PropTypes.string.isRequired,

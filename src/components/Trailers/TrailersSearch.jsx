@@ -6,6 +6,7 @@ import DropdownWithCheckBoxes from "../DropdownWithCheckBoxes2";
 // import { fetchColumns } from "../../api/searchEngineApi";
 import Loader from "../Loader";
 import TrailerCard from "../TrailerCard";
+import ResetBar from "../ResetBar";
 
 // import { string } from "prop-types";
 
@@ -215,69 +216,69 @@ const typeDef = {
 
 export default function TrailersSearch() {
   const [page, setPage] = useState(1);
-  const [lastpage, setLastPage] = useState(1);
+  // const [lastpage, setLastPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [allSelectedOptions, setAllSelectedOptions] = useState([]);
   const [identification, setIdentification] = useState({
-    marisailTrailerId: [],
+    // marisailTrailerId: [],
     manufacturer: [
-      ["Venture", 5],
-      ["Karavan", 5],
-      ["manufacturerr", 5],
-      ["manufacturerrr", 5],
-      ["manufacturerrrr", 5],
+      // ["Venture", 5],
+      // ["Karavan", 5],
+      // ["manufacturerr", 5],
+      // ["manufacturerrr", 5],
+      // ["manufacturerrrr", 5],
     ],
     make: [
-      ["P5", 5],
-      ["GD85", 5],
-      ["makeee", 5],
-      ["makeeee", 5],
-      ["makeeeee", 5],
+      // ["P5", 5],
+      // ["GD85", 5],
+      // ["makeee", 5],
+      // ["makeeee", 5],
+      // ["makeeeee", 5],
     ],
     model: [
-      ["Premium", 5],
-      ["Deluxe", 5],
-      ["Pro", 5],
+      // ["Premium", 5],
+      // ["Deluxe", 5],
+      // ["Pro", 5],
     ],
     year: [],
   });
   const [basics, setBasics] = useState({
     type: [],
-    gvwr: [],
+    grossVehicleWeightRating: [],
     loadCapacity: [],
     length: [],
     width: [],
     totalHeight: [],
     axleHeightFromGround: [],
+    // askingPrice: [],
   });
   const [constructionMaterials, setConstructionMaterials] = useState({
     frameMaterial: [],
     frameCoating: [],
     frameCrossmemberType: [],
     frameWeldType: [],
-    maximumAngleOfApproach: [],
+    // maximumAngleOfApproach: [],
     floorMaterial: [],
     sidesMaterial: [],
     roofMaterial: [],
   });
   const [maintenanceFeatures, setMaintenanceFeatures] = useState({
-    greasePoints: [],
+    // greasePoints: [],
     bearingType: [],
-    maintenanceSchedule: [],
+    // maintenanceSchedule: [],
   });
   const [userFeatures, setUserFeatures] = useState({
-    storage: [],
+    // storage: [],
     tieDownPoints: [],
-    toolBox: [],
+    // toolBox: [],
     bumperType: [],
   });
   const [specialFeatures, setSpecialFeatures] = useState({
-    hydraulicTilt: [],
-    extendableTongue: [],
+    // hydraulicTilt: [],
+    // extendableTongue: [],
     adjustableDeckHeight: [],
-    detachableSidePanels: [],
+    // detachableSidePanels: [],
   });
-
   const [additionalAccessories, setAdditionalAccessories] = useState({
     rampType: [],
     winchPost: [],
@@ -287,10 +288,10 @@ export default function TrailersSearch() {
   });
   const [customizationOptions, setCustomizationOptions] = useState({
     color: [],
-    decals: [],
-    storageBox: [],
-    lightingPackage: [],
-    suspensionUpgrade: [],
+    // decals: [],
+    // storageBox: [],
+    // lightingPackage: [],
+    // suspensionUpgrade: [],
   });
 
   const [axlesAndSuspension, setAxlesAndSuspension] = useState({
@@ -298,8 +299,8 @@ export default function TrailersSearch() {
     axleCapacity: [],
     axleSealType: [],
     axleHubSize: [],
-    axlePosition: [],
-    dropAxleOption: [],
+    // axlePosition: [],
+    // dropAxleOption: [],
     suspensionType: [],
     suspensionCapacity: [],
     suspensionAdjustment: [],
@@ -309,42 +310,41 @@ export default function TrailersSearch() {
     tyreLoadRange: [],
     tyreType: [],
     wheelType: [],
-    wheelBoltPattern: [],
-    hubLubricationSystem: [],
+    // wheelBoltPattern: [],
+    // hubLubricationSystem: [],
   });
-
   const [brakes, setBrakes] = useState({
     brakeType: [],
-    brakeActuator: [],
-    brakeLineMaterial: [],
-    brakeDrumDiameter: [],
+    // brakeActuator: [],
+    // brakeLineMaterial: [],
+    // brakeDrumDiameter: [],
     brakeFluidType: [],
-    brakes: [],
+    // brakes: [],
     couplerSize: [],
     couplerType: [],
     couplerLockType: [],
-    hitchClass: [],
+    // hitchClass: [],
     hitchReceiverSize: [],
-    safetyChains: [],
-    breakawaySystem: [],
+    // safetyChains: [],
+    // breakawaySystem: [],
   });
   const [winchAndWrinchAccessories, setWinchAndWrinchAccessories] = useState({
     winchType: [],
     winchCapacity: [],
-    winchRopeLength: [],
-    winchDrumMaterial: [],
-    winchGearRatio: [],
-    winchRemoteControl: [],
+    // winchRopeLength: [],
+    // winchDrumMaterial: [],
+    // winchGearRatio: [],
+    // winchRemoteControl: [],
     winchBrakeType: [],
     winchCableType: [],
-    winchStrapLength: [],
-    winchHandleLength: [],
-    winchMounting: [],
+    // winchStrapLength: [],
+    // winchHandleLength: [],
+    // winchMounting: [],
   });
 
   const [lightingAndElectrical, setLightingAndElectrical] = useState({
-    lighting: [],
-    lightMountingPosition: [],
+    // lighting: [],
+    // lightMountingPosition: [],
     lightType: [],
     electricalConnectorType: [],
     electricalWiringType: [],
@@ -353,9 +353,9 @@ export default function TrailersSearch() {
   });
 
   const [acessories, setAcessories] = useState({
-    spareTyreCarrier: [],
+    // spareTyreCarrier: [],
     spareTyreSize: [],
-    spareTyreMountingLocation: [],
+    // spareTyreMountingLocation: [],
     jackType: [],
     jackWheelType: [],
     jackCapacity: [],
@@ -365,20 +365,20 @@ export default function TrailersSearch() {
   const [loadingAndTransportFeatures, setLoadingAndTransportFeatures] =
     useState({
       loadingSystem: [],
-      bunks: [],
-      bunkMaterial: [],
-      bunkWidth: [],
+      // bunks: [],
+      // bunkMaterial: [],
+      // bunkWidth: [],
       bunkHeightAdjustment: [],
-      bunkMountingBracketMaterial: [],
-      rollers: [],
-      rollerMaterial: [],
-      rollerAxleDiameter: [],
+      // bunkMountingBracketMaterial: [],
+      // rollers: [],
+      // rollerMaterial: [],
+      // rollerAxleDiameter: [],
     });
 
   const [securityFeatures, setSecurityFeatures] = useState({
-    wheelLocks: [],
+    // wheelLocks: [],
     lockType: [],
-    alarmSystem: [],
+    // alarmSystem: [],
     gpsTrackingDevice: [],
   });
 
@@ -387,19 +387,19 @@ export default function TrailersSearch() {
     setEnvironmentalAndCorrosionResistance,
   ] = useState({
     corrosionProtection: [],
-    rustInhibitors: [],
+    // rustInhibitors: [],
   });
   const [performanceAndHandling, setPerformanceAndHandling] = useState({
-    maximumSpeedRating: [],
+    // maximumSpeedRating: [],
     turningRadius: [],
   });
   const [tongue, setTongue] = useState({
-    tongueMaterial: [],
-    tongueShape: [],
+    // tongueMaterial: [],
+    // tongueShape: [],
     tongueJackWheelSize: [],
     tongueJackType: [],
     tongueWeight: [],
-    tongueWeightRatio: [],
+    // tongueWeightRatio: [],
   });
   const [documentation, setDocumentation] = useState({
     ownerManual: [],
@@ -450,9 +450,6 @@ export default function TrailersSearch() {
     environmentalAndCorrosionResistance,
     performanceAndHandling,
     tongue,
-    documentation,
-    regulatoryCompliance,
-    paymentTerms,
   };
 
   const lookUpTable = {};
@@ -489,6 +486,17 @@ export default function TrailersSearch() {
     paymentTerms: setPaymentTerms,
   };
 
+  function removeTag(tag) {
+    setAllSelectedOptions((prev) => {
+      delete prev[tag];
+      return { ...prev };
+    });
+  }
+
+  function resetTags() {
+    setAllSelectedOptions({});
+  }
+
   function setFilters(key, data) {
     const setStateFunction = setStateFunctions[key];
     console.log(key);
@@ -506,12 +514,6 @@ export default function TrailersSearch() {
   const handlePageChange = (newPage) => {
     setPage(newPage);
   };
-  // const [pagination, setPagination] = useState({
-  //   currentPage: 1,
-  //   totalPages: 1,
-  //   totalRecords: 0,
-  //   limit: 20,
-  // });
 
   const URL = "http://localhost:3001/api/search_trailer/";
 
@@ -588,11 +590,7 @@ export default function TrailersSearch() {
 
     fetchTrailerData();
   }, [allSelectedOptions, page]);
-  // const filterResults = async () => {
-  //   try {
 
-  //   }
-  // }
   return (
     <Container>
       <Row>
@@ -600,34 +598,32 @@ export default function TrailersSearch() {
           <Row>
             <h4
               className="py-3"
-              style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
+              // style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
             >
               Search For Trailer
             </h4>
           </Row>
-          {/* <Row>
-            <SearchBar
+          <Row>
+            <ResetBar
               selectedTags={allSelectedOptions}
               removeTag={removeTag}
-              onChange={handleSearchChange}
+              resetTags={resetTags}
             />
-          </Row> */}
+          </Row>
           <Row>
             {Object.keys(filters).map((key) => (
               <fieldset
-                style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
+                // style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
                 key={key}
               >
-                <legend
-                  style={{
-                    // borderBottom: "2px solid #f5f5f5",
-                    fontSize: "16px",
-                    fontWeight: "bold",
-                    width: "100%",
-                    marginBottom: "12px",
-                  }}
-                >
-                  {makeString(key)}
+                <legend className="fieldset-legend">
+                  <h6
+                    style={{
+                      padding: "15px 0px 0px 0px",
+                    }}
+                  >
+                    {makeString(key)}
+                  </h6>
                 </legend>
                 {Object.keys(filters[key]).map((key2) => (
                   <Row key={key2} className="row-margin">
@@ -686,17 +682,24 @@ export default function TrailersSearch() {
           {/* {!loading ? <Pagination totalPages={pagination.totalPages} /> : <></>} */}
 
           <Row style={{ marginBottom: "20px" }}>
-            <div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "10px",
+                width: "100%",
+                marginTop: "20px",
+              }}
+            >
               <button
                 onClick={() => handlePageChange(page - 1)}
                 disabled={page === 1}
               >
                 Previous
               </button>
-                {/* Page {page} of {pagination.totalPages} */}
-              <span>
-                Page {page}
-              </span>
+              {/* Page {page} of {pagination.totalPages} */}
+              <span>Page {page}</span>
               {/* <button
                 key={page}
                 className="active"
@@ -716,14 +719,4 @@ export default function TrailersSearch() {
       </Row>
     </Container>
   );
-}
-
-{
-  /* <Row>
-            {engines.map((engine) => (
-              <Col md={4}>
-                <EngineCard key={engine.engine_id} {...engine} />
-              </Col>
-            ))}
-          </Row> */
 }
