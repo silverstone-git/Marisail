@@ -287,7 +287,7 @@ const TrailersAdvert = () => {
         <Form>
           <Row>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
+              <h6 style={{ marginLeft: "2%", color: "#1F75FE" }}>
                 Identification
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
@@ -395,7 +395,7 @@ const TrailersAdvert = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
+              <h6 style={{ marginLeft: "2%", color: "#1F75FE" }}>
                 Security Features
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
@@ -483,7 +483,7 @@ const TrailersAdvert = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>General</h6>
+              <h6 style={{ marginLeft: "2%", color: "#1F75FE" }}>General</h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <RadioOptions
@@ -621,7 +621,7 @@ const TrailersAdvert = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
+              <h6 style={{ marginLeft: "2%", color: "#1F75FE" }}>
                 Construction Materials
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
@@ -778,7 +778,7 @@ const TrailersAdvert = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
+              <h6 style={{ marginLeft: "2%", color: "#1F75FE" }}>
                 User Features
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
@@ -845,7 +845,7 @@ const TrailersAdvert = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
+              <h6 style={{ marginLeft: "2%", color: "#1F75FE" }}>
                 Special Features
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
@@ -920,7 +920,7 @@ const TrailersAdvert = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
+              <h6 style={{ marginLeft: "2%", color: "#1F75FE" }}>
                 Additional Accessories
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
@@ -1027,7 +1027,7 @@ const TrailersAdvert = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
+              <h6 style={{ marginLeft: "2%", color: "#1F75FE" }}>
                 Customization Options
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
@@ -1104,7 +1104,7 @@ const TrailersAdvert = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
+              <h6 style={{ marginLeft: "2%", color: "#1F75FE" }}>
                 Axles & Suspension
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
@@ -1272,7 +1272,7 @@ const TrailersAdvert = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
+              <h6 style={{ marginLeft: "2%", color: "#1F75FE" }}>
                 Loading & Transport Features
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
@@ -1404,7 +1404,7 @@ const TrailersAdvert = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
+              <h6 style={{ marginLeft: "2%", color: "#1F75FE" }}>
                 Brakes & Safety
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
@@ -1621,7 +1621,7 @@ const TrailersAdvert = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
+              <h6 style={{ marginLeft: "2%", color: "#1F75FE" }}>
                 Winch & Winch Accessories
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
@@ -1794,7 +1794,7 @@ const TrailersAdvert = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
+              <h6 style={{ marginLeft: "2%", color: "#1F75FE" }}>
                 Lighting & Electrical
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
@@ -1937,7 +1937,7 @@ const TrailersAdvert = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
+              <h6 style={{ marginLeft: "2%", color: "#1F75FE" }}>
                 Accessories
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
@@ -2058,7 +2058,7 @@ const TrailersAdvert = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
+              <h6 style={{ marginLeft: "2%", color: "#1F75FE" }}>
                 Maintenance Features
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
@@ -2104,7 +2104,7 @@ const TrailersAdvert = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
+              <h6 style={{ marginLeft: "2%", color: "#1F75FE" }}>
                 Environmental & Corrosion Resistance
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
@@ -2145,7 +2145,7 @@ const TrailersAdvert = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
+              <h6 style={{ marginLeft: "2%", color: "#1F75FE" }}>
                 Performance & Handling
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
@@ -2194,7 +2194,7 @@ const TrailersAdvert = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
+              <h6 style={{ marginLeft: "2%", color: "#1F75FE" }}>
                 Documentation
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
@@ -2227,7 +2227,7 @@ const TrailersAdvert = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>Tongue</h6>
+              <h6 style={{ marginLeft: "2%", color: "#1F75FE" }}>Tongue</h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
                 <Col xs={3} md={12} className="mb-2">
                   <RadioOptions
@@ -2325,7 +2325,7 @@ const TrailersAdvert = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
+              <h6 style={{ marginLeft: "2%", color: "#1F75FE" }}>
                 Tyres & Wheels
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
@@ -2439,7 +2439,7 @@ const TrailersAdvert = () => {
               </Col>
             </Col>
             <Col md={6} className="mt-4">
-              <h6 style={{ marginLeft: "3%", color: "#1F75FE" }}>
+              <h6 style={{ marginLeft: "2%", color: "#1F75FE" }}>
                 Regulatory Compliance
               </h6>
               <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }}>
