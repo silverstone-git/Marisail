@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Form } from "react-bootstrap";
 import { fetchDistinctValues } from "../api/searchEngineApi";
+import PropTypes from "prop-types";
 
 const DropdownWithCheckBoxes = ({
   title,
@@ -115,6 +116,15 @@ const DropdownWithCheckBoxes = ({
       )}
     </div>
   );
+};
+
+DropdownWithCheckBoxes.propTypes = {
+  title: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
+  selectedOptions: PropTypes.object,
+  onSelect: PropTypes.func.isRequired,
+  tableName: PropTypes.string,
+  columnName: PropTypes.string,
 };
 
 export default DropdownWithCheckBoxes;
