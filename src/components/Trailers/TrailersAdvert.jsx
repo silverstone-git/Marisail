@@ -21,187 +21,187 @@ const makeString = (str) => {
 
 const typeDef = {
   identification: {
-    marisailTrailerId:  { value: "", type: "radio" },
-    manufacturer: { value: "", type: "radio" },
-    make: { value: "", type: "radio" },
-    model: { value: "", type: "radio" },
-    year: { value: "", type: "number" },
-    askingPrice: { value: "", type: "number" },
+    marisailTrailerId: { value: "", type: "radio", mandatory: true },
+    manufacturer: { value: "", type: "radio", mandatory: true },
+    make: { value: "", type: "radio", mandatory: true },
+    model: { value: "", type: "radio", mandatory: true },
+    year: { value: "", type: "number", mandatory: true },
+    askingPrice: { value: "", type: "number", mandatory: true },
   },
   basics: {
-    type: { value: "", type: "radio" },
-    gvwr: { value: "", type: "number" },
-    loadCapacity: { value: "", type: "number" },
-    length: { value: "", type: "number" },
-    width: { value: "", type: "number" },
-    totalHeight: { value: "", type: "number" },
-    axleHeightFromGround: { value: "", type: "number" },
+    type: { value: "", type: "radio", mandatory: true },
+    gvwr: { value: "", type: "number", mandatory: true },
+    loadCapacity: { value: "", type: "number", mandatory: true },
+    length: { value: "", type: "number", mandatory: true },
+    width: { value: "", type: "number", mandatory: true },
+    totalHeight: { value: "", type: "number", mandatory: true },
+    axleHeightFromGround: { value: "", type: "number", mandatory: true },
   },
   constructionMaterials: {
-    frameMaterial: { value: "", type: "radio" },
-    frameCoating: { value: "", type: "radio" },
-    frameCrossmemberType: { value: "", type: "radio" },
-    frameWeldType: { value: "", type: "radio" },
-    maximumAngleOfApproach: { value: "", type: "radio" },
-    floorMaterial: { value: "", type: "radio" },
-    sidesMaterial: { value: "", type: "radio" },
-    roofMaterial: { value: "", type: "radio" },
+    frameMaterial: { value: "", type: "radio", mandatory: true },
+    frameCoating: { value: "", type: "radio", mandatory: true },
+    frameCrossmemberType: { value: "", type: "radio", mandatory: true },
+    frameWeldType: { value: "", type: "radio", mandatory: false },
+    maximumAngleOfApproach: { value: "", type: "radio", mandatory: false },
+    floorMaterial: { value: "", type: "radio", mandatory: true },
+    sidesMaterial: { value: "", type: "radio", mandatory: true },
+    roofMaterial: { value: "", type: "radio", mandatory: true },
   },
   maintenanceFeatures: {
-    greasePoints: { value: "", type: "radio" },
-    bearingType: { value: "", type: "radio" },
-    maintenanceSchedule: { value: "", type: "radio" },
+    greasePoints: { value: "", type: "radio", mandatory: false },
+    bearingType: { value: "", type: "radio", mandatory: false },
+    maintenanceSchedule: { value: "", type: "radio", mandatory: false },
   },
   userFeatures: {
-    storage: { value: "", type: "radio" },
-    tieDownPoints: { value: "", type: "radio" },
-    toolBox: { value: "", type: "radio" },
-    bumperType: { value: "", type: "radio" },
+    storage: { value: "", type: "radio", mandatory: false },
+    tieDownPoints: { value: "", type: "radio", mandatory: true },
+    toolBox: { value: "", type: "radio", mandatory: false },
+    bumperType: { value: "", type: "radio", mandatory: false },
   },
   specialFeatures: {
-    hydraulicTilt: { value: "", type: "radio" },
-    extendableTongue: { value: "", type: "radio" },
-    adjustableDeckHeight: { value: "", type: "radio" },
-    detachableSidePanels: { value: "", type: "radio" },
+    hydraulicTilt: { value: "", type: "radio", mandatory: true },
+    extendableTongue: { value: "", type: "radio", mandatory: true },
+    adjustableDeckHeight: { value: "", type: "radio", mandatory: false },
+    detachableSidePanels: { value: "", type: "radio", mandatory: false },
   },
   additionalAccessories: {
-    rampType: { value: "", type: "radio" },
-    winchPost: { value: "", type: "radio" },
-    splashGuards: { value: "", type: "radio" },
-    fenders: { value: "", type: "radio" },
-    sideRails: { value: "", type: "radio" },
+    rampType: { value: "", type: "radio", mandatory: true },
+    winchPost: { value: "", type: "radio", mandatory: true },
+    splashGuards: { value: "", type: "radio", mandatory: true },
+    fenders: { value: "", type: "radio", mandatory: true },
+    sideRails: { value: "", type: "radio", mandatory: true },
   },
   customizationOptions: {
-    color: { value: "", type: "radio" },
-    decals: { value: "", type: "radio" },
-    storageBox: { value: "", type: "radio" },
-    lightingPackage: { value: "", type: "radio" },
-    suspensionUpgrade: { value: "", type: "radio" },
+    color: { value: "", type: "radio", mandatory: true },
+    decals: { value: "", type: "radio", mandatory: false },
+    storageBox: { value: "", type: "radio", mandatory: false },
+    lightingPackage: { value: "", type: "radio", mandatory: false },
+    suspensionUpgrade: { value: "", type: "radio", mandatory: false },
   },
   axlesAndSuspension: {
-    axleType: { value: "", type: "radio" },
-    axleCapacity: { value: "", type: "radio" },
-    axleSealType: { value: "", type: "radio" },
-    axleHubSize: { value: "", type: "radio" },
-    axlePosition: { value: "", type: "radio" },
-    dropAxleOption: { value: "", type: "radio" },
-    suspensionType: { value: "", type: "radio" },
-    suspensionCapacity: { value: "", type: "number" },
-    suspensionAdjustment: { value: "", type: "radio" },
+    axleType: { value: "", type: "radio", mandatory: true },
+    axleCapacity: { value: "", type: "radio", mandatory: true },
+    axleSealType: { value: "", type: "radio", mandatory: false },
+    axleHubSize: { value: "", type: "radio", mandatory: true },
+    axlePosition: { value: "", type: "radio", mandatory: true },
+    dropAxleOption: { value: "", type: "radio", mandatory: false },
+    suspensionType: { value: "", type: "radio", mandatory: true },
+    suspensionCapacity: { value: "", type: "number", mandatory: true },
+    suspensionAdjustment: { value: "", type: "radio", mandatory: true },
   },
   tyresAndWheels: {
-    tyreSize: { value: "", type: "radio" },
-    tyreLoadRange: { value: "", type: "radio" },
-    tyreType: { value: "", type: "radio" },
-    wheelType: { value: "", type: "radio" },
-    wheelBoltPattern: { value: "", type: "radio" },
-    hubLubricationSystem: { value: "", type: "radio" },
+    tyreSize: { value: "", type: "radio", mandatory: true },
+    tyreLoadRange: { value: "", type: "radio", mandatory: true },
+    tyreType: { value: "", type: "radio", mandatory: true },
+    wheelType: { value: "", type: "radio", mandatory: true },
+    wheelBoltPattern: { value: "", type: "radio", mandatory: false },
+    hubLubricationSystem: { value: "", type: "radio", mandatory: false },
   },
   brakes: {
-    brakeType: { value: "", type: "radio" },
-    brakeActuator: { value: "", type: "radio" },
-    brakeLineMaterial: { value: "", type: "radio" },
-    brakeDrumDiameter: { value: "", type: "radio" },
-    brakeFluidType: { value: "", type: "radio" },
-    brakes: { value: "", type: "radio" },
-    couplerSize: { value: "", type: "radio" },
-    couplerType: { value: "", type: "radio" },
-    couplerLockType: { value: "", type: "radio" },
-    hitchClass: { value: "", type: "radio" },
-    hitchReceiverSize: { value: "", type: "radio" },
-    safetyChains: { value: "", type: "radio" },
-    breakawaySystem: { value: "", type: "radio" },
+    brakeType: { value: "", type: "radio", mandatory: false },
+    brakeActuator: { value: "", type: "radio", mandatory: false },
+    brakeLineMaterial: { value: "", type: "radio", mandatory: true },
+    brakeDrumDiameter: { value: "", type: "radio", mandatory: true },
+    brakeFluidType: { value: "", type: "radio", mandatory: true },
+    brakes: { value: "", type: "radio", mandatory: true },
+    couplerSize: { value: "", type: "radio", mandatory: false },
+    couplerType: { value: "", type: "radio", mandatory: true },
+    couplerLockType: { value: "", type: "radio", mandatory: true },
+    hitchClass: { value: "", type: "radio", mandatory: true },
+    hitchReceiverSize: { value: "", type: "radio", mandatory: false },
+    safetyChains: { value: "", type: "radio", mandatory: true },
+    breakawaySystem: { value: "", type: "radio", mandatory: true },
   },
   winchAndWrinchAccessories: {
-    winchType: { value: "", type: "radio" },
-    winchCapacity: { value: "", type: "number" },
-    winchRopeLength: { value: "", type: "radio" },
-    winchDrumMaterial: { value: "", type: "radio" },
-    winchGearRatio: { value: "", type: "radio" },
-    winchRemoteControl: { value: "", type: "radio" },
-    winchBrakeType: { value: "", type: "radio" },
-    winchCableType: { value: "", type: "radio" },
-    winchStrapLength: { value: "", type: "radio" },
-    winchHandleLength: { value: "", type: "radio" },
-    winchMounting: { value: "", type: "radio" },
+    winchType: { value: "", type: "radio", mandatory: true },
+    winchCapacity: { value: "", type: "number", mandatory: true },
+    winchRopeLength: { value: "", type: "radio", mandatory: true },
+    winchDrumMaterial: { value: "", type: "radio", mandatory: false },
+    winchGearRatio: { value: "", type: "radio", mandatory: false },
+    winchRemoteControl: { value: "", type: "radio", mandatory: false },
+    winchBrakeType: { value: "", type: "radio", mandatory: false },
+    winchCableType: { value: "", type: "radio", mandatory: false },
+    winchStrapLength: { value: "", type: "radio", mandatory: false },
+    winchHandleLength: { value: "", type: "radio", mandatory: false },
+    winchMounting: { value: "", type: "radio", mandatory: false },
   },
   lightingAndElectrical: {
-    lighting: { value: "", type: "radio" },
-    lightMountingPosition: { value: "", type: "radio" },
-    lightType: { value: "", type: "radio" },
-    electricalConnectorType: { value: "", type: "radio" },
-    electricalWiringType: { value: "", type: "radio" },
-    batteryType: { value: "", type: "radio" },
-    batteryChargerType: { value: "", type: "radio" },
+    lighting: { value: "", type: "radio", mandatory: true },
+    lightMountingPosition: { value: "", type: "radio", mandatory: false },
+    lightType: { value: "", type: "radio", mandatory: true },
+    electricalConnectorType: { value: "", type: "radio", mandatory: true },
+    electricalWiringType: { value: "", type: "radio", mandatory: true },
+    batteryType: { value: "", type: "radio", mandatory: true },
+    batteryChargerType: { value: "", type: "radio", mandatory: true },
   },
   acessories: {
-    spareTyreCarrier: { value: "", type: "radio" },
-    spareTyreSize: { value: "", type: "radio" },
-    spareTyreMountingLocation: { value: "", type: "radio" },
-    jackType: { value: "", type: "radio" },
-    jackWheelType: { value: "", type: "radio" },
-    jackCapacity: { value: "", type: "radio" },
-    jackLiftHeight: { value: "", type: "radio" },
+    spareTyreCarrier: { value: "", type: "radio", mandatory: true },
+    spareTyreSize: { value: "", type: "radio", mandatory: true },
+    spareTyreMountingLocation: { value: "", type: "radio", mandatory: false },
+    jackType: { value: "", type: "radio", mandatory: false },
+    jackWheelType: { value: "", type: "radio", mandatory: false },
+    jackCapacity: { value: "", type: "radio", mandatory: true },
+    jackLiftHeight: { value: "", type: "radio", mandatory: false },
   },
   loadingAndTransportFeatures: {
-    loadingSystem: { value: "", type: "radio" },
-    bunks: { value: "", type: "radio" },
-    bunkMaterial: { value: "", type: "radio" },
-    bunkWidth: { value: "", type: "radio" },
-    bunkHeightAdjustment: { value: "", type: "radio" },
-    bunkMountingBracketMaterial: { value: "", type: "radio" },
-    rollers: { value: "", type: "radio" },
-    rollerMaterial: { value: "", type: "radio" },
-    rollerAxleDiameter: { value: "", type: "radio" },
+    loadingSystem: { value: "", type: "radio", mandatory: true },
+    bunks: { value: "", type: "radio", mandatory: false },
+    bunkMaterial: { value: "", type: "radio", mandatory: false },
+    bunkWidth: { value: "", type: "radio", mandatory: false },
+    bunkHeightAdjustment: { value: "", type: "radio", mandatory: false },
+    bunkMountingBracketMaterial: { value: "", type: "radio", mandatory: false },
+    rollers: { value: "", type: "radio", mandatory: false },
+    rollerMaterial: { value: "", type: "radio", mandatory: false },
+    rollerAxleDiameter: { value: "", type: "radio", mandatory: false },
   },
   securityFeatures: {
-    wheelLocks: { value: "", type: "radio" },
-    lockType: { value: "", type: "radio" },
-    alarmSystem: { value: "", type: "radio" },
-    gpsTrackingDevice: { value: "", type: "radio" },
+    wheelLocks: { value: "", type: "radio", mandatory: true },
+    lockType: { value: "", type: "radio", mandatory: true },
+    alarmSystem: { value: "", type: "radio", mandatory: true },
+    gpsTrackingDevice: { value: "", type: "radio", mandatory: true },
   },
   environmentalAndCorrosionResistance: {
-    corrosionProtection: { value: "", type: "radio" },
-    rustInhibitors: { value: "", type: "radio" },
+    corrosionProtection: { value: "", type: "radio", mandatory: true },
+    rustInhibitors: { value: "", type: "radio", mandatory: false },
   },
   performanceAndHandling: {
-    maximumSpeedRating: { value: "", type: "radio" },
-    turningRadius: { value: "", type: "radio" },
+    maximumSpeedRating: { value: "", type: "radio", mandatory: true },
+    turningRadius: { value: "", type: "radio", mandatory: true },
   },
   tongue: {
-    tongueMaterial: { value: "", type: "radio" },
-    tongueShape: { value: "", type: "radio" },
-    tongueJackWheelSize: { value: "", type: "radio" },
-    tongueJackType: { value: "", type: "radio" },
-    tongueWeight: { value: "", type: "radio" },
-    tongueWeightRatio: { value: "", type: "radio" },
+    tongueMaterial: { value: "", type: "radio", mandatory: false },
+    tongueShape: { value: "", type: "radio", mandatory: false },
+    tongueJackWheelSize: { value: "", type: "radio", mandatory: true },
+    tongueJackType: { value: "", type: "radio", mandatory: false },
+    tongueWeight: { value: "", type: "radio", mandatory: true },
+    tongueWeightRatio: { value: "", type: "radio", mandatory: false },
   },
   documentation: {
-    ownerManual: { value: "", type: "radio" },
-    warranty: { value: "", type: "radio" },
+    ownerManual: { value: "", type: "radio", mandatory: false },
+    warranty: { value: "", type: "radio", mandatory: false },
   },
   regulatoryCompliance: {
-    dotCompliance: { value: "", type: "radio" },
-    natmCertification: { value: "", type: "radio" },
-    euTypeApproval: { value: "", type: "radio" },
-    adrCompliance: { value: "", type: "radio" },
+    dotCompliance: { value: "", type: "radio", mandatory: false },
+    natmCertification: { value: "", type: "radio", mandatory: false },
+    euTypeApproval: { value: "", type: "radio", mandatory: false },
+    adrCompliance: { value: "", type: "radio", mandatory: false },
   },
   paymentTerms: {
-    paymentTerms: { value: "", type: "radio" },
-    currency: { value: "", type: "radio" },
-    preferredPaymentMethod: { value: "", type: "radio" },
-    invoiceAndRecieptProcedures: { value: "", type: "radio" },
-    calculatePriceAndPay: { value: "", type: "radio" },
-    priceLabel: { value: "", type: "radio" },
-    priceDrop: { value: "", type: "radio" },
-    VAT: { value: "", type: "radio" },
-    totalPrice: { value: "", type: "radio" },
-    country: { value: "", type: "radio" },
-    globalAddressLookup: { value: "", type: "radio" },
-    distance: { value: "", type: "radio" },
-    contactDetails: { value: "", type: "radio" },
-    uploadPhotos: { value: "", type: "radio" },
-    uploadVideos: { value: "", type: "radio" },
+    paymentTerms: { value: "", type: "radio", mandatory: false },
+    currency: { value: "", type: "radio", mandatory: false },
+    preferredPaymentMethod: { value: "", type: "radio", mandatory: false },
+    invoiceAndRecieptProcedures: { value: "", type: "radio", mandatory: false },
+    calculatePriceAndPay: { value: "", type: "radio", mandatory: false },
+    priceLabel: { value: "", type: "radio", mandatory: false },
+    priceDrop: { value: "", type: "radio", mandatory: false },
+    VAT: { value: "", type: "radio", mandatory: false },
+    totalPrice: { value: "", type: "radio", mandatory: false },
+    country: { value: "", type: "radio", mandatory: false },
+    globalAddressLookup: { value: "", type: "radio", mandatory: false },
+    distance: { value: "", type: "radio", mandatory: false },
+    contactDetails: { value: "", type: "radio", mandatory: false },
+    uploadPhotos: { value: "", type: "radio", mandatory: false },
+    uploadVideos: { value: "", type: "radio", mandatory: false },
   },
 };
 
@@ -224,7 +224,7 @@ export default function TrailersAdvert() {
     make: "",
     model: "",
     year: "",
-    askingPrice:""
+    askingPrice: "",
   });
   const [basics, setBasics] = useState({
     type: "",
@@ -459,9 +459,9 @@ export default function TrailersAdvert() {
     e.preventDefault();
     try {
       // if (checkRequired()) {
-        // If no errors, proceed with form submission logic
-        // console.log("001 Form is valid, submitting...", form);
-        // localStorage.setItem("advertise_engine", JSON.stringify(form));
+      // If no errors, proceed with form submission logic
+      // console.log("001 Form is valid, submitting...", form);
+      // localStorage.setItem("advertise_engine", JSON.stringify(form));
       // } else {
       //   console.log("001 Form has errors, not submitting.", error);
       // }
@@ -471,8 +471,8 @@ export default function TrailersAdvert() {
   };
   function setFilters(key, data) {
     const setStateFunction = setStateFunctions[key];
-    console.log("001 Key---",key);
-    console.log("001 Data---",data);
+    console.log("001 Key---", key);
+    console.log("001 Data---", data);
     if (setStateFunction) {
       setStateFunction(data);
     } else {
@@ -519,14 +519,14 @@ export default function TrailersAdvert() {
       // Fetch data if not cached
       fetchFilterData();
     }
-    console.log("001 Filters---",filters);
+    console.log("001 Filters---", filters);
   }, "");
 
   const [trailers, setTrailers] = useState("");
   useEffect(() => {
     setLoading(true);
     let currInfo = {
-      selectedOptions: allSelectedOptions
+      selectedOptions: allSelectedOptions,
     };
     const fetchTrailerData = async () => {
       try {
@@ -540,7 +540,7 @@ export default function TrailersAdvert() {
         const data = await response.json();
         // console.log("001 Data---->",data);
         setTrailers(data.res[0]);
-        console.log("001 trailers", trailers); 
+        console.log("001 trailers", trailers);
       } catch (err) {
         console.log(err);
       } finally {
@@ -569,10 +569,12 @@ export default function TrailersAdvert() {
           {Object.keys(filters).map((title) => (
             <Col md={6} key={title} className="mt-2">
               <legend className="fieldset-legend">
-                <h6 style={{ padding: "15px 0px 0px 0px" }}>{makeString(title)}</h6>
+                <h6 style={{ padding: "15px 0px 0px 0px" }}>
+                  {makeString(title)}
+                </h6>
               </legend>
               {Object.keys(filters[title]).map((fieldKey) => {
-                const field = typeDef[title][fieldKey];  // Get field type info
+                const field = typeDef[title][fieldKey]; // Get field type info
 
                 // Check if field exists and has a defined type
                 if (field && field.type === "radio") {
@@ -584,17 +586,23 @@ export default function TrailersAdvert() {
                             heading={fieldKey}
                             title={makeString(fieldKey)}
                             options={filters[title][fieldKey]}
-                            selectedOptions={allSelectedOptions}
-                            setSelectedOptions={setAllSelectedOptions}
-                            openKey={openKey}
-                            setOpenKey={setOpenKey}
-                            isMandatory={false}
+                            selectedOption={
+                              allSelectedOptions[title]?.[fieldKey] || ""
+                            }
+                            setSelectedOption={(selectedOption) =>
+                              handleOptionSelect(
+                                title,
+                                fieldKey,
+                                selectedOption
+                              )
+                            }
+                            isMandatory={field.mandatory}
                           />
                         </Col>
                       </Form.Group>
                     </Col>
                   );
-                } else if(field && field.type === "number"){
+                } else if (field && field.type === "number") {
                   return (
                     <Col md={12} className="mt-4 mr-3" key={fieldKey}>
                       <InputComponentDynamic
@@ -606,7 +614,7 @@ export default function TrailersAdvert() {
                         formType="number"
                         setOpenKey={setOpenKey}
                         openKey={openKey}
-                        isMandatory={false} // Update if field is mandatory
+                        isMandatory={field.mandatory}
                       />
                     </Col>
                   );
@@ -618,29 +626,29 @@ export default function TrailersAdvert() {
           ))}
         </Row>
       </Form>
-        <div className="d-flex justify-content-center p-4 pt-5">
-          <button
-            type="button"
-            className="btn btn-success p-3"
-            style={{
-              backgroundColor: "#971e28",
-              color: "#fff",
-              padding: "8px 32px",
-              border: "0px none",
-              borderRadius: 30,
-              textTransform: "uppercase",
-              marginBottom: 8,
-              width: "50%",
-              cursor: "pointer",
-              transition: "all .5s ease",
-            }}
-            name="Trailers-submit"
-            id="Trailers-submit"
-            onClick={handleSubmit}
-          >
-            Submit
-          </button>
-        </div>
+      <div className="d-flex justify-content-center p-4 pt-5">
+        <button
+          type="button"
+          className="btn btn-success p-3"
+          style={{
+            backgroundColor: "#971e28",
+            color: "#fff",
+            padding: "8px 32px",
+            border: "0px none",
+            borderRadius: 30,
+            textTransform: "uppercase",
+            marginBottom: 8,
+            width: "50%",
+            cursor: "pointer",
+            transition: "all .5s ease",
+          }}
+          name="Trailers-submit"
+          id="Trailers-submit"
+          onClick={handleSubmit}
+        >
+          Submit
+        </button>
+      </div>
     </Container>
   );
 }
