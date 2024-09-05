@@ -2,8 +2,8 @@ import { Form, Container, Row, Col } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import DropdownWithRadio from "../DropdownWithRadio";
 import Loader from "../Loader";
-import "./trailersAdvert.module.scss";
-import InputComponent from "../InputComponent";
+// import "./trailersAdvert.module.scss";
+import InputComponentDynamic from "../InputComponentDynamic";
 
 const makeString = (str) => {
   var newStr = "";
@@ -597,7 +597,7 @@ export default function TrailersAdvert() {
                 } else if(field && field.type === "number"){
                   return (
                     <Col md={12} className="mt-4 mr-3" key={fieldKey}>
-                      <InputComponent
+                      <InputComponentDynamic
                         label={makeString(fieldKey)}
                         value={trailers[title]?.[fieldKey] || ""}
                         setValue={(e) =>
