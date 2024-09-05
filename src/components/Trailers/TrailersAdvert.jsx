@@ -205,9 +205,18 @@ const typeDef = {
 };
 
 export default function TrailersAdvert() {
+  const handleOptionSelect = (category, field, selectedOption) => {
+    setAllSelectedOptions((prevState) => ({
+      ...prevState,
+      [category]: {
+        ...prevState[category],
+        [field]: selectedOption,
+      },
+    }));
+  };
   const [openKey, setOpenKey] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [allSelectedOptions, setAllSelectedOptions] = useState("");
+  const [allSelectedOptions, setAllSelectedOptions] = useState({});
   const [identification, setIdentification] = useState({
     marisailTrailerId: "",
     manufacturer: "",
@@ -565,8 +574,10 @@ export default function TrailersAdvert() {
                         heading={fields}
                         title={makeString(fields)}
                         options={filters[title][fields]}
-                        selectedOptions={allSelectedOptions}
-                        setSelectedOptions={setAllSelectedOptions}
+                        selectedOption={allSelectedOptions[title]?.[fields] || ""} // Track selected option for each field
+                        setSelectedOption={(selectedOption) =>
+                          handleOptionSelect(title, fields, selectedOption)
+                        }
                         openKey={openKey}
                         setOpenKey={setOpenKey}
                         isMandatory={false}
