@@ -24,6 +24,7 @@ const typeDef = {
     make: "",
     model: "",
     year: "",
+    askingPrice:""
   },
   basics: {
     type: "",
@@ -212,6 +213,7 @@ export default function TrailersAdvert() {
     make: "",
     model: "",
     year: "",
+    askingPrice:""
   });
   const [basics, setBasics] = useState({
     type: "",
@@ -395,24 +397,26 @@ export default function TrailersAdvert() {
 
   const filters = {
     identification,
-    basics,
-    constructionMaterials,
-    maintenanceFeatures,
-    userFeatures,
     specialFeatures,
+    constructionMaterials,
+    basics,
+    userFeatures,
+    securityFeatures,
     additionalAccessories,
     customizationOptions,
     axlesAndSuspension,
-    tyresAndWheels,
+    loadingAndTransportFeatures,
     brakes,
     winchAndWrinchAccessories,
     lightingAndElectrical,
     acessories,
-    loadingAndTransportFeatures,
-    securityFeatures,
-    environmentalAndCorrosionResistance,
     performanceAndHandling,
+    documentation,
+    tyresAndWheels,
     tongue,
+    regulatoryCompliance,
+    maintenanceFeatures,
+    environmentalAndCorrosionResistance,
   };
 
   const setStateFunctions = {
@@ -529,7 +533,7 @@ export default function TrailersAdvert() {
   }, [allSelectedOptions, page]);
 
   return (
-    <Container>
+    <Container className="mb-5">
       <Form>
         <Row>
           {Object.keys(filters).map((key) => (
@@ -544,7 +548,7 @@ export default function TrailersAdvert() {
                 </h6>
               </legend>
               {Object.keys(filters[key]).map((key2) => (
-                <Col xs={12} md={6} className="mb-2" key={key2}>
+                <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }} key={key2}>
                   <Form.Group>
                     <Col xs={3} md={12} className="mb-2">
                       <DropdownWithRadio
