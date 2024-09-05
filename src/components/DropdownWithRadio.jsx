@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { Form } from "react-bootstrap";
 import PropTypes from "prop-types";
+import "../components/Trailers/trailersAdvert.module.scss";
 
 const DropdownWithRadio = ({
   heading,
   title,
   options,
-  selectedOptions,
-  setSelectedOptions,
+  selectedOption,
+  setSelectedOption,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [inputText, setInputText] = useState("");
@@ -17,26 +18,9 @@ const DropdownWithRadio = ({
     setIsOpen((prev) => !prev);
   };
 
-  const inputHandler = (e) => {
-    setInputText(e.target.value);
-    console.log(inputText);
-  };
-
+  // Handle radio option selection
   const handleOptionChange = (optionName) => {
-    console.log(optionName);
-    console.log(heading);
-    if (selectedOptions[optionName] !== undefined) {
-      setSelectedOptions((prev) => {
-        delete prev[optionName];
-        console.log(prev);
-        return { ...prev };
-      });
-    } else {
-      setSelectedOptions((prev) => {
-        return { ...prev, [optionName]: heading };
-      });
-      console.log(selectedOptions);
-    }
+    setSelectedOption(optionName);  // Single selection
   };
 
   useEffect(() => {
@@ -58,7 +42,6 @@ const DropdownWithRadio = ({
         onClick={handleDropdownToggle}
         aria-expanded={isOpen}
         aria-controls="dropdown-content"
-        style={{ marginBottom: "10px" }}
       >
         {title}
         <span className={`dropdown-icon ${isOpen ? "open" : ""}`}>
@@ -79,12 +62,6 @@ const DropdownWithRadio = ({
       </div>
       {isOpen && (
         <div>
-        {
-          options.length > 5 ? (
-        <input type="text" placeholder="Search.." id="myInput" style={
-          {width: "100%", padding: "8px 0px 8px 14px", margin: "0px 0 12px 0", display: "inline-block", border: "1px solid #fff", borderRadius: "4px", outline: "none", boxSizing: "", backgroundColor: "#f5f5f5"}
-        }  value={inputText}  onChange={inputHandler}></input>) : null
-        }
           <div id="dropdown-content" className="custom-dropdown-content">
             <div className="custom-dropdown-options">
               <Form>
@@ -92,10 +69,10 @@ const DropdownWithRadio = ({
                   list.map((item) => (
                     <div key={item[0]} className="custom-dropdown-option">
                       <Form.Check
-                        type="checkbox"
-                        name={`checkbox-options`}
-                        label={`${item[0]} (${item[1]})`}
-                        checked={Boolean(selectedOptions[item[0]])}
+                        type="radio"
+                        name={`radio-options-${heading}`}
+                        label={`${item[0]}`}
+                        checked={selectedOption === item[0]}
                         onChange={() => handleOptionChange(item[0])}
                       />
                     </div>
@@ -119,8 +96,8 @@ DropdownWithRadio.propTypes = {
   subheading: PropTypes.string,
   title: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(PropTypes.array).isRequired,
-  selectedOptions: PropTypes.object.isRequired,
-  setSelectedOptions: PropTypes.func.isRequired,
+  selectedOption: PropTypes.string.isRequired,  // Single selection state
+  setSelectedOption: PropTypes.func.isRequired,  // Setter for single selection
 };
 
 export default DropdownWithRadio;

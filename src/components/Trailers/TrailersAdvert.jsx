@@ -2,6 +2,7 @@ import { Form, Container, Row, Col } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import DropdownWithRadio from "../DropdownWithRadio";
 import Loader from "../Loader";
+import "./trailersAdvert.module.scss";
 
 const makeString = (str) => {
   var newStr = "";
@@ -204,7 +205,7 @@ const typeDef = {
 };
 
 export default function TrailersAdvert() {
-  const [page, setPage] = useState(1);
+  const [openKey, setOpenKey] = useState(null);
   const [loading, setLoading] = useState(true);
   const [allSelectedOptions, setAllSelectedOptions] = useState("");
   const [identification, setIdentification] = useState({
@@ -444,17 +445,30 @@ export default function TrailersAdvert() {
     paymentTerms: setPaymentTerms,
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    try {
+      // if (checkRequired()) {
+        // If no errors, proceed with form submission logic
+        // console.log("001 Form is valid, submitting...", form);
+        // localStorage.setItem("advertise_engine", JSON.stringify(form));
+      // } else {
+      //   console.log("001 Form has errors, not submitting.", error);
+      // }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   function setFilters(key, data) {
     const setStateFunction = setStateFunctions[key];
-    console.log(key);
-    console.log(data);
+    console.log("001 Key---",key);
+    console.log("001 Data---",data);
     if (setStateFunction) {
       setStateFunction(data);
     } else {
       console.error(`No setState function found for key: ${key}`);
     }
-
-    console.log("Data fetched from API", filters);
+    console.log("001 Data fetched from API---", filters);
   }
 
   const cacheKey = "trailersFilterData";
@@ -490,21 +504,19 @@ export default function TrailersAdvert() {
     const cachedData = localStorage.getItem(cacheKey);
     if (cachedData) {
       setFilters(JSON.parse(cachedData));
-      console.log("Data fetched from cache", JSON.parse(cachedData));
+      console.log("001 Data fetched from cache---", JSON.parse(cachedData));
     } else {
       // Fetch data if not cached
       fetchFilterData();
     }
-
-    console.log(filters);
+    console.log("001 Filters---",filters);
   }, "");
 
   const [trailers, setTrailers] = useState("");
   useEffect(() => {
     setLoading(true);
     let currInfo = {
-      selectedOptions: allSelectedOptions,
-      page: page,
+      selectedOptions: allSelectedOptions
     };
     const fetchTrailerData = async () => {
       try {
@@ -515,48 +527,49 @@ export default function TrailersAdvert() {
           },
           body: JSON.stringify(currInfo),
         });
-
         const data = await response.json();
-        console.log(data);
+        // console.log("001 Data---->",data);
         setTrailers(data.res[0]);
-        // console.log("trailers", trailers);
+        console.log("001 trailers", trailers); 
       } catch (err) {
         console.log(err);
       } finally {
         setLoading(false);
-
         console.log("done");
       }
     };
 
     fetchTrailerData();
-  }, [allSelectedOptions, page]);
+  }, [allSelectedOptions]);
 
   return (
     <Container className="mb-5">
       <Form>
         <Row>
-          {Object.keys(filters).map((key) => (
-            <Col md={6} key={key}>
+          {Object.keys(filters).map((title) => (
+            <Col md={6} key={title} className="mt-2">
               <legend className="fieldset-legend">
                 <h6
                   style={{
                     padding: "15px 0px 0px 0px",
                   }}
                 >
-                  {makeString(key)}
+                  {makeString(title)}
                 </h6>
               </legend>
-              {Object.keys(filters[key]).map((key2) => (
-                <Col md={12} className="mt-4 mr-3" style={{ width: "480px" }} key={key2}>
+              {Object.keys(filters[title]).map((fields) => (
+                <Col md={12} className="mt-4 mr-3" key={fields}>
                   <Form.Group>
                     <Col xs={3} md={12} className="mb-2">
                       <DropdownWithRadio
-                        heading={key2}
-                        title={makeString(key2)}
-                        options={filters[key][key2]}
+                        heading={fields}
+                        title={makeString(fields)}
+                        options={filters[title][fields]}
                         selectedOptions={allSelectedOptions}
                         setSelectedOptions={setAllSelectedOptions}
+                        openKey={openKey}
+                        setOpenKey={setOpenKey}
+                        isMandatory={false}
                       />
                     </Col>
                   </Form.Group>
@@ -566,6 +579,29 @@ export default function TrailersAdvert() {
           ))}
         </Row>
       </Form>
+        <div className="d-flex justify-content-center p-4 pt-5">
+          <button
+            type="button"
+            className="btn btn-success p-3"
+            style={{
+              backgroundColor: "#971e28",
+              color: "#fff",
+              padding: "8px 32px",
+              border: "0px none",
+              borderRadius: 30,
+              textTransform: "uppercase",
+              marginBottom: 8,
+              width: "50%",
+              cursor: "pointer",
+              transition: "all .5s ease",
+            }}
+            name="Trailers-submit"
+            id="Trailers-submit"
+            onClick={handleSubmit}
+          >
+            Submit
+          </button>
+        </div>
     </Container>
   );
 }
