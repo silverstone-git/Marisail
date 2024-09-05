@@ -215,7 +215,7 @@ export default function TrailersAdvert() {
   });
   const [basics, setBasics] = useState({
     type: "",
-    grossVehicleWeightRating: "",
+    grossVehicleWeightRating: "", //
     loadCapacity: "",
     length: "",
     width: "",
@@ -227,19 +227,27 @@ export default function TrailersAdvert() {
     frameCoating: "",
     frameCrossmemberType: "",
     frameWeldType: "",
+    maximumAngleOfApproach: "", //
     floorMaterial: "",
     sidesMaterial: "",
     roofMaterial: "",
   });
   const [maintenanceFeatures, setMaintenanceFeatures] = useState({
+    greasePoints: "", //
     bearingType: "",
+    maintenanceSchedule: "", //
   });
   const [userFeatures, setUserFeatures] = useState({
+    storage: "", //
     tieDownPoints: "",
+    toolBox: "", //
     bumperType: "",
   });
   const [specialFeatures, setSpecialFeatures] = useState({
+    hydraulicTilt: "", //
+    extendableTongue: "", //
     adjustableDeckHeight: "",
+    detachableSidePanels: "", //
   });
   const [additionalAccessories, setAdditionalAccessories] = useState({
     rampType: "",
@@ -250,13 +258,18 @@ export default function TrailersAdvert() {
   });
   const [customizationOptions, setCustomizationOptions] = useState({
     color: "",
+    decals: "", //
+    storageBox: "", //
+    lightingPackage: "", //
+    suspensionUpgrade: "", //
   });
-
   const [axlesAndSuspension, setAxlesAndSuspension] = useState({
     axleType: "",
     axleCapacity: "",
     axleSealType: "",
     axleHubSize: "",
+    axlePosition: "", //
+    dropAxleOption: "", //
     suspensionType: "",
     suspensionCapacity: "",
     suspensionAdjustment: "",
@@ -266,62 +279,91 @@ export default function TrailersAdvert() {
     tyreLoadRange: "",
     tyreType: "",
     wheelType: "",
+    wheelBoltPattern: "", //
+    hubLubricationSystem: "", //
   });
   const [brakes, setBrakes] = useState({
     brakeType: "",
+    brakeActuator: "",
+    brakeLineMaterial: "",
+    brakeDrumDiameter: "",
     brakeFluidType: "",
+    brakes: "",
     couplerSize: "",
     couplerType: "",
     couplerLockType: "",
+    hitchClass: "",
     hitchReceiverSize: "",
+    safetyChains: "",
+    breakawaySystem: "",
   });
   const [winchAndWrinchAccessories, setWinchAndWrinchAccessories] = useState({
     winchType: "",
     winchCapacity: "",
+    winchRopeLength: "",
+    winchDrumMaterial: "",
+    winchGearRatio: "",
+    winchRemoteControl: "",
     winchBrakeType: "",
     winchCableType: "",
+    winchStrapLength: "",
+    winchHandleLength: "",
+    winchMounting: "",
   });
-
   const [lightingAndElectrical, setLightingAndElectrical] = useState({
+    lighting: "",
+    lightMountingPosition: "",
     lightType: "",
     electricalConnectorType: "",
     electricalWiringType: "",
     batteryType: "",
     batteryChargerType: "",
   });
-
   const [acessories, setAcessories] = useState({
+    spareTyreCarrier: "",
     spareTyreSize: "",
+    spareTyreMountingLocation: "",
     jackType: "",
     jackWheelType: "",
     jackCapacity: "",
     jackLiftHeight: "",
   });
-
   const [loadingAndTransportFeatures, setLoadingAndTransportFeatures] =
     useState({
       loadingSystem: "",
+      bunks: "",
+      bunkMaterial: "",
+      bunkWidth: "",
       bunkHeightAdjustment: "",
+      bunkMountingBracketMaterial: "",
+      rollers: "",
+      rollerMaterial: "",
+      rollerAxleDiameter: "",
     });
-
   const [securityFeatures, setSecurityFeatures] = useState({
+    wheelLocks: "",
     lockType: "",
+    alarmSystem: "",
     gpsTrackingDevice: "",
   });
-
   const [
     environmentalAndCorrosionResistance,
     setEnvironmentalAndCorrosionResistance,
   ] = useState({
     corrosionProtection: "",
+    rustInhibitors: "",
   });
   const [performanceAndHandling, setPerformanceAndHandling] = useState({
+    maximumSpeedRating: "",
     turningRadius: "",
   });
   const [tongue, setTongue] = useState({
+    tongueMaterial: "",
+    tongueShape: "",
     tongueJackWheelSize: "",
     tongueJackType: "",
     tongueWeight: "",
+    tongueWeightRatio: "",
   });
   const [documentation, setDocumentation] = useState({
     ownerManual: "",
@@ -492,32 +534,30 @@ export default function TrailersAdvert() {
         <Row>
           {Object.keys(filters).map((key) => (
             <Col md={6} key={key}>
-              {/* <fieldset> */}
-                <legend className="fieldset-legend">
-                  <h6
-                    style={{
-                      padding: "15px 0px 0px 0px",
-                    }}
-                  >
-                    {makeString(key)}
-                  </h6>
-                </legend>
-                  {Object.keys(filters[key]).map((key2) => (
-                    <Col xs={12} md={6} className="mb-2" key={key2}>
-                      <Form.Group>
-                        <Col xs={3} md={12} className="mb-2">
-                          <DropdownWithRadio
-                            heading={key2}
-                            title={makeString(key2)}
-                            options={filters[key][key2]}
-                            selectedOptions={allSelectedOptions}
-                            setSelectedOptions={setAllSelectedOptions}
-                          />
-                        </Col>
-                      </Form.Group>
+              <legend className="fieldset-legend">
+                <h6
+                  style={{
+                    padding: "15px 0px 0px 0px",
+                  }}
+                >
+                  {makeString(key)}
+                </h6>
+              </legend>
+              {Object.keys(filters[key]).map((key2) => (
+                <Col xs={12} md={6} className="mb-2" key={key2}>
+                  <Form.Group>
+                    <Col xs={3} md={12} className="mb-2">
+                      <DropdownWithRadio
+                        heading={key2}
+                        title={makeString(key2)}
+                        options={filters[key][key2]}
+                        selectedOptions={allSelectedOptions}
+                        setSelectedOptions={setAllSelectedOptions}
+                      />
                     </Col>
-                  ))}
-              {/* </fieldset> */}
+                  </Form.Group>
+                </Col>
+              ))}
             </Col>
           ))}
         </Row>
