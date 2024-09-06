@@ -138,7 +138,6 @@ trailersRouter.post("/relevant_data", async (req, res) => {
       const [columns] = await connection.query("SHOW COLUMNS FROM ??", [
         tableName,
       ]);
-      results[tableName] = {};
       for (let column of columns) {
         const columnName = column.Field;
         if (columnName != "Trailer_ID") {
@@ -151,7 +150,7 @@ trailersRouter.post("/relevant_data", async (req, res) => {
               columnName,
             ]
           );
-          results[columnName] = rows.map((row) => row[columnName]);
+          results[TRAILERS_ADVERT.find((item) => item.columnName === columnName)?.key] = rows.map((row) => row[columnName]);
         }
       }
     }

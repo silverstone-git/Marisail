@@ -504,18 +504,15 @@ export default function TrailersAdvert() {
     try {
       setLoading(true);
       const promises = Object.keys(sections).map(async (key) => {
-        // console.log("001 Key----",key);
-        if (key == "identification") {
-          const response = await fetch(`${URL}trailers`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(sections[key]),
-          });
-          const data = await response.json();
-          return { key, data: data.res };
-        }
+        const response = await fetch(`${URL}trailers`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(sections[key]),
+        });
+        const data = await response.json();
+        return { key, data: data.res };
       });
       const results = await Promise.all(promises);
       results.forEach(({ key, data }) => {
@@ -531,28 +528,6 @@ export default function TrailersAdvert() {
   const fetchRelevantOptions = async (category, Key) => {
     try {
       setLoading(true);
-      // console.log("001 SECTIONS--",sections);
-      // const promises = Object.keys(sections).map(async (key) => {
-      //   console.log("001 KEY--",key);
-      //   if (key != "identification") {
-      //     const response = await fetch(`${URL}relevant_data`, {
-      //       method: "POST",
-      //       headers: {
-      //         "Content-Type": "application/json",
-      //       },
-      //       body: JSON.stringify({data:allSelectedOptions}),
-      //     });
-      //     const data = await response.json();
-      //     console.log("001 Data--",data.result);
-          
-      //     return { key, data: data.result };
-      //   }
-      // });
-      // const results = await Promise.all(promises);
-      // results.forEach(({ key, data }) => {
-      //   setPageData(key, data);
-      // });
-      console.log("001 all selected options--", allSelectedOptions);
       const response = await fetch(`${URL}relevant_data`, {
         method: "POST",
         headers: {
@@ -561,17 +536,21 @@ export default function TrailersAdvert() {
         body: JSON.stringify({ allSelectedOptions }),
       });
       const data = await response.json();
-      setPageData(category, {
-        ...sections[category],
-        [Key]: data.result,
-      });
+      // setPageData(category, {
+      //   ...sections[category],
+      //   [Key]: data.result,
+      // });
     } catch (error) {
       console.error("Error fetching other section:", error);
     } finally {
       setLoading(false);
     }
   };
-  const fetchIdentificationSectionOptions = async (category, selectedOption, Key) => {
+  const fetchIdentificationSectionOptions = async (
+    category,
+    selectedOption,
+    Key
+  ) => {
     try {
       setLoading(true);
       const tableName = "Trailers_ID";
@@ -595,8 +574,6 @@ export default function TrailersAdvert() {
           make: selectedOption,
         };
       }
-      console.log("001 request Body--",requestBody);
-
       // Ensure fetchColumn is set before making the API call
       // if (!fetchColumn) {
       //   console.error("Invalid Key or fetchColumn is not set");

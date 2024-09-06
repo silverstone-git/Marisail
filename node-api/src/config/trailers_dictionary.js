@@ -82,6 +82,7 @@ export const TRAILERS_ADVERT = [
     },
     { key: "toolBox", columnName: "Tool_Box", tableName: "Construction" },
     { key: "bumperType", columnName: "Bumper", tableName: "Construction" },
+    { key: "userFeatures", columnName: "User_Features", tableName: "Construction" },
 
     {
         key: "hydraulicTilt",
@@ -150,13 +151,13 @@ export const TRAILERS_ADVERT = [
         tableName: "Axles",
     },
 
-    { key: "tyreSize", columnName: "Tyre", tableName: "Tyres_Brakes" },
+    { key: "tyreSize", columnName: "Tyre_Size", tableName: "Tyres_Brakes" },
     {
         key: "tyreLoadRange",
         columnName: "Tyre_Load_Range",
         tableName: "Tyres_Brakes",
     },
-    { key: "tyreType", columnName: "Tyre", tableName: "Tyres_Brakes" },
+    { key: "tyreType", columnName: "Tyre_Type", tableName: "Tyres_Brakes" },
     { key: "wheelType", columnName: "Wheel", tableName: "Tyres_Brakes" },
     {
         key: "wheelBoltPattern",
@@ -191,8 +192,8 @@ export const TRAILERS_ADVERT = [
         tableName: "Tyres_Brakes",
     },
     { key: "brakes", columnName: "Brakes", tableName: "Tyres_Brakes" },
-    { key: "couplerSize", columnName: "Coupler", tableName: "Tyres_Brakes" },
-    { key: "couplerType", columnName: "Coupler", tableName: "Tyres_Brakes" },
+    { key: "couplerSize", columnName: "Coupler_Size", tableName: "Tyres_Brakes" },
+    { key: "couplerType", columnName: "Coupler_Type", tableName: "Tyres_Brakes" },
     {
         key: "couplerLockType",
         columnName: "Coupler_Lock",
@@ -299,7 +300,7 @@ export const TRAILERS_ADVERT = [
     { key: "spareTyreSize", columnName: "Spare_Tyre", tableName: "Accessories" },
     {
         key: "spareTyreMountingLocation",
-        columnName: "Spare_Tyre_Location",
+        columnName: "Spare_Tyre_Mounting_Location",
         tableName: "Accessories",
     },
     { key: "jackType", columnName: "Jack", tableName: "Accessories" },
@@ -342,7 +343,7 @@ export const TRAILERS_ADVERT = [
     },
     {
         key: "bunkMountingBracketMaterial",
-        columnName: "Bunk_Mounting_Bracket",
+        columnName: "Bunk_Mounting_Bracket_Material",
         tableName: "Loading_Transport_Features",
     },
     {
@@ -366,7 +367,7 @@ export const TRAILERS_ADVERT = [
         columnName: "Wheel_Locks",
         tableName: "Security_Features",
     },
-    { key: "lockType", columnName: "Lock", tableName: "Security_Features" },
+    { key: "lockType", columnName: "Security_Lock", tableName: "Security_Features" },
     { key: "alarmSystem", columnName: "Alarm", tableName: "Security_Features" },
     {
         key: "gpsTrackingDevice",
@@ -409,19 +410,19 @@ export const TRAILERS_ADVERT = [
 
     {
         key: "ownerManual",
-        columnName: "Owners_Manual",
+        columnName: "owners_manual",
         tableName: "Documentation",
     },
-    { key: "warranty", columnName: "Warranty", tableName: "Documentation" },
+    { key: "warranty", columnName: "warranty", tableName: "Documentation" },
 
     {
         key: "dotCompliance",
-        columnName: "DOT_Compliance",
+        columnName: "Dot_Compliance",
         tableName: "Regulatory",
     },
     {
         key: "natmCertification",
-        columnName: "NATM_Certification",
+        columnName: "Natm_Certification",
         tableName: "Regulatory",
     },
     { key: "euTypeApproval", columnName: "EU_Approval", tableName: "Regulatory" },
