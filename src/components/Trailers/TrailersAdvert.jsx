@@ -206,6 +206,7 @@ const typeDef = {
 
 export default function TrailersAdvert() {
   const hasFetched = useRef(false);
+  const [trailers, setTrailers] = useState("");
   const handleOptionSelect = (category, field, selectedOption) => {
     setAllSelectedOptions((prevState) => ({
       ...prevState,
@@ -469,7 +470,7 @@ export default function TrailersAdvert() {
       console.log(error);
     }
   };
-  function setFilters(key, data) {
+  function setPageData(key, data) {
     const setStateFunction = setStateFunctions[key];
     if (setStateFunction) {
       setStateFunction(data);
@@ -497,7 +498,7 @@ export default function TrailersAdvert() {
       });
       const results = await Promise.all(promises);
       results.forEach(({ key, data }) => {
-        setFilters(key, data);
+        setPageData(key, data);
       });
     } catch (err) {
       console.log(err);
@@ -510,28 +511,14 @@ export default function TrailersAdvert() {
   useEffect(() => {
     const cachedData = localStorage.getItem(cacheKey);
     if (cachedData) {
-      setFilters(JSON.parse(cachedData));
+      setPageData(JSON.parse(cachedData));
     } else {
       if (!hasFetched.current) {
         fetchDistinctData();
         hasFetched.current = true;
       }
     }
-  }, [setFilters]);
-
-  const [trailers, setTrailers] = useState("");
-  useEffect(() => {
-    const fetchTrailerData = async () => {
-      try {
-      } catch (err) {
-        console.log(err);
-      } finally {
-        console.log("done");
-      }
-    };
-
-    fetchTrailerData();
-  }, [allSelectedOptions]);
+  }, [setPageData]);
 
   const handleInputChange = (title, fieldKey, newValue) => {
     setTrailers((prevTrailers) => ({
