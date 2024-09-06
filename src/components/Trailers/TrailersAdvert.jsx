@@ -207,15 +207,6 @@ const typeDef = {
 export default function TrailersAdvert() {
   const hasFetched = useRef(false);
   const [trailers, setTrailers] = useState("");
-  const handleOptionSelect = (category, field, selectedOption) => {
-    setAllSelectedOptions((prevState) => ({
-      ...prevState,
-      [category]: {
-        ...prevState[category],
-        [field]: selectedOption,
-      },
-    }));
-  };
   const [openKey, setOpenKey] = useState(null);
   const [loading, setLoading] = useState(false);
   const [allSelectedOptions, setAllSelectedOptions] = useState({});
@@ -455,6 +446,21 @@ export default function TrailersAdvert() {
     regulatoryCompliance: setRegulatoryCompliance,
     paymentTerms: setPaymentTerms,
   };
+  
+  const handleOptionSelect = (category, field, selectedOption) => {
+    setAllSelectedOptions((prevState) => ({
+      ...prevState,
+      [category]: {
+        ...prevState[category],
+        [field]: selectedOption,
+      },
+    }));
+
+    if (category === "identification" && (field === "trailerId" || field === "manufacturer" || field === "make" || field === "model")) {
+      // Fetch manufacturers based on selected trailerId
+      fetchIdentificationSectionOptions(selectedOption, field);
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -486,15 +492,18 @@ export default function TrailersAdvert() {
     try {
       setLoading(true);
       const promises = Object.keys(sections).map(async (key) => {
-        const response = await fetch(`${URL}trailers`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(sections[key]),
-        });
-        const data = await response.json();
-        return { key, data: data.res };
+        // console.log("001 Key----",key);
+        if(key =='identification'){
+          const response = await fetch(`${URL}trailers`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(sections[key]),
+          });
+          const data = await response.json();
+          return { key, data: data.res };
+        }
       });
       const results = await Promise.all(promises);
       results.forEach(({ key, data }) => {
@@ -505,6 +514,43 @@ export default function TrailersAdvert() {
     } finally {
       setLoading(false);
       console.log("done");
+    }
+  };
+  const fetchIdentificationSectionOptions = async (trailerId, Key) => {
+    try {
+      setLoading(true);
+      const tableName = "Trailers_ID";
+      let fetchColumn;
+      if (Key == "trailerId") {
+        fetchColumn= "manufacturer"
+      } else if (Key == "manufacturer") {
+        fetchColumn= "make"
+      } else if (Key == "make") {
+        fetchColumn= "model"
+      } else if (Key == "model") {
+        //call api for fetching other sections
+      } 
+      const response = await fetch(`${URL}${tableName}/${fetchColumn}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ trailerId }),
+      });
+      const data = await response.json();
+      console.log("001 Data---",data);
+      // Update the 'manufacturer' options in the state
+      // setSection((prevState) => ({
+      //   ...prevState,
+      //   identification: {
+      //     ...prevState.identification,
+      //     manufacturer: data.manufacturers,
+      //   },
+      // }));
+    } catch (error) {
+      console.error("Error fetching manufacturers:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
