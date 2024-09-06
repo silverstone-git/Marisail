@@ -456,9 +456,13 @@ export default function TrailersAdvert() {
       },
     }));
 
-    if (category === "identification" && (field === "trailerId" || field === "manufacturer" || field === "make" || field === "model")) {
+    if (category === "identification" && (field === "trailerId" || field === "manufacturer" || field === "make")) {
       // Fetch manufacturers based on selected trailerId
       fetchIdentificationSectionOptions(category,selectedOption, field);
+    }
+
+    if(category === "identification" && field === "model"){
+      fetchRelevantOptions(category, field);
     }
   };
 
@@ -521,6 +525,28 @@ export default function TrailersAdvert() {
       console.log("done");
     }
   };
+  const fetchRelevantOptions = async (category, Key) => {
+    try {
+      console.log("001 all selected options--",allSelectedOptions);
+      setLoading(true);
+      const response = await fetch(`${URL}relevant_data`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ allSelectedOptions }),
+      });
+      const data = await response.json();
+      setPageData(category, {
+        ...sections[category],
+        [Key]: data.result,
+      });
+    } catch (error) {
+      console.error("Error fetching other section:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
   const fetchIdentificationSectionOptions = async (category,selectedValue, Key) => {
     try {
       setLoading(true);
@@ -532,15 +558,13 @@ export default function TrailersAdvert() {
         fetchColumn= "make"
       } else if (Key == "make") {
         fetchColumn= "model"
-      } else if (Key == "model") {
-        //call api for fetching other sections
-      } 
+      }
       const response = await fetch(`${URL}${tableName}/${fetchColumn}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ selectedValue }),
+        body: JSON.stringify({ [Key]:selectedValue }),
       });
       const data = await response.json();
       setPageData(category, {
