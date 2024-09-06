@@ -446,7 +446,7 @@ export default function TrailersAdvert() {
     regulatoryCompliance: setRegulatoryCompliance,
     paymentTerms: setPaymentTerms,
   };
-  
+
   const handleOptionSelect = (category, field, selectedOption) => {
     setAllSelectedOptions((prevState) => ({
       ...prevState,
@@ -456,12 +456,15 @@ export default function TrailersAdvert() {
       },
     }));
 
-    if (category === "identification" && (field === "trailerId" || field === "manufacturer" || field === "make")) {
+    if (
+      category === "identification" &&
+      (field === "trailerId" || field === "manufacturer" || field === "make")
+    ) {
       // Fetch manufacturers based on selected trailerId
-      fetchIdentificationSectionOptions(category,selectedOption, field);
+      fetchIdentificationSectionOptions(category, selectedOption, field);
     }
 
-    if(category === "identification" && field === "model"){
+    if (category === "identification" && field === "model") {
       fetchRelevantOptions(category, field);
     }
   };
@@ -481,8 +484,8 @@ export default function TrailersAdvert() {
     }
   };
   function setPageData(key, newData) {
-      console.log("001 Page data key---",key);
-      console.log("001 Page data---",newData);
+    console.log("001 Page data key---", key);
+    console.log("001 Page data---", newData);
     const setStateFunction = setStateFunctions[key];
     if (setStateFunction) {
       setStateFunction((prevState) => ({
@@ -502,7 +505,7 @@ export default function TrailersAdvert() {
       setLoading(true);
       const promises = Object.keys(sections).map(async (key) => {
         // console.log("001 Key----",key);
-        if(key =='identification'){
+        if (key == "identification") {
           const response = await fetch(`${URL}trailers`, {
             method: "POST",
             headers: {
@@ -519,7 +522,7 @@ export default function TrailersAdvert() {
         setPageData(key, data);
       });
     } catch (err) {
-      console.log(err);
+      console.error(err);
     } finally {
       setLoading(false);
       console.log("done");
@@ -527,7 +530,7 @@ export default function TrailersAdvert() {
   };
   const fetchRelevantOptions = async (category, Key) => {
     try {
-      console.log("001 all selected options--",allSelectedOptions);
+      console.log("001 all selected options--", allSelectedOptions);
       setLoading(true);
       const response = await fetch(`${URL}relevant_data`, {
         method: "POST",
@@ -547,24 +550,43 @@ export default function TrailersAdvert() {
       setLoading(false);
     }
   };
-  const fetchIdentificationSectionOptions = async (category,selectedValue, Key) => {
+  const fetchIdentificationSectionOptions = async (category, selectedOption, Key) => {
     try {
       setLoading(true);
       const tableName = "Trailers_ID";
       let fetchColumn;
-      if (Key == "trailerId") {
-        fetchColumn= "manufacturer"
-      } else if (Key == "manufacturer") {
-        fetchColumn= "make"
-      } else if (Key == "make") {
-        fetchColumn= "model"
+      let requestBody = {};
+
+      if (Key === "trailerId") {
+        fetchColumn = "manufacturer";
+        requestBody = { trailerId: selectedOption };
+      } else if (Key === "manufacturer") {
+        fetchColumn = "make";
+        requestBody = {
+          trailerId: allSelectedOptions[category]?.trailerId,
+          manufacturer: selectedOption,
+        };
+      } else if (Key === "make") {
+        fetchColumn = "model";
+        requestBody = {
+          trailerId: allSelectedOptions[category]?.trailerId,
+          manufacturer: allSelectedOptions[category]?.manufacturer,
+          make: selectedOption,
+        };
       }
+      console.log("001 request Body--",requestBody);
+
+      // Ensure fetchColumn is set before making the API call
+      // if (!fetchColumn) {
+      //   console.error("Invalid Key or fetchColumn is not set");
+      //   return;
+      // }
       const response = await fetch(`${URL}${tableName}/${fetchColumn}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ [Key]:selectedValue }),
+        body: JSON.stringify({ requestBody }),
       });
       const data = await response.json();
       setPageData(category, {

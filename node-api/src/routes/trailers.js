@@ -52,33 +52,25 @@ trailersRouter.post("/:tableName/:fetchColumn", async (req, res) => {
     TRAILERS_ADVERT.forEach((item) => {
       const key = item.key;
       const columnName = item.columnName;
-      if (req.body[key]) {
-        queryParams[columnName] = req.body[key];
+      if (req.body.requestBody[key]) {
+        queryParams[columnName] = req.body.requestBody[key];
       }
     });
-
     // Dynamically construct filter options
     for (const [key, value] of Object.entries(queryParams)) {
       if (value) {
         filters.push(`${key} = '${value}'`);
       }
     }
+
     filterOptions = filters.length > 0 ? `WHERE ${filters.join(" AND ")}` : "";
-
-    // Get Trailer IDs based on the filter
-    const [trailerID] = await connection.query(
-      `SELECT DISTINCT Trailer_ID FROM Trailers_ID ${filterOptions} ORDER BY Trailer_ID`
-    );
-    if (trailerID.length === 0) {
-      return res.status(404).json({ ok: false, message: "No data found" });
-    }
-
     // Fetch distinct values for the given column and table
     const [rows] = await connection.query(
-      `SELECT DISTINCT ?? FROM ?? ${filterOptions} GROUP BY ?? ORDER BY count(*) DESC LIMIT 0,1`,
+      `SELECT DISTINCT ?? FROM ?? ${filterOptions} GROUP BY ?? ORDER BY ??`,
       [
         fetchColumnName.columnName,
         req.params.tableName,
+        fetchColumnName.columnName,
         fetchColumnName.columnName,
       ]
     );
@@ -95,25 +87,37 @@ trailersRouter.post("/:tableName/:fetchColumn", async (req, res) => {
   }
 });
 
-trailersRouter.post("/relevant_data/:tableName", async (req, res) => {
+trailersRouter.post("/relevant_data", async (req, res) => {
   let connection;
   try {
     let filterOptions = "";
     connection = await dbConnection.getConnection();
-    const filters = [];
-    console.log("Req Body----------------------------------",req.body);
+    const filters = [];   
+    let queryParams = {};    
+    let valid_tables = [
+      "Construction", 
+      "Trailer_Features", 
+      "Axles", 
+      "Tyres_Brakes", 
+      "Winches_Lighting", 
+      "Accessories", 
+      "Loading_Transport_Features", 
+      "Security_Features", 
+      "Corrosion_Resistance", 
+      "Performance_Handling", 
+      "Tongue", 
+      "Documentation", 
+      "Regulatory"
+    ]
     
-    const tableInfo = TRAILERS_ADVERT.find((item) => item.key === req.body.trailerId);
-    console.log("----------------Table Info---------------",tableInfo);
-    
-    // if (!tableInfo) continue;
-    const queryParams = {
-      trailerId: req.body.trailerId,
-      manufacturer: req.body.manufacturer,
-      make: req.body.make,
-      model: req.body.model,
-      year: req.body.year,
-    };
+    // Prepare query parameters based on the request body
+    TRAILERS_ADVERT.forEach((item) => {
+      const key = item.key;
+      const columnName = item.columnName;
+      if (req.body.allSelectedOptions.identification[key]) {
+        queryParams[columnName] = req.body.allSelectedOptions.identification[key];
+      }
+    });
 
     // Dynamically construct filter options
     for (const [key, value] of Object.entries(queryParams)) {
@@ -121,13 +125,11 @@ trailersRouter.post("/relevant_data/:tableName", async (req, res) => {
         filters.push(`${key} = '${value}'`);
       }
     }
-    filterOptions = filters.length > 0 ? `WHERE ${filters.join(" AND ")}` : "";
-    console.log("Dynamic Filters---",filterOptions);
-    
+    filterOptions = filters.length > 0 ? `WHERE ${filters.join(" AND ")}` : "";    
     let results = {};
     const [trailerID] = await connection.query(
       `SELECT DISTINCT Trailer_ID FROM Trailers_ID ${filterOptions} ORDER BY Trailer_ID`
-    );
+    );    
     if (trailerID.length === 0) {
       return res.status(404).json({ ok: false, message: "No data found" });
     }
@@ -140,10 +142,11 @@ trailersRouter.post("/relevant_data/:tableName", async (req, res) => {
         const columnName = column.Field;
         if (columnName != "Trailer_ID") {
           const [rows] = await connection.query(
-            `SELECT DISTINCT ?? FROM ?? ${filterOptions} GROUP BY ?? ORDER BY count(*) DESC LIMIT 0,1`,
+            `SELECT DISTINCT ?? FROM ?? where Trailer_ID IN (?) GROUP BY ?? ORDER BY count(*) DESC LIMIT 0,1`,
             [
               columnName,
               tableName,
+              trailerID.map((row) => row.Trailer_ID),
               columnName,
             ]
           );
@@ -161,7 +164,7 @@ trailersRouter.post("/relevant_data/:tableName", async (req, res) => {
 
 trailersRouter.get("/:tableName/:columnName", async (req, res) => {
   console.log(
-    "***************************TRAILES QUERY************************"
+    "***************************TRAILERS QUERY************************"
   );
   const { tableName, columnName } = req.params;
   const { manufacturer, make, model, year } = req.query;

@@ -9,7 +9,7 @@ const DropdownWithRadio = ({
   options,
   selectedOption,
   setSelectedOption,
-  isMandatory
+  isMandatory,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [inputText, setInputText] = useState("");
@@ -66,25 +66,23 @@ const DropdownWithRadio = ({
         <div>
           <div id="dropdown-content" className="custom-dropdown-content">
             <div className="custom-dropdown-options">
-              <Form>
-                {list.length > 0 ? (
-                  list.map((item) => (
-                    <div key={item[0]} className="custom-dropdown-option">
-                      <Form.Check
-                        type="radio"
-                        name={`radio-options-${heading}`}
-                        label={`${item[0]}`}
-                        checked={selectedOption === item[0]}
-                        onChange={() => handleOptionChange(item[0])}
-                      />
-                    </div>
-                  ))
-                ) : (
-                  <div className="custom-dropdown-no-results">
-                    No options available
+              {list.length > 0 ? (
+                list.map((item) => (
+                  <div key={item[0]} className="custom-dropdown-option">
+                    <Form.Check
+                      type="radio"
+                      name={`radio-options-${heading}`}
+                      label={`${item[0]}`}
+                      checked={selectedOption === item[0]}
+                      onChange={() => handleOptionChange(item[0])}
+                    />
                   </div>
-                )}
-              </Form>
+                ))
+              ) : (
+                <div className="custom-dropdown-no-results">
+                  No options available
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -100,7 +98,7 @@ DropdownWithRadio.propTypes = {
   options: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.array),
-    PropTypes.object
+    PropTypes.object,
   ]),
   selectedOption: PropTypes.string.isRequired,
   setSelectedOption: PropTypes.func.isRequired,
