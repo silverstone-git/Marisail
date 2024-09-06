@@ -530,8 +530,29 @@ export default function TrailersAdvert() {
   };
   const fetchRelevantOptions = async (category, Key) => {
     try {
-      console.log("001 all selected options--", allSelectedOptions);
       setLoading(true);
+      // console.log("001 SECTIONS--",sections);
+      // const promises = Object.keys(sections).map(async (key) => {
+      //   console.log("001 KEY--",key);
+      //   if (key != "identification") {
+      //     const response = await fetch(`${URL}relevant_data`, {
+      //       method: "POST",
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //       },
+      //       body: JSON.stringify({data:allSelectedOptions}),
+      //     });
+      //     const data = await response.json();
+      //     console.log("001 Data--",data.result);
+          
+      //     return { key, data: data.result };
+      //   }
+      // });
+      // const results = await Promise.all(promises);
+      // results.forEach(({ key, data }) => {
+      //   setPageData(key, data);
+      // });
+      console.log("001 all selected options--", allSelectedOptions);
       const response = await fetch(`${URL}relevant_data`, {
         method: "POST",
         headers: {

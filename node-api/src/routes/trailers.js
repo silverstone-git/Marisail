@@ -88,12 +88,13 @@ trailersRouter.post("/:tableName/:fetchColumn", async (req, res) => {
 });
 
 trailersRouter.post("/relevant_data", async (req, res) => {
+  console.log("Req.Param---",req.body);
   let connection;
   try {
     let filterOptions = "";
     connection = await dbConnection.getConnection();
     const filters = [];   
-    let queryParams = {};    
+    let queryParams = {};
     let valid_tables = [
       "Construction", 
       "Trailer_Features", 
@@ -150,7 +151,7 @@ trailersRouter.post("/relevant_data", async (req, res) => {
               columnName,
             ]
           );
-          results[tableName][columnName] = rows.map((row) => row[columnName]);
+          results[columnName] = rows.map((row) => row[columnName]);
         }
       }
     }
