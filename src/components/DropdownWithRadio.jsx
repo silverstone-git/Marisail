@@ -9,6 +9,7 @@ const DropdownWithRadio = ({
   options,
   selectedOption,
   setSelectedOption,
+  isMandatory
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [inputText, setInputText] = useState("");
@@ -20,7 +21,7 @@ const DropdownWithRadio = ({
 
   // Handle radio option selection
   const handleOptionChange = (optionName) => {
-    setSelectedOption(optionName);  // Single selection
+    setSelectedOption(optionName);
   };
 
   useEffect(() => {
@@ -44,6 +45,7 @@ const DropdownWithRadio = ({
         aria-controls="dropdown-content"
       >
         {title}
+        {/* {isMandatory && <span className="text-danger">&nbsp;*</span>} */}
         <span className={`dropdown-icon ${isOpen ? "open" : ""}`}>
           <svg
             width="10"
@@ -95,9 +97,14 @@ DropdownWithRadio.propTypes = {
   heading: PropTypes.string.isRequired,
   subheading: PropTypes.string,
   title: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(PropTypes.array).isRequired,
-  selectedOption: PropTypes.string.isRequired,  // Single selection state
-  setSelectedOption: PropTypes.func.isRequired,  // Setter for single selection
+  options: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.array),
+    PropTypes.object
+  ]),
+  selectedOption: PropTypes.string.isRequired,
+  setSelectedOption: PropTypes.func.isRequired,
+  isMandatory: PropTypes.bool.isRequired,
 };
 
 export default DropdownWithRadio;

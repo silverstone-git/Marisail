@@ -21,7 +21,7 @@ const makeString = (str) => {
 
 const typeDef = {
   identification: {
-    marisailTrailerId: { value: "", type: "radio", mandatory: true },
+    trailerId: { value: "", type: "radio", mandatory: true },
     manufacturer: { value: "", type: "radio", mandatory: true },
     make: { value: "", type: "radio", mandatory: true },
     model: { value: "", type: "radio", mandatory: true },
@@ -219,7 +219,7 @@ export default function TrailersAdvert() {
   const [loading, setLoading] = useState(true);
   const [allSelectedOptions, setAllSelectedOptions] = useState({});
   const [identification, setIdentification] = useState({
-    marisailTrailerId: "",
+    trailerId: "",
     manufacturer: "",
     make: "",
     model: "",
@@ -471,25 +471,21 @@ export default function TrailersAdvert() {
   };
   function setFilters(key, data) {
     const setStateFunction = setStateFunctions[key];
-    console.log("001 Key---", key);
-    console.log("001 Data---", data);
     if (setStateFunction) {
       setStateFunction(data);
     } else {
       console.error(`No setState function found for key: ${key}`);
     }
-    console.log("001 Data fetched from API---", filters);
   }
 
   const cacheKey = "trailersFilterData";
-  const URL = "http://localhost:3001/api/search_trailer/";
+  const URL = "http://localhost:3001/api/trailers/";
 
-  // fetch all the count of the available columns
   var data;
   const fetchFilterData = async () => {
     for (const key of Object.keys(filters)) {
-      console.log(typeDef[key]);
       try {
+        setLoading(true)
         const response = await fetch(`${URL}trailers`, {
           method: "POST",
           headers: {
@@ -497,50 +493,44 @@ export default function TrailersAdvert() {
           },
           body: JSON.stringify(filters[key]),
         });
-
         data = await response.json();
-        // console.log(data.res);
         setFilters(key, data.res);
       } catch (err) {
         console.log(err);
       } finally {
+        setLoading(false)
         console.log("done");
       }
     }
-    console.log("Data fetched from API", filters);
   };
 
   useEffect(() => {
     const cachedData = localStorage.getItem(cacheKey);
     if (cachedData) {
       setFilters(JSON.parse(cachedData));
-      console.log("001 Data fetched from cache---", JSON.parse(cachedData));
     } else {
-      // Fetch data if not cached
       fetchFilterData();
     }
-    console.log("001 Filters---", filters);
-  }, "");
+  }, [setFilters]);
 
   const [trailers, setTrailers] = useState("");
   useEffect(() => {
     setLoading(true);
-    let currInfo = {
-      selectedOptions: allSelectedOptions,
-    };
+    // let currInfo = {
+    //   selectedOptions: allSelectedOptions,
+    // };
     const fetchTrailerData = async () => {
       try {
-        const response = await fetch(`${URL}trailersData`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(currInfo),
-        });
-        const data = await response.json();
-        // console.log("001 Data---->",data);
-        setTrailers(data.res[0]);
-        console.log("001 trailers", trailers);
+      //   const response = await fetch(`${URL}trailersData`, {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify(currInfo),
+      //   });
+      //   const data = await response.json();
+      //   setTrailers(data.res?.[0]);
+      //   console.log("001 data.res", data);
       } catch (err) {
         console.log(err);
       } finally {
@@ -574,13 +564,13 @@ export default function TrailersAdvert() {
                 </h6>
               </legend>
               {Object.keys(filters[title]).map((fieldKey) => {
-                const field = typeDef[title][fieldKey]; // Get field type info
+                const field = typeDef[title][fieldKey];
 
                 // Check if field exists and has a defined type
                 if (field && field.type === "radio") {
                   return (
                     <Col md={12} className="mt-4 mr-3" key={fieldKey}>
-                      <Form.Group>
+                      {/* <Form.Group> */}
                         <Col xs={3} md={12} className="mb-2">
                           <DropdownWithRadio
                             heading={fieldKey}
@@ -599,7 +589,7 @@ export default function TrailersAdvert() {
                             isMandatory={field.mandatory}
                           />
                         </Col>
-                      </Form.Group>
+                      {/* </Form.Group> */}
                     </Col>
                   );
                 } else if (field && field.type === "number") {
@@ -619,7 +609,6 @@ export default function TrailersAdvert() {
                     </Col>
                   );
                 }
-                // Render a different component or nothing for other field types
                 return null;
               })}
             </Col>
