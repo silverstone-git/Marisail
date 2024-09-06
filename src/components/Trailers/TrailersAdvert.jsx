@@ -1,5 +1,5 @@
 import { Form, Container, Row, Col } from "react-bootstrap";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import DropdownWithRadio from "../DropdownWithRadio";
 import Loader from "../Loader";
 // import "./trailersAdvert.module.scss";
@@ -206,6 +206,7 @@ const typeDef = {
 };
 
 export default function TrailersAdvert() {
+  const hasFetched = useRef(false);
   const handleOptionSelect = (category, field, selectedOption) => {
     setAllSelectedOptions((prevState) => ({
       ...prevState,
@@ -216,7 +217,7 @@ export default function TrailersAdvert() {
     }));
   };
   const [openKey, setOpenKey] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [allSelectedOptions, setAllSelectedOptions] = useState({});
   const [identification, setIdentification] = useState({
     trailerId: "",
@@ -481,11 +482,10 @@ export default function TrailersAdvert() {
   const cacheKey = "trailersFilterData";
   const URL = "http://localhost:3001/api/trailers/";
 
-  var data;
   const fetchFilterData = async () => {
-    for (const key of Object.keys(filters)) {
-      try {
-        setLoading(true)
+    try {
+      setLoading(true);
+      const promises = Object.keys(filters).map(async (key) => {
         const response = await fetch(`${URL}trailers`, {
           method: "POST",
           headers: {
@@ -493,14 +493,19 @@ export default function TrailersAdvert() {
           },
           body: JSON.stringify(filters[key]),
         });
-        data = await response.json();
-        setFilters(key, data.res);
-      } catch (err) {
-        console.log(err);
-      } finally {
-        setLoading(false)
-        console.log("done");
-      }
+        const data = await response.json();
+        return { key, data: data.res };
+      });
+
+      const results = await Promise.all(promises);
+      results.forEach(({ key, data }) => {
+        setFilters(key, data);
+      });
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+      console.log("done");
     }
   };
 
@@ -509,32 +514,20 @@ export default function TrailersAdvert() {
     if (cachedData) {
       setFilters(JSON.parse(cachedData));
     } else {
-      fetchFilterData();
+      if (!hasFetched.current) {
+        fetchFilterData();
+        hasFetched.current = true;
+      }
     }
   }, [setFilters]);
 
   const [trailers, setTrailers] = useState("");
   useEffect(() => {
-    setLoading(true);
-    // let currInfo = {
-    //   selectedOptions: allSelectedOptions,
-    // };
     const fetchTrailerData = async () => {
       try {
-      //   const response = await fetch(`${URL}trailersData`, {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify(currInfo),
-      //   });
-      //   const data = await response.json();
-      //   setTrailers(data.res?.[0]);
-      //   console.log("001 data.res", data);
       } catch (err) {
         console.log(err);
       } finally {
-        setLoading(false);
         console.log("done");
       }
     };
@@ -554,23 +547,26 @@ export default function TrailersAdvert() {
 
   return (
     <Container className="mb-5">
-      <Form>
-        <Row>
-          {Object.keys(filters).map((title) => (
-            <Col md={6} key={title} className="mt-2">
-              <legend className="fieldset-legend">
-                <h6 style={{ padding: "15px 0px 0px 0px" }}>
-                  {makeString(title)}
-                </h6>
-              </legend>
-              {Object.keys(filters[title]).map((fieldKey) => {
-                const field = typeDef[title][fieldKey];
+      {loading ? (
+        <Loader />
+      ) : (
+        <Form>
+          <Row>
+            {Object.keys(filters).map((title) => (
+              <Col md={6} key={title} className="mt-2">
+                <legend className="fieldset-legend">
+                  <h6 style={{ padding: "15px 0px 0px 0px" }}>
+                    {makeString(title)}
+                  </h6>
+                </legend>
+                {Object.keys(filters[title]).map((fieldKey) => {
+                  const field = typeDef[title][fieldKey];
 
-                // Check if field exists and has a defined type
-                if (field && field.type === "radio") {
-                  return (
-                    <Col md={12} className="mt-4 mr-3" key={fieldKey}>
-                      {/* <Form.Group> */}
+                  // Check if field exists and has a defined type
+                  if (field && field.type === "radio") {
+                    return (
+                      <Col md={12} className="mt-4 mr-3" key={fieldKey}>
+                        {/* <Form.Group> */}
                         <Col xs={3} md={12} className="mb-2">
                           <DropdownWithRadio
                             heading={fieldKey}
@@ -589,55 +585,56 @@ export default function TrailersAdvert() {
                             isMandatory={field.mandatory}
                           />
                         </Col>
-                      {/* </Form.Group> */}
-                    </Col>
-                  );
-                } else if (field && field.type === "number") {
-                  return (
-                    <Col md={12} className="mt-4 mr-3" key={fieldKey}>
-                      <InputComponentDynamic
-                        label={makeString(fieldKey)}
-                        value={trailers[title]?.[fieldKey] || ""}
-                        setValue={(e) =>
-                          handleInputChange(title, fieldKey, e.target.value)
-                        }
-                        formType="number"
-                        setOpenKey={setOpenKey}
-                        openKey={openKey}
-                        isMandatory={field.mandatory}
-                      />
-                    </Col>
-                  );
-                }
-                return null;
-              })}
-            </Col>
-          ))}
-        </Row>
-      </Form>
-      <div className="d-flex justify-content-center p-4 pt-5">
-        <button
-          type="button"
-          className="btn btn-success p-3"
-          style={{
-            backgroundColor: "#971e28",
-            color: "#fff",
-            padding: "8px 32px",
-            border: "0px none",
-            borderRadius: 30,
-            textTransform: "uppercase",
-            marginBottom: 8,
-            width: "50%",
-            cursor: "pointer",
-            transition: "all .5s ease",
-          }}
-          name="Trailers-submit"
-          id="Trailers-submit"
-          onClick={handleSubmit}
-        >
-          Submit
-        </button>
-      </div>
+                        {/* </Form.Group> */}
+                      </Col>
+                    );
+                  } else if (field && field.type === "number") {
+                    return (
+                      <Col md={12} className="mt-4 mr-3" key={fieldKey}>
+                        <InputComponentDynamic
+                          label={makeString(fieldKey)}
+                          value={trailers[title]?.[fieldKey] || ""}
+                          setValue={(e) =>
+                            handleInputChange(title, fieldKey, e.target.value)
+                          }
+                          formType="number"
+                          setOpenKey={setOpenKey}
+                          openKey={openKey}
+                          isMandatory={field.mandatory}
+                        />
+                      </Col>
+                    );
+                  }
+                  return null;
+                })}
+              </Col>
+            ))}
+          </Row>
+          <div className="d-flex justify-content-center p-4 pt-5">
+            <button
+              type="button"
+              className="btn btn-success p-3"
+              style={{
+                backgroundColor: "#971e28",
+                color: "#fff",
+                padding: "8px 32px",
+                border: "0px none",
+                borderRadius: 30,
+                textTransform: "uppercase",
+                marginBottom: 8,
+                width: "50%",
+                cursor: "pointer",
+                transition: "all .5s ease",
+              }}
+              name="Trailers-submit"
+              id="Trailers-submit"
+              onClick={handleSubmit}
+            >
+              Submit
+            </button>
+          </div>
+        </Form>
+      )}
     </Container>
   );
 }
