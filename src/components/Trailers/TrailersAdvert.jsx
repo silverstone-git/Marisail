@@ -15,7 +15,6 @@ const makeString = (str) => {
       newStr += str[i];
     }
   }
-  // console.log(newStr);
   return newStr;
 };
 
@@ -407,7 +406,7 @@ export default function TrailersAdvert() {
     uploadVideos: "",
   });
 
-  const filters = {
+  const sections = {
     identification,
     specialFeatures,
     constructionMaterials,
@@ -482,21 +481,20 @@ export default function TrailersAdvert() {
   const cacheKey = "trailersFilterData";
   const URL = "http://localhost:3001/api/trailers/";
 
-  const fetchFilterData = async () => {
+  const fetchDistinctData = async () => {
     try {
       setLoading(true);
-      const promises = Object.keys(filters).map(async (key) => {
+      const promises = Object.keys(sections).map(async (key) => {
         const response = await fetch(`${URL}trailers`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(filters[key]),
+          body: JSON.stringify(sections[key]),
         });
         const data = await response.json();
         return { key, data: data.res };
       });
-
       const results = await Promise.all(promises);
       results.forEach(({ key, data }) => {
         setFilters(key, data);
@@ -515,7 +513,7 @@ export default function TrailersAdvert() {
       setFilters(JSON.parse(cachedData));
     } else {
       if (!hasFetched.current) {
-        fetchFilterData();
+        fetchDistinctData();
         hasFetched.current = true;
       }
     }
@@ -552,14 +550,14 @@ export default function TrailersAdvert() {
       ) : (
         <Form>
           <Row>
-            {Object.keys(filters).map((title) => (
+            {Object.keys(sections).map((title) => (
               <Col md={6} key={title} className="mt-2">
                 <legend className="fieldset-legend">
                   <h6 style={{ padding: "15px 0px 0px 0px" }}>
                     {makeString(title)}
                   </h6>
                 </legend>
-                {Object.keys(filters[title]).map((fieldKey) => {
+                {Object.keys(sections[title]).map((fieldKey) => {
                   const field = typeDef[title][fieldKey];
 
                   // Check if field exists and has a defined type
@@ -571,7 +569,7 @@ export default function TrailersAdvert() {
                           <DropdownWithRadio
                             heading={fieldKey}
                             title={makeString(fieldKey)}
-                            options={filters[title][fieldKey]}
+                            options={sections[title][fieldKey]}
                             selectedOption={
                               allSelectedOptions[title]?.[fieldKey] || ""
                             }
