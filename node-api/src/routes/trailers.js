@@ -39,20 +39,16 @@ trailersRouter.post("/trailers", async (req, res) => {
     if (connection) connection.release();
   }
 });
-
 trailersRouter.post("/:tableName/:fetchColumn", async (req, res) => {
   let connection;
   try {
     let filterOptions = "";
     connection = await dbConnection.getConnection();
     const filters = [];
-    console.log("----------------Req Body----------------------------------",req.body);
-    console.log("----------------Table Info--------------------------------",req.params.tableName);
-    console.log("----------------fetch column Info--------------------------",req.params.fetchColumn);
-    let queryParams = {};
-    
+    let queryParams = {};    
     const fetchColumnName = TRAILERS_ADVERT.find((item) => item.key === req.params.fetchColumn);
 
+    // Prepare query parameters based on the request body
     TRAILERS_ADVERT.forEach((item) => {
       const key = item.key;
       const columnName = item.columnName;
@@ -60,7 +56,6 @@ trailersRouter.post("/:tableName/:fetchColumn", async (req, res) => {
         queryParams[columnName] = req.body[key];
       }
     });
-    console.log("----------------Query Params Info---------------",queryParams);
 
     // Dynamically construct filter options
     for (const [key, value] of Object.entries(queryParams)) {
@@ -69,15 +64,16 @@ trailersRouter.post("/:tableName/:fetchColumn", async (req, res) => {
       }
     }
     filterOptions = filters.length > 0 ? `WHERE ${filters.join(" AND ")}` : "";
-    console.log("-------------------Dynamic Filters---",filterOptions);
-    
-    let results = {};
+
+    // Get Trailer IDs based on the filter
     const [trailerID] = await connection.query(
       `SELECT DISTINCT Trailer_ID FROM Trailers_ID ${filterOptions} ORDER BY Trailer_ID`
     );
     if (trailerID.length === 0) {
       return res.status(404).json({ ok: false, message: "No data found" });
     }
+
+    // Fetch distinct values for the given column and table
     const [rows] = await connection.query(
       `SELECT DISTINCT ?? FROM ?? ${filterOptions} GROUP BY ?? ORDER BY count(*) DESC LIMIT 0,1`,
       [
@@ -86,7 +82,12 @@ trailersRouter.post("/:tableName/:fetchColumn", async (req, res) => {
         fetchColumnName.columnName,
       ]
     );
-    return res.status(200).json({ ok: true, result: rows });
+
+    // Format the response like API 1
+    const formattedResult = rows.map(row => [Object.values(row)[0]]);
+
+    // Return the result in the desired format
+    return res.status(200).json({ ok: true, result: formattedResult});
   } catch (err) {
     return res.status(500).json({ ok: false, message: err.message });
   } finally {

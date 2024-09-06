@@ -458,7 +458,7 @@ export default function TrailersAdvert() {
 
     if (category === "identification" && (field === "trailerId" || field === "manufacturer" || field === "make" || field === "model")) {
       // Fetch manufacturers based on selected trailerId
-      fetchIdentificationSectionOptions(selectedOption, field);
+      fetchIdentificationSectionOptions(category,selectedOption, field);
     }
   };
 
@@ -476,10 +476,15 @@ export default function TrailersAdvert() {
       console.log(error);
     }
   };
-  function setPageData(key, data) {
+  function setPageData(key, newData) {
+      console.log("001 Page data key---",key);
+      console.log("001 Page data---",newData);
     const setStateFunction = setStateFunctions[key];
     if (setStateFunction) {
-      setStateFunction(data);
+      setStateFunction((prevState) => ({
+        ...prevState,
+        ...newData,
+      }));
     } else {
       console.error(`No setState function found for key: ${key}`);
     }
@@ -516,7 +521,7 @@ export default function TrailersAdvert() {
       console.log("done");
     }
   };
-  const fetchIdentificationSectionOptions = async (trailerId, Key) => {
+  const fetchIdentificationSectionOptions = async (category,selectedValue, Key) => {
     try {
       setLoading(true);
       const tableName = "Trailers_ID";
@@ -535,18 +540,13 @@ export default function TrailersAdvert() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ trailerId }),
+        body: JSON.stringify({ selectedValue }),
       });
       const data = await response.json();
-      console.log("001 Data---",data);
-      // Update the 'manufacturer' options in the state
-      // setSection((prevState) => ({
-      //   ...prevState,
-      //   identification: {
-      //     ...prevState.identification,
-      //     manufacturer: data.manufacturers,
-      //   },
-      // }));
+      setPageData(category, {
+        ...sections[category],
+        [fetchColumn]: data.result,
+      });
     } catch (error) {
       console.error("Error fetching manufacturers:", error);
     } finally {
