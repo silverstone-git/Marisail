@@ -27,7 +27,7 @@ function SelectComponent({
     >
       <Accordion.Item eventKey={label}>
         {/* <Accordion.Header style={{position: 'relative'}}> */}
-        <Accordion.Header style={{ position: "relative" }}>
+        <Accordion.Header>
           {label}
           {isMandatory && <span className="text-danger">&nbsp;*</span>}
           {/* Clear Selection at section level */}

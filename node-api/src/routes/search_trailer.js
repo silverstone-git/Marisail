@@ -134,8 +134,8 @@ searchTrailerRouter.post("/trailersData", async (req, res) => {
 
       basic = basic.slice(0, -3);
     }
-
-    basic += `LIMIT 50 OFFSET ${page * 30};`;
+      
+    basic += `LIMIT 60 OFFSET ${page * 30};`;
     basic += `;`;
     console.log(basic);
 
