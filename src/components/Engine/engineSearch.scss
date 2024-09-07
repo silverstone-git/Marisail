@@ -401,7 +401,7 @@
 }
 // Css for Engine Detail Panel
 .details-panel-container {
-  margin-bottom: 10px;
+  margin-bottom: 0px;
   // border: 1px solid #ddd;
   // border-radius: 4px;
   overflow: hidden;
@@ -489,8 +489,8 @@
 }
 
 .details-panel-container {
-  padding: 1rem;
-  background-color: #f9f9f9;
+  padding: 0rem;
+  // background-color: #f9f9f9;
 }
 
 .details-panel-content {
@@ -514,7 +514,7 @@
 }
 // engine detail in tables
 .details-panel-container {
-  padding: 1rem;
+  padding: 0.25rem;
 }
 
 .details-panel-header {
