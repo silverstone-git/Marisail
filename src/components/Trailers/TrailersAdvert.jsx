@@ -220,7 +220,7 @@ export default function TrailersAdvert() {
   });
   const [basics, setBasics] = useState({
     type: "",
-    grossVehicleWeightRating: "", //
+    grossVehicleWeightRating: "",
     loadCapacity: "",
     length: "",
     width: "",
@@ -232,7 +232,7 @@ export default function TrailersAdvert() {
     frameCoating: "",
     frameCrossmemberType: "",
     frameWeldType: "",
-    maximumAngleOfApproach: "", //
+    maximumAngleOfApproach: "",
     floorMaterial: "",
     sidesMaterial: "",
     roofMaterial: "",
@@ -243,10 +243,11 @@ export default function TrailersAdvert() {
     maintenanceSchedule: "", //
   });
   const [userFeatures, setUserFeatures] = useState({
-    storage: "", //
+    storage: "",
     tieDownPoints: "",
-    toolBox: "", //
+    toolBox: "",
     bumperType: "",
+    userFeatures: "",
   });
   const [specialFeatures, setSpecialFeatures] = useState({
     hydraulicTilt: "", //
@@ -465,7 +466,7 @@ export default function TrailersAdvert() {
     }
 
     if (category === "identification" && field === "model") {
-      fetchRelevantOptions(category, field);
+      fetchRelevantOptions();
     }
   };
 
@@ -484,8 +485,6 @@ export default function TrailersAdvert() {
     }
   };
   function setPageData(key, newData) {
-    console.log("001 Page data key---", key);
-    console.log("001 Page data---", newData);
     const setStateFunction = setStateFunctions[key];
     if (setStateFunction) {
       setStateFunction((prevState) => ({
@@ -525,7 +524,7 @@ export default function TrailersAdvert() {
       console.log("done");
     }
   };
-  const fetchRelevantOptions = async (category, Key) => {
+  const fetchRelevantOptions = async () => {
     try {
       setLoading(true);
       const response = await fetch(`${URL}relevant_data`, {
@@ -536,10 +535,23 @@ export default function TrailersAdvert() {
         body: JSON.stringify({ allSelectedOptions }),
       });
       const data = await response.json();
-      // setPageData(category, {
-      //   ...sections[category],
-      //   [Key]: data.result,
-      // });
+      const result = data.result;
+      Object.keys(result).forEach((fieldKey) => {
+        Object.keys(sections).forEach((sectionKey) => {
+          if (sections[sectionKey][fieldKey] !== undefined) {
+            const fieldValue = Array.isArray(result[fieldKey]) && result[fieldKey].length > 0
+              ? result[fieldKey][0]
+              : sections[sectionKey][fieldKey];
+              setAllSelectedOptions((prevState) => ({
+                ...prevState,
+                [sectionKey]: {
+                  ...prevState[sectionKey],
+                  [fieldKey]: [fieldValue],
+                },
+              }));
+          }
+        });
+      });
     } catch (error) {
       console.error("Error fetching other section:", error);
     } finally {
@@ -574,11 +586,6 @@ export default function TrailersAdvert() {
           make: selectedOption,
         };
       }
-      // Ensure fetchColumn is set before making the API call
-      // if (!fetchColumn) {
-      //   console.error("Invalid Key or fetchColumn is not set");
-      //   return;
-      // }
       const response = await fetch(`${URL}${tableName}/${fetchColumn}`, {
         method: "POST",
         headers: {
@@ -636,13 +643,11 @@ export default function TrailersAdvert() {
                 </legend>
                 {Object.keys(sections[title]).map((fieldKey) => {
                   const field = typeDef[title][fieldKey];
-
-                  // Check if field exists and has a defined type
                   if (field && field.type === "radio") {
                     return (
                       <Col md={12} className="mt-4 mr-3" key={fieldKey}>
-                        {/* <Form.Group> */}
                         <Col xs={3} md={12} className="mb-2">
+                          {/* <div>{typeof JSON.stringify(allSelectedOptions[title]?.[fieldKey]) + "--" + JSON.stringify(allSelectedOptions[title]?.[fieldKey])}</div> */}
                           <DropdownWithRadio
                             heading={fieldKey}
                             title={makeString(fieldKey)}
@@ -660,7 +665,6 @@ export default function TrailersAdvert() {
                             isMandatory={field.mandatory}
                           />
                         </Col>
-                        {/* </Form.Group> */}
                       </Col>
                     );
                   } else if (field && field.type === "number") {

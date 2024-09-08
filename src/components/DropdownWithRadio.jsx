@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Form } from "react-bootstrap";
 import PropTypes from "prop-types";
 import "../components/Trailers/trailersAdvert.module.scss";
@@ -12,30 +12,17 @@ const DropdownWithRadio = ({
   isMandatory,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [inputText, setInputText] = useState("");
   const [list, setList] = useState(options);
 
   const handleDropdownToggle = () => {
     setIsOpen((prev) => !prev);
   };
-
+  // console.log("001 List---",typeof list, selectedOption,list);
+  
   // Handle radio option selection
   const handleOptionChange = (optionName) => {
     setSelectedOption(optionName);
   };
-
-  useEffect(() => {
-    if (inputText === "") {
-      setList(options);
-    } else {
-      setList(
-        options.filter((item) =>
-          item[0].toLowerCase().includes(inputText.toLowerCase())
-        )
-      );
-    }
-  }, [inputText, options]);
-
   return (
     <div className="custom-dropdown-container">
       <div
@@ -67,13 +54,14 @@ const DropdownWithRadio = ({
           <div id="dropdown-content" className="custom-dropdown-content">
             <div className="custom-dropdown-options">
               {list.length > 0 ? (
-                list.map((item) => (
-                  <div key={item[0]} className="custom-dropdown-option">
+                list.map((item,index) => (
+                  <div key={index} className="custom-dropdown-option">
+                    {/* <div>{"---Title---" + title + JSON.stringify(selectedOption?.[0]) + "----ITEM---" + item}</div> */}
                     <Form.Check
                       type="radio"
                       name={`radio-options-${heading}`}
                       label={`${item[0]}`}
-                      checked={selectedOption === item[0]}
+                      checked={selectedOption?.[0] === item[0]}
                       onChange={() => handleOptionChange(item[0])}
                     />
                   </div>
@@ -96,11 +84,12 @@ DropdownWithRadio.propTypes = {
   subheading: PropTypes.string,
   title: PropTypes.string.isRequired,
   options: PropTypes.oneOfType([
-    PropTypes.string,
     PropTypes.arrayOf(PropTypes.array),
-    PropTypes.object,
   ]),
-  selectedOption: PropTypes.string.isRequired,
+  selectedOption: PropTypes.oneOfType([
+    PropTypes.string.isRequired,
+    PropTypes.number.isRequired
+  ]),
   setSelectedOption: PropTypes.func.isRequired,
   isMandatory: PropTypes.bool.isRequired,
 };
