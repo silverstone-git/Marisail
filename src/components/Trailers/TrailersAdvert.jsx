@@ -645,7 +645,7 @@ export default function TrailersAdvert() {
                   const field = typeDef[title][fieldKey];
                   if (field && field.type === "radio") {
                     return (
-                      <Col md={12} className="mt-4 mr-3" key={fieldKey}>
+                      <Col md={12} className="mt-4 mr-3" key={fieldKey} style={{ width: 480 }}>
                         <Col xs={3} md={12} className="mb-2">
                           {/* <div>{typeof JSON.stringify(allSelectedOptions[title]?.[fieldKey]) + "--" + JSON.stringify(allSelectedOptions[title]?.[fieldKey])}</div> */}
                           <DropdownWithRadio
@@ -663,13 +663,15 @@ export default function TrailersAdvert() {
                               )
                             }
                             isMandatory={field.mandatory}
+                            setOpenKey={setOpenKey}
+                            openKey={openKey}
                           />
                         </Col>
                       </Col>
                     );
                   } else if (field && field.type === "number") {
                     return (
-                      <Col md={12} className="mt-4 mr-3" key={fieldKey}>
+                      <Col md={12} className="mt-4 mr-3" key={fieldKey} style={{ width: 480 }}>
                         <InputComponentDynamic
                           label={makeString(fieldKey)}
                           value={trailers[title]?.[fieldKey] || ""}
