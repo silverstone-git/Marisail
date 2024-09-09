@@ -1,28 +1,4 @@
-// import React, { useState } from "react";
-
-// const EngineDetailsPanel = ({ title, details }) => {
-//   return (
-//     <div className="details-panel-container">
-//       <div className="details-panel-header">
-//         <span className="panel-title">{title}</span>
-//       </div>
-//       <div className="details-panel-content">
-//         <div className="details-panel-grid">
-//           {Object.entries(details).map(([key, value]) => (
-//             <div key={key} className="details-panel-item">
-//               <strong>{key}:</strong>
-//               <span>{value}</span>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default EngineDetailsPanel;
-
-import React from "react";
+import PropTypes from 'prop-types';
 
 const EngineDetailsPanel = ({ title, details }) => {
   return (
@@ -48,6 +24,12 @@ const EngineDetailsPanel = ({ title, details }) => {
       </div>
     </div>
   );
+};
+
+
+EngineDetailsPanel.propTypes = {
+  title: PropTypes.string.isRequired,
+  details: PropTypes.object.isRequired,
 };
 
 export default EngineDetailsPanel;

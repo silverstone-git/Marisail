@@ -7,23 +7,7 @@ import SelectComponent from "../components/SelectComponent";
 import InputComponent from "../components/InputComponent";
 import CheckComponent from "../components/CheckComponent";
 import "./trailers.css";
-
-const makeString = (str) => {
-  var newStr = "";
-  newStr += str[0].toUpperCase();
-  for (let i = 1; i < str.length; i++) {
-    if (str[i] === str[i].toUpperCase() || i === 0) {
-      newStr += " " + str[i];
-    } else {
-      newStr += str[i];
-    }
-  }
-
-  // ID, VAT, EU wagera ka hisab dekhna h
-
-  console.log(newStr);
-  return newStr;
-};
+import { makeString } from "../components/Trailers/trailerInfo";
 
 const Trailers2 = () => {
   makeString("marisailTrailerID");
