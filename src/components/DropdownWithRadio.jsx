@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Form, Accordion } from "react-bootstrap";
 import PropTypes from "prop-types";
-import "../components/Trailers/trailersAdvert.module.scss";
 
 const DropdownWithRadio = ({
   heading,
