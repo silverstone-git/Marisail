@@ -15,10 +15,17 @@ const DropdownWithRadio = ({
 }) => {
   const [list] = useState(options);
 
-  // Handle radio option selection
   const handleOptionChange = (optionName) => {
     setSelectedOption(optionName);
   };
+
+  function convertNonArrayOrObject(value) {
+    if (!Array.isArray(value) && typeof value !== 'object') {
+      return [value]?.[0];
+    } else {
+      return value?.[0];
+    }
+  }
 
   return (
     <Accordion
@@ -31,15 +38,15 @@ const DropdownWithRadio = ({
           {isMandatory && <span className="text-danger">&nbsp;*</span>}
         </Accordion.Header>
         <Accordion.Body style={{ maxHeight: 200, overflowY: "auto", maxWidth: 478 }}>
-          <div className="custom-dropdown-options">
+          <div>
             {list.length > 0 ? (
               list.map((item, index) => (
-                <div key={index} className="custom-dropdown-option">
+                <div key={index}>
                   <Form.Check
                     type="radio"
                     name={`radio-options-${heading}`}
                     label={`${item[0]}`}
-                    checked={selectedOption?.[0] === item[0]}
+                    checked={convertNonArrayOrObject(selectedOption)=== item[0]}
                     onChange={() => handleOptionChange(item[0])}
                   />
                 </div>
@@ -61,6 +68,7 @@ DropdownWithRadio.propTypes = {
   selectedOption: PropTypes.oneOfType([
     PropTypes.string.isRequired,
     PropTypes.number.isRequired,
+    PropTypes.object.isRequired
   ]),
   setSelectedOption: PropTypes.func.isRequired,
   isMandatory: PropTypes.bool.isRequired,

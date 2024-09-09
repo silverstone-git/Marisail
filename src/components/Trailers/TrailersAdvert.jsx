@@ -205,6 +205,7 @@ const typeDef = {
 };
 
 export default function TrailersAdvert() {
+  const [error, setError] = useState({});
   const hasFetched = useRef(false);
   const [trailers, setTrailers] = useState("");
   const [openKey, setOpenKey] = useState(null);
@@ -399,6 +400,37 @@ export default function TrailersAdvert() {
     uploadVideos: "",
   });
 
+  const checkRequired = () => {
+    const errors = {};
+  
+    // Iterate over each section in typeDef
+    Object.keys(typeDef).forEach((sectionKey) => {
+      const section = typeDef[sectionKey];
+      const sectionData = sections[sectionKey];
+        Object.keys(section).forEach((fieldKey) => {
+        const field = section[fieldKey];
+        if (field.mandatory) {
+          const fieldValue = sectionData[fieldKey];
+          if (field.type === "radio") {
+            if(field.value){
+              console.log("001 field value--",field);
+            }
+            if (!field.value || String(field.value).trim() === "") {
+              errors[`${fieldKey}`] = true;
+            }
+          } else if (field.type === "number") {
+            if (fieldValue === undefined || fieldValue === "" || isNaN(fieldValue)) {
+              errors[`${fieldKey}`] = true;
+            }
+          }
+        }
+      });
+    });
+  
+    setError(errors);
+    return Object.keys(errors).length === 0;
+  };  
+  
   const sections = {
     identification,
     specialFeatures,
@@ -420,6 +452,7 @@ export default function TrailersAdvert() {
     tongue,
     regulatoryCompliance,
     maintenanceFeatures,
+    paymentTerms,
     environmentalAndCorrosionResistance,
   };
 
@@ -469,19 +502,18 @@ export default function TrailersAdvert() {
       fetchRelevantOptions();
     }
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      // if (checkRequired()) {
-      // If no errors, proceed with form submission logic
-      // console.log("001 Form is valid, submitting...", form);
-      // localStorage.setItem("advertise_engine", JSON.stringify(form));
-      // } else {
-      //   console.log("001 Form has errors, not submitting.", error);
-      // }
+      if (checkRequired()) {
+        // If no errors, proceed with form submission logic
+        console.log("001 Form is valid, submitting...");
+        // localStorage.setItem("advertise_engine", JSON.stringify(form));
+      } else {
+        console.warn(error);
+      }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
   function setPageData(key, newData) {
@@ -627,12 +659,16 @@ export default function TrailersAdvert() {
     }));
   };
 
+  const errorDisplay = (fieldName) => {
+    return <div style={{ color: "red" }}>{fieldName} field is required</div>;
+  };
+
   return (
     <Container className="mb-5">
       {loading ? (
         <Loader />
       ) : (
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <Row>
             {Object.keys(sections).map((title) => (
               <Col md={6} key={title} className="mt-2">
@@ -647,7 +683,6 @@ export default function TrailersAdvert() {
                     return (
                       <Col md={12} className="mt-4 mr-3" key={fieldKey} style={{ width: 480 }}>
                         <Col xs={3} md={12} className="mb-2">
-                          {/* <div>{typeof JSON.stringify(allSelectedOptions[title]?.[fieldKey]) + "--" + JSON.stringify(allSelectedOptions[title]?.[fieldKey])}</div> */}
                           <DropdownWithRadio
                             heading={fieldKey}
                             title={makeString(fieldKey)}
@@ -666,6 +701,11 @@ export default function TrailersAdvert() {
                             setOpenKey={setOpenKey}
                             openKey={openKey}
                           />
+                          {error[`${fieldKey}`] && (
+                            <div>
+                              {errorDisplay(makeString(fieldKey))}
+                            </div>
+                          )}
                         </Col>
                       </Col>
                     );
@@ -683,6 +723,11 @@ export default function TrailersAdvert() {
                           openKey={openKey}
                           isMandatory={field.mandatory}
                         />
+                        {error[`${fieldKey}`] && (
+                          <div>
+                            {errorDisplay(makeString(fieldKey))}
+                          </div>
+                        )}
                       </Col>
                     );
                   }
@@ -693,7 +738,7 @@ export default function TrailersAdvert() {
           </Row>
           <div className="d-flex justify-content-center p-4 pt-5">
             <button
-              type="button"
+              type="submit"
               className="btn btn-success p-3"
               style={{
                 backgroundColor: "#971e28",
@@ -709,7 +754,6 @@ export default function TrailersAdvert() {
               }}
               name="Trailers-submit"
               id="Trailers-submit"
-              onClick={handleSubmit}
             >
               Submit
             </button>
