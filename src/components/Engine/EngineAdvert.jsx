@@ -384,14 +384,14 @@ export default function TrailersAdvert() {
     continuousPower: "",
   });
   const [cylinders, setCylinders] = useState({
-    cylinderConfiguration: { value: "", type: "radio", mandatory: true },
-    numberCylinders: { value: "", type: "radio", mandatory: false },
-    cylindersAndArrangement: { value: "", type: "radio", mandatory: true },
-    numberValves: { value: "", type: "radio", mandatory: false },
-    valvePerCylinder: { value: "", type: "radio", mandatory: false },
-    boreXStroke: { value: "", type: "radio", mandatory: false },
-    bore: { value: "", type: "radio", mandatory: false },
-    stroke: { value: "", type: "radio", mandatory: false },
+    cylinderConfiguration: "",
+    numberCylinders: "",
+    cylindersAndArrangement: "",
+    numberValves: "",
+    valvePerCylinder: "",
+    boreXStroke: "",
+    bore: "",
+    stroke: "",
   });
   const [rpm, setRpm] = useState({
     idleRPM: "",
