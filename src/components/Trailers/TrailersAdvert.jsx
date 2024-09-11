@@ -2,8 +2,8 @@ import { Form, Container, Row, Col } from "react-bootstrap";
 import { useEffect, useState, useRef } from "react";
 import DropdownWithRadio from "../DropdownWithRadio";
 import Loader from "../Loader";
-// import "./trailersAdvert.module.scss";
 import InputComponentDynamic from "../InputComponentDynamic";
+import SubmitButton from '../SubmitButton';
 
 const makeString = (str) => {
   var newStr = "";
@@ -402,9 +402,7 @@ export default function TrailersAdvert() {
 
   const checkRequired = () => {
     const errors = {};
-  
-    // Iterate over each section in typeDef
-    Object.keys(typeDef).forEach((sectionKey) => {
+      Object.keys(typeDef).forEach((sectionKey) => {
       const section = typeDef[sectionKey];
       const sectionData = sections[sectionKey];
         Object.keys(section).forEach((fieldKey) => {
@@ -412,9 +410,9 @@ export default function TrailersAdvert() {
         if (field.mandatory) {
           const fieldValue = sectionData[fieldKey];
           if (field.type === "radio") {
-            if(field.value){
-              console.log("001 field value--",field);
-            }
+            // if(field.value){
+            //   console.log("001 field value--",field);
+            // }
             if (!field.value || String(field.value).trim() === "") {
               errors[`${fieldKey}`] = true;
             }
@@ -482,6 +480,8 @@ export default function TrailersAdvert() {
   };
 
   const handleOptionSelect = (category, field, selectedOption) => {
+    console.log("001 relevant data selected otpions--",selectedOption);
+    console.log("001 relevant data all otpions--",allSelectedOptions);
     setAllSelectedOptions((prevState) => ({
       ...prevState,
       [category]: {
@@ -494,11 +494,11 @@ export default function TrailersAdvert() {
       category === "identification" &&
       (field === "trailerId" || field === "manufacturer" || field === "make")
     ) {
-      // Fetch manufacturers based on selected trailerId
       fetchIdentificationSectionOptions(category, selectedOption, field);
     }
 
     if (category === "identification" && field === "model") {
+      console.log("001 relevant data all otpions after--",allSelectedOptions);
       fetchRelevantOptions();
     }
   };
@@ -506,7 +506,6 @@ export default function TrailersAdvert() {
     e.preventDefault();
     try {
       if (checkRequired()) {
-        // If no errors, proceed with form submission logic
         console.log("001 Form is valid, submitting...");
         // localStorage.setItem("advertise_engine", JSON.stringify(form));
       } else {
@@ -528,7 +527,7 @@ export default function TrailersAdvert() {
     }
   }
 
-  const cacheKey = "trailersFilterData";
+  const cacheKey = "berthsFilterData";
   const URL = "http://localhost:3001/api/trailers/";
 
   const fetchDistinctData = async () => {
@@ -553,12 +552,12 @@ export default function TrailersAdvert() {
       console.error(err);
     } finally {
       setLoading(false);
-      console.log("done");
     }
   };
   const fetchRelevantOptions = async () => {
     try {
       setLoading(true);
+      // console.log("001 relevant data all otpions--",allSelectedOptions);
       const response = await fetch(`${URL}relevant_data`, {
         method: "POST",
         headers: {
@@ -567,12 +566,12 @@ export default function TrailersAdvert() {
         body: JSON.stringify({ allSelectedOptions }),
       });
       const data = await response.json();
-      const result = data.result;
+      const result = data?.result;
       Object.keys(result).forEach((fieldKey) => {
         Object.keys(sections).forEach((sectionKey) => {
           if (sections[sectionKey][fieldKey] !== undefined) {
             const fieldValue = Array.isArray(result[fieldKey]) && result[fieldKey].length > 0
-              ? result[fieldKey][0]
+              ? result[fieldKey]?.[0]
               : sections[sectionKey][fieldKey];
               setAllSelectedOptions((prevState) => ({
                 ...prevState,
@@ -588,6 +587,7 @@ export default function TrailersAdvert() {
       console.error("Error fetching other section:", error);
     } finally {
       setLoading(false);
+      console.log("001 relevant data all otpions after--",allSelectedOptions);
     }
   };
   const fetchIdentificationSectionOptions = async (
@@ -736,28 +736,7 @@ export default function TrailersAdvert() {
               </Col>
             ))}
           </Row>
-          <div className="d-flex justify-content-center p-4 pt-5">
-            <button
-              type="submit"
-              className="btn btn-success p-3"
-              style={{
-                backgroundColor: "#971e28",
-                color: "#fff",
-                padding: "8px 32px",
-                border: "0px none",
-                borderRadius: 30,
-                textTransform: "uppercase",
-                marginBottom: 8,
-                width: "50%",
-                cursor: "pointer",
-                transition: "all .5s ease",
-              }}
-              name="Trailers-submit"
-              id="Trailers-submit"
-            >
-              Submit
-            </button>
-          </div>
+          <SubmitButton text="Submit" name="advert_trailer_submit" onClick={handleSubmit} />
         </Form>
       )}
     </Container>

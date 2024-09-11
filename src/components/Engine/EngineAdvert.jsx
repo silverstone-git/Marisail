@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import DropdownWithRadio from "../DropdownWithRadio";
 import Loader from "../Loader";
 import InputComponentDynamic from "../InputComponentDynamic";
+import SubmitButton from '../SubmitButton';
 
 const makeString = (str) => {
   var newStr = "";
@@ -263,7 +264,7 @@ const typeDef = {
   },
 };
 
-export default function TrailersAdvert() {
+export default function EngineAdvert() {
   const [error, setError] = useState({});
   const hasFetched = useRef(false);
   const [engines, setEngines] = useState("");
@@ -854,28 +855,7 @@ export default function TrailersAdvert() {
               </Col>
             ))}
           </Row>
-          <div className="d-flex justify-content-center p-4 pt-5">
-            <button
-              type="submit"
-              className="btn btn-success p-3"
-              style={{
-                backgroundColor: "#971e28",
-                color: "#fff",
-                padding: "8px 32px",
-                border: "0px none",
-                borderRadius: 30,
-                textTransform: "uppercase",
-                marginBottom: 8,
-                width: "50%",
-                cursor: "pointer",
-                transition: "all .5s ease",
-              }}
-              name="engines-submit"
-              id="engines-submit"
-            >
-              Submit
-            </button>
-          </div>
+          <SubmitButton text="Submit" name="advert_engine_submit" onClick={handleSubmit} />
         </Form>
       )}
     </Container>

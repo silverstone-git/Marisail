@@ -29,14 +29,14 @@ function App() {
         <Route path="/engines" element={<Engines type="advert" />} />
         <Route path="/advert-engines" element={<Engines type="search" />} />
         <Route path="/trailers2" element={<Trailers2 />}></Route>
-        {/* <Route path="/trailers3" element={<Trailers3 />}></Route> */}
         <Route path="/trailers" element={<Trailers type="advert" />}></Route>
         <Route
           path="/advert-trailers"
           element={<Trailers type="trailers" />}
         ></Route>
         <Route path="/chandlery" element={<Chandlery />}></Route>
-        <Route path="/berths" element={<Berths />}></Route>
+        <Route path="/berths" element={<Berths type="search" />} />
+        <Route path="/advert-berth" element={<Berths type="advert" />} />
         <Route path="/buy" element={<Buy />}></Route>
         <Route path="/sell" element={<Sell />}></Route>
         <Route path="/services" element={<Services type="myEngines"/>}></Route>

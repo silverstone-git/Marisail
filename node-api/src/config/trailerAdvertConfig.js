@@ -82,7 +82,11 @@ export const TRAILERS_ADVERT = [
     },
     { key: "toolBox", columnName: "Tool_Box", tableName: "Construction" },
     { key: "bumperType", columnName: "Bumper", tableName: "Construction" },
-    { key: "userFeatures", columnName: "User_Features", tableName: "Construction" },
+    {
+        key: "userFeatures",
+        columnName: "User_Features",
+        tableName: "Construction",
+    },
 
     {
         key: "hydraulicTilt",
@@ -367,7 +371,11 @@ export const TRAILERS_ADVERT = [
         columnName: "Wheel_Locks",
         tableName: "Security_Features",
     },
-    { key: "lockType", columnName: "Security_Lock", tableName: "Security_Features" },
+    {
+        key: "lockType",
+        columnName: "Security_Lock",
+        tableName: "Security_Features",
+    },
     { key: "alarmSystem", columnName: "Alarm", tableName: "Security_Features" },
     {
         key: "gpsTrackingDevice",
@@ -431,4 +439,24 @@ export const TRAILERS_ADVERT = [
         columnName: "ADR_Compliance",
         tableName: "Regulatory",
     },
+];
+
+export const UNIQUE_TABLE = [
+    "Trailers_ID",
+    "construction",
+    "Trailer_Features",
+    "Tyres_Brakes",
+    "Winches_Lighting",
+    "Accessories",
+    "Loading_Transport_Features",
+    "Security_Features",
+    "Environmental_And_Corrosion_Resistance",
+    "Performance_Handling",
+    "Tongue",
+    "Documentation",
+    "Regulatory",
+    "Payment",
+    "Sales",
+    "Axles",
+    "Corrosion_Resistance",
 ];
