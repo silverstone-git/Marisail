@@ -1,6 +1,6 @@
 import { Router } from "express";
 import dbConnection from "../config/dbConfig.js";
-import { varToColumn, varToTable, uniqueTable } from "../config/trailerConfig.js";
+import { varToColumn, varToTable, uniqueTable } from "../config/trailerSearchConfig.js";
 
 const searchTrailerRouter = Router();
 

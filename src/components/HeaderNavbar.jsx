@@ -49,7 +49,7 @@ const HeaderNavbar = ({ navbarRef }) => {
 
                 <NavDropdown.Item
                   as={NavLink}
-                  to="/berth"
+                  to="/advert-berth"
                   className="text-capitalize"
                 >
                   advertise a berth
