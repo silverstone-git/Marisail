@@ -345,7 +345,7 @@ export default function EngineAdvert() {
 
     if (
       category === "engineDetails" &&
-      (field === "engineModel" || field === "engineModelYear" || field === "engineMake" || field === "engineType" || field === "typeDesignation")
+      (field === "engineModel" || field === "engineModelYear" || field === "engineMake" || field === "engineType")
     ) {
       // Fetch manufacturers based on selected trailerId
       fetchIdentificationSectionOptions(category, selectedOption, field);
@@ -412,6 +412,53 @@ export default function EngineAdvert() {
   const fetchRelevantOptions = async () => {
     try {
       setLoading(true);
+  
+      // Fetch the data from the API
+      const response = await fetch(`${URL}relevant_data`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ allSelectedOptions }),
+      });
+      const data = await response.json();
+      const result = data.result;
+  
+      // Use Promise.all to update the state in parallel
+      await Promise.all(
+        Object.keys(result).map((fieldKey) => {
+          return Promise.all(
+            Object.keys(sections).map((sectionKey) => {
+              if (sections[sectionKey][fieldKey] !== undefined) {
+                const fieldValue =
+                  Array.isArray(result[fieldKey]) && result[fieldKey].length > 0
+                    ? result[fieldKey][0]
+                    : sections[sectionKey][fieldKey];
+  
+                // Update state asynchronously for each section and fieldKey
+                return setAllSelectedOptions((prevState) => ({
+                  ...prevState,
+                  [sectionKey]: {
+                    ...prevState[sectionKey],
+                    [fieldKey]: [fieldValue],
+                  },
+                }));
+              }
+              return Promise.resolve(); // In case the sectionKey/fieldKey doesn't match
+            })
+          );
+        })
+      );
+    } catch (error) {
+      console.error("Error fetching other section:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  /*const fetchRelevantOptions = async () => {
+    try {
+      setLoading(true);
       const response = await fetch(`${URL}relevant_data`, {
         method: "POST",
         headers: {
@@ -442,7 +489,7 @@ export default function EngineAdvert() {
     } finally {
       setLoading(false);
     }
-  };
+  };*/
   const fetchIdentificationSectionOptions = async (
     category,
     selectedOption,
