@@ -782,3 +782,18 @@ export const ENGINES_ADVERT = [
         tableName: "Emmissions",
     },
 ];
+
+export const UNIQUE_TABLE = [
+  "Transmission",
+  "Mounting",
+  "Maintenance",
+  "Equipment",
+  "Dimensions",
+  "Performance",
+  "Cooling",
+  "Propulsion",
+  "Fuel",
+  "Oil",
+  "Electrical",
+  "Emissions",
+];
