@@ -3,9 +3,9 @@ import { useEffect, useState, useRef } from "react";
 import DropdownWithRadio from "../DropdownWithRadio";
 import Loader from "../Loader";
 import InputComponentDynamic from "../InputComponentDynamic";
-import SubmitButton from '../SubmitButton';
-import { keyToExpectedValueMap, typeDef } from './TrailerAdvertInfo'
-import { makeString } from '../../services/common_functions'
+import SubmitButton from "../SubmitButton";
+import { keyToExpectedValueMap, typeDef } from "./TrailerAdvertInfo";
+import { makeString } from "../../services/common_functions";
 
 export default function TrailersAdvert() {
   const [error, setError] = useState({});
@@ -205,10 +205,10 @@ export default function TrailersAdvert() {
 
   const checkRequired = () => {
     const errors = {};
-      Object.keys(typeDef).forEach((sectionKey) => {
+    Object.keys(typeDef).forEach((sectionKey) => {
       const section = typeDef[sectionKey];
       const sectionData = sections[sectionKey];
-        Object.keys(section).forEach((fieldKey) => {
+      Object.keys(section).forEach((fieldKey) => {
         const field = section[fieldKey];
         if (field.mandatory) {
           const fieldValue = sectionData[fieldKey];
@@ -220,18 +220,22 @@ export default function TrailersAdvert() {
               errors[`${fieldKey}`] = true;
             }
           } else if (field.type === "number") {
-            if (fieldValue === undefined || fieldValue === "" || isNaN(fieldValue)) {
+            if (
+              fieldValue === undefined ||
+              fieldValue === "" ||
+              isNaN(fieldValue)
+            ) {
               errors[`${fieldKey}`] = true;
             }
           }
         }
       });
     });
-  
+
     setError(errors);
     return Object.keys(errors).length === 0;
-  };  
-  
+  };
+
   const sections = {
     identification,
     specialFeatures,
@@ -283,15 +287,23 @@ export default function TrailersAdvert() {
   };
 
   const handleOptionSelect = (category, field, selectedOption) => {
-    console.log("001 relevant data selected otpions--",category,"----",field,"----",selectedOption);
-    console.log("001 relevant data all otpions--",allSelectedOptions);
-    setAllSelectedOptions((prevState) => ({
-      ...prevState,
-      [category]: {
-        ...prevState[category],
-        [field]: selectedOption,
-      },
-    }));
+    setAllSelectedOptions((prevState) => {
+      const updatedOptions = {
+        ...prevState,
+        [category]: {
+          ...prevState[category],
+          [field]: selectedOption,
+        },
+      };
+
+      if (category === "identification" && field === "model") {
+        const { trailerId, manufacturer, make, model } =
+          updatedOptions.identification;
+        fetchRelevantOptions(trailerId, manufacturer, make, model);
+      }
+
+      return updatedOptions;
+    });
 
     if (
       category === "identification" &&
@@ -299,12 +311,8 @@ export default function TrailersAdvert() {
     ) {
       fetchIdentificationSectionOptions(category, selectedOption, field);
     }
-
-    if (category === "identification" && field === "model") {
-      console.log("001 relevant data all otpions after--",allSelectedOptions);
-      fetchRelevantOptions();
-    }
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
@@ -357,25 +365,37 @@ export default function TrailersAdvert() {
       setLoading(false);
     }
   };
-  const fetchRelevantOptions = async () => {
+  const fetchRelevantOptions = async (trailerId, manufacturer, make, model) => {
     try {
       setLoading(true);
-      // console.log("001 relevant data all otpions--",allSelectedOptions);
+
+      const requestBody = {
+        trailerId,
+        manufacturer,
+        make,
+        model,
+      };
+
       const response = await fetch(`${URL}relevant_data`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ allSelectedOptions }),
+        body: JSON.stringify(requestBody),
       });
+
       const data = await response.json();
       const result = data?.result;
-      {result && Object.keys(result).forEach((fieldKey) => {
-        Object.keys(sections).forEach((sectionKey) => {
-          if (sections[sectionKey][fieldKey] !== undefined) {
-            const fieldValue = Array.isArray(result[fieldKey]) && result[fieldKey].length > 0
-              ? result[fieldKey]?.[0]
-              : sections[sectionKey][fieldKey];
+
+      if (result) {
+        Object.keys(result).forEach((fieldKey) => {
+          Object.keys(sections).forEach((sectionKey) => {
+            if (sections[sectionKey][fieldKey] !== undefined) {
+              const fieldValue =
+                Array.isArray(result[fieldKey]) && result[fieldKey].length > 0
+                  ? result[fieldKey]?.[0]
+                  : sections[sectionKey][fieldKey];
+
               setAllSelectedOptions((prevState) => ({
                 ...prevState,
                 [sectionKey]: {
@@ -383,14 +403,14 @@ export default function TrailersAdvert() {
                   [fieldKey]: [fieldValue],
                 },
               }));
-          }
+            }
+          });
         });
-      });}
+      }
     } catch (error) {
-      console.error("Error fetching other section:", error);
+      console.error("Error fetching relevant options:", error);
     } finally {
       setLoading(false);
-      console.log("001 relevant data all otpions relevant options function--",allSelectedOptions);
     }
   };
   const fetchIdentificationSectionOptions = async (
@@ -484,7 +504,12 @@ export default function TrailersAdvert() {
                   const field = typeDef[title][fieldKey];
                   if (field && field.type === "radio") {
                     return (
-                      <Col md={12} className="mt-4 mr-3" key={fieldKey} style={{ width: 480 }}>
+                      <Col
+                        md={12}
+                        className="mt-4 mr-3"
+                        key={fieldKey}
+                        style={{ width: 480 }}
+                      >
                         <Col xs={3} md={12} className="mb-2">
                           <DropdownWithRadio
                             heading={fieldKey}
@@ -506,7 +531,9 @@ export default function TrailersAdvert() {
                           />
                           {error[`${fieldKey}`] && (
                             <div>
-                              {errorDisplay(makeString(fieldKey, keyToExpectedValueMap))}
+                              {errorDisplay(
+                                makeString(fieldKey, keyToExpectedValueMap)
+                              )}
                             </div>
                           )}
                         </Col>
@@ -514,7 +541,12 @@ export default function TrailersAdvert() {
                     );
                   } else if (field && field.type === "number") {
                     return (
-                      <Col md={12} className="mt-4 mr-3" key={fieldKey} style={{ width: 480 }}>
+                      <Col
+                        md={12}
+                        className="mt-4 mr-3"
+                        key={fieldKey}
+                        style={{ width: 480 }}
+                      >
                         <InputComponentDynamic
                           label={makeString(fieldKey, keyToExpectedValueMap)}
                           value={trailers[title]?.[fieldKey] || ""}
@@ -528,7 +560,9 @@ export default function TrailersAdvert() {
                         />
                         {error[`${fieldKey}`] && (
                           <div>
-                            {errorDisplay(makeString(fieldKey, keyToExpectedValueMap))}
+                            {errorDisplay(
+                              makeString(fieldKey, keyToExpectedValueMap)
+                            )}
                           </div>
                         )}
                       </Col>
@@ -539,7 +573,11 @@ export default function TrailersAdvert() {
               </Col>
             ))}
           </Row>
-          <SubmitButton text="Submit" name="advert_trailer_submit" onClick={handleSubmit} />
+          <SubmitButton
+            text="Submit"
+            name="advert_trailer_submit"
+            onClick={handleSubmit}
+          />
         </Form>
       )}
     </Container>

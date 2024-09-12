@@ -145,9 +145,9 @@ advertEngineRouter.post("/relevant_data", async (req, res) => {
         if (columnName != "Engine_ID") {
           // console.log(columnName,"----",tableName);
           // console.log("Query---",
-          //   `SELECT DISTINCT ?? FROM ?? WHERE Trailer_ID IN (?) AND ?? IS NOT NULL GROUP BY ?? ORDER BY COUNT(*) DESC LIMIT 0,1`);
+          //   `SELECT DISTINCT ?? FROM ?? WHERE Engine_ID IN (?) AND ?? IS NOT NULL GROUP BY ?? ORDER BY COUNT(*) DESC LIMIT 0,1`);
           const [rows] = await connection.query(
-            `SELECT DISTINCT ?? FROM ?? WHERE Trailer_ID IN (?) AND ?? IS NOT NULL GROUP BY ?? ORDER BY COUNT(*) DESC LIMIT 0,1`,
+            `SELECT DISTINCT ?? FROM ?? WHERE Engine_ID IN (?) AND ?? IS NOT NULL GROUP BY ?? ORDER BY COUNT(*) DESC LIMIT 0,1`,
             [
               columnName,
               tableName,
