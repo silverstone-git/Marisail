@@ -448,6 +448,9 @@ export default function BerthAdvert() {
 
             if (result) {
                 const updatePromises = Object.keys(result).map((fieldKey) => {
+                    if (Object.keys(requestBody).includes(fieldKey)) {
+                        return Promise.resolve();
+                    }
                     return Promise.all(
                         Object.keys(sections).map((sectionKey) => {
                             return new Promise((resolve) => {

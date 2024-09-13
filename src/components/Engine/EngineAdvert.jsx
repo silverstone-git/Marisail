@@ -268,9 +268,6 @@ export default function EngineAdvert() {
         if (field.mandatory) {
           const fieldValue = sectionData[fieldKey];
           if (field.type === "radio") {
-            // if(field.value){
-            //   console.log("001 field value--",field);
-            // }
             if (!field.value || String(field.value).trim() === "") {
               errors[`${fieldKey}`] = true;
             }
@@ -441,7 +438,6 @@ export default function EngineAdvert() {
   ) => {
     try {
       setLoading(true);
-
       const requestBody = {
         engineMake,
         engineModel,
@@ -449,8 +445,6 @@ export default function EngineAdvert() {
         engineType,
         typeDesignation,
       };
-
-      // Fetch the data from the API
       const response = await fetch(`${URL}relevant_data`, {
         method: "POST",
         headers: {
@@ -459,74 +453,49 @@ export default function EngineAdvert() {
         body: JSON.stringify({ requestBody }),
       });
       const data = await response.json();
-      const result = data.result;
+      const result = data?.result;
 
-      // Use Promise.all to update the state in parallel
-      await Promise.all(
-        Object.keys(result).map((fieldKey) => {
+      if (result) {
+        const updatePromises = Object.keys(result).map((fieldKey) => {
+          if (Object.keys(requestBody).includes(fieldKey)) {
+            return Promise.resolve();
+          }
           return Promise.all(
             Object.keys(sections).map((sectionKey) => {
-              if (sections[sectionKey][fieldKey] !== undefined) {
-                const fieldValue =
-                  Array.isArray(result[fieldKey]) && result[fieldKey].length > 0
-                    ? result[fieldKey][0]
-                    : sections[sectionKey][fieldKey];
+              return new Promise((resolve) => {
+                if (sections[sectionKey][fieldKey] !== undefined) {
+                  const fieldValue =
+                    Array.isArray(result[fieldKey]) &&
+                      result[fieldKey].length > 0
+                      ? result[fieldKey]?.[0]
+                      : sections[sectionKey][fieldKey];
 
-                // Update state asynchronously for each section and fieldKey
-                return setAllSelectedOptions((prevState) => ({
-                  ...prevState,
-                  [sectionKey]: {
-                    ...prevState[sectionKey],
-                    [fieldKey]: [fieldValue],
-                  },
-                }));
-              }
-              return Promise.resolve(); // In case the sectionKey/fieldKey doesn't match
+                  setAllSelectedOptions((prevState) => ({
+                    ...prevState,
+                    [sectionKey]: {
+                      ...prevState[sectionKey],
+                      [fieldKey]: [fieldValue],
+                    },
+                  }));
+
+                  resolve();
+                } else {
+                  resolve();
+                }
+              });
             })
           );
-        })
-      );
+        });
+
+        // Wait for all updates to complete
+        await Promise.all(updatePromises);
+      }
     } catch (error) {
       console.error("Error fetching other section:", error);
     } finally {
       setLoading(false);
     }
   };
-
-  /*const fetchRelevantOptions = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(`${URL}relevant_data`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ allSelectedOptions }),
-      });
-      const data = await response.json();
-      const result = data.result;
-      Object.keys(result).forEach((fieldKey) => {
-        Object.keys(sections).forEach((sectionKey) => {
-          if (sections[sectionKey][fieldKey] !== undefined) {
-            const fieldValue = Array.isArray(result[fieldKey]) && result[fieldKey].length > 0
-              ? result[fieldKey][0]
-              : sections[sectionKey][fieldKey];
-              setAllSelectedOptions((prevState) => ({
-                ...prevState,
-                [sectionKey]: {
-                  ...prevState[sectionKey],
-                  [fieldKey]: [fieldValue],
-                },
-              }));
-          }
-        });
-      });
-    } catch (error) {
-      console.error("Error fetching other section:", error);
-    } finally {
-      setLoading(false);
-    }
-  };*/
   const fetchIdentificationSectionOptions = async (
     category,
     selectedOption,
@@ -535,34 +504,39 @@ export default function EngineAdvert() {
     try {
       setLoading(true);
       const tableName = "General";
-      let fetchColumn;
-      let requestBody = {};
 
-      if (Key === "engineMake") {
-        fetchColumn = "engineModel";
-        requestBody = { engineMake: selectedOption };
-      } else if (Key === "engineModel") {
-        fetchColumn = "engineModelYear";
-        requestBody = {
-          engineMake: allSelectedOptions[category]?.engineMake,
-          engineModel: selectedOption,
-        };
-      } else if (Key === "engineModelYear") {
-        fetchColumn = "engineType";
-        requestBody = {
-          engineMake: allSelectedOptions[category]?.engineMake,
-          engineModel: allSelectedOptions[category]?.engineModel,
-          engineModelYear: selectedOption,
-        };
-      } else if (Key === "engineType") {
-        fetchColumn = "typeDesignation";
-        requestBody = {
-          engineMake: allSelectedOptions[category]?.engineMake,
-          engineModel: allSelectedOptions[category]?.engineModel,
-          engineModelYear: allSelectedOptions[category]?.engineModelYear,
-          engineType: selectedOption,
-        };
+      // Define the order of keys for request body construction
+      const keyHierarchy = [
+        "engineMake",
+        "engineModel",
+        "engineModelYear",
+        "engineType",
+        "typeDesignation",
+      ];
+
+      // Find the index of the current key
+      const currentKeyIndex = keyHierarchy.indexOf(Key);
+
+      // The next column to be fetched will be the one after the current key
+      const fetchColumn = keyHierarchy[currentKeyIndex + 1];
+
+      // Dynamically construct the requestBody by including all prior selections
+      let requestBody = {};
+      for (let i = 0; i <= currentKeyIndex; i++) {
+        const key = keyHierarchy[i];
+        // If it's the current key, assign the selected option, otherwise use the already selected options
+        requestBody[key] =
+          key === Key ? selectedOption : allSelectedOptions[category]?.[key];
       }
+
+      // Make sure fetchColumn is defined before proceeding
+      if (!fetchColumn) {
+        throw new Error(
+          "No further data to fetch. All selections are complete."
+        );
+      }
+
+      // Send the request
       const response = await fetch(`${URL}${tableName}/${fetchColumn}`, {
         method: "POST",
         headers: {
@@ -570,7 +544,10 @@ export default function EngineAdvert() {
         },
         body: JSON.stringify({ requestBody }),
       });
+
       const data = await response.json();
+
+      // Update the page data with the fetched results
       setPageData(category, {
         ...sections[category],
         [fetchColumn]: data.result,

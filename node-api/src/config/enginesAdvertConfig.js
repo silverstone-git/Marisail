@@ -34,7 +34,7 @@ export const ENGINES_ADVERT = [
     columnName: "Engine_Classifiable",
     tableName: "General",
   },
-  { key: "certification", columnName: "Certification", tableName: "General" },
+  { key: "certification", columnName: "Engine_Certification", tableName: "General" },
   {
     key: "manufacturerWarranty",
     columnName: "Manufacture_Warranty",
@@ -42,13 +42,13 @@ export const ENGINES_ADVERT = [
   },
   {
     key: "engineSerialNumber",
-    columnName: "Engine_Serial_Number",
+    columnName: "Engine_Serial",
     tableName: "General",
   },
   { key: "ceDesignCategory", columnName: "CE_Category", tableName: "General" },
   { key: "numberDrives", columnName: "Number_Drives", tableName: "General" },
   { key: "numberEngines", columnName: "Number_Engines", tableName: "General" },
-  { key: "rangeMiles", columnName: "Range", tableName: "General" },
+  { key: "rangeMiles", columnName: "Engine_Range", tableName: "General" },
   { key: "cruisingSpeed", columnName: "Cruise_Speed", tableName: "General" },
   { key: "driveType", columnName: "Drive_Type", tableName: "General" },
   { key: "engineHours", columnName: "Engine_Hours", tableName: "General" },
@@ -57,10 +57,10 @@ export const ENGINES_ADVERT = [
     columnName: "Ignition_System",
     tableName: "General",
   },
-  { key: "noiseLevel", columnName: "Noise_Level", tableName: "General" },
+  { key: "noiseLevel", columnName: "Noiselevel_DB", tableName: "General" },
   {
     key: "engineSoundproofingKits",
-    columnName: "Engine_Soundproofing_Kits",
+    columnName: "Enginesound_Proofing_Kits",
     tableName: "General",
   },
 
