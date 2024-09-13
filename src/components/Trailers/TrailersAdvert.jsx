@@ -438,26 +438,22 @@ export default function TrailersAdvert() {
     try {
       setLoading(true);
       const tableName = "Trailers_ID";
-      let fetchColumn;
+      const keyHierarchy = ["manufacturer", "make", "model"];
+      const currentKeyIndex = keyHierarchy.indexOf(Key);
+      const fetchColumn = keyHierarchy[currentKeyIndex + 1];
       let requestBody = {};
-
-      if (Key === "trailerId") {
-        fetchColumn = "manufacturer";
-        requestBody = { trailerId: selectedOption };
-      } else if (Key === "manufacturer") {
-        fetchColumn = "make";
-        requestBody = {
-          trailerId: allSelectedOptions[category]?.trailerId,
-          manufacturer: selectedOption,
-        };
-      } else if (Key === "make") {
-        fetchColumn = "model";
-        requestBody = {
-          trailerId: allSelectedOptions[category]?.trailerId,
-          manufacturer: allSelectedOptions[category]?.manufacturer,
-          make: selectedOption,
-        };
+      for (let i = 0; i <= currentKeyIndex; i++) {
+        const key = keyHierarchy[i];
+        requestBody[key] =
+          key === Key ? selectedOption : allSelectedOptions[category]?.[key];
       }
+
+      if (!fetchColumn) {
+        throw new Error(
+          "No further data to fetch. All selections are complete."
+        );
+      }
+
       const response = await fetch(`${URL}${tableName}/${fetchColumn}`, {
         method: "POST",
         headers: {
@@ -465,7 +461,9 @@ export default function TrailersAdvert() {
         },
         body: JSON.stringify({ requestBody }),
       });
+
       const data = await response.json();
+
       setPageData(category, {
         ...sections[category],
         [fetchColumn]: data.result,
@@ -476,7 +474,6 @@ export default function TrailersAdvert() {
       setLoading(false);
     }
   };
-
   useEffect(() => {
     const cachedData = localStorage.getItem(cacheKey);
     if (cachedData) {
