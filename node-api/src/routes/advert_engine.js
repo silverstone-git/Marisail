@@ -108,10 +108,6 @@ advertEngineRouter.post("/relevant_data", async (req, res) => {
     connection = await dbConnection.getConnection();
     const filters = [];
     let queryParams = {};
-    let valid_tables = [];
-    valid_tables.push(UNIQUE_TABLE);
-
-    // Prepare query parameters based on the request body
     ENGINES_ADVERT.forEach((item) => {
       const key = item.key;
       const columnName = item.columnName;
@@ -132,20 +128,17 @@ advertEngineRouter.post("/relevant_data", async (req, res) => {
     const [engineID] = await connection.query(
       `SELECT DISTINCT Engine_ID FROM General ${filterOptions} ORDER BY Engine_ID`
     );
-    // console.log("Engine Id----->",engineID);
+    
     if (engineID.length === 0) {
       return res.status(404).json({ ok: false, message: "No data found" });
     }
-    for (let tableName of valid_tables) {
+    for (let tableName of UNIQUE_TABLE) {
       const [columns] = await connection.query("SHOW COLUMNS FROM ??", [
         tableName,
       ]);
       for (let column of columns) {
         const columnName = column.Field;
         if (columnName != "Engine_ID") {
-          // console.log(columnName,"----",tableName);
-          // console.log("Query---",
-          //   `SELECT DISTINCT ?? FROM ?? WHERE Engine_ID IN (?) AND ?? IS NOT NULL GROUP BY ?? ORDER BY COUNT(*) DESC LIMIT 0,1`);
           const [rows] = await connection.query(
             `SELECT DISTINCT ?? FROM ?? WHERE Engine_ID IN (?) AND ?? IS NOT NULL GROUP BY ?? ORDER BY COUNT(*) DESC LIMIT 0,1`,
             [

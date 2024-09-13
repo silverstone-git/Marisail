@@ -3,10 +3,9 @@ import { useEffect, useState, useRef } from "react";
 import DropdownWithRadio from "../DropdownWithRadio";
 import Loader from "../Loader";
 import InputComponentDynamic from "../InputComponentDynamic";
-import SubmitButton from '../SubmitButton';
-import { keyToExpectedValueMap, typeDef } from './EngineAdvertInfo'
-import { makeString } from '../../services/common_functions'
-
+import SubmitButton from "../SubmitButton";
+import { keyToExpectedValueMap, typeDef } from "./EngineAdvertInfo";
+import { makeString } from "../../services/common_functions";
 
 export default function EngineAdvert() {
   const [error, setError] = useState({});
@@ -35,14 +34,14 @@ export default function EngineAdvert() {
     engineClassification: "",
     certification: "",
     manufacturerWarranty: "",
-    engineSerialNumber: 0,
+    engineSerialNumber: "",
     ceDesignCategory: "",
-    numberDrives: 0,
-    numberEngines: 0,
-    rangeMiles: 0,
+    numberDrives: "",
+    numberEngines: "",
+    rangeMiles: "",
     cruisingSpeed: "",
     driveType: "",
-    engineHours: 0,
+    engineHours: "",
     ignitionSystem: "",
     noiseLevel: "",
     engineSoundproofingKits: "",
@@ -205,14 +204,14 @@ export default function EngineAdvert() {
     fuelDeliveryPressure: "",
     fuelTankMaterial: "",
     fuelLineDiameter: "",
-    });
+  });
   const [fuelConsumption, setFuelConsumption] = useState({
     fuelConsumption: "",
     fuelConsumptionHalfLoad: "",
     fuelConsumptionPropellerCurve: "",
     heatRejectionToCoolant: "",
   });
-  const [oil,  setOil ] = useState({
+  const [oil, setOil] = useState({
     oilFilter: "",
     oilFilterType: "",
     centrifugalOilCleaner: "",
@@ -261,10 +260,10 @@ export default function EngineAdvert() {
 
   const checkRequired = () => {
     const errors = {};
-      Object.keys(typeDef).forEach((sectionKey) => {
+    Object.keys(typeDef).forEach((sectionKey) => {
       const section = typeDef[sectionKey];
       const sectionData = sections[sectionKey];
-        Object.keys(section).forEach((fieldKey) => {
+      Object.keys(section).forEach((fieldKey) => {
         const field = section[fieldKey];
         if (field.mandatory) {
           const fieldValue = sectionData[fieldKey];
@@ -276,18 +275,22 @@ export default function EngineAdvert() {
               errors[`${fieldKey}`] = true;
             }
           } else if (field.type === "number") {
-            if (fieldValue === undefined || fieldValue === "" || isNaN(fieldValue)) {
+            if (
+              fieldValue === undefined ||
+              fieldValue === "" ||
+              isNaN(fieldValue)
+            ) {
               errors[`${fieldKey}`] = true;
             }
           }
         }
       });
     });
-  
+
     setError(errors);
     return Object.keys(errors).length === 0;
   };
-  
+
   const sections = {
     engineDetails,
     condition,
@@ -335,24 +338,44 @@ export default function EngineAdvert() {
   };
 
   const handleOptionSelect = (category, field, selectedOption) => {
-    setAllSelectedOptions((prevState) => ({
-      ...prevState,
-      [category]: {
-        ...prevState[category],
-        [field]: selectedOption,
-      },
-    }));
+    setAllSelectedOptions((prevState) => {
+      const updatedOptions = {
+        ...prevState,
+        [category]: {
+          ...prevState[category],
+          [field]: selectedOption,
+        },
+      };
+
+      if (category === "engineDetails" && field === "typeDesignation") {
+        const {
+          engineMake,
+          engineModel,
+          engineModelYear,
+          engineType,
+          typeDesignation,
+        } = updatedOptions.engineDetails;
+        fetchRelevantOptions(
+          engineMake,
+          engineModel,
+          engineModelYear,
+          engineType,
+          typeDesignation
+        );
+      }
+
+      return updatedOptions;
+    });
 
     if (
       category === "engineDetails" &&
-      (field === "engineModel" || field === "engineModelYear" || field === "engineMake" || field === "engineType")
+      (field === "engineModel" ||
+        field === "engineModelYear" ||
+        field === "engineMake" ||
+        field === "engineType")
     ) {
       // Fetch manufacturers based on selected trailerId
       fetchIdentificationSectionOptions(category, selectedOption, field);
-    }
-
-    if (category === "engineDetails" && field === "typeDesignation") {
-      fetchRelevantOptions();
     }
   };
   const handleSubmit = (e) => {
@@ -409,21 +432,35 @@ export default function EngineAdvert() {
       console.log("done");
     }
   };
-  const fetchRelevantOptions = async () => {
+  const fetchRelevantOptions = async (
+    engineMake,
+    engineModel,
+    engineModelYear,
+    engineType,
+    typeDesignation
+  ) => {
     try {
       setLoading(true);
-  
+
+      const requestBody = {
+        engineMake,
+        engineModel,
+        engineModelYear,
+        engineType,
+        typeDesignation,
+      };
+
       // Fetch the data from the API
       const response = await fetch(`${URL}relevant_data`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ allSelectedOptions }),
+        body: JSON.stringify({ requestBody }),
       });
       const data = await response.json();
       const result = data.result;
-  
+
       // Use Promise.all to update the state in parallel
       await Promise.all(
         Object.keys(result).map((fieldKey) => {
@@ -434,7 +471,7 @@ export default function EngineAdvert() {
                   Array.isArray(result[fieldKey]) && result[fieldKey].length > 0
                     ? result[fieldKey][0]
                     : sections[sectionKey][fieldKey];
-  
+
                 // Update state asynchronously for each section and fieldKey
                 return setAllSelectedOptions((prevState) => ({
                   ...prevState,
@@ -455,7 +492,7 @@ export default function EngineAdvert() {
       setLoading(false);
     }
   };
-  
+
   /*const fetchRelevantOptions = async () => {
     try {
       setLoading(true);
@@ -589,7 +626,12 @@ export default function EngineAdvert() {
                   const field = typeDef[title][fieldKey];
                   if (field && field.type === "radio") {
                     return (
-                      <Col md={12} className="mt-4 mr-3" key={fieldKey} style={{ width: 480 }}>
+                      <Col
+                        md={12}
+                        className="mt-4 mr-3"
+                        key={fieldKey}
+                        style={{ width: 480 }}
+                      >
                         <Col xs={3} md={12} className="mb-2">
                           <DropdownWithRadio
                             heading={fieldKey}
@@ -611,7 +653,9 @@ export default function EngineAdvert() {
                           />
                           {error[`${fieldKey}`] && (
                             <div>
-                              {errorDisplay(makeString(fieldKey, keyToExpectedValueMap))}
+                              {errorDisplay(
+                                makeString(fieldKey, keyToExpectedValueMap)
+                              )}
                             </div>
                           )}
                         </Col>
@@ -619,7 +663,12 @@ export default function EngineAdvert() {
                     );
                   } else if (field && field.type === "number") {
                     return (
-                      <Col md={12} className="mt-4 mr-3" key={fieldKey} style={{ width: 480 }}>
+                      <Col
+                        md={12}
+                        className="mt-4 mr-3"
+                        key={fieldKey}
+                        style={{ width: 480 }}
+                      >
                         <InputComponentDynamic
                           label={makeString(fieldKey, keyToExpectedValueMap)}
                           value={engines[title]?.[fieldKey] || ""}
@@ -633,7 +682,9 @@ export default function EngineAdvert() {
                         />
                         {error[`${fieldKey}`] && (
                           <div>
-                            {errorDisplay(makeString(fieldKey, keyToExpectedValueMap))}
+                            {errorDisplay(
+                              makeString(fieldKey, keyToExpectedValueMap)
+                            )}
                           </div>
                         )}
                       </Col>
@@ -644,7 +695,11 @@ export default function EngineAdvert() {
               </Col>
             ))}
           </Row>
-          <SubmitButton text="Submit" name="advert_engine_submit" onClick={handleSubmit} />
+          <SubmitButton
+            text="Submit"
+            name="advert_engine_submit"
+            onClick={handleSubmit}
+          />
         </Form>
       )}
     </Container>

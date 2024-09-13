@@ -388,24 +388,37 @@ export default function TrailersAdvert() {
       const result = data?.result;
 
       if (result) {
-        Object.keys(result).forEach((fieldKey) => {
-          Object.keys(sections).forEach((sectionKey) => {
-            if (sections[sectionKey][fieldKey] !== undefined) {
-              const fieldValue =
-                Array.isArray(result[fieldKey]) && result[fieldKey].length > 0
-                  ? result[fieldKey]?.[0]
-                  : sections[sectionKey][fieldKey];
+        // Create an array of promises to update each section asynchronously
+        const updatePromises = Object.keys(result).map((fieldKey) => {
+          return Promise.all(
+            Object.keys(sections).map((sectionKey) => {
+              return new Promise((resolve) => {
+                if (sections[sectionKey][fieldKey] !== undefined) {
+                  const fieldValue =
+                    Array.isArray(result[fieldKey]) &&
+                      result[fieldKey].length > 0
+                      ? result[fieldKey]?.[0]
+                      : sections[sectionKey][fieldKey];
 
-              setAllSelectedOptions((prevState) => ({
-                ...prevState,
-                [sectionKey]: {
-                  ...prevState[sectionKey],
-                  [fieldKey]: [fieldValue],
-                },
-              }));
-            }
-          });
+                  setAllSelectedOptions((prevState) => ({
+                    ...prevState,
+                    [sectionKey]: {
+                      ...prevState[sectionKey],
+                      [fieldKey]: [fieldValue],
+                    },
+                  }));
+
+                  resolve(); // Resolve the promise once the update is done
+                } else {
+                  resolve(); // Resolve the promise if there's no matching field
+                }
+              });
+            })
+          );
         });
+
+        // Wait for all updates to complete
+        await Promise.all(updatePromises);
       }
     } catch (error) {
       console.error("Error fetching relevant options:", error);
@@ -413,6 +426,7 @@ export default function TrailersAdvert() {
       setLoading(false);
     }
   };
+
   const fetchIdentificationSectionOptions = async (
     category,
     selectedOption,
