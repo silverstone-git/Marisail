@@ -74,7 +74,7 @@ export const BERTHS_ADVERT = [
   { key: "boatShowParticipation", columnName: "Boat_Show", tableName: "Berth_Features" },
   { key: "loyaltyPrograms", columnName: "Loyalty_Programs", tableName: "Berth_Features" },
   { key: "referralPrograms", columnName: "Referral_Programs", tableName: "Berth_Features" },
-  { key: "vipMembershipOptions", columnName: "VIP_Membership", tableName: "Berth_Features" },
+  { key: "vip_MembershipOptions", columnName: "VIP_Membership", tableName: "Berth_Features" },
 
   { key: "annualEvents", columnName: "Annual_Events", tableName: "Events" },
   { key: "educationalPrograms", columnName: "Educational_Programs", tableName: "Events" },

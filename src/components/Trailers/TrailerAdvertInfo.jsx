@@ -1,6 +1,6 @@
 export const typeDef = {
   identification: {
-    trailerId: { value: "", type: "radio", mandatory: true },
+    marisailTrailerId: { value: "", type: "radio", mandatory: true },
     manufacturer: { value: "", type: "radio", mandatory: true },
     make: { value: "", type: "radio", mandatory: true },
     model: { value: "", type: "radio", mandatory: true },
@@ -137,7 +137,7 @@ export const typeDef = {
     wheelLocks: { value: "", type: "radio", mandatory: true },
     lockType: { value: "", type: "radio", mandatory: true },
     alarmSystem: { value: "", type: "radio", mandatory: true },
-    gpsTrackingDevice: { value: "", type: "radio", mandatory: true },
+    gps_TrackingDevice: { value: "", type: "radio", mandatory: true },
   },
   environmentalAndCorrosionResistance: {
     corrosionProtection: { value: "", type: "radio", mandatory: true },
@@ -160,7 +160,7 @@ export const typeDef = {
     warranty: { value: "", type: "radio", mandatory: false },
   },
   regulatoryCompliance: {
-    dotCompliance: { value: "", type: "radio", mandatory: false },
+    dot_Compliance: { value: "", type: "radio", mandatory: false },
     natmCertification: { value: "", type: "radio", mandatory: false },
     euTypeApproval: { value: "", type: "radio", mandatory: false },
     adrCompliance: { value: "", type: "radio", mandatory: false },
@@ -188,9 +188,7 @@ export const keyToExpectedValueMap = {
   grossVehicleWeightRating: "Gross Vehicle Weight Rating (GVWR)",
   ownerManual: "Owner’s Manual",
   tieDownPoints: "Tie-Down Points",
-  gpsTrackingDevice: "GPS Tracking Device",
   VAT: "VAT",
-  dotCompliance: "DOT Compliance",
   natmCertification: "NATM Certification",
   euTypeApproval: "EU Type Approval",
   adrCompliance: "ADR Compliance",

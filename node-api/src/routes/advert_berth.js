@@ -46,6 +46,8 @@ advertBerthRouter.post("/:tableName/:fetchColumn", async (req, res) => {
   try {
     let filterOptions = "";
     connection = await dbConnection.getConnection();
+    console.log("001 Fetch--",req.params);
+    
     const filters = [];
     let queryParams = {};
     const fetchColumnName = BERTHS_ADVERT.find(
@@ -90,15 +92,13 @@ advertBerthRouter.post("/relevant_data", async (req, res) => {
     connection = await dbConnection.getConnection();
     const filters = [];
     let queryParams = {};
-    let valid_tables = [];
-    valid_tables.push(UNIQUE_TABLE);
     // console.log("----Table Names----",typeof valid_tables);
     BERTHS_ADVERT.forEach((item) => {
       const key = item.key;
       const columnName = item.columnName;
-      if (req.body?.allSelectedOptions?.identification[key]) {
+      if (req.body?.allSelectedOptions?.siteDetails[key]) {
         queryParams[columnName] =
-          req.body?.allSelectedOptions?.identification[key];
+          req.body?.allSelectedOptions?.siteDetails[key];
       }
     });
 
@@ -111,26 +111,26 @@ advertBerthRouter.post("/relevant_data", async (req, res) => {
     filterOptions = filters.length > 0 ? `WHERE ${filters.join(" AND ")}` : "";
     let results = {};
     const [trailerID] = await connection.query(
-      `SELECT DISTINCT Trailer_ID FROM Trailers_ID ${filterOptions} ORDER BY Trailer_ID`
+      `SELECT DISTINCT Marisail_Berth_ID FROM Marina_Port ${filterOptions} ORDER BY Marisail_Berth_ID`
     );
     // console.log("-----Trailer ID----",trailerID);
-    // console.log("-----Trailer ID Query----",`SELECT DISTINCT Trailer_ID FROM Trailers_ID ${filterOptions} ORDER BY Trailer_ID`);
+    // console.log("-----Trailer ID Query----",`SELECT DISTINCT Marisail_Berth_ID FROM Trailers_ID ${filterOptions} ORDER BY Marisail_Berth_ID`);
     if (trailerID.length === 0) {
       return res.status(404).json({ ok: false, message: "No data found" });
     }
-    for (let tableName of valid_tables) {
+    for (let tableName of UNIQUE_TABLE) {
       const [columns] = await connection.query("SHOW COLUMNS FROM ??", [
         tableName,
       ]);
       for (let column of columns) {
         const columnName = column.Field;
-        if (columnName != "Trailer_ID") {
+        if (columnName != "Marisail_Berth_ID") {
           const [rows] = await connection.query(
-            `SELECT DISTINCT ?? FROM ?? WHERE Trailer_ID IN (?) AND ?? IS NOT NULL GROUP BY ?? ORDER BY COUNT(*) DESC LIMIT 0,1`,
+            `SELECT DISTINCT ?? FROM ?? WHERE Marisail_Berth_ID IN (?) AND ?? IS NOT NULL GROUP BY ?? ORDER BY COUNT(*) DESC LIMIT 0,1`,
             [
               columnName,
               tableName,
-              trailerID.map((row) => row.Trailer_ID),
+              trailerID.map((row) => row.Marisail_Berth_ID),
               columnName,
               columnName,
             ]

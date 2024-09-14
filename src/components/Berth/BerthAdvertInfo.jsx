@@ -1,4 +1,4 @@
-export const keyToExpectedValueMap = 
+export const keyToExpectedValueMap =
 {
     marinaPortHarborName: "Marina/Port/Harbor Name",
     wifiAvailability: "Wi-Fi Availability",
@@ -6,9 +6,14 @@ export const keyToExpectedValueMap =
     petFriendlyServices: "Pet-Friendly Services",
     pumpOutStation: "Pump-Out Station",
     haulOutServices: "Haul-Out Services",
-    ecoFriendlyCleaningProducts:"Eco-Friendly Cleaning Products",
-    ecoFriendlyProductsAvailability:"Eco-Friendly Products Availability",
-    security24_7: "24/7 Security Patrol"
+    ecoFriendlyCleaningProducts: "Eco-Friendly Cleaning Products",
+    ecoFriendlyProductsAvailability: "Eco-Friendly Products Availability",
+    security24_7: "24/7 Security Patrol",
+    vat: "VAT",
+    pricePA: "Price p.a.",
+    picnicAndBBQAreas: "Picnic & BBQ Areas",
+    childrensPlayArea: "Children's Play Area",
+    price_pcm: "Price PCM"
 }
 
 export const typeDef = {
@@ -93,7 +98,7 @@ export const typeDef = {
         boatShowParticipation: { value: "", type: "radio", mandatory: false },
         loyaltyPrograms: { value: "", type: "radio", mandatory: false },
         referralPrograms: { value: "", type: "radio", mandatory: false },
-        vipMembershipOptions: { value: "", type: "radio", mandatory: false },
+        vip_MembershipOptions: { value: "", type: "radio", mandatory: false },
     },
     communityAndSocial: {
         annualEvents: { value: "", type: "radio", mandatory: false },
@@ -104,8 +109,8 @@ export const typeDef = {
         culturalEvents: { value: "", type: "radio", mandatory: false },
         seasonalActivities: { value: "", type: "radio", mandatory: false },
         yachtClubMembership: { value: "", type: "radio", mandatory: true },
-        regattasCompetitions: { value: "", type: "radio", mandatory: false },
-        workshopsClasses: { value: "", type: "radio", mandatory: false },
+        regattasAndCompetitions: { value: "", type: "radio", mandatory: false },
+        workshopsAndClasses: { value: "", type: "radio", mandatory: false },
         communityBulletinBoard: { value: "", type: "radio", mandatory: false },
         networkingEvents: { value: "", type: "radio", mandatory: false },
         memberDiscounts: { value: "", type: "radio", mandatory: false },
@@ -130,7 +135,7 @@ export const typeDef = {
         boatCleaningServices: { value: "", type: "radio", mandatory: false },
         boatMaintenanceRepair: { value: "", type: "radio", mandatory: false },
         chandleryServices: { value: "", type: "radio", mandatory: false },
-        repairMaintenanceServices: { value: "", type: "radio", mandatory: false },
+        repairAndMaintenanceServices: { value: "", type: "radio", mandatory: false },
         haulOutServices: { value: "", type: "radio", mandatory: false },
         boatLiftSpecifications: { value: "", type: "radio", mandatory: true },
     },
@@ -139,7 +144,7 @@ export const typeDef = {
         proximityHandicapParking: { value: "", type: "radio", mandatory: true },
         accessibleFacilities: { value: "", type: "radio", mandatory: true },
         assistanceServicesDisabled: { value: "", type: "radio", mandatory: true },
-        signageDirections: { value: "", type: "radio", mandatory: true },
+        signageAndDirections: { value: "", type: "radio", mandatory: true },
         accessibleRestroomsShowers: { value: "", type: "radio", mandatory: true },
         parkingFacilities: { value: "", type: "radio", mandatory: false },
         accessibilityFeatures: { value: "", type: "radio", mandatory: false },
@@ -212,14 +217,14 @@ export const typeDef = {
         pileAnchoringSystem: { value: "", type: "radio", mandatory: false },
         security: { value: "", type: "radio", mandatory: false },
         security24_7: { value: "", type: "radio", mandatory: true },
-        cctvSurveillance: { value: "", type: "radio", mandatory: true },
+        cctv_Surveillance: { value: "", type: "radio", mandatory: true },
         accessControlSystems: { value: "", type: "radio", mandatory: false },
         securityLighting: { value: "", type: "radio", mandatory: false },
     },
     legalAndCompliance: {
-        permitsLicenses: { value: "", type: "radio", mandatory: false },
-        customsImmigration: { value: "", type: "radio", mandatory: false },
-        healthSafetyRegulations: { value: "", type: "radio", mandatory: false },
+        permitsAndLicenses: { value: "", type: "radio", mandatory: false },
+        customsAndImmigration: { value: "", type: "radio", mandatory: false },
+        healthAndSafetyRegulations: { value: "", type: "radio", mandatory: false },
         environmentalRegulationsCompliance: {
             value: "",
             type: "radio",
@@ -263,7 +268,7 @@ export const typeDef = {
     },
     pricingAndLeaseTerms: {
         pricePA: { value: "", type: "radio", mandatory: true },
-        pricePCM: { value: "", type: "radio", mandatory: true },
+        price_pcm: { value: "", type: "radio", mandatory: true },
         pricePerWeek: { value: "", type: "radio", mandatory: true },
         availability: { value: "", type: "radio", mandatory: true },
         annualLeaseRenewable: { value: "", type: "radio", mandatory: true },

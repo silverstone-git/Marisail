@@ -4,7 +4,7 @@ export const TRAILERS_ADVERT = [
   { key: "model", columnName: "Model", tableName: "Trailers_ID" },
   { key: "year", columnName: "Year", tableName: "Trailers_ID" },
   { key: "askingPrice", columnName: "Asking_Price", tableName: "Trailers_ID" },
-  { key: "trailerId", columnName: "Trailer_ID", tableName: "Trailers_ID" },
+  { key: "marisailTrailerId", columnName: "Trailer_ID", tableName: "Trailers_ID" },
   { key: "type", columnName: "Type", tableName: "Trailers_ID" },
   {
     key: "grossVehicleWeightRating",
@@ -378,7 +378,7 @@ export const TRAILERS_ADVERT = [
   },
   { key: "alarmSystem", columnName: "Alarm", tableName: "Security_Features" },
   {
-    key: "gpsTrackingDevice",
+    key: "gps_TrackingDevice",
     columnName: "GPS_Tracking_Device",
     tableName: "Security_Features",
   },
@@ -424,7 +424,7 @@ export const TRAILERS_ADVERT = [
   { key: "warranty", columnName: "warranty", tableName: "Documentation" },
 
   {
-    key: "dotCompliance",
+    key: "dot_Compliance",
     columnName: "Dot_Compliance",
     tableName: "Regulatory",
   },

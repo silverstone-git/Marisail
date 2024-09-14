@@ -1,4 +1,5 @@
 export const ENGINES_ADVERT = [
+  { key: "marisailVesselId", columnName: "Marisail_Vessel_ID", tableName: "General" },
   { key: "engineMake", columnName: "Engine_Make", tableName: "General" },
   { key: "engineModel", columnName: "Engine_Model", tableName: "General" },
   {
@@ -14,7 +15,7 @@ export const ENGINES_ADVERT = [
   },
   { key: "askingPrice", columnName: "Asking_Price", tableName: "General" },
 
-  { key: "condition", columnName: "Condition_1", tableName: "General" },
+  { key: "condition", columnName: "Condition", tableName: "General" },
   { key: "usedCondition", columnName: "Used_Condition", tableName: "General" },
   { key: "seller", columnName: "Seller", tableName: "General" },
   { key: "offeredBy", columnName: "Offered_By", tableName: "General" },
@@ -34,21 +35,21 @@ export const ENGINES_ADVERT = [
     columnName: "Engine_Classifiable",
     tableName: "General",
   },
-  { key: "certification", columnName: "Engine_Certification", tableName: "General" },
+  { key: "certification", columnName: "Certification", tableName: "General" },
   {
     key: "manufacturerWarranty",
-    columnName: "Manufacture_Warranty",
+    columnName: "Manufacturer_Warranty",
     tableName: "General",
   },
   {
     key: "engineSerialNumber",
-    columnName: "Engine_Serial",
+    columnName: "Engine_Serial_Number",
     tableName: "General",
   },
-  { key: "ceDesignCategory", columnName: "CE_Category", tableName: "General" },
+  { key: "ce_DesignCategory", columnName: "CE_Category", tableName: "General" },
   { key: "numberDrives", columnName: "Number_Drives", tableName: "General" },
   { key: "numberEngines", columnName: "Number_Engines", tableName: "General" },
-  { key: "rangeMiles", columnName: "Engine_Range", tableName: "General" },
+  { key: "rangeMiles", columnName: "Range", tableName: "General" },
   { key: "cruisingSpeed", columnName: "Cruise_Speed", tableName: "General" },
   { key: "driveType", columnName: "Drive_Type", tableName: "General" },
   { key: "engineHours", columnName: "Engine_Hours", tableName: "General" },
@@ -57,10 +58,10 @@ export const ENGINES_ADVERT = [
     columnName: "Ignition_System",
     tableName: "General",
   },
-  { key: "noiseLevel", columnName: "Noiselevel_DB", tableName: "General" },
+  { key: "noiseLevel", columnName: "Noise_Level", tableName: "General" },
   {
     key: "engineSoundproofingKits",
-    columnName: "Enginesound_Proofing_Kits",
+    columnName: "Engine_Soundproofing_Kits",
     tableName: "General",
   },
 
@@ -792,9 +793,18 @@ export const UNIQUE_TABLE = [
   "Dimensions",
   "Performance",
   "Cooling",
+  "Engine_Parts",
+  "Engine_Measurement",
+  "Engine_Room",
+  "Engine_Shaft",
+  "Engine_Type",
   "Propulsion",
   "Fuel",
   "Oil",
   "Electrical",
   "Emissions",
-];
+  "Engines_Payment",
+  "Safety_Monitoring",
+  "Engine_Sales",
+  "Location"
+]

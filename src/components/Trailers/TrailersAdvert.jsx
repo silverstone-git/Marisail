@@ -154,7 +154,7 @@ export default function TrailersAdvert() {
     wheelLocks: "",
     lockType: "",
     alarmSystem: "",
-    gpsTrackingDevice: "",
+    gps_TrackingDevice: "",
   });
   const [
     environmentalAndCorrosionResistance,
@@ -180,7 +180,7 @@ export default function TrailersAdvert() {
     warranty: "",
   });
   const [regulatoryCompliance, setRegulatoryCompliance] = useState({
-    dotCompliance: "",
+    dot_Compliance: "",
     natmCertification: "",
     euTypeApproval: "",
     adrCompliance: "",

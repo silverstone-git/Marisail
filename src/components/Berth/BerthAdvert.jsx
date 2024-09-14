@@ -93,7 +93,7 @@ export default function BerthAdvert() {
         boatShowParticipation: "",
         loyaltyPrograms: "",
         referralPrograms: "",
-        vipMembershipOptions: "",
+        vip_MembershipOptions: "",
     });
     const [communityAndSocial, setCommunityAndSocial] = useState({
         annualEvents: "",
@@ -206,7 +206,7 @@ export default function BerthAdvert() {
         dockMaterial: "",
         security: "",
         securityPatrol: "",
-        cctvSurveillance: "",
+        cctv_Surveillance: "",
         accessControlSystems: "",
         securityLighting: "",
     });
@@ -241,7 +241,7 @@ export default function BerthAdvert() {
     });
     const [pricingAndLeaseTerms, setPricingAndLeaseTerms] = useState({
         pricePA: "",
-        pricePCM: "",
+        price_pcm: "",
         pricePerWeek: "",
         availability: "",
         annualLeaseRenewable: "",

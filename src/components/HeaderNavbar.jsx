@@ -11,7 +11,7 @@ const HeaderNavbar = ({ navbarRef }) => {
           <Navbar.Brand
             as={NavLink}
             to="/"
-            className="d-flex align-items-center me-auto ms-auto  mt-1"
+            className="d-flex align-items-center me-auto ms-auto mt-1"
           >
             <BrandIcon></BrandIcon>
             <h1 className="fs-4">Marisail</h1>
@@ -87,7 +87,6 @@ const HeaderNavbar = ({ navbarRef }) => {
                   request transportation
                 </NavDropdown.Item>
               </NavDropdown>
-
               <NavDropdown title="trailers">
                 <NavDropdown.Item
                   as={NavLink}
@@ -96,13 +95,28 @@ const HeaderNavbar = ({ navbarRef }) => {
                 >
                   find a trailer
                 </NavDropdown.Item>
-
                 <NavDropdown.Item
                   as={NavLink}
                   to="/advert-trailers"
                   className="text-capitalize"
                 >
-                  advertise an trailers
+                  advertise an trailer
+                </NavDropdown.Item>
+              </NavDropdown>
+              <NavDropdown title="charters">
+                <NavDropdown.Item
+                  as={NavLink}
+                  to="/charters"
+                  className="text-capitalize"
+                >
+                  find a charter
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  as={NavLink}
+                  to="/advert-charters"
+                  className="text-capitalize"
+                >
+                  advertise an charter
                 </NavDropdown.Item>
               </NavDropdown>
               <Nav.Link as={NavLink} to="/chandlery">
