@@ -165,20 +165,18 @@ export default function EngineAdvert() {
                 },
             };
 
-            if (category === "engineDetails" && field === "typeDesignation") {
+            if (category === "guestAccomodation" && field === "crewAccommodations") {
                 const {
-                    engineMake,
-                    engineModel,
-                    engineModelYear,
-                    engineType,
-                    typeDesignation,
-                } = updatedOptions.engineDetails;
+                    guestCapacity,
+                    bedroomConfiguration,
+                    bathroomConfiguration,
+                    crewAccommodations,
+                } = updatedOptions.guestAccomodation;
                 fetchRelevantOptions(
-                    engineMake,
-                    engineModel,
-                    engineModelYear,
-                    engineType,
-                    typeDesignation
+                    guestCapacity,
+                    bedroomConfiguration,
+                    bathroomConfiguration,
+                    crewAccommodations
                 );
             }
 
@@ -186,11 +184,11 @@ export default function EngineAdvert() {
         });
 
         if (
-            category === "engineDetails" &&
-            (field === "engineModel" ||
-                field === "engineModelYear" ||
-                field === "engineMake" ||
-                field === "engineType")
+            category === "guestAccomodation" &&
+            (   field === "guestCapacity" ||
+                field === "bedroomConfiguration" ||
+                field === "bathroomConfiguration"
+            )
         ) {
             // Fetch manufacturers based on selected trailerId
             fetchIdentificationSectionOptions(category, selectedOption, field);
@@ -229,7 +227,7 @@ export default function EngineAdvert() {
         try {
             setLoading(true);
             const promises = Object.keys(sections).map(async (key) => {
-                const response = await fetch(`${URL}engines`, {
+                const response = await fetch(`${URL}charter`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -251,20 +249,18 @@ export default function EngineAdvert() {
         }
     };
     const fetchRelevantOptions = async (
-        engineMake,
-        engineModel,
-        engineModelYear,
-        engineType,
-        typeDesignation
+        guestCapacity,
+        bedroomConfiguration,
+        bathroomConfiguration,
+        crewAccommodations
     ) => {
         try {
             setLoading(true);
             const requestBody = {
-                engineMake,
-                engineModel,
-                engineModelYear,
-                engineType,
-                typeDesignation,
+                guestCapacity,
+                bedroomConfiguration,
+                bathroomConfiguration,
+                crewAccommodations,
             };
             const response = await fetch(`${URL}relevant_data`, {
                 method: "POST",
@@ -326,11 +322,10 @@ export default function EngineAdvert() {
             setLoading(true);
             const tableName = "Accommodation_Location";
             const keyHierarchy = [
-                "engineMake",
-                "engineModel",
-                "engineModelYear",
-                "engineType",
-                "typeDesignation",
+                "guestCapacity",
+                "bedroomConfiguration",
+                "bathroomConfiguration",
+                "crewAccommodations",
             ];
 
             const currentKeyIndex = keyHierarchy.indexOf(Key);

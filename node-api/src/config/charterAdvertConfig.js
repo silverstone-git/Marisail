@@ -1,12 +1,12 @@
 export const CHARTER_ADVERT = [
   {
     key: "marisailVesselId",
-    columnName: "Marisail Vessel ID",
+    columnName: "Marisail_Vessel_ID",
     tableName: "Accommodation_Location",
   },
   {
     key: "marisailCharterId",
-    columnName: "Marisail Charter ID",
+    columnName: "Marisail_Charter_ID",
     tableName: "Accommodation_Location",
   },
 
