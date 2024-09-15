@@ -10,7 +10,7 @@ const Charters = ({ type }) => {
         overflow: "hidden",
       }}
     >
-      {type === "charters" ? <CharterAdvert /> : <CharterSearch />}
+      {type === "advert" ? <CharterAdvert /> : <CharterSearch />}
     </main>
   );
 };

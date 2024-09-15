@@ -22,7 +22,7 @@ export const typeDef = {
     },
     vesselDecorAndSetupRequests: { value: "", type: "radio", mandatory: true },
   },
-  localtionDetails: {
+  locationDetails: {
     boardingPortArrivalTime: { value: "", type: "radio", mandatory: true },
     boardingPortDepartureTime: { value: "", type: "radio", mandatory: true },
     summerCruisingAreas: { value: "", type: "radio", mandatory: true },

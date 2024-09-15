@@ -14,21 +14,91 @@ export default function EngineAdvert() {
     const [openKey, setOpenKey] = useState(null);
     const [loading, setLoading] = useState(false);
     const [allSelectedOptions, setAllSelectedOptions] = useState({});
-    const [engineDetails, setEngineDetails] = useState({
-        engineMake: "",
-        engineModel: "",
-        engineModelYear: "",
-        engineType: "",
-        typeDesignation: "",
-        askingPrice: "",
+    const [guestAccomodation, setGuestAccomodation] = useState({
+        marisailVesselId: "",
+        marisailCharterId: "",
+        guestCapacity: "",
+        bedroomConfiguration: "",
+        bathroomConfiguration: "",
+        crewAccommodations: "",
+        accessibilityInformation: "",
+        cleaningAndMaintenanceProcedures: "",
+        vesselDecorAndSetupRequests: "",
     });
-    const [condition, setCondition] = useState({
-        condition: "",
-        usedCondition: "",
-        seller: "",
-        offeredBy: "",
-        lastSurveyDate: new Date(),
-        brokerValuation: "",
+    const [locationDetails, setLocationDetails] = useState({
+        boardingPortArrivalTime: "",
+        boardingPortDepartureTime: "",
+        summerCruisingAreas: "",
+        boardingPort: "",
+        winterCruisingAreas: "",
+        disembarkationPort: "",
+        embarkationAndDisembarkationLogistics: "",
+        disembarkationPortArrivalTime: "",
+        dockingAndMooringInstructions: "",
+    });
+    const [guestRequirements, setGuestRequirements] = useState({
+        skipperIncluded:"",
+        crewIncluded:"",
+        crewUniformPreferences:"",
+        localCuisinePreferences:"",
+        cateringRequired:"",
+        carParkingAvailable:"",
+        specialRequirementsRequests:"",
+    });
+    const [charterAgreementTermsAndConditions, setCharterAgreementTermsAndConditions] = useState({
+        smokingPolicy:"",
+        petFriendlyPolicy:"",
+        localRegulationsAndRestrictions: "",
+        charterAgreementTermsAndConditions: "",
+        environmentalPolicies:"",
+        waterConservationMeasures:"",
+        wasteManagementProtocols:"",
+        alcoholPolicy:"",
+        photographyAndVideographyPolicies: "",
+    });
+    const [guestSafety, setGuestSafety] = useState({
+        weatherContingencyPlans:"",
+        emergencyProcedures:"",
+        medicalFacilitiesOnboard:"",
+        emergencyContacts:"",
+        weatherForecastServices:"",
+        securityMeasures:"",
+        guestOrientationAndSafetyBriefing: "",
+        insuranceGuestsAndPersonalBelongings: "",
+        insuranceCoverageDetails:"",
+    });
+    const [costs, setCosts] = useState({
+        summerRatePerNight:"",
+        winterRatePerWeek:"",
+        winterRatePerNight:"",
+        summerRatePerWeek:"",
+        securityDepositAmount:"",
+        totalPrice:"",
+        refundableDeposit:"",
+        additionalFuelCosts:"",
+        additionalFees:"",
+        fuelIncluded:"",
+        lateCheckInOutFees:"",
+        vat:"",
+    });
+    const [availableDates, setAvailableDates] = useState({
+        minimumNightsPolicy:"",
+        datesAvailable:"",
+        cancellationPolicy:"",
+    });
+    const [dates, setDates] = useState({
+        startDate:"",
+        endDate:"",
+        numberNights:"",
+    });
+    const [paymentTerms, setPaymentTerms] = useState({
+        paymentTerms:"",
+        currency:"",
+        preferredPaymentMethods:"",
+        invoiceAndReceiptProcedures:"",
+        calculatePriceAndPay:"",
+        priceLabel:"",
+        priceDrop:"",
     });
 
     const checkRequired = () => {
@@ -62,14 +132,27 @@ export default function EngineAdvert() {
     };
 
     const sections = {
-        engineDetails,
-        condition,
-        performance,
+        guestAccomodation,
+        locationDetails,
+        charterAgreementTermsAndConditions,
+        guestSafety,
+        costs,
+        guestRequirements,
+        availableDates,
+        dates,
+        paymentTerms
     };
 
     const setStateFunctions = {
-        engineDetails: setEngineDetails,
-        condition: setCondition,
+        guestAccomodation: setGuestAccomodation,
+        locationDetails: setLocationDetails,
+        guestRequirements: setGuestRequirements,
+        charterAgreementTermsAndConditions:setCharterAgreementTermsAndConditions,
+        guestSafety: setGuestSafety,
+        costs: setCosts,
+        availableDates: setAvailableDates,
+        dates: setDates,
+        paymentTerms: setPaymentTerms
     };
 
     const handleOptionSelect = (category, field, selectedOption) => {
@@ -241,9 +324,7 @@ export default function EngineAdvert() {
     ) => {
         try {
             setLoading(true);
-            const tableName = "General";
-
-            // Define the order of keys for request body construction
+            const tableName = "Accommodation_Location";
             const keyHierarchy = [
                 "engineMake",
                 "engineModel",
