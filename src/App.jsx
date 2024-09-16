@@ -5,7 +5,7 @@ import { useRef } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Transport from "./pages/Transport";
-import Charter from "./pages/Charter";
+import Charters from "./pages/Charters";
 import Engines from "./pages/Engines";
 import Trailers from "./pages/Trailers";
 import Trailers2 from "./pages/Trailers2";
@@ -25,7 +25,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/transport" element={<Transport />}></Route>
-        <Route path="/charter" element={<Charter />}></Route>
+        <Route path="/advert-charters" element={<Charters type="advert"/>}></Route>
+        <Route path="/charters" element={<Charters type="search"/>}></Route>
         <Route path="/engines" element={<Engines type="advert" />} />
         <Route path="/advert-engines" element={<Engines type="search" />} />
         <Route path="/trailers2" element={<Trailers2 />}></Route>

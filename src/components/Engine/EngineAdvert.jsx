@@ -3,266 +3,9 @@ import { useEffect, useState, useRef } from "react";
 import DropdownWithRadio from "../DropdownWithRadio";
 import Loader from "../Loader";
 import InputComponentDynamic from "../InputComponentDynamic";
-import SubmitButton from '../SubmitButton';
-
-const makeString = (str) => {
-  var newStr = "";
-  newStr += str[0].toUpperCase();
-  for (let i = 1; i < str.length; i++) {
-    if (str[i] === str[i].toUpperCase() || i === 0) {
-      newStr += " " + str[i];
-    } else {
-      newStr += str[i];
-    }
-  }
-  return newStr;
-};
-
-const typeDef = {
-  engineDetails: {
-    engineMake: { value: "", type: "radio", mandatory: true },
-    engineModel: { value: "", type: "radio", mandatory: true },
-    engineModelYear: { value: "", type: "radio", mandatory: true },
-    engineType: { value: "", type: "radio", mandatory: true },
-    typeDesignation: { value: "", type: "radio", mandatory: true },
-    askingPrice: { value: "", type: "number", mandatory: true },
-  },
-  condition: {
-    conditon: { value: "", type: "radio", mandatory: true },
-    usedCondition: { value: "", type: "number", mandatory: true },
-    seller: { value: "", type: "number", mandatory: true },
-    offeredBy: { value: "", type: "number", mandatory: false },
-    lastSurveyDate: { value: "", type: "date", mandatory: true },
-    brokerValuation: { value: "", type: "number", mandatory: true },
-  },
-  general: {
-    engineClassification: { value: "", type: "radio", mandatory: true },
-    certification: { value: "", type: "radio", mandatory: true },
-    manufacturerWarranty: { value: "", type: "radio", mandatory: false },
-    engineSerialNumber: { value: "", type: "radio", mandatory: false },
-    ceDesignCategory: { value: "", type: "radio", mandatory: true },
-    numberDrives: { value: "", type: "radio", mandatory: true },
-    numberEngines: { value: "", type: "radio", mandatory: true },
-    rangeMiles: { value: "", type: "radio", mandatory: true },
-    cruisingSpeed: { value: "", type: "radio", mandatory: true },
-    driveType: { value: "", type: "radio", mandatory: true },
-    engineHours: { value: "", type: "radio", mandatory: true },
-    ignitionSystem: { value: "", type: "radio", mandatory: true },
-    noiseLevel: { value: "", type: "radio", mandatory: true },
-    engineSoundproofingKits: { value: "", type: "radio", mandatory: true },
-  },
-  transmission: {
-    transmissionType: { value: "", type: "radio", mandatory: true },
-    gearShift: { value: "", type: "radio", mandatory: false },
-    gearRatio: { value: "", type: "radio", mandatory: false },
-    gearShiftType: { value: "", type: "radio", mandatory: false },
-    flywheelSAE14: { value: "", type: "radio", mandatory: false },
-    siluminFlywheelHousing: { value: "", type: "radio", mandatory: false },
-    camShaft: { value: "", type: "radio", mandatory: false },
-    camShaftAlloy: { value: "", type: "radio", mandatory: false },
-    crankcaseDesign: { value: "", type: "radio", mandatory: false },
-  },
-  installationAndMounting: {
-    engineMountingOrientation: { value: "", type: "radio", mandatory: false },
-    engineSuspension: { value: "", type: "radio", mandatory: false },
-    engineMountingType: { value: "", type: "radio", mandatory: false },
-    mountingBracketMaterial: { value: "", type: "radio", mandatory: false },
-    alignmentRequirements: { value: "", type: "radio", mandatory: false },
-    engineBlock: { value: "", type: "radio", mandatory: false },
-  },
-  serviceAndMaintenance: {
-    scheduledMaintenancePlan: { value: "", type: "radio", mandatory: false },
-    serviceInterval: { value: "", type: "radio", mandatory: false },
-    maintenanceLogRequirements: { value: "", type: "radio", mandatory: false },
-    availabilityOfSpareParts: { value: "", type: "radio", mandatory: true },
-    operationMode: { value: "", type: "radio", mandatory: false },
-    lastServiceDate: { value: "", type: "radio", mandatory: true },
-  },
-  equipment: {
-    engineManagementSystem: { value: "", type: "radio", mandatory: false },
-    engineControlSystem: { value: "", type: "radio", mandatory: false },
-    unitInjectors: { value: "", type: "radio", mandatory: false },
-    turboCharger: { value: "", type: "radio", mandatory: false },
-    turboCharging: { value: "", type: "radio", mandatory: false },
-    starterMotor: { value: "", type: "radio", mandatory: false },
-    protectionCovers: { value: "", type: "radio", mandatory: false },
-    closedCrankcaseVentilation: { value: "", type: "radio", mandatory: false },
-    heatExchanger: { value: "", type: "radio", mandatory: false },
-    heatExchangerWithExpansionTank: { value: "", type: "radio", mandatory: false },
-    seaWaterPump: { value: "", type: "radio", mandatory: false },
-    seaWaterCooledChargeAirCooler: { value: "", type: "radio", mandatory: false },
-    workingPrinciple: { value: "", type: "radio", mandatory: false },
-    compressionRatio: { value: "", type: "radio", mandatory: false },
-    pistonSpeedAt1500Rpm: { value: "", type: "radio", mandatory: false },
-    pistonSpeedAt1800Rpm: { value: "", type: "radio", mandatory: false },
-    firingOrder: { value: "", type: "radio", mandatory: false },
-    pistons: { value: "", type: "radio", mandatory: false },
-    connectionRods: { value: "", type: "radio", mandatory: false },
-    auxiliaryPowerTakeOff: { value: "", type: "radio", mandatory: false },
-    remoteControlSystems: { value: "", type: "radio", mandatory: false },
-  },
-  dimensions: {
-    displacement: { value: "", type: "radio", mandatory: true },
-    length: { value: "", type: "radio", mandatory: true },
-    width: { value: "", type: "radio", mandatory: true },
-    height: { value: "", type: "radio", mandatory: true },
-    lengthFromFrontEndOfFlywheelHousing: { value: "", type: "radio", mandatory: false },
-    engineWeight: { value: "", type: "radio", mandatory: true },
-    dryWeight: { value: "", type: "radio", mandatory: true },
-    exclOilWeight: { value: "", type: "radio", mandatory: false },
-    weightWithHeatExchanger: { value: "", type: "radio", mandatory: false },
-    weightWithKeelCooling: { value: "", type: "radio", mandatory: false },
-  },
-  performance: {
-    nominalRating: { value: "", type: "radio", mandatory: false },
-    enginePerformance: { value: "", type: "radio", mandatory: false },
-    maxPowerOutput: { value: "", type: "radio", mandatory: true },
-    maxPowerBHP: { value: "", type: "radio", mandatory: true },
-    maxSpeedKnots: { value: "", type: "radio", mandatory: true },
-    supercharged: { value: "", type: "radio", mandatory: false },
-    valveTrain: { value: "", type: "radio", mandatory: false },
-    grossPowerFullLoadKW: { value: "", type: "radio", mandatory: false },
-    grossPowerFullLoadHpMetric: { value: "", type: "number", mandatory: false },
-    GrossPowerPropellerCurveKw: { value: "", type: "radio", mandatory: false },
-    GrossPowerPropellerCurveHpMetric: { value: "", type: "number", mandatory: false },
-    grossTorque: { value: "", type: "radio", mandatory: false },
-    powerToWeightRatio: { value: "", type: "number", mandatory: false },
-    engineEfficiency: { value: "", type: "radio", mandatory: true },
-    engineSpeedRange: { value: "", type: "number", mandatory: true },
-    maximumContinuousRating: { value: "", type: "radio", mandatory: false },
-    continuousPower: { value: "", type: "radio", mandatory: false },
-  },
-  cylinders: {
-    cylinderConfiguration: "",
-    numberCylinders: "",
-    cylindersAndArrangement: "",
-    numberValves: "",
-    valvePerCylinder: "",
-    boreXStroke: "",
-    bore: "",
-    stroke: "",
-  },
-  rpm: {
-    idleRPM: { value: "", type: "radio", mandatory: false },
-    ratedSpeedRPM: { value: "", type: "radio", mandatory: true },
-    rpmAtMaxPower: { value: "", type: "radio", mandatory: false },
-  },
-  torque: {
-    maximumTorque: { value: "", type: "radio", mandatory: false },
-    maximumTorqueAtSpeed: { value: "", type: "number", mandatory: true },
-    torqueAtRatedSpeed: { value: "", type: "radio", mandatory: false },
-  },
-  coolingSystem: {
-    afterCooled: { value: "", type: "radio", mandatory: false },
-    coolingSystem: { value: "", type: "radio", mandatory: true },
-    openCoolingSystem: { value: "", type: "radio", mandatory: false },
-    closedCoolingSystem: { value: "", type: "radio", mandatory: false },
-    intercooled: { value: "", type: "radio", mandatory: false },
-    recommendedCoolant: { value: "", type: "radio", mandatory: false },
-    typeOfCooling: { value: "", type: "radio", mandatory: false },
-    heatDissipationRate: { value: "", type: "radio", mandatory: false },
-    heatExchangerMaterial: { value: "", type: "radio", mandatory: false },
-    engineLubrication: { value: "", type: "radio", mandatory: false },
-    lubricationSystem: { value: "", type: "radio", mandatory: false },
-    coolingCapacity: { value: "", type: "radio", mandatory: false },
-    coolingFluidType: { value: "", type: "radio", mandatory: true },
-    coolingSystemPressure: { value: "", type: "radio", mandatory: false },
-    airFilterType: { value: "", type: "radio", mandatory: false },
-    circulationPumpType: { value: "", type: "radio", mandatory: false },
-    rawWaterpumpType: { value: "", type: "radio", mandatory: false },
-  },
-  propulsion: {
-    propulsion: { value: "", type: "radio", mandatory: true },
-    bowthruster: { value: "", type: "radio", mandatory: true },
-    propulsionSystem: { value: "", type: "radio", mandatory: false },
-    propulsionSystemType: { value: "", type: "radio", mandatory: false },
-    propellerDiameter: { value: "", type: "radio", mandatory: false },
-    propellerMaterial: { value: "", type: "radio", mandatory: false },
-    propellerPitch: { value: "", type: "radio", mandatory: false },
-    propellerType: { value: "", type: "radio", mandatory: false },
-    propellerShaftDiameter: { value: "", type: "radio", mandatory: false },
-    gearboxType: { value: "", type: "radio", mandatory: false },
-    transmissionCooling: { value: "", type: "radio", mandatory: false },
-    propellerBladeMaterial: { value: "", type: "radio", mandatory: true },
-    propellerShaftMaterial: { value: "", type: "radio", mandatory: false },
-    steeringSystem: { value: "", type: "radio", mandatory: false },
-    steeringControlType: { value: "", type: "radio", mandatory: false },
-    trimSystem: { value: "", type: "radio", mandatory: false },
-    trimTabMaterial: { value: "", type: "radio", mandatory: false },
-    trimTabType: { value: "", type: "radio", mandatory: false },
-  },
-  fuelSystem: {
-    electronicFuelinjection: { value: "", type: "radio", mandatory: true },
-    fuelPreFilter: { value: "", type: "radio", mandatory: false },
-    fuelFilter: { value: "", type: "radio", mandatory: false },
-    fuelFilterType: { value: "", type: "radio", mandatory: false },
-    fuelReserve: { value: "", type: "radio", mandatory: false },
-    fuelSystem: { value: "", type: "radio", mandatory: true },
-    fuelTankCapacity: { value: "", type: "radio", mandatory: false },
-    fuelType: { value: "", type: "radio", mandatory: true },
-    lowestSpecificFuelConsumption: { value: "", type: "radio", mandatory: false },
-    recommendedFuel: { value: "", type: "radio", mandatory: false },
-    fuelConsumptionAtCruisingSpeed: { value: "", type: "radio", mandatory: false },
-    fuelConsumptionRate: { value: "", type: "radio", mandatory: true },
-    fuelConsumtpionAtFullLoad: { value: "", type: "radio", mandatory: false },
-    fuelInjectionSystemType: { value: "", type: "radio", mandatory: false },
-    fuelDeliveryPressure: { value: "", type: "radio", mandatory: false },
-    fuelTankMaterial: { value: "", type: "radio", mandatory: true },
-    fuelLineDiameter: { value: "", type: "radio", mandatory: false },
-  },
-  fuelConsumption: {
-    fuelConsumption: { value: "", type: "radio", mandatory: false },
-    fuelConsumptionHalfLoad: { value: "", type: "radio", mandatory: false },
-    fuelConsumptionPropellerCurve: { value: "", type: "radio", mandatory: false },
-    heatRejectionToCoolant: { value: "", type: "radio", mandatory: false },
-  },
-  oil: {
-    oilFilter: { value: "", type: "radio", mandatory: false },
-    oilFilterType: { value: "", type: "radio", mandatory: false },
-    centrifugalOilCleaner: { value: "", type: "radio", mandatory: false },
-    oilCooler: { value: "", type: "radio", mandatory: false },
-    oilFiller: { value: "", type: "radio", mandatory: false },
-    oilDipstick: { value: "", type: "radio", mandatory: false },
-    recommendedOil: { value: "", type: "radio", mandatory: false },
-    oilCapacity: { value: "", type: "radio", mandatory: false },
-    oilChangeInterval: { value: "", type: "radio", mandatory: false },
-    oilCoolingMethod: { value: "", type: "radio", mandatory: false },
-    lubricationOilPressure: { value: "", type: "radio", mandatory: false },
-    oilFilterBypassValve: { value: "", type: "radio", mandatory: false },
-  },
-  electricalSystem: {
-    alternator: { value: "", type: "radio", mandatory: false },
-    alternatorOutput: { value: "", type: "radio", mandatory: false },
-    batteryType: { value: "", type: "radio", mandatory: false },
-    batteryVoltage: { value: "", type: "radio", mandatory: false },
-    generatorOutputKw: { value: "", type: "radio", mandatory: false },
-    alternatorOutputAmps: { value: "", type: "radio", mandatory: false },
-    starterMotorVoltage: { value: "", type: "radio", mandatory: false },
-    engineControlUnitModel: { value: "", type: "radio", mandatory: false },
-    batteryChargingSystem: { value: "", type: "radio", mandatory: false },
-    integratedGenerator: { value: "", type: "radio", mandatory: false },
-  },
-  emissionsAndEnvironment: {
-    emissionCompliance: { value: "", type: "radio", mandatory: false },
-    exhaustSystem: { value: "", type: "radio", mandatory: false },
-    exhaustSystemType: { value: "", type: "radio", mandatory: false },
-    exhaustGasAfterTreatment: { value: "", type: "radio", mandatory: false },
-    exhaustGasStatus: { value: "", type: "radio", mandatory: false },
-    exhaustValveTiming: { value: "", type: "radio", mandatory: false },
-    intakeValveTiming: { value: "", type: "radio", mandatory: false },
-    emissionControlTechnology: { value: "", type: "radio", mandatory: false },
-    noxEmissions: { value: "", type: "radio", mandatory: false },
-    coxEmissions: { value: "", type: "radio", mandatory: false },
-    soxEmissions: { value: "", type: "radio", mandatory: false },
-    complianceWithIMOStandards: { value: "", type: "radio", mandatory: false },
-  },
-  safetyAndMonitoring: {
-    emergencyStopSystem: { value: "", type: "radio", mandatory: false },
-    engineMonitoringSystems: { value: "", type: "radio", mandatory: false },
-    overheatProtection: { value: "", type: "radio", mandatory: false },
-    lowOilPressureAlarm: { value: "", type: "radio", mandatory: false },
-  },
-};
+import SubmitButton from "../SubmitButton";
+import { keyToExpectedValueMap, typeDef } from "./EngineAdvertInfo";
+import { makeString } from "../../services/common_functions";
 
 export default function EngineAdvert() {
   const [error, setError] = useState({});
@@ -291,14 +34,14 @@ export default function EngineAdvert() {
     engineClassification: "",
     certification: "",
     manufacturerWarranty: "",
-    engineSerialNumber: 0,
-    ceDesignCategory: "",
-    numberDrives: 0,
-    numberEngines: 0,
-    rangeMiles: 0,
+    engineSerialNumber: "",
+    ce_DesignCategory: "",
+    numberDrives: "",
+    numberEngines: "",
+    rangeMiles: "",
     cruisingSpeed: "",
     driveType: "",
-    engineHours: 0,
+    engineHours: "",
     ignitionSystem: "",
     noiseLevel: "",
     engineSoundproofingKits: "",
@@ -461,14 +204,14 @@ export default function EngineAdvert() {
     fuelDeliveryPressure: "",
     fuelTankMaterial: "",
     fuelLineDiameter: "",
-    });
+  });
   const [fuelConsumption, setFuelConsumption] = useState({
     fuelConsumption: "",
     fuelConsumptionHalfLoad: "",
     fuelConsumptionPropellerCurve: "",
     heatRejectionToCoolant: "",
   });
-  const [oil,  setOil ] = useState({
+  const [oil, setOil] = useState({
     oilFilter: "",
     oilFilterType: "",
     centrifugalOilCleaner: "",
@@ -514,52 +257,130 @@ export default function EngineAdvert() {
     overheatProtection: "",
     lowOilPressureAlarm: "",
   });
+  const [engineParts, setEngineParts] = useState({
+    engineBearings: "",
+    engineBed: "",
+    engineBlock: "",
+    engineBracket: "",
+    engineBreather: "",
+    engineCompartment: "",
+    engineCompartmentVentilation: "",
+    engineCoolingSystem: "",
+    engineCover: "",
+    engineDrivenPump: "",
+    engineExhaustSystem: "",
+    engineGasketSet: "",
+    engineGearshift: "",
+    engineHatch: "",
+    engineHourMeter: "",
+    engineInstrumentPanel: "",
+    engineMaintenance: "",
+    engineMounts: "",
+    enginePanel: "",
+    engineRemoteControl: "",
+    engineStartButton: "",
+    engineStopButton: "",
+    engineTachometer: "",
+    engineTelegraph: "",
+    engineTemperatureGauge: "",
+    engineThrottle: "",
+    engineTransmission: "",
+    engineTrunk: "",
+    engineVoltageMeter: "",
+    engineWarningLight: "",
+    engineControlLever: "",
+    engineControlPartsAccessories: "",
+    engineControlRoom: "",
+  });
+  const [engineMeasurements, setEngineMeasurements] = useState({
+    engineCoolingWaterFlow: "", 
+    engineExhaustTemperature: "", 
+    engineOperatingHours: "", 
+    enginePowerHpKw: "", 
+    engineRoomVolume: "", 
+    engineRpm: "", 
+    engineTorque: ""
+  });
+  const [engineRoom, setEngineRoom] = useState({
+    engineRoom: "", 
+    engineRoomFan: "", 
+    engineRoomFanExtractor: "", 
+    engineRoomInsulation: "", 
+    engineRoomLight: "", 
+    engineRoomSoundproofing: "", 
+    engineRoomVentilation: ""
+  });
+  const [engineShaft, setEngineShaft] = useState({
+    engineShaftBearing: "", 
+    engineShaftCollar: "", 
+    engineShaftCoupling: "", 
+    engineShaftKey: "", 
+    engineShaftLog: "", 
+    engineShaftNut: "", 
+    engineShaftSeal: "", 
+    engineShaftSealant: "", 
+    engineShaftSize: "", 
+    engineShaftSpacer: "", 
+    engineShaftStrut: "", 
+    engineShaftTube: "", 
+    engineShaftWasher: ""  
+  });
+  const [engineType, setEngineType] = useState({
+    ecuEngineControlUnit: "", 
+    engineFuelType: "", 
+    engineStroke: "", 
+    engineTier: "", 
+    inboardOutboard: "", 
+    mainOrAuxiliary: "", 
+    podEngine: "", 
+    saildriveEngine: "", 
+    steeringAndEngineControls: "", 
+    sternDriveEngine: "", 
+    engineType: ""
+  });
 
   const checkRequired = () => {
     const errors = {};
-  
-    // Iterate over each section in typeDef
     Object.keys(typeDef).forEach((sectionKey) => {
       const section = typeDef[sectionKey];
       const sectionData = sections[sectionKey];
-        Object.keys(section).forEach((fieldKey) => {
+      Object.keys(section).forEach((fieldKey) => {
         const field = section[fieldKey];
         if (field.mandatory) {
           const fieldValue = sectionData[fieldKey];
           if (field.type === "radio") {
-            if(field.value){
-              console.log("001 field value--",field);
-            }
             if (!field.value || String(field.value).trim() === "") {
               errors[`${fieldKey}`] = true;
             }
           } else if (field.type === "number") {
-            if (fieldValue === undefined || fieldValue === "" || isNaN(fieldValue)) {
+            if (
+              fieldValue === undefined ||
+              fieldValue === "" ||
+              isNaN(fieldValue)
+            ) {
               errors[`${fieldKey}`] = true;
             }
           }
         }
       });
     });
-  
+
     setError(errors);
     return Object.keys(errors).length === 0;
   };
-  
+
   const sections = {
     engineDetails,
     condition,
-    general,
     performance,
+    general,
     transmission,
     cylinders,
-    equipment,
     propulsion,
     fuelSystem,
-    coolingSystem,
+    serviceAndMaintenance,
     installationAndMounting,
     safetyAndMonitoring,
-    serviceAndMaintenance,
     fuelConsumption,
     torque,
     rpm,
@@ -567,6 +388,13 @@ export default function EngineAdvert() {
     emissionsAndEnvironment,
     dimensions,
     electricalSystem,
+    engineShaft,
+    engineType,
+    engineRoom,
+    engineMeasurements,
+    engineParts,
+    equipment,
+    coolingSystem,
   };
 
   const setStateFunctions = {
@@ -590,27 +418,52 @@ export default function EngineAdvert() {
     electricalSystem: setElectricalSystem,
     emissionsAndEnvironment: setEmissionsAndEnvironment,
     safetyAndMonitoring: setSafetyAndMonitoring,
+    engineParts: setEngineParts,
+    engineMeasurements: setEngineMeasurements,
+    engineRoom: setEngineRoom,
+    engineShaft: setEngineShaft,
+    engineType: setEngineType
   };
 
   const handleOptionSelect = (category, field, selectedOption) => {
-    setAllSelectedOptions((prevState) => ({
-      ...prevState,
-      [category]: {
-        ...prevState[category],
-        [field]: selectedOption,
-      },
-    }));
+    setAllSelectedOptions((prevState) => {
+      const updatedOptions = {
+        ...prevState,
+        [category]: {
+          ...prevState[category],
+          [field]: selectedOption,
+        },
+      };
+
+      if (category === "engineDetails" && field === "typeDesignation") {
+        const {
+          engineMake,
+          engineModel,
+          engineModelYear,
+          engineType,
+          typeDesignation,
+        } = updatedOptions.engineDetails;
+        fetchRelevantOptions(
+          engineMake,
+          engineModel,
+          engineModelYear,
+          engineType,
+          typeDesignation
+        );
+      }
+
+      return updatedOptions;
+    });
 
     if (
-      category === "identification" &&
-      (field === "engineModel" || field === "engineModelYear" || field === "engineMake" || field === "engineType" || field === "typeDesignation")
+      category === "engineDetails" &&
+      (field === "engineModel" ||
+        field === "engineModelYear" ||
+        field === "engineMake" ||
+        field === "engineType")
     ) {
       // Fetch manufacturers based on selected trailerId
       fetchIdentificationSectionOptions(category, selectedOption, field);
-    }
-
-    if (category === "identification" && field === "typeDesignation") {
-      fetchRelevantOptions();
     }
   };
   const handleSubmit = (e) => {
@@ -667,34 +520,67 @@ export default function EngineAdvert() {
       console.log("done");
     }
   };
-  const fetchRelevantOptions = async () => {
+  const fetchRelevantOptions = async (
+    engineMake,
+    engineModel,
+    engineModelYear,
+    engineType,
+    typeDesignation
+  ) => {
     try {
       setLoading(true);
+      const requestBody = {
+        engineMake,
+        engineModel,
+        engineModelYear,
+        engineType,
+        typeDesignation,
+      };
       const response = await fetch(`${URL}relevant_data`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ allSelectedOptions }),
+        body: JSON.stringify({ requestBody }),
       });
       const data = await response.json();
-      const result = data.result;
-      Object.keys(result).forEach((fieldKey) => {
-        Object.keys(sections).forEach((sectionKey) => {
-          if (sections[sectionKey][fieldKey] !== undefined) {
-            const fieldValue = Array.isArray(result[fieldKey]) && result[fieldKey].length > 0
-              ? result[fieldKey][0]
-              : sections[sectionKey][fieldKey];
-              setAllSelectedOptions((prevState) => ({
-                ...prevState,
-                [sectionKey]: {
-                  ...prevState[sectionKey],
-                  [fieldKey]: [fieldValue],
-                },
-              }));
+      const result = data?.result;
+
+      if (result) {
+        const updatePromises = Object.keys(result).map((fieldKey) => {
+          if (Object.keys(requestBody).includes(fieldKey)) {
+            return Promise.resolve();
           }
+          return Promise.all(
+            Object.keys(sections).map((sectionKey) => {
+              return new Promise((resolve) => {
+                if (sections[sectionKey][fieldKey] !== undefined) {
+                  const fieldValue =
+                    Array.isArray(result[fieldKey]) &&
+                      result[fieldKey].length > 0
+                      ? result[fieldKey]?.[0]
+                      : sections[sectionKey][fieldKey];
+
+                  setAllSelectedOptions((prevState) => ({
+                    ...prevState,
+                    [sectionKey]: {
+                      ...prevState[sectionKey],
+                      [fieldKey]: [fieldValue],
+                    },
+                  }));
+
+                  resolve();
+                } else {
+                  resolve();
+                }
+              });
+            })
+          );
         });
-      });
+
+        // Wait for all updates to complete
+        await Promise.all(updatePromises);
+      }
     } catch (error) {
       console.error("Error fetching other section:", error);
     } finally {
@@ -709,34 +595,39 @@ export default function EngineAdvert() {
     try {
       setLoading(true);
       const tableName = "General";
-      let fetchColumn;
-      let requestBody = {};
 
-      if (Key === "engineMake") {
-        fetchColumn = "engineModel";
-        requestBody = { engineMake: selectedOption };
-      } else if (Key === "engineModel") {
-        fetchColumn = "engineModelYear";
-        requestBody = {
-          engineMake: allSelectedOptions[category]?.engineMake,
-          engineModel: selectedOption,
-        };
-      } else if (Key === "engineModelYear") {
-        fetchColumn = "engineType";
-        requestBody = {
-          engineMake: allSelectedOptions[category]?.engineMake,
-          engineModel: allSelectedOptions[category]?.engineModel,
-          engineModelYear: selectedOption,
-        };
-      } else if (Key === "engineType") {
-        fetchColumn = "typeDesignation";
-        requestBody = {
-          engineMake: allSelectedOptions[category]?.engineMake,
-          engineModel: allSelectedOptions[category]?.engineModel,
-          engineModelYear: allSelectedOptions[category]?.engineModelYear,
-          engineType: selectedOption,
-        };
+      // Define the order of keys for request body construction
+      const keyHierarchy = [
+        "engineMake",
+        "engineModel",
+        "engineModelYear",
+        "engineType",
+        "typeDesignation",
+      ];
+
+      // Find the index of the current key
+      const currentKeyIndex = keyHierarchy.indexOf(Key);
+
+      // The next column to be fetched will be the one after the current key
+      const fetchColumn = keyHierarchy[currentKeyIndex + 1];
+
+      // Dynamically construct the requestBody by including all prior selections
+      let requestBody = {};
+      for (let i = 0; i <= currentKeyIndex; i++) {
+        const key = keyHierarchy[i];
+        // If it's the current key, assign the selected option, otherwise use the already selected options
+        requestBody[key] =
+          key === Key ? selectedOption : allSelectedOptions[category]?.[key];
       }
+
+      // Make sure fetchColumn is defined before proceeding
+      if (!fetchColumn) {
+        throw new Error(
+          "No further data to fetch. All selections are complete."
+        );
+      }
+
+      // Send the request
       const response = await fetch(`${URL}${tableName}/${fetchColumn}`, {
         method: "POST",
         headers: {
@@ -744,7 +635,10 @@ export default function EngineAdvert() {
         },
         body: JSON.stringify({ requestBody }),
       });
+
       const data = await response.json();
+
+      // Update the page data with the fetched results
       setPageData(category, {
         ...sections[category],
         [fetchColumn]: data.result,
@@ -793,18 +687,23 @@ export default function EngineAdvert() {
               <Col md={6} key={title} className="mt-2">
                 <legend className="fieldset-legend">
                   <h6 style={{ padding: "15px 0px 0px 0px" }}>
-                    {makeString(title)}
+                    {makeString(title, keyToExpectedValueMap)}
                   </h6>
                 </legend>
                 {Object.keys(sections[title]).map((fieldKey) => {
                   const field = typeDef[title][fieldKey];
                   if (field && field.type === "radio") {
                     return (
-                      <Col md={12} className="mt-4 mr-3" key={fieldKey} style={{ width: 480 }}>
+                      <Col
+                        md={12}
+                        className="mt-4 mr-3"
+                        key={fieldKey}
+                        style={{ width: 480 }}
+                      >
                         <Col xs={3} md={12} className="mb-2">
                           <DropdownWithRadio
                             heading={fieldKey}
-                            title={makeString(fieldKey)}
+                            title={makeString(fieldKey, keyToExpectedValueMap)}
                             options={sections[title][fieldKey]}
                             selectedOption={
                               allSelectedOptions[title]?.[fieldKey] || ""
@@ -822,7 +721,9 @@ export default function EngineAdvert() {
                           />
                           {error[`${fieldKey}`] && (
                             <div>
-                              {errorDisplay(makeString(fieldKey))}
+                              {errorDisplay(
+                                makeString(fieldKey, keyToExpectedValueMap)
+                              )}
                             </div>
                           )}
                         </Col>
@@ -830,9 +731,14 @@ export default function EngineAdvert() {
                     );
                   } else if (field && field.type === "number") {
                     return (
-                      <Col md={12} className="mt-4 mr-3" key={fieldKey} style={{ width: 480 }}>
+                      <Col
+                        md={12}
+                        className="mt-4 mr-3"
+                        key={fieldKey}
+                        style={{ width: 480 }}
+                      >
                         <InputComponentDynamic
-                          label={makeString(fieldKey)}
+                          label={makeString(fieldKey, keyToExpectedValueMap)}
                           value={engines[title]?.[fieldKey] || ""}
                           setValue={(e) =>
                             handleInputChange(title, fieldKey, e.target.value)
@@ -844,7 +750,9 @@ export default function EngineAdvert() {
                         />
                         {error[`${fieldKey}`] && (
                           <div>
-                            {errorDisplay(makeString(fieldKey))}
+                            {errorDisplay(
+                              makeString(fieldKey, keyToExpectedValueMap)
+                            )}
                           </div>
                         )}
                       </Col>
@@ -855,7 +763,11 @@ export default function EngineAdvert() {
               </Col>
             ))}
           </Row>
-          <SubmitButton text="Submit" name="advert_engine_submit" onClick={handleSubmit} />
+          <SubmitButton
+            text="Submit"
+            name="advert_engine_submit"
+            onClick={handleSubmit}
+          />
         </Form>
       )}
     </Container>

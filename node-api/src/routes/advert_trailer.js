@@ -92,7 +92,6 @@ advertTrailerRouter.post("/relevant_data", async (req, res) => {
     let queryParams = {};
     let valid_tables = [];
     valid_tables.push(UNIQUE_TABLE);
-    // console.log("----Table Names----",typeof valid_tables);
     TRAILERS_ADVERT.forEach((item) => {
       const key = item.key;
       const columnName = item.columnName;
@@ -113,12 +112,10 @@ advertTrailerRouter.post("/relevant_data", async (req, res) => {
     const [trailerID] = await connection.query(
       `SELECT DISTINCT Trailer_ID FROM Trailers_ID ${filterOptions} ORDER BY Trailer_ID`
     );
-    // console.log("-----Trailer ID----",trailerID);
-    // console.log("-----Trailer ID Query----",`SELECT DISTINCT Trailer_ID FROM Trailers_ID ${filterOptions} ORDER BY Trailer_ID`);
     if (trailerID.length === 0) {
       return res.status(404).json({ ok: false, message: "No data found" });
     }
-    for (let tableName of valid_tables) {
+    for (let tableName of UNIQUE_TABLE) {
       const [columns] = await connection.query("SHOW COLUMNS FROM ??", [
         tableName,
       ]);

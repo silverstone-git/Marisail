@@ -38,7 +38,7 @@ const MyEngine = () => {
         certification: advertiseEngineData?.certification,
         manufacturerWarranty: advertiseEngineData?.manufacturerWarranty,
         engineSerialNumber: advertiseEngineData?.engineSerialNumber,
-        ceDesignCategory: advertiseEngineData?.ceDesignCategory,
+        ce_DesignCategory: advertiseEngineData?.ce_DesignCategory,
         numberDrives: advertiseEngineData?.numberDrives,
         numberEngines: advertiseEngineData?.numberEngines,
         rangeMiles: advertiseEngineData?.rangeMiles,

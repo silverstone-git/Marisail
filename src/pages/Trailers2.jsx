@@ -6,7 +6,7 @@ import Row from "react-bootstrap/Row";
 import SelectComponent from "../components/SelectComponent";
 import InputComponent from "../components/InputComponent";
 import CheckComponent from "../components/CheckComponent";
-import "./trailers.css";
+// import "./trailers.css";
 import { makeString } from "../components/Trailers/trailerInfo";
 
 const Trailers2 = () => {

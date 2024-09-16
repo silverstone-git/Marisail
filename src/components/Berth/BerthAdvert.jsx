@@ -2,293 +2,9 @@ import { Form, Container, Row, Col } from "react-bootstrap";
 import { useEffect, useState, useRef } from "react";
 import DropdownWithRadio from "../DropdownWithRadio";
 import Loader from "../Loader";
-import SubmitButton from '../SubmitButton';
-
-const makeString = (str) => {
-    var newStr = "";
-    newStr += str[0].toUpperCase();
-    for (let i = 1; i < str.length; i++) {
-        if (str[i] === str[i].toUpperCase() || i === 0) {
-            newStr += " " + str[i];
-        } else {
-            newStr += str[i];
-        }
-    }
-    return newStr;
-};
-
-const typeDef = {
-    siteDetails: {
-        marisailBerthId: { value: "", type: "radio", mandatory: true },
-        siteDetails: { value: "", type: "radio", mandatory: true },
-        termsAndConditions: { value: "", type: "radio", mandatory: true },
-        type: { value: "", type: "radio", mandatory: true },
-        marinaPortHarborName: { value: "", type: "radio", mandatory: true },
-        location: { value: "", type: "radio", mandatory: true },
-        ownership: { value: "", type: "radio", mandatory: true },
-        yearEstablished: { value: "", type: "radio", mandatory: true },
-        operatingHours: { value: "", type: "radio", mandatory: true },
-        contactDetails: { value: "", type: "radio", mandatory: true },
-        seasonalOperation: { value: "", type: "radio", mandatory: true },
-        languageServices: { value: "", type: "radio", mandatory: true },
-    },
-    generalInformation: {
-        dockTypes: { value: "", type: "radio", mandatory: true },
-        numberOfDocks: { value: "", type: "radio", mandatory: true },
-        boatSlipSizes: { value: "", type: "radio", mandatory: true },
-        location: { value: "", type: "radio", mandatory: true },
-        numberBerthsAvailable: { value: "", type: "radio", mandatory: true },
-        length: { value: "", type: "radio", mandatory: true },
-        beam: { value: "", type: "radio", mandatory: true },
-        draft: { value: "", type: "radio", mandatory: true },
-        slipWidth: { value: "", type: "radio", mandatory: true },
-        slipDepth: { value: "", type: "radio", mandatory: true },
-        slipLength: { value: "", type: "radio", mandatory: true },
-        mooringType: { value: "", type: "radio", mandatory: true },
-        tideRange: { value: "", type: "radio", mandatory: true },
-    },
-    amenitiesAndServices: {
-        storage: { value: "", type: "radio", mandatory: false },
-        electricityAvailable: { value: "", type: "radio", mandatory: true },
-        waterSupply: { value: "", type: "radio", mandatory: true },
-        wifiAvailability: { value: "", type: "radio", mandatory: true },
-        carParking: { value: "", type: "radio", mandatory: true },
-        conciergeServices: { value: "", type: "radio", mandatory: false },
-        businessServices: { value: "", type: "radio", mandatory: false },
-        conferenceRooms: { value: "", type: "radio", mandatory: false },
-    },
-    familyFacilities: {
-        laundryFacilities: { value: "", type: "radio", mandatory: true },
-        restaurantsAndCafes: { value: "", type: "radio", mandatory: true },
-        restaurant: { value: "", type: "radio", mandatory: true },
-        bar: { value: "", type: "radio", mandatory: true },
-        shoppingFacilities: { value: "", type: "radio", mandatory: true },
-        retailShops: { value: "", type: "radio", mandatory: true },
-        hospitalityServices: { value: "", type: "radio", mandatory: true },
-        recreationalFacilities: { value: "", type: "radio", mandatory: false },
-        conciergeServices: { value: "", type: "radio", mandatory: false },
-        clubhouseAccess: { value: "", type: "radio", mandatory: true },
-        swimmingPool: { value: "", type: "radio", mandatory: true },
-        fitnessCenter: { value: "", type: "radio", mandatory: true },
-        marinaStore: { value: "", type: "radio", mandatory: true },
-        chandlery: { value: "", type: "radio", mandatory: true },
-        restroomsAndShowers: { value: "", type: "radio", mandatory: true },
-        laundryServices: { value: "", type: "radio", mandatory: true },
-        gymFacilities: { value: "", type: "radio", mandatory: true },
-        sanitationFacilities: { value: "", type: "radio", mandatory: false },
-        guestAccommodationOptions: { value: "", type: "radio", mandatory: false },
-        familyFriendlyAmenities: { value: "", type: "radio", mandatory: true },
-        petFriendlyServices: { value: "", type: "radio", mandatory: true },
-        iceAvailability: { value: "", type: "radio", mandatory: false },
-        picnicAndBBQAreas: { value: "", type: "radio", mandatory: false },
-        childrensPlayArea: { value: "", type: "radio", mandatory: false },
-    },
-    surroundingArea: {
-        localAttractions: { value: "", type: "radio", mandatory: false },
-        restaurants: { value: "", type: "radio", mandatory: false },
-        accommodation: { value: "", type: "radio", mandatory: false },
-        shopping: { value: "", type: "radio", mandatory: false },
-        transportationOptions: { value: "", type: "radio", mandatory: false },
-        medicalFacilitiesNearby: { value: "", type: "radio", mandatory: false },
-        localServices: { value: "", type: "radio", mandatory: false },
-        communityResources: { value: "", type: "radio", mandatory: false },
-    },
-    additionalFeatures: {
-        charterServices: { value: "", type: "radio", mandatory: false },
-        yachtBrokerageServices: { value: "", type: "radio", mandatory: false },
-        boatShowParticipation: { value: "", type: "radio", mandatory: false },
-        loyaltyPrograms: { value: "", type: "radio", mandatory: false },
-        referralPrograms: { value: "", type: "radio", mandatory: false },
-        vipMembershipOptions: { value: "", type: "radio", mandatory: false },
-    },
-    communityAndSocial: {
-        annualEvents: { value: "", type: "radio", mandatory: false },
-        educationalPrograms: { value: "", type: "radio", mandatory: false },
-        communityEvents: { value: "", type: "radio", mandatory: false },
-        socialEvents: { value: "", type: "radio", mandatory: false },
-        sportsActivities: { value: "", type: "radio", mandatory: false },
-        culturalEvents: { value: "", type: "radio", mandatory: false },
-        seasonalActivities: { value: "", type: "radio", mandatory: false },
-        yachtClubMembership: { value: "", type: "radio", mandatory: true },
-        regattasCompetitions: { value: "", type: "radio", mandatory: false },
-        workshopsClasses: { value: "", type: "radio", mandatory: false },
-        communityBulletinBoard: { value: "", type: "radio", mandatory: false },
-        networkingEvents: { value: "", type: "radio", mandatory: false },
-        memberDiscounts: { value: "", type: "radio", mandatory: false },
-    },
-    services: {
-        pumpOutStation: { value: "", type: "radio", mandatory: false },
-        docksideTrolley: { value: "", type: "radio", mandatory: true },
-        powerSupply: { value: "", type: "radio", mandatory: false },
-        waterSupply: { value: "", type: "radio", mandatory: false },
-        shorePowerConnectionTypes: { value: "", type: "radio", mandatory: false },
-        fuelTypesAvailable: { value: "", type: "radio", mandatory: true },
-        fuelService: { value: "", type: "radio", mandatory: false },
-        fuelDock: { value: "", type: "radio", mandatory: true },
-        electricalHookupSpecifications: {
-            value: "",
-            type: "radio",
-            mandatory: true,
-        },
-    },
-    repairAndMaintenance: {
-        boatYardServices: { value: "", type: "radio", mandatory: false },
-        boatCleaningServices: { value: "", type: "radio", mandatory: false },
-        boatMaintenanceRepair: { value: "", type: "radio", mandatory: false },
-        chandleryServices: { value: "", type: "radio", mandatory: false },
-        repairMaintenanceServices: { value: "", type: "radio", mandatory: false },
-        haulOutServices: { value: "", type: "radio", mandatory: false },
-        boatLiftSpecifications: { value: "", type: "radio", mandatory: true },
-    },
-    accessibility: {
-        handicapAccessibleSlips: { value: "", type: "radio", mandatory: true },
-        proximityHandicapParking: { value: "", type: "radio", mandatory: true },
-        accessibleFacilities: { value: "", type: "radio", mandatory: true },
-        assistanceServicesDisabled: { value: "", type: "radio", mandatory: true },
-        signageDirections: { value: "", type: "radio", mandatory: true },
-        accessibleRestroomsShowers: { value: "", type: "radio", mandatory: true },
-        parkingFacilities: { value: "", type: "radio", mandatory: false },
-        accessibilityFeatures: { value: "", type: "radio", mandatory: false },
-        disabledAccessFacilities: { value: "", type: "radio", mandatory: false },
-        publicTransportLinks: { value: "", type: "radio", mandatory: false },
-    },
-    connectivityAndTransportation: {
-        shuttleServices: { value: "", type: "radio", mandatory: false },
-        transportServices: { value: "", type: "radio", mandatory: false },
-        transportLinks: { value: "", type: "radio", mandatory: false },
-        nearbyAirports: { value: "", type: "radio", mandatory: false },
-        taxiServices: { value: "", type: "radio", mandatory: true },
-        bikeRentals: { value: "", type: "radio", mandatory: false },
-        proximityToAttractions: { value: "", type: "radio", mandatory: false },
-        carRentalServices: { value: "", type: "radio", mandatory: false },
-        airportTransferServices: { value: "", type: "radio", mandatory: false },
-    },
-    environmentalConsiderations: {
-        environmentalCertifications: { value: "", type: "radio", mandatory: false },
-        wasteDisposal: { value: "", type: "radio", mandatory: true },
-        wasteManagementPolicies: { value: "", type: "radio", mandatory: false },
-        waterQualityMonitoring: { value: "", type: "radio", mandatory: false },
-        wasteDisposalServices: { value: "", type: "radio", mandatory: false },
-        waterTreatmentSystems: { value: "", type: "radio", mandatory: false },
-        waterConservationMeasures: { value: "", type: "radio", mandatory: false },
-        waterHookupSpecifications: { value: "", type: "radio", mandatory: true },
-        recyclingPrograms: { value: "", type: "radio", mandatory: false },
-        ecoFriendlyCleaningProducts: { value: "", type: "radio", mandatory: false },
-        pollutionControlMeasures: { value: "", type: "radio", mandatory: false },
-        wildlifeConservationEfforts: { value: "", type: "radio", mandatory: false },
-        greenBuildingCertifications: { value: "", type: "radio", mandatory: false },
-        energySources: { value: "", type: "radio", mandatory: false },
-        marineLifeProtectionMeasures: {
-            value: "",
-            type: "radio",
-            mandatory: false,
-        },
-        greenCertifications: { value: "", type: "radio", mandatory: false },
-        ecoFriendlyProductsAvailability: {
-            value: "",
-            type: "radio",
-            mandatory: false,
-        },
-        sewageTreatmentPlants: { value: "", type: "radio", mandatory: false },
-    },
-    securityAndSafety: {
-        fireSafetySystems: { value: "", type: "radio", mandatory: false },
-        emergencyContactInformation: { value: "", type: "radio", mandatory: false }, // Contact Details Page
-        emergencyMedicalServices: { value: "", type: "radio", mandatory: false },
-        emergencyEvacuationPlans: { value: "", type: "radio", mandatory: false },
-        fireSafetyEquipment: { value: "", type: "radio", mandatory: true },
-        firstAidKits: { value: "", type: "radio", mandatory: true },
-        evacuationPlan: { value: "", type: "radio", mandatory: false },
-        navigationAssistance: { value: "", type: "radio", mandatory: false },
-        navigationAids: { value: "", type: "radio", mandatory: false },
-        harborEntranceDepth: { value: "", type: "radio", mandatory: false },
-        dockingDepths: { value: "", type: "radio", mandatory: false },
-        marinaBasinDepth: { value: "", type: "radio", mandatory: false },
-        waveProtectionMeasures: { value: "", type: "radio", mandatory: false },
-        weatherMonitoringServices: { value: "", type: "radio", mandatory: false },
-        shelterAndProtection: { value: "", type: "radio", mandatory: false },
-        prevailingWinds: { value: "", type: "radio", mandatory: false },
-        seaConditions: { value: "", type: "radio", mandatory: false },
-        breakwaterTypes: { value: "", type: "radio", mandatory: false },
-        weatherShelters: { value: "", type: "radio", mandatory: false },
-        stormPreparationServices: { value: "", type: "radio", mandatory: false },
-        floatingDockAvailability: { value: "", type: "radio", mandatory: false },
-        safetyInspections: { value: "", type: "radio", mandatory: false },
-        dockConstructionMaterial: { value: "", type: "radio", mandatory: false },
-        pileAnchoringSystem: { value: "", type: "radio", mandatory: false },
-        security: { value: "", type: "radio", mandatory: false },
-        security24_7: { value: "", type: "radio", mandatory: true },
-        cctvSurveillance: { value: "", type: "radio", mandatory: true },
-        accessControlSystems: { value: "", type: "radio", mandatory: false },
-        securityLighting: { value: "", type: "radio", mandatory: false },
-    },
-    legalAndCompliance: {
-        permitsLicenses: { value: "", type: "radio", mandatory: false },
-        customsImmigration: { value: "", type: "radio", mandatory: false },
-        healthSafetyRegulations: { value: "", type: "radio", mandatory: false },
-        environmentalRegulationsCompliance: {
-            value: "",
-            type: "radio",
-            mandatory: false,
-        },
-        portStateControlInspections: { value: "", type: "radio", mandatory: false },
-        quarantineServices: { value: "", type: "radio", mandatory: false },
-    },
-    insuranceAndRegulations: {
-        insuranceRequirements: { value: "", type: "radio", mandatory: false },
-        liabilityInsuranceRequirements: {
-            value: "",
-            type: "radio",
-            mandatory: false,
-        },
-        proofOfOwnershipRequired: { value: "", type: "radio", mandatory: false },
-        complianceWithLocalRegulations: {
-            value: "",
-            type: "radio",
-            mandatory: false,
-        },
-        safetyInspections: { value: "", type: "radio", mandatory: false },
-        certificateOfSeaworthiness: { value: "", type: "radio", mandatory: false },
-        dockUseRegulations: { value: "", type: "radio", mandatory: false },
-        environmentalComplianceCertificates: {
-            value: "",
-            type: "radio",
-            mandatory: false,
-        },
-    },
-    financialInformation: {
-        currency: { value: "", type: "radio", mandatory: true },
-        mooringFees: { value: "", type: "radio", mandatory: false },
-        serviceCharges: { value: "", type: "radio", mandatory: false },
-        membershipPrograms: { value: "", type: "radio", mandatory: false },
-        paymentMethods: { value: "", type: "radio", mandatory: false },
-        pricingStructure: { value: "", type: "radio", mandatory: false },
-        depositRequirements: { value: "", type: "radio", mandatory: false },
-        cancellationPolicies: { value: "", type: "radio", mandatory: false },
-        discountsAvailable: { value: "", type: "radio", mandatory: false },
-    },
-    pricingAndLeaseTerms: {
-        pricePA: { value: "", type: "radio", mandatory: true },
-        pricePCM: { value: "", type: "radio", mandatory: true },
-        pricePerWeek: { value: "", type: "radio", mandatory: true },
-        availability: { value: "", type: "radio", mandatory: true },
-        annualLeaseRenewable: { value: "", type: "radio", mandatory: true },
-        cancellationPolicy: { value: "", type: "radio", mandatory: true },
-        latePaymentFees: { value: "", type: "radio", mandatory: true },
-        insuranceRequirements: { value: "", type: "radio", mandatory: true },
-    },
-    paymentTerms: {
-        paymentTerms: { value: "", type: "radio", mandatory: true },
-        currency: { value: "", type: "radio", mandatory: true },
-        preferredPaymentMethods: { value: "", type: "radio", mandatory: true },
-        invoiceAndReceiptProcedures: { value: "", type: "radio", mandatory: true },
-        calculatePriceAndPay: { value: "", type: "radio", mandatory: false },
-        priceLabel: { value: "", type: "radio", mandatory: false },
-        priceDrop: { value: "", type: "radio", mandatory: false },
-        vat: { value: "", type: "radio", mandatory: false },
-        totalPrice: { value: "", type: "radio", mandatory: false },
-    },
-};
+import SubmitButton from "../SubmitButton";
+import { keyToExpectedValueMap, typeDef } from "./BerthAdvertInfo";
+import { makeString } from "../../services/common_functions";
 
 export default function BerthAdvert() {
     const [error, setError] = useState({});
@@ -297,88 +13,86 @@ export default function BerthAdvert() {
     const [loading, setLoading] = useState(false);
     const [allSelectedOptions, setAllSelectedOptions] = useState({});
     const [siteDetails, setSiteDetails] = useState({
-        marisailBerthId:"",
-        siteDetails:"",
-        termsAndConditions:"",
-        type:"",
-        marinaPortHarborName:"",
-        location:"",
-        ownership:"",
-        yearEstablished:"",
-        operatingHours:"",
-        contactDetails:"",
-        seasonalOperation:"",
-        languageServices:""
-    })
+        marisailBerthId: "",
+        siteDetails: "",
+        termsAndConditions: "",
+        type: "",
+        marinaPortHarborName: "",
+        location: "",
+        ownership: "",
+        yearEstablished: "",
+        operatingHours: "",
+        contactDetails: "",
+        seasonalOperation: "",
+        languageServices: "",
+    });
     const [generalInformation, setGeneralInformation] = useState({
-        dockTypes:"",
-        numberOfDocks:"",
-        boatSlipSizes:"",
-        location:"",
-        numberBerthsAvailable:"",
-        length:"",
-        beam:"",
-        draft:"",
-        slipWidth:"",
-        slipDepth:"",
-        slipLength:"",
-        mooringType:"",
-        tideRange:""
-    })
+        dockTypes: "",
+        numberOfDocks: "",
+        boatSlipSizes: "",
+        numberBerthsAvailable: "",
+        length: "",
+        beam: "",
+        draft: "",
+        slipWidth: "",
+        slipDepth: "",
+        slipLength: "",
+        mooringType: "",
+        tideRange: "",
+    });
     const [amenitiesAndServices, setAmenitiesAndServices] = useState({
-        storage:"",
-        electricityAvailable:"",
-        waterSupply:"",
-        wifiAvailability:"",
-        carParking:"",
-        conciergeServices:"",
-        businessServices:"",
-        conferenceRooms:""
-    })
+        storage: "",
+        electricityAvailable: "",
+        waterSupply: "",
+        wifiAvailability: "",
+        carParking: "",
+        conciergeServices: "",
+        businessServices: "",
+        conferenceRooms: "",
+    });
     const [familyFacilities, setFamilyFacilities] = useState({
-        laundryFacilities:"",
-        restaurantsAndCafes:"",
-        restaurant:"",
-        bar:"",
-        shoppingFacilities:"",
-        retailShops:"",
-        hospitalityServices:"",
-        recreationalFacilities:"",
-        conciergeServices:"",
-        clubhouseAccess:"",
-        swimmingPool:"",
-        fitnessCenter:"",
-        marinaStore:"",
-        chandlery:"",
-        restroomsAndShowers:"",
-        laundryServices:"",
-        gymFacilities:"",
-        sanitationFacilities:"",
-        guestAccommodationOptions:"",
-        familyFriendlyAmenities:"",
-        petFriendlyServices:"",
-        iceAvailability:"",
-        picnicAndBBQAreas:"",
-        childrensPlayArea:""
-    })
+        laundryFacilities: "",
+        restaurantsAndCafes: "",
+        restaurant: "",
+        bar: "",
+        shoppingFacilities: "",
+        retailShops: "",
+        hospitalityServices: "",
+        recreationalFacilities: "",
+        clubhouseAccess: "",
+        swimmingPool: "",
+        fitnessCenter: "",
+        marinaStore: "",
+        chandlery: "",
+        restroomsAndShowers: "",
+        laundryServices: "",
+        gymFacilities: "",
+        sanitationFacilities: "",
+        guestAccommodationOptions: "",
+        familyFriendlyAmenities: "",
+        petFriendlyServices: "",
+        iceAvailability: "",
+        picnicAndBBQAreas: "",
+        childrensPlayArea: "",
+    });
     const [surroundingArea, setSurroundingArea] = useState({
-        localAttractions:"",
-        restaurants:"",
-        accommodation:"",
-        shopping:"",
-        transportationOptions:"",
-        medicalFacilitiesNearby:"",
-        localServices:"",
-        communityResources:""
-    })
+        localAttractions: "",
+        restaurants: "",
+        accommodation: "",
+        shopping: "",
+        transportationOptions: "",
+        medicalFacilitiesNearby: "",
+        localServices: "",
+        communityResources: "",
+    });
     const [additionalFeatures, setAdditionalFeatures] = useState({
-        charterServices:"",
-        yachtBrokerageServices:"",
-        boatShowParticipation:"",
-        loyaltyPrograms:"",
-        referralPrograms:"",
-        vipMembershipOptions:""
-    })
+        charterServices: "",
+        yachtBrokerageServices: "",
+        boatShowParticipation: "",
+        loyaltyPrograms: "",
+        referralPrograms: "",
+        vip_MembershipOptions: "",
+    });
     const [communityAndSocial, setCommunityAndSocial] = useState({
         annualEvents: "",
         educationalPrograms: "",
@@ -398,7 +112,6 @@ export default function BerthAdvert() {
         pumpOutStation: "",
         docksideTrolley: "",
         powerSupply: "",
-        waterSupply: "",
         shorePowerConnectionTypes: "",
         fuelTypesAvailable: "",
         fuelService: "",
@@ -484,13 +197,12 @@ export default function BerthAdvert() {
         weatherShelters: "",
         stormPreparationServices: "",
         floatingDockAvailability: "",
-        safetyInspections: "",
         dockConstructionMaterial: "",
         pileAnchoringSystem: "",
         dockMaterial: "",
         security: "",
         securityPatrol: "",
-        cctvSurveillance: "",
+        cctv_Surveillance: "",
         accessControlSystems: "",
         securityLighting: "",
     });
@@ -525,7 +237,7 @@ export default function BerthAdvert() {
     });
     const [pricingAndLeaseTerms, setPricingAndLeaseTerms] = useState({
         pricePA: "",
-        pricePCM: "",
+        price_pcm: "",
         pricePerWeek: "",
         availability: "",
         annualLeaseRenewable: "",
@@ -580,7 +292,7 @@ export default function BerthAdvert() {
     const sections = {
         siteDetails,
         communityAndSocial,
-        environmentalConsiderations,//
+        environmentalConsiderations, //
         generalInformation,
         amenitiesAndServices,
         surroundingArea,
@@ -620,26 +332,37 @@ export default function BerthAdvert() {
     };
 
     const handleOptionSelect = (category, field, selectedOption) => {
-        console.log("001 relevant data selected otpions--", selectedOption);
-        console.log("001 relevant data all otpions--", allSelectedOptions);
-        setAllSelectedOptions((prevState) => ({
-            ...prevState,
-            [category]: {
-                ...prevState[category],
-                [field]: selectedOption,
-            },
-        }));
+        setAllSelectedOptions((prevState) => {
+            const updatedOptions = {
+                ...prevState,
+                [category]: {
+                    ...prevState[category],
+                    [field]: selectedOption,
+                },
+            };
+
+            if (category === "siteDetails" && field === "type") {
+                const { marisailBerthId, siteDetails, termsAndConditions, type } = updatedOptions.siteDetails;
+                fetchRelevantOptions(
+                    marisailBerthId,
+                    siteDetails,
+                    termsAndConditions,
+                    type
+                );
+            }
+
+            return updatedOptions;
+        });
 
         if (
-            category === "identification" &&
-            (field === "trailerId" || field === "manufacturer" || field === "make")
+            category === "siteDetails" &&
+            (
+                field === "marisailBerthId" ||
+                field === "siteDetails" ||
+                field === "termsAndConditions"
+            )
         ) {
             fetchIdentificationSectionOptions(category, selectedOption, field);
-        }
-
-        if (category === "identification" && field === "model") {
-            console.log("001 relevant data all otpions after--", allSelectedOptions);
-            fetchRelevantOptions();
         }
     };
     const handleSubmit = (e) => {
@@ -694,71 +417,92 @@ export default function BerthAdvert() {
             setLoading(false);
         }
     };
-    const fetchRelevantOptions = async () => {
+    const fetchRelevantOptions = async (
+        marisailBerthId,
+        siteDetails,
+        termsAndConditions,
+        type
+    ) => {
         try {
             setLoading(true);
-            // console.log("001 relevant data all otpions--",allSelectedOptions);
+            const requestBody = {
+                marisailBerthId,
+                siteDetails,
+                termsAndConditions,
+                type,
+            };
             const response = await fetch(`${URL}relevant_data`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ allSelectedOptions }),
+                body: JSON.stringify(requestBody),
             });
+
             const data = await response.json();
             const result = data?.result;
-            Object.keys(result).forEach((fieldKey) => {
-                Object.keys(sections).forEach((sectionKey) => {
-                    if (sections[sectionKey][fieldKey] !== undefined) {
-                        const fieldValue =
-                            Array.isArray(result[fieldKey]) && result[fieldKey].length > 0
-                                ? result[fieldKey]?.[0]
-                                : sections[sectionKey][fieldKey];
-                        setAllSelectedOptions((prevState) => ({
-                            ...prevState,
-                            [sectionKey]: {
-                                ...prevState[sectionKey],
-                                [fieldKey]: [fieldValue],
-                            },
-                        }));
+
+            if (result) {
+                const updatePromises = Object.keys(result).map((fieldKey) => {
+                    if (Object.keys(requestBody).includes(fieldKey)) {
+                        return Promise.resolve();
                     }
+                    return Promise.all(
+                        Object.keys(sections).map((sectionKey) => {
+                            return new Promise((resolve) => {
+                                if (sections[sectionKey][fieldKey] !== undefined) {
+                                    const fieldValue =
+                                        Array.isArray(result[fieldKey]) &&
+                                            result[fieldKey].length > 0
+                                            ? result[fieldKey]?.[0]
+                                            : sections[sectionKey][fieldKey];
+
+                                    setAllSelectedOptions((prevState) => ({
+                                        ...prevState,
+                                        [sectionKey]: {
+                                            ...prevState[sectionKey],
+                                            [fieldKey]: [fieldValue],
+                                        },
+                                    }));
+
+                                    resolve();
+                                } else {
+                                    resolve();
+                                }
+                            });
+                        })
+                    );
                 });
-            });
+
+                // Wait for all updates to complete
+                await Promise.all(updatePromises);
+            }
         } catch (error) {
             console.error("Error fetching other section:", error);
         } finally {
             setLoading(false);
-            console.log("001 relevant data all otpions after--", allSelectedOptions);
+            console.log("001 relevant data all options after--", allSelectedOptions);
         }
     };
-    const fetchIdentificationSectionOptions = async (
-        category,
-        selectedOption,
-        Key
-    ) => {
+
+    const fetchIdentificationSectionOptions = async (category, selectedOption, Key) => {
         try {
             setLoading(true);
             const tableName = "berths_ID";
-            let fetchColumn;
-            let requestBody = {};
-
-            if (Key === "trailerId") {
-                fetchColumn = "manufacturer";
-                requestBody = { trailerId: selectedOption };
-            } else if (Key === "manufacturer") {
-                fetchColumn = "make";
-                requestBody = {
-                    trailerId: allSelectedOptions[category]?.trailerId,
-                    manufacturer: selectedOption,
-                };
-            } else if (Key === "make") {
-                fetchColumn = "model";
-                requestBody = {
-                    trailerId: allSelectedOptions[category]?.trailerId,
-                    manufacturer: allSelectedOptions[category]?.manufacturer,
-                    make: selectedOption,
-                };
+            const keyMapping = {
+                marisailBerthId: { fetchColumn: "siteDetails", dependencies: ["marisailBerthId"] },
+                siteDetails: { fetchColumn: "termsAndConditions", dependencies: ["marisailBerthId", "siteDetails"] },
+                termsAndConditions: { fetchColumn: "type", dependencies: ["marisailBerthId", "siteDetails", "termsAndConditions"] },
+            };
+            if (!keyMapping[Key]) {
+                throw new Error(`Invalid key provided: ${Key}`);
             }
+            const { fetchColumn, dependencies } = keyMapping[Key];
+            const requestBody = dependencies.reduce((body, depKey) => {
+                body[depKey] = depKey === Key ? selectedOption : allSelectedOptions[category]?.[depKey];
+                return body;
+            }, {});
+    
             const response = await fetch(`${URL}${tableName}/${fetchColumn}`, {
                 method: "POST",
                 headers: {
@@ -766,17 +510,21 @@ export default function BerthAdvert() {
                 },
                 body: JSON.stringify({ requestBody }),
             });
+    
             const data = await response.json();
+    
             setPageData(category, {
                 ...sections[category],
                 [fetchColumn]: data.result,
             });
+    
         } catch (error) {
-            console.error("Error fetching manufacturers:", error);
+            console.error("Error fetching identification section options:", error);
         } finally {
             setLoading(false);
         }
     };
+    
 
     useEffect(() => {
         const cachedData = localStorage.getItem(cacheKey);
@@ -805,7 +553,7 @@ export default function BerthAdvert() {
                             <Col md={6} key={title} className="mt-2">
                                 <legend className="fieldset-legend">
                                     <h6 style={{ padding: "15px 0px 0px 0px" }}>
-                                        {makeString(title)}
+                                        {makeString(title, keyToExpectedValueMap)}
                                     </h6>
                                 </legend>
                                 {Object.keys(sections[title]).map((fieldKey) => {
@@ -821,7 +569,7 @@ export default function BerthAdvert() {
                                                 <Col xs={3} md={12} className="mb-2">
                                                     <DropdownWithRadio
                                                         heading={fieldKey}
-                                                        title={makeString(fieldKey)}
+                                                        title={makeString(fieldKey, keyToExpectedValueMap)}
                                                         options={sections[title][fieldKey]}
                                                         selectedOption={
                                                             allSelectedOptions[title]?.[fieldKey] || ""
@@ -838,7 +586,11 @@ export default function BerthAdvert() {
                                                         openKey={openKey}
                                                     />
                                                     {error[`${fieldKey}`] && (
-                                                        <div>{errorDisplay(makeString(fieldKey))}</div>
+                                                        <div>
+                                                            {errorDisplay(
+                                                                makeString(fieldKey, keyToExpectedValueMap)
+                                                            )}
+                                                        </div>
                                                     )}
                                                 </Col>
                                             </Col>
@@ -849,29 +601,11 @@ export default function BerthAdvert() {
                             </Col>
                         ))}
                     </Row>
-                    {/* <div className="d-flex justify-content-center p-4 pt-5">
-                        <button
-                            type="submit"
-                            className="btn btn-success p-3"
-                            style={{
-                                backgroundColor: "#971e28",
-                                color: "#fff",
-                                padding: "8px 32px",
-                                border: "0px none",
-                                borderRadius: 30,
-                                textTransform: "uppercase",
-                                marginBottom: 8,
-                                width: "50%",
-                                cursor: "pointer",
-                                transition: "all .5s ease",
-                            }}
-                            name="advert_berth-submit"
-                            id="advert_berth-submit"
-                        >
-                            Submit
-                        </button>
-                    </div> */}
-                    <SubmitButton text="Submit" name="advert_berth_submit" onClick={handleSubmit} />
+                    <SubmitButton
+                        text="Submit"
+                        name="advert_berth_submit"
+                        onClick={handleSubmit}
+                    />
                 </Form>
             )}
         </Container>

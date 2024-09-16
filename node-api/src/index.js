@@ -5,6 +5,7 @@ import advertEngineRouter from "./routes/advert_engine.js";
 import advertTrailerRouter from "./routes/advert_trailer.js";
 import searchEngineRouter from "./routes/search_engine.js";
 import searchTrailerRouter from "./routes/search_trailer.js";
+import advertCharterRouter from "./routes/advert_charter.js";
 
 const router = Router();
 
@@ -20,6 +21,8 @@ router.use("/trailers", advertTrailerRouter);
 router.use("/search_engine", searchEngineRouter);
 
 router.use("/search_trailer", searchTrailerRouter);
+
+router.use("/advert_charter", advertCharterRouter);
 
 // Export the router
 export default router;
