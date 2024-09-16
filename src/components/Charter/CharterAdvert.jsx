@@ -220,7 +220,7 @@ export default function EngineAdvert() {
         }
     }
 
-    const cacheKey = "trailersFilterData";
+    const cacheKey = "charterFilterData";
     const URL = "http://localhost:3001/api/advert_charter/";
 
     const fetchDistinctData = async () => {
