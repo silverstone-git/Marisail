@@ -3,261 +3,219 @@ import { useEffect, useState, useRef } from "react";
 import DropdownWithRadio from "../DropdownWithRadio";
 import Loader from "../Loader";
 import SubmitButton from "../SubmitButton";
-import { keyToExpectedValueMap, typeDef } from "./BerthAdvertInfo";
+import { keyToExpectedValueMap, typeDef } from "../Berth/BerthAdvertInfo";
 import { makeString } from "../../services/common_functions";
-import { useNavigate } from "react-router-dom"; 
 
-export default function BerthAdvert() {
-    const navigate = useNavigate(); 
+export default function MyBerth() {
+    const storedUser = localStorage.getItem("user");
+    const formData = localStorage.getItem("BerthData");
+    let berthData;
+    if (storedUser && formData) {
+        berthData = JSON.parse(formData);
+    }
     const [error, setError] = useState({});
     const hasFetched = useRef(false);
     const [openKey, setOpenKey] = useState(null);
     const [loading, setLoading] = useState(false);
     const [allSelectedOptions, setAllSelectedOptions] = useState({});
     const [siteDetails, setSiteDetails] = useState({
-        marisailBerthId: "",
-        siteDetails: "",
-        termsAndConditions: "",
-        type: "",
-        marinaPortHarborName: "",
-        location: "",
-        ownership: "",
-        yearEstablished: "",
-        operatingHours: "",
-        contactDetails: "",
-        seasonalOperation: "",
-        languageServices: "",
+        marisailBerthId: berthData?.marisailBerthId || "",
+        siteDetails: berthData?.siteDetails || "",
+        termsAndConditions: berthData?.termsAndConditions || "",
+        type: berthData?.type || "",
+        marinaPortHarborName: berthData?.marinaPortHarborName || "",
+        location: berthData?.location || "",
+        ownership: berthData?.ownership || "",
+        yearEstablished: berthData?.yearEstablished || "",
+        operatingHours: berthData?.operatingHours || "",
+        contactDetails: berthData?.contactDetails || "",
+        seasonalOperation: berthData?.seasonalOperation || "",
+        languageServices: berthData?.languageServices || "",
     });
+
     const [generalInformation, setGeneralInformation] = useState({
-        dockTypes: "",
-        numberOfDocks: "",
-        boatSlipSizes: "",
-        numberBerthsAvailable: "",
-        length: "",
-        beam: "",
-        draft: "",
-        slipWidth: "",
-        slipDepth: "",
-        slipLength: "",
-        mooringType: "",
-        tideRange: "",
+        dockTypes: berthData?.dockTypes || "",
+        numberOfDocks: berthData?.numberOfDocks || "",
+        boatSlipSizes: berthData?.boatSlipSizes || "",
+        numberBerthsAvailable: berthData?.numberBerthsAvailable || "",
+        length: berthData?.length || "",
+        beam: berthData?.beam || "",
+        draft: berthData?.draft || "",
+        slipWidth: berthData?.slipWidth || "",
+        slipDepth: berthData?.slipDepth || "",
+        slipLength: berthData?.slipLength || "",
+        mooringType: berthData?.mooringType || "",
+        tideRange: berthData?.tideRange || "",
     });
+
     const [amenitiesAndServices, setAmenitiesAndServices] = useState({
-        storage: "",
-        electricityAvailable: "",
-        waterSupply: "",
-        wifiAvailability: "",
-        carParking: "",
-        conciergeServices: "",
-        businessServices: "",
-        conferenceRooms: "",
+        storage: berthData?.storage || "",
+        electricityAvailable: berthData?.electricityAvailable || "",
+        waterSupply: berthData?.waterSupply || "",
+        wifiAvailability: berthData?.wifiAvailability || "",
+        carParking: berthData?.carParking || "",
+        conciergeServices: berthData?.conciergeServices || "",
+        businessServices: berthData?.businessServices || "",
+        conferenceRooms: berthData?.conferenceRooms || "",
     });
+
     const [familyFacilities, setFamilyFacilities] = useState({
-        laundryFacilities: "",
-        restaurantsAndCafes: "",
-        restaurant: "",
-        bar: "",
-        shoppingFacilities: "",
-        retailShops: "",
-        hospitalityServices: "",
-        recreationalFacilities: "",
-        clubhouseAccess: "",
-        swimmingPool: "",
-        fitnessCenter: "",
-        marinaStore: "",
-        chandlery: "",
-        restroomsAndShowers: "",
-        laundryServices: "",
-        gymFacilities: "",
-        sanitationFacilities: "",
-        guestAccommodationOptions: "",
-        familyFriendlyAmenities: "",
-        petFriendlyServices: "",
-        iceAvailability: "",
-        picnicAndBBQAreas: "",
-        childrensPlayArea: "",
+        laundryFacilities: berthData?.laundryFacilities || "",
+        restaurantsAndCafes: berthData?.restaurantsAndCafes || "",
+        restaurant: berthData?.restaurant || "",
+        bar: berthData?.bar || "",
+        shoppingFacilities: berthData?.shoppingFacilities || "",
+        retailShops: berthData?.retailShops || "",
+        hospitalityServices: berthData?.hospitalityServices || "",
+        recreationalFacilities: berthData?.recreationalFacilities || "",
+        clubhouseAccess: berthData?.clubhouseAccess || "",
+        swimmingPool: berthData?.swimmingPool || "",
+        fitnessCenter: berthData?.fitnessCenter || "",
+        marinaStore: berthData?.marinaStore || "",
+        chandlery: berthData?.chandlery || "",
+        restroomsAndShowers: berthData?.restroomsAndShowers || "",
+        laundryServices: berthData?.laundryServices || "",
+        gymFacilities: berthData?.gymFacilities || "",
+        sanitationFacilities: berthData?.sanitationFacilities || "",
+        guestAccommodationOptions: berthData?.guestAccommodationOptions || "",
+        familyFriendlyAmenities: berthData?.familyFriendlyAmenities || "",
+        petFriendlyServices: berthData?.petFriendlyServices || "",
+        iceAvailability: berthData?.iceAvailability || "",
+        picnicAndBBQAreas: berthData?.picnicAndBBQAreas || "",
+        childrensPlayArea: berthData?.childrensPlayArea || "",
     });
+
     const [surroundingArea, setSurroundingArea] = useState({
-        localAttractions: "",
-        restaurants: "",
-        accommodation: "",
-        shopping: "",
-        transportationOptions: "",
-        medicalFacilitiesNearby: "",
-        localServices: "",
-        communityResources: "",
+        localAttractions: berthData?.localAttractions || "",
+        restaurants: berthData?.restaurants || "",
+        accommodation: berthData?.accommodation || "",
+        shopping: berthData?.shopping || "",
+        transportationOptions: berthData?.transportationOptions || "",
+        medicalFacilitiesNearby: berthData?.medicalFacilitiesNearby || "",
+        localServices: berthData?.localServices || "",
+        communityResources: berthData?.communityResources || "",
     });
+
     const [additionalFeatures, setAdditionalFeatures] = useState({
-        charterServices: "",
-        yachtBrokerageServices: "",
-        boatShowParticipation: "",
-        loyaltyPrograms: "",
-        referralPrograms: "",
-        vip_MembershipOptions: "",
+        charterServices: berthData?.charterServices || "",
+        yachtBrokerageServices: berthData?.yachtBrokerageServices || "",
+        boatShowParticipation: berthData?.boatShowParticipation || "",
+        loyaltyPrograms: berthData?.loyaltyPrograms || "",
+        referralPrograms: berthData?.referralPrograms || "",
+        vip_MembershipOptions: berthData?.vip_MembershipOptions || "",
     });
+
     const [communityAndSocial, setCommunityAndSocial] = useState({
-        annualEvents: "",
-        educationalPrograms: "",
-        communityEvents: "",
-        socialEvents: "",
-        sportsActivities: "",
-        culturalEvents: "",
-        seasonalActivities: "",
-        yachtClubMembership: "",
-        regattasAndCompetitions: "",
-        workshopsAndClasses: "",
-        communityBulletinBoard: "",
-        networkingEvents: "",
-        memberDiscounts: "",
+        annualEvents: berthData?.annualEvents || "",
+        educationalPrograms: berthData?.educationalPrograms || "",
+        communityEvents: berthData?.communityEvents || "",
+        socialEvents: berthData?.socialEvents || "",
+        sportsActivities: berthData?.sportsActivities || "",
+        culturalEvents: berthData?.culturalEvents || "",
+        seasonalActivities: berthData?.seasonalActivities || "",
+        yachtClubMembership: berthData?.yachtClubMembership || "",
+        regattasAndCompetitions: berthData?.regattasAndCompetitions || "",
+        workshopsAndClasses: berthData?.workshopsAndClasses || "",
+        communityBulletinBoard: berthData?.communityBulletinBoard || "",
+        networkingEvents: berthData?.networkingEvents || "",
+        memberDiscounts: berthData?.memberDiscounts || "",
     });
+
     const [services, setServices] = useState({
-        pumpOutStation: "",
-        docksideTrolley: "",
-        powerSupply: "",
-        shorePowerConnectionTypes: "",
-        fuelTypesAvailable: "",
-        fuelService: "",
-        fuelDock: "",
-        electricalHookupSpecifications: "",
+        pumpOutStation: berthData?.pumpOutStation || "",
+        docksideTrolley: berthData?.docksideTrolley || "",
+        powerSupply: berthData?.powerSupply || "",
+        shorePowerConnectionTypes: berthData?.shorePowerConnectionTypes || "",
+        fuelTypesAvailable: berthData?.fuelTypesAvailable || "",
+        fuelService: berthData?.fuelService || "",
+        fuelDock: berthData?.fuelDock || "",
+        electricalHookupSpecifications: berthData?.electricalHookupSpecifications || "",
     });
+
     const [repairAndMaintenance, setRepairAndMaintenance] = useState({
-        boatYardServices: "",
-        boatCleaningServices: "",
-        boatMaintenanceAndRepair: "",
-        chandleryServices: "",
-        repairAndMaintenanceServices: "",
-        haulOutServices: "",
-        boatLiftSpecifications: "",
+        boatYardServices: berthData?.boatYardServices || "",
+        boatCleaningServices: berthData?.boatCleaningServices || "",
+        boatMaintenanceAndRepair: berthData?.boatMaintenanceAndRepair || "",
+        chandleryServices: berthData?.chandleryServices || "",
+        repairAndMaintenanceServices: berthData?.repairAndMaintenanceServices || "",
+        haulOutServices: berthData?.haulOutServices || "",
+        boatLiftSpecifications: berthData?.boatLiftSpecifications || "",
     });
+
     const [accessibility, setAccessibility] = useState({
-        handicapAccessibleSlips: "",
-        proximityToHandicapParking: "",
-        accessibleFacilities: "",
-        assistanceServicesForDisabled: "",
-        signageAndDirections: "",
-        accessibleRestroomsAndShowers: "",
-        parkingFacilities: "",
-        accessibilityFeatures: "",
-        disabledAccessFacilities: "",
-        publicTransportationLinks: "",
+        handicapAccessibleSlips: berthData?.handicapAccessibleSlips || "",
+        proximityToHandicapParking: berthData?.proximityToHandicapParking || "",
+        accessibleFacilities: berthData?.accessibleFacilities || "",
+        assistanceServicesForDisabled: berthData?.assistanceServicesForDisabled || "",
+        signageAndDirections: berthData?.signageAndDirections || "",
+        accessibleRestroomsAndShowers: berthData?.accessibleRestroomsAndShowers || "",
+        parkingFacilities: berthData?.parkingFacilities || "",
+        accessibilityFeatures: berthData?.accessibilityFeatures || "",
+        disabledAccessFacilities: berthData?.disabledAccessFacilities || "",
+        publicTransportationLinks: berthData?.publicTransportationLinks || "",
     });
-    const [connectivityAndTransportation, setConnectivityAndTransportation] =
-        useState({
-            shuttleServices: "",
-            transportServices: "",
-            transportLinks: "",
-            nearbyAirports: "",
-            publicTransportLinks: "",
-            taxiServices: "",
-            bikeRentals: "",
-            proximityToNearbyAttractions: "",
-            carRentalServices: "",
-            airportTransferServices: "",
-        });
-    const [environmentalConsiderations, setEnvironmentalConsiderations] =
-        useState({
-            environmentalCertifications: "",
-            wasteDisposal: "",
-            wasteManagementPolicies: "",
-            waterQualityMonitoring: "",
-            wasteDisposalServices: "",
-            waterTreatmentSystems: "",
-            waterConservationMeasures: "",
-            waterHookupSpecifications: "",
-            recyclingPrograms: "",
-            ecoFriendlyCleaningProducts: "",
-            pollutionControlMeasures: "",
-            wildlifeConservationEfforts: "",
-            greenBuildingCertifications: "",
-            energySources: "",
-            marineLifeProtectionMeasures: "",
-            greenCertifications: "",
-            ecoFriendlyProductsAvailability: "",
-            sewageTreatmentPlants: "",
-        });
+
+    const [connectivityAndTransportation, setConnectivityAndTransportation] = useState({
+        shuttleServices: berthData?.shuttleServices || "",
+        transportServices: berthData?.transportServices || "",
+        transportLinks: berthData?.transportLinks || "",
+        nearbyAirports: berthData?.nearbyAirports || "",
+        publicTransportLinks: berthData?.publicTransportLinks || "",
+        taxiServices: berthData?.taxiServices || "",
+        bikeRentals: berthData?.bikeRentals || "",
+        proximityToNearbyAttractions: berthData?.proximityToNearbyAttractions || "",
+        carRentalServices: berthData?.carRentalServices || "",
+        airportTransferServices: berthData?.airportTransferServices || "",
+    });
+
+    const [environmentalConsiderations, setEnvironmentalConsiderations] = useState({
+        environmentalCertifications: berthData?.environmentalCertifications || "",
+        wasteDisposal: berthData?.wasteDisposal || "",
+        wasteManagementPolicies: berthData?.wasteManagementPolicies || "",
+        waterQualityMonitoring: berthData?.waterQualityMonitoring || "",
+        wasteDisposalServices: berthData?.wasteDisposalServices || "",
+        waterTreatmentSystems: berthData?.waterTreatmentSystems || "",
+        waterConservationMeasures: berthData?.waterConservationMeasures || "",
+        waterHookupSpecifications: berthData?.waterHookupSpecifications || "",
+        recyclingPrograms: berthData?.recyclingPrograms || "",
+        ecoFriendlyCleaningProducts: berthData?.ecoFriendlyCleaningProducts || "",
+        pollutionControlMeasures: berthData?.pollutionControlMeasures || "",
+        wildlifeConservationEfforts: berthData?.wildlifeConservationEfforts || "",
+        greenBuildingCertifications: berthData?.greenBuildingCertifications || "",
+        energySources: berthData?.energySources || "",
+        marineLifeProtectionMeasures: berthData?.marineLifeProtectionMeasures || "",
+        greenCertifications: berthData?.greenCertifications || "",
+        ecoFriendlyProductsAvailability: berthData?.ecoFriendlyProductsAvailability || "",
+        sewageTreatmentPlants: berthData?.sewageTreatmentPlants || "",
+    });
+
     const [securityAndSafety, setSecurityAndSafety] = useState({
-        fireSafetySystems: "",
-        emergencyContactInformation: "",
-        emergencyMedicalServices: "",
-        emergencyEvacuationPlans: "",
-        fireSafetyEquipment: "",
-        firstAidKits: "",
-        evacuationPlan: "",
-        navigationAssistance: "",
-        navigationAids: "",
-        pilotageServices: "",
-        harborEntranceDepth: "",
-        tideInformationServices: "",
-        dockingDepths: "",
-        marinaBasinDepth: "",
-        waveProtectionMeasures: "",
-        weatherMonitoringServices: "",
-        shelterAndProtection: "",
-        prevailingWinds: "",
-        seaConditions: "",
-        breakwaterTypes: "",
-        weatherShelters: "",
-        stormPreparationServices: "",
-        floatingDockAvailability: "",
-        dockConstructionMaterial: "",
-        pileAnchoringSystem: "",
-        dockMaterial: "",
-        security: "",
-        securityPatrol: "",
-        cctv_Surveillance: "",
-        accessControlSystems: "",
-        securityLighting: "",
-    });
-    const [legalAndCompliance, setLegalAndCompliance] = useState({
-        permitsAndLicenses: "",
-        customsAndImmigration: "",
-        healthAndSafetyRegulations: "",
-        environmentalRegulationsCompliance: "",
-        portStateControlInspections: "",
-        quarantineServices: "",
-    });
-    const [insuranceAndRegulations, setInsuranceAndRegulations] = useState({
-        insuranceRequirements: "",
-        liabilityInsuranceRequirements: "",
-        proofOfOwnershipRequired: "",
-        complianceWithLocalRegulations: "",
-        safetyInspections: "",
-        certificateOfSeaworthiness: "",
-        dockUseRegulations: "",
-        environmentalComplianceCertificates: "",
-    });
-    const [financialInformation, setFinancialInformation] = useState({
-        currency: "",
-        mooringFees: "",
-        serviceCharges: "",
-        membershipPrograms: "",
-        paymentMethods: "",
-        pricingStructure: "",
-        depositRequirements: "",
-        cancellationPolicies: "",
-        discountsAvailable: "",
-    });
-    const [pricingAndLeaseTerms, setPricingAndLeaseTerms] = useState({
-        pricePA: "",
-        price_pcm: "",
-        pricePerWeek: "",
-        availability: "",
-        annualLeaseRenewable: "",
-        cancellationPolicy: "",
-        latePaymentFees: "",
-        insuranceRequirements: "",
-    });
-    const [paymentTerms, setPaymentTerms] = useState({
-        paymentTerms: "",
-        currency: "",
-        preferredPaymentMethods: "",
-        invoiceAndReceiptProcedures: "",
-        calculatePriceAndPay: "",
-        priceLabel: "",
-        priceDrop: "",
-        vat: "",
-        totalPrice: "",
-    });
+        fireSafetySystems: berthData?.fireSafetySystems || "",
+        emergencyContactInformation: berthData?.emergencyContactInformation || "",
+        emergencyMedicalServices: berthData?.emergencyMedicalServices || "",
+        emergencyEvacuationPlans: berthData?.emergencyEvacuationPlans || "",
+        fireSafetyEquipment: berthData?.fireSafetyEquipment || "",
+        firstAidKits: berthData?.firstAidKits || "",
+        evacuationPlan: berthData?.evacuationPlan || "",
+        navigationAssistance: berthData?.navigationAssistance || "",
+        navigationAids: berthData?.navigationAids || "",
+        pilotageServices: berthData?.pilotageServices || "",
+        harborEntranceDepth: berthData?.harborEntranceDepth || "",
+        tideInformationServices: berthData?.tideInformationServices || "",
+        dockingDepths: berthData?.dockingDepths || "",
+        marinaBasinDepth: berthData?.marinaBasinDepth || "",
+        waveProtectionMeasures: berthData?.waveProtectionMeasures || "",
+        weatherMonitoringServices: berthData?.weatherMonitoringServices || "",
+        shelterAndProtection: berthData?.shelterAndProtection || "",
+        prevailingWinds: berthData?.prevailingWinds || "",
+        seaConditions: berthData?.seaConditions || "",
+        breakwaterTypes: berthData?.breakwaterTypes || "",
+        weatherShelters: berthData?.weatherShelters || "",
+        stormPreparationServices: berthData?.stormPreparationServices || "",
+        floatingDockAvailability: berthData?.floatingDockAvailability || "",
+        dockConstructionMaterial: berthData?.dockConstructionMaterial || "",
+        pileAnchoringSystem: berthData
+    })
     const checkRequired = () => {
         const errors = {};
         Object.keys(typeDef).forEach((sectionKey) => {
@@ -369,14 +327,12 @@ export default function BerthAdvert() {
     const handleSubmit = (e) => {
         e.preventDefault();
         try {
-            // if (checkRequired()) {
+            if (checkRequired()) {
                 console.log("001 Form is valid, submitting...");
-                localStorage.setItem("BertData", JSON.stringify(allSelectedOptions));
-                navigate("/view-berth");
                 // localStorage.setItem("advertise_engine", JSON.stringify(form));
-            // } else {
-            //     console.warn(error);
-            // }
+            } else {
+                console.warn(error);
+            }
         } catch (error) {
             console.error(error);
         }
@@ -597,7 +553,7 @@ export default function BerthAdvert() {
                                                         title={makeString(fieldKey, keyToExpectedValueMap)}
                                                         options={sections[title][fieldKey]}
                                                         selectedOption={
-                                                            allSelectedOptions[title]?.[fieldKey] || ""
+                                                            allSelectedOptions[title]?.[fieldKey] || berthData[title]?.[fieldKey] || ""
                                                         }
                                                         setSelectedOption={(selectedOption) =>
                                                             handleOptionSelect(

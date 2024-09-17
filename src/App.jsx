@@ -42,6 +42,10 @@ function App() {
         <Route path="/buy" element={<Buy />}></Route>
         <Route path="/sell" element={<Sell />}></Route>
         <Route path="/services" element={<Services type="myEngines"/>}></Route>
+        <Route path="/view-berth" element={<Services type="myBerth"/>}></Route>
+        <Route path="/view-transport" element={<Services type="myTransport"/>}></Route>
+        <Route path="/view-charter" element={<Services type="myCharter"/>}></Route>
+        <Route path="/view-trailer" element={<Services type="myTrailer"/>}></Route>
         <Route path="/engines/:id" element={<EngineDetailPage />} />
         <Route path="/trailer/:id" element={<TrailerDetail />} />
       </Routes>

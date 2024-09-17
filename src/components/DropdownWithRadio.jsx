@@ -13,6 +13,9 @@ const DropdownWithRadio = ({
   setOpenKey,
 }) => {
   const [list] = useState(options);
+  // console.log("001 List--",list);
+  // console.log("001 Selected Value--",selectedOption);
+  
   if (typeof options === Number){
     console.log("001 Number Title--",title);
   }
@@ -41,7 +44,7 @@ const DropdownWithRadio = ({
           {title}
           {isMandatory && <span className="text-danger">&nbsp;*</span>}
         </Accordion.Header>
-        <Accordion.Body style={{ maxHeight: 200, overflowY: "auto", maxWidth: 478 }}>
+        <Accordion.Body style={{ maxHeight: 200, overflowY: "auto", maxWidth: 472 }}>
           <div>
             {list.length > 0 ? (
               list.map((item, index) => (
