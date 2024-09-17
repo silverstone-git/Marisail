@@ -6,8 +6,10 @@ import InputComponentDynamic from "../InputComponentDynamic";
 import SubmitButton from "../SubmitButton";
 import { keyToExpectedValueMap, typeDef } from "./CharterAdvertInfo";
 import { makeString } from "../../services/common_functions";
+import { useNavigate } from "react-router-dom"; 
 
 export default function CharterAdvert() {
+    const navigate = useNavigate(); 
     const [error, setError] = useState({});
     const hasFetched = useRef(false);
     const [engines, setEngines] = useState("");
@@ -199,13 +201,14 @@ export default function CharterAdvert() {
     const handleSubmit = (e) => {
         e.preventDefault();
         try {
-            if (checkRequired()) {
-                // If no errors, proceed with form submission logic
+            // if (checkRequired()) {
                 console.log("001 Form is valid, submitting...");
+                localStorage.setItem("CharterData", JSON.stringify(allSelectedOptions));
+                navigate("/view-charter");
                 // localStorage.setItem("advertise_engine", JSON.stringify(form));
-            } else {
-                console.warn(error);
-            }
+            // } else {
+            //     console.warn(error);
+            // }
         } catch (error) {
             console.error(error);
         }

@@ -163,7 +163,8 @@ export default function TransportAdvert() {
         priceDrop: "",
         vat: "",
     });
-    const checkRequired = () => {
+
+    /*const checkRequired = () => {
         const errors = {};
         Object.keys(typeDef).forEach((sectionKey) => {
             const section = typeDef[sectionKey];
@@ -191,7 +192,7 @@ export default function TransportAdvert() {
 
         setError(errors);
         return Object.keys(errors).length === 0;
-    };
+    };*/
 
     const sections = {
         jobDescription,
@@ -253,23 +254,6 @@ export default function TransportAdvert() {
             // if (checkRequired()) {
             // If no errors, proceed with form submission logic
             console.log("001 Form is valid, submitting...", allSelectedOptions);
-            // localStorage.setItem("advertise_engine", JSON.stringify(form));
-
-            const allFormData = {
-                jobDescription,
-                vesselDetails,
-                customerContactDetails,
-                transportQuotes,
-                qAndA,
-                feedback,
-                haulierDates,
-                haulierCommunications,
-                haulierSafetyAndCompliance,
-                paymentAndInsurance,
-                paymentTerms,
-            };
-
-            // Store the combined data in localStorage
             localStorage.setItem("TransportData", JSON.stringify(allSelectedOptions));
             navigate("/view-transport");
             // console.log("001 Form data saved to localStorage:", allFormData);
@@ -320,7 +304,7 @@ export default function TransportAdvert() {
             console.log("done");
         }
     };
-    const fetchRelevantOptions = async (marisailTransportId, category, title) => {
+    /*const fetchRelevantOptions = async (marisailTransportId, category, title) => {
         try {
             setLoading(true);
             const requestBody = { marisailTransportId, category, title };
@@ -413,7 +397,7 @@ export default function TransportAdvert() {
         } finally {
             setLoading(false);
         }
-    };
+    };*/
 
     useEffect(() => {
         const cachedData = localStorage.getItem(cacheKey);

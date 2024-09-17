@@ -5,8 +5,10 @@ import Loader from "../Loader";
 import SubmitButton from "../SubmitButton";
 import { keyToExpectedValueMap, typeDef } from "./BerthAdvertInfo";
 import { makeString } from "../../services/common_functions";
+import { useNavigate } from "react-router-dom"; 
 
 export default function BerthAdvert() {
+    const navigate = useNavigate(); 
     const [error, setError] = useState({});
     const hasFetched = useRef(false);
     const [openKey, setOpenKey] = useState(null);
@@ -367,12 +369,14 @@ export default function BerthAdvert() {
     const handleSubmit = (e) => {
         e.preventDefault();
         try {
-            if (checkRequired()) {
+            // if (checkRequired()) {
                 console.log("001 Form is valid, submitting...");
+                localStorage.setItem("BertData", JSON.stringify(allSelectedOptions));
+                navigate("/view-berth");
                 // localStorage.setItem("advertise_engine", JSON.stringify(form));
-            } else {
-                console.warn(error);
-            }
+            // } else {
+            //     console.warn(error);
+            // }
         } catch (error) {
             console.error(error);
         }

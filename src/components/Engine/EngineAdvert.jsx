@@ -6,8 +6,10 @@ import InputComponentDynamic from "../InputComponentDynamic";
 import SubmitButton from "../SubmitButton";
 import { keyToExpectedValueMap, typeDef } from "./EngineAdvertInfo";
 import { makeString } from "../../services/common_functions";
+import { useNavigate } from "react-router-dom"; 
 
 export default function EngineAdvert() {
+  const navigate = useNavigate(); 
   const [error, setError] = useState({});
   const hasFetched = useRef(false);
   const [engines, setEngines] = useState("");
@@ -467,18 +469,19 @@ export default function EngineAdvert() {
     }
   };
   const handleSubmit = (e) => {
-    e.preventDefault();
-    try {
-      if (checkRequired()) {
-        // If no errors, proceed with form submission logic
-        console.log("001 Form is valid, submitting...");
-        // localStorage.setItem("advertise_engine", JSON.stringify(form));
-      } else {
-        console.warn(error);
+      e.preventDefault();
+      try {
+          // if (checkRequired()) {
+              console.log("001 Form is valid, submitting...");
+              localStorage.setItem("EngineData", JSON.stringify(allSelectedOptions));
+              navigate("/view-engine");
+              // localStorage.setItem("advertise_engine", JSON.stringify(form));
+          // } else {
+          //     console.warn(error);
+          // }
+      } catch (error) {
+          console.error(error);
       }
-    } catch (error) {
-      console.error(error);
-    }
   };
   function setPageData(key, newData) {
     const setStateFunction = setStateFunctions[key];

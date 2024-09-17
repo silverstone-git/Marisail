@@ -132,6 +132,13 @@ const HeaderNavbar = ({ navbarRef }) => {
                 </NavDropdown.Item>
                 <NavDropdown.Item
                   as={NavLink}
+                  to='/view-charter'
+                  className='text-capitalize'
+                >
+                  My Charters
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  as={NavLink}
                   to='/view-trailer'
                   className='text-capitalize'
                 >

@@ -6,8 +6,10 @@ import InputComponentDynamic from "../InputComponentDynamic";
 import SubmitButton from "../SubmitButton";
 import { keyToExpectedValueMap, typeDef } from "./TrailerAdvertInfo";
 import { makeString } from "../../services/common_functions";
+import { useNavigate } from "react-router-dom"; 
 
 export default function TrailersAdvert() {
+  const navigate = useNavigate(); 
   const [error, setError] = useState({});
   const hasFetched = useRef(false);
   const [trailers, setTrailers] = useState("");
@@ -312,19 +314,20 @@ export default function TrailersAdvert() {
       fetchIdentificationSectionOptions(category, selectedOption, field);
     }
   };
-
   const handleSubmit = (e) => {
-    e.preventDefault();
-    try {
-      if (checkRequired()) {
-        console.log("001 Form is valid, submitting...");
-        // localStorage.setItem("advertise_engine", JSON.stringify(form));
-      } else {
-        console.warn(error);
+      e.preventDefault();
+      try {
+          // if (checkRequired()) {
+              console.log("001 Form is valid, submitting...");
+              localStorage.setItem("TrailerData", JSON.stringify(allSelectedOptions));
+              navigate("/view-trailer");
+              // localStorage.setItem("advertise_engine", JSON.stringify(form));
+          // } else {
+          //     console.warn(error);
+          // }
+      } catch (error) {
+          console.error(error);
       }
-    } catch (error) {
-      console.error(error);
-    }
   };
   function setPageData(key, newData) {
     const setStateFunction = setStateFunctions[key];

@@ -8,6 +8,13 @@ import { keyToExpectedValueMap, typeDef } from "../Trailers/TrailerAdvertInfo";
 import { makeString } from "../../services/common_functions";
 
 export default function MyTrailer() {
+  const storedUser = localStorage.getItem("user");
+  const formData = localStorage.getItem("TrailerData");
+  let trailerData;
+  if (storedUser && formData) {
+    trailerData = JSON.parse(formData);
+  }
+  
   const [error, setError] = useState({});
   const hasFetched = useRef(false);
   const [trailers, setTrailers] = useState("");
@@ -534,7 +541,7 @@ export default function MyTrailer() {
                             title={makeString(fieldKey, keyToExpectedValueMap)}
                             options={sections[title][fieldKey]}
                             selectedOption={
-                              allSelectedOptions[title]?.[fieldKey] || ""
+                              allSelectedOptions[title]?.[fieldKey] || trailerData[title]?.[fieldKey]  || ""
                             }
                             setSelectedOption={(selectedOption) =>
                               handleOptionSelect(
