@@ -13,7 +13,12 @@ const DropdownWithRadio = ({
   setOpenKey,
 }) => {
   const [list] = useState(options);
-
+  if (typeof options === Number){
+    console.log("001 Number Title--",title);
+  }
+  if (typeof options === String){
+    console.log("001 String Title--",title);
+  }
   const handleOptionChange = (optionName) => {
     setSelectedOption(optionName);
   };

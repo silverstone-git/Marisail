@@ -1,31 +1,20 @@
 import { Router } from "express";
 import dbConnection from "../config/dbConfig.js";
-import { ENGINES_ADVERT, UNIQUE_TABLE } from "../config/enginesAdvertConfig.js";
+import {
+  TRANSPORT_ADVERT,
+  UNIQUE_TABLE,
+} from "../config/transportAdvertConfig.js";
 
-const advertEngineRouter = Router();
+const advertTransportRouter = Router();
 
-//API call from frontend - http://localhost:3001/api/advert_engine/
-advertEngineRouter.get("/", (req, res) => {
-  console.log("Inside advert engine...");
-  res.json({ message: "advert engine route" });
-});
-
-//API call from frontend - http://localhost:3001/api/advert_engine/main
-advertEngineRouter.get("/main/", (req, res) => {
-  console.log("Inside advert_engine main page...");
-  res.json({ message: "advert engine main page route" });
-});
-
-//NEW APIs
-advertEngineRouter.post("/engines", async (req, res) => {
+advertTransportRouter.post("/transport", async (req, res) => {
   let connection;
   const filter = req.body;
 
   try {
     connection = await dbConnection.getConnection();
-    // Iterate over filter keys
     for (const key of Object.keys(filter)) {
-      const tableInfo = ENGINES_ADVERT.find((item) => item.key === key);
+      const tableInfo = TRANSPORT_ADVERT.find((item) => item.key === key);
       if (!tableInfo) continue;
 
       const columnCheck = await connection.query(
@@ -39,9 +28,9 @@ advertEngineRouter.post("/engines", async (req, res) => {
         const tables = await connection.query(
           `SELECT distinct ${tableInfo.columnName}
           FROM ${tableInfo.tableName} WHERE ${tableInfo.columnName} IS NOT NULL
-          GROUP BY ${tableInfo.columnName};`
+          GROUP BY ${tableInfo.columnName} LIMIT 10`
         );
-        filter[key] = tables[0].map((table) => Object.values(table));
+        filter[key] = tables?.[0].map((table) => Object.values(table));
       }
     }
 
@@ -52,26 +41,23 @@ advertEngineRouter.post("/engines", async (req, res) => {
     if (connection) connection.release();
   }
 });
-advertEngineRouter.post("/:tableName/:fetchColumn", async (req, res) => {
+advertTransportRouter.post("/:tableName/:fetchColumn", async (req, res) => {
   let connection;
   try {
     let filterOptions = "";
     connection = await dbConnection.getConnection();
     const filters = [];
     let queryParams = {};
-    const fetchColumnName = ENGINES_ADVERT.find(
-      (item) => item.key === req.params.fetchColumn
+    const fetchColumnName = TRANSPORT_ADVERT.find(
+      (item) => item.key === req.params?.fetchColumn
     );
-
-    // Prepare query parameters based on the request body
-    ENGINES_ADVERT.forEach((item) => {
+    TRANSPORT_ADVERT.forEach((item) => {
       const key = item.key;
       const columnName = item.columnName;
-      if (req.body.requestBody[key]) {
-        queryParams[columnName] = req.body.requestBody[key];
+      if (req.body?.requestBody[key]) {
+        queryParams[columnName] = req.body?.requestBody[key];
       }
     });
-    // Dynamically construct filter options
     for (const [key, value] of Object.entries(queryParams)) {
       if (value) {
         filters.push(`${key} = '${value}'`);
@@ -79,7 +65,6 @@ advertEngineRouter.post("/:tableName/:fetchColumn", async (req, res) => {
     }
 
     filterOptions = filters.length > 0 ? `WHERE ${filters.join(" AND ")}` : "";
-    // Fetch distinct values for the given column and table
     const [rows] = await connection.query(
       `SELECT DISTINCT ?? FROM ?? ${filterOptions} GROUP BY ?? ORDER BY ??`,
       [
@@ -90,10 +75,7 @@ advertEngineRouter.post("/:tableName/:fetchColumn", async (req, res) => {
       ]
     );
 
-    // Format the response like API 1
-    const formattedResult = rows.map((row) => [Object.values(row)[0]]);
-
-    // Return the result in the desired format
+    const formattedResult = rows.map((row) => [Object.values(row)?.[0]]);
     return res.status(200).json({ ok: true, result: formattedResult });
   } catch (err) {
     return res.status(500).json({ ok: false, message: err.message });
@@ -101,19 +83,21 @@ advertEngineRouter.post("/:tableName/:fetchColumn", async (req, res) => {
     connection.release();
   }
 });
-advertEngineRouter.post("/relevant_data", async (req, res) => {
+advertTransportRouter.post("/relevant_data", async (req, res) => {
   let connection;
   try {
     let filterOptions = "";
     connection = await dbConnection.getConnection();
     const filters = [];
     let queryParams = {};
-    ENGINES_ADVERT.forEach((item) => {
+    let valid_tables = [];
+    valid_tables.push(UNIQUE_TABLE);
+    TRANSPORT_ADVERT.forEach((item) => {
       const key = item.key;
       const columnName = item.columnName;
-      if (req.body?.allSelectedOptions?.engineDetails[key]) {
+      if (req.body?.allSelectedOptions?.jobDescription[key]) {
         queryParams[columnName] =
-          req.body?.allSelectedOptions?.engineDetails[key];
+          req.body?.allSelectedOptions?.jobDescription[key];
       }
     });
 
@@ -125,11 +109,10 @@ advertEngineRouter.post("/relevant_data", async (req, res) => {
     }
     filterOptions = filters.length > 0 ? `WHERE ${filters.join(" AND ")}` : "";
     let results = {};
-    const [engineID] = await connection.query(
-      `SELECT DISTINCT Engine_ID FROM General ${filterOptions} ORDER BY Engine_ID`
+    const [marisailTransportID] = await connection.query(
+      `SELECT DISTINCT Transport_Item_ID FROM Job ${filterOptions} ORDER BY Transport_Item_ID`
     );
-    
-    if (engineID.length === 0) {
+    if (marisailTransportID.length === 0) {
       return res.status(404).json({ ok: false, message: "No data found" });
     }
     for (let tableName of UNIQUE_TABLE) {
@@ -138,19 +121,19 @@ advertEngineRouter.post("/relevant_data", async (req, res) => {
       ]);
       for (let column of columns) {
         const columnName = column.Field;
-        if (columnName != "Engine_ID") {
+        if (columnName != "Transport_Item_ID") {
           const [rows] = await connection.query(
-            `SELECT DISTINCT ?? FROM ?? WHERE Engine_ID IN (?) AND ?? IS NOT NULL GROUP BY ?? ORDER BY COUNT(*) DESC LIMIT 0,1`,
+            `SELECT DISTINCT ?? FROM ?? WHERE Transport_Item_ID IN (?) AND ?? IS NOT NULL GROUP BY ?? ORDER BY COUNT(*) DESC LIMIT 0,1`,
             [
               columnName,
               tableName,
-              engineID.map((row) => row.Engine_ID),
+              marisailTransportID.map((row) => row.Transport_Item_ID),
               columnName,
               columnName,
             ]
           );
           results[
-            ENGINES_ADVERT.find((item) => item.columnName === columnName)?.key
+            TRANSPORT_ADVERT.find((item) => item.columnName === columnName)?.key
           ] = rows.map((row) => row[columnName]);
         }
       }
@@ -162,4 +145,4 @@ advertEngineRouter.post("/relevant_data", async (req, res) => {
     connection.release();
   }
 });
-export default advertEngineRouter;
+export default advertTransportRouter;

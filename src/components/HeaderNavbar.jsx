@@ -74,17 +74,17 @@ const HeaderNavbar = ({ navbarRef }) => {
               <NavDropdown title="transportation">
                 <NavDropdown.Item
                   as={NavLink}
-                  to="/engines"
+                  to="/transport"
                   className="text-capitalize"
                 >
-                  find transportation
+                  find an transportation
                 </NavDropdown.Item>
                 <NavDropdown.Item
                   as={NavLink}
-                  to="/berth"
+                  to="/advert-transport"
                   className="text-capitalize"
                 >
-                  request transportation
+                  advertise an transportation
                 </NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title="trailers">
