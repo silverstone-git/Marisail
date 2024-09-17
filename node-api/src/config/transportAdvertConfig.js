@@ -1,6 +1,6 @@
 export const TRANSPORT_ADVERT = [
     {
-        key: "marisailTransportID",
+        key: "marisailTransportId",
         columnName: "Transport_Item_ID",
         tableName: "Job",
     },
@@ -28,7 +28,7 @@ export const TRANSPORT_ADVERT = [
         tableName: "Job",
     },
     { key: "international", columnName: "International", tableName: "Job" },
-    { key: "ferryRequired", columnName: "Ferry_Required?", tableName: "Job" },
+    { key: "ferryRequired", columnName: "Ferry_Required", tableName: "Job" },
     {
         key: "specialHandlingRequirements",
         columnName: "Special_Handling",

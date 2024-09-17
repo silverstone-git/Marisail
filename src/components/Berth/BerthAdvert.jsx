@@ -342,7 +342,8 @@ export default function BerthAdvert() {
             };
 
             if (category === "siteDetails" && field === "type") {
-                const { marisailBerthId, siteDetails, termsAndConditions, type } = updatedOptions.siteDetails;
+                const { marisailBerthId, siteDetails, termsAndConditions, type } =
+                    updatedOptions.siteDetails;
                 fetchRelevantOptions(
                     marisailBerthId,
                     siteDetails,
@@ -356,13 +357,11 @@ export default function BerthAdvert() {
 
         if (
             category === "siteDetails" &&
-            (
-                field === "marisailBerthId" ||
+            (field === "marisailBerthId" ||
                 field === "siteDetails" ||
-                field === "termsAndConditions"
-            )
+                field === "termsAndConditions")
         ) {
-            fetchIdentificationSectionOptions(category, selectedOption, field);
+            fetchSiteDetailsSectionOptions(category, selectedOption, field);
         }
     };
     const handleSubmit = (e) => {
@@ -485,24 +484,44 @@ export default function BerthAdvert() {
         }
     };
 
-    const fetchIdentificationSectionOptions = async (category, selectedOption, Key) => {
+    const fetchSiteDetailsSectionOptions = async (
+        category,
+        selectedOption,
+        Key
+    ) => {
         try {
             setLoading(true);
             const tableName = "berths_ID";
             const keyMapping = {
-                marisailBerthId: { fetchColumn: "siteDetails", dependencies: ["marisailBerthId"] },
-                siteDetails: { fetchColumn: "termsAndConditions", dependencies: ["marisailBerthId", "siteDetails"] },
-                termsAndConditions: { fetchColumn: "type", dependencies: ["marisailBerthId", "siteDetails", "termsAndConditions"] },
+                marisailBerthId: {
+                    fetchColumn: "siteDetails",
+                    dependencies: ["marisailBerthId"],
+                },
+                siteDetails: {
+                    fetchColumn: "termsAndConditions",
+                    dependencies: ["marisailBerthId", "siteDetails"],
+                },
+                termsAndConditions: {
+                    fetchColumn: "type",
+                    dependencies: [
+                        "marisailBerthId",
+                        "siteDetails",
+                        "termsAndConditions",
+                    ],
+                },
             };
             if (!keyMapping[Key]) {
                 throw new Error(`Invalid key provided: ${Key}`);
             }
             const { fetchColumn, dependencies } = keyMapping[Key];
             const requestBody = dependencies.reduce((body, depKey) => {
-                body[depKey] = depKey === Key ? selectedOption : allSelectedOptions[category]?.[depKey];
+                body[depKey] =
+                    depKey === Key
+                        ? selectedOption
+                        : allSelectedOptions[category]?.[depKey];
                 return body;
             }, {});
-    
+
             const response = await fetch(`${URL}${tableName}/${fetchColumn}`, {
                 method: "POST",
                 headers: {
@@ -510,21 +529,19 @@ export default function BerthAdvert() {
                 },
                 body: JSON.stringify({ requestBody }),
             });
-    
+
             const data = await response.json();
-    
+
             setPageData(category, {
                 ...sections[category],
                 [fetchColumn]: data.result,
             });
-    
         } catch (error) {
             console.error("Error fetching identification section options:", error);
         } finally {
             setLoading(false);
         }
     };
-    
 
     useEffect(() => {
         const cachedData = localStorage.getItem(cacheKey);
@@ -539,7 +556,11 @@ export default function BerthAdvert() {
     }, [setPageData]);
 
     const errorDisplay = (fieldName) => {
-        return <div style={{ color: "red" }}>{fieldName} field is required</div>;
+        return (
+            <div style={{ color: "red", paddingLeft: 10 }}>
+                {fieldName} field is required
+            </div>
+        );
     };
 
     return (

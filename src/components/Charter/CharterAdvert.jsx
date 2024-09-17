@@ -37,68 +37,71 @@ export default function EngineAdvert() {
         dockingAndMooringInstructions: "",
     });
     const [guestRequirements, setGuestRequirements] = useState({
-        skipperIncluded:"",
-        crewIncluded:"",
-        crewUniformPreferences:"",
-        localCuisinePreferences:"",
-        cateringRequired:"",
-        carParkingAvailable:"",
-        specialRequirementsRequests:"",
+        skipperIncluded: "",
+        crewIncluded: "",
+        crewUniformPreferences: "",
+        localCuisinePreferences: "",
+        cateringRequired: "",
+        carParkingAvailable: "",
+        specialRequirementsRequests: "",
     });
-    const [charterAgreementTermsAndConditions, setCharterAgreementTermsAndConditions] = useState({
-        smokingPolicy:"",
-        petFriendlyPolicy:"",
+    const [
+        charterAgreementTermsAndConditions,
+        setCharterAgreementTermsAndConditions,
+    ] = useState({
+        smokingPolicy: "",
+        petFriendlyPolicy: "",
         localRegulationsAndRestrictions: "",
         charterAgreementTermsAndConditions: "",
-        environmentalPolicies:"",
-        waterConservationMeasures:"",
-        wasteManagementProtocols:"",
-        alcoholPolicy:"",
+        environmentalPolicies: "",
+        waterConservationMeasures: "",
+        wasteManagementProtocols: "",
+        alcoholPolicy: "",
         photographyAndVideographyPolicies: "",
     });
     const [guestSafety, setGuestSafety] = useState({
-        weatherContingencyPlans:"",
-        emergencyProcedures:"",
-        medicalFacilitiesOnboard:"",
-        emergencyContacts:"",
-        weatherForecastServices:"",
-        securityMeasures:"",
+        weatherContingencyPlans: "",
+        emergencyProcedures: "",
+        medicalFacilitiesOnboard: "",
+        emergencyContacts: "",
+        weatherForecastServices: "",
+        securityMeasures: "",
         guestOrientationAndSafetyBriefing: "",
         insuranceGuestsAndPersonalBelongings: "",
-        insuranceCoverageDetails:"",
+        insuranceCoverageDetails: "",
     });
     const [costs, setCosts] = useState({
-        summerRatePerNight:"",
-        winterRatePerWeek:"",
-        winterRatePerNight:"",
-        summerRatePerWeek:"",
-        securityDepositAmount:"",
-        totalPrice:"",
-        refundableDeposit:"",
-        additionalFuelCosts:"",
-        additionalFees:"",
-        fuelIncluded:"",
-        lateCheckInOutFees:"",
-        vat:"",
+        summerRatePerNight: "",
+        winterRatePerWeek: "",
+        winterRatePerNight: "",
+        summerRatePerWeek: "",
+        securityDepositAmount: "",
+        totalPrice: "",
+        refundableDeposit: "",
+        additionalFuelCosts: "",
+        additionalFees: "",
+        fuelIncluded: "",
+        lateCheckInOutFees: "",
+        vat: "",
     });
     const [availableDates, setAvailableDates] = useState({
-        minimumNightsPolicy:"",
-        datesAvailable:"",
-        cancellationPolicy:"",
+        minimumNightsPolicy: "",
+        datesAvailable: "",
+        cancellationPolicy: "",
     });
     const [dates, setDates] = useState({
-        startDate:"",
-        endDate:"",
-        numberNights:"",
+        startDate: "",
+        endDate: "",
+        numberNights: "",
     });
     const [paymentTerms, setPaymentTerms] = useState({
-        paymentTerms:"",
-        currency:"",
-        preferredPaymentMethods:"",
-        invoiceAndReceiptProcedures:"",
-        calculatePriceAndPay:"",
-        priceLabel:"",
-        priceDrop:"",
+        paymentTerms: "",
+        currency: "",
+        preferredPaymentMethods: "",
+        invoiceAndReceiptProcedures: "",
+        calculatePriceAndPay: "",
+        priceLabel: "",
+        priceDrop: "",
     });
 
     const checkRequired = () => {
@@ -140,19 +143,19 @@ export default function EngineAdvert() {
         guestRequirements,
         availableDates,
         dates,
-        paymentTerms
+        paymentTerms,
     };
 
     const setStateFunctions = {
         guestAccomodation: setGuestAccomodation,
         locationDetails: setLocationDetails,
         guestRequirements: setGuestRequirements,
-        charterAgreementTermsAndConditions:setCharterAgreementTermsAndConditions,
+        charterAgreementTermsAndConditions: setCharterAgreementTermsAndConditions,
         guestSafety: setGuestSafety,
         costs: setCosts,
         availableDates: setAvailableDates,
         dates: setDates,
-        paymentTerms: setPaymentTerms
+        paymentTerms: setPaymentTerms,
     };
 
     const handleOptionSelect = (category, field, selectedOption) => {
@@ -166,32 +169,32 @@ export default function EngineAdvert() {
             };
 
             /*if (category === "guestAccomodation" && field === "crewAccommodations") {
-                const {
-                    guestCapacity,
-                    bedroomConfiguration,
-                    bathroomConfiguration,
-                    crewAccommodations,
-                } = updatedOptions.guestAccomodation;
-                fetchRelevantOptions(
-                    guestCapacity,
-                    bedroomConfiguration,
-                    bathroomConfiguration,
-                    crewAccommodations
-                );
-            }*/
+                      const {
+                          guestCapacity,
+                          bedroomConfiguration,
+                          bathroomConfiguration,
+                          crewAccommodations,
+                      } = updatedOptions.guestAccomodation;
+                      fetchRelevantOptions(
+                          guestCapacity,
+                          bedroomConfiguration,
+                          bathroomConfiguration,
+                          crewAccommodations
+                      );
+                  }*/
 
             return updatedOptions;
         });
 
         /*if (
-            category === "guestAccomodation" &&
-            (   field === "guestCapacity" ||
-                field === "bedroomConfiguration" ||
-                field === "bathroomConfiguration"
-            )
-        ) {
-            fetchIdentificationSectionOptions(category, selectedOption, field);
-        }*/
+                category === "guestAccomodation" &&
+                (   field === "guestCapacity" ||
+                    field === "bedroomConfiguration" ||
+                    field === "bathroomConfiguration"
+                )
+            ) {
+                fetchGuestAccomodationSectionOptions(category, selectedOption, field);
+            }*/
     };
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -248,118 +251,118 @@ export default function EngineAdvert() {
         }
     };
     /*const fetchRelevantOptions = async (
-        guestCapacity,
-        bedroomConfiguration,
-        bathroomConfiguration,
-        crewAccommodations
-    ) => {
-        try {
-            setLoading(true);
-            const requestBody = {
-                guestCapacity,
-                bedroomConfiguration,
-                bathroomConfiguration,
-                crewAccommodations,
-            };
-            const response = await fetch(`${URL}relevant_data`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ requestBody }),
-            });
-            const data = await response.json();
-            const result = data?.result;
-
-            if (result) {
-                const updatePromises = Object.keys(result).map((fieldKey) => {
-                    if (Object.keys(requestBody).includes(fieldKey)) {
-                        return Promise.resolve();
-                    }
-                    return Promise.all(
-                        Object.keys(sections).map((sectionKey) => {
-                            return new Promise((resolve) => {
-                                if (sections[sectionKey][fieldKey] !== undefined) {
-                                    const fieldValue =
-                                        Array.isArray(result[fieldKey]) &&
-                                            result[fieldKey].length > 0
-                                            ? result[fieldKey]?.[0]
-                                            : sections[sectionKey][fieldKey];
-
-                                    setAllSelectedOptions((prevState) => ({
-                                        ...prevState,
-                                        [sectionKey]: {
-                                            ...prevState[sectionKey],
-                                            [fieldKey]: [fieldValue],
-                                        },
-                                    }));
-
-                                    resolve();
-                                } else {
-                                    resolve();
-                                }
-                            });
-                        })
-                    );
-                });
-
-                // Wait for all updates to complete
-                await Promise.all(updatePromises);
-            }
-        } catch (error) {
-            console.error("Error fetching other section:", error);
-        } finally {
-            setLoading(false);
-        }
-    };
-    const fetchIdentificationSectionOptions = async (
-        category,
-        selectedOption,
-        Key
-    ) => {
-        try {
-            setLoading(true);
-            const tableName = "Accommodation_Location";
-            const keyHierarchy = [
-                "guestCapacity",
-                "bedroomConfiguration",
-                "bathroomConfiguration",
-                "crewAccommodations",
-            ];
-
-            const currentKeyIndex = keyHierarchy.indexOf(Key);
-            const fetchColumn = keyHierarchy[currentKeyIndex + 1];
-            let requestBody = {};
-            for (let i = 0; i <= currentKeyIndex; i++) {
-                const key = keyHierarchy[i];
-                requestBody[key] =
-                    key === Key ? selectedOption : allSelectedOptions[category]?.[key];
-            }
-
-            if (!fetchColumn) {
-                throw new Error(
-                    "No further data to fetch. All selections are complete."
-                );
-            }
-            const response = await fetch(`${URL}${tableName}/${fetchColumn}`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ requestBody }),
-            });
-
-            const data = await response.json();
-            setPageData(category, {
-                ...sections[category],
-                [fetchColumn]: data.result,
-            });
-        } catch (error) {
-            console.error("Error fetching manufacturers:", error);
-        } finally {
-            setLoading(false);
-        }
-    };*/
+          guestCapacity,
+          bedroomConfiguration,
+          bathroomConfiguration,
+          crewAccommodations
+      ) => {
+          try {
+              setLoading(true);
+              const requestBody = {
+                  guestCapacity,
+                  bedroomConfiguration,
+                  bathroomConfiguration,
+                  crewAccommodations,
+              };
+              const response = await fetch(`${URL}relevant_data`, {
+                  method: "POST",
+                  headers: {
+                      "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({ requestBody }),
+              });
+              const data = await response.json();
+              const result = data?.result;
+  
+              if (result) {
+                  const updatePromises = Object.keys(result).map((fieldKey) => {
+                      if (Object.keys(requestBody).includes(fieldKey)) {
+                          return Promise.resolve();
+                      }
+                      return Promise.all(
+                          Object.keys(sections).map((sectionKey) => {
+                              return new Promise((resolve) => {
+                                  if (sections[sectionKey][fieldKey] !== undefined) {
+                                      const fieldValue =
+                                          Array.isArray(result[fieldKey]) &&
+                                              result[fieldKey].length > 0
+                                              ? result[fieldKey]?.[0]
+                                              : sections[sectionKey][fieldKey];
+  
+                                      setAllSelectedOptions((prevState) => ({
+                                          ...prevState,
+                                          [sectionKey]: {
+                                              ...prevState[sectionKey],
+                                              [fieldKey]: [fieldValue],
+                                          },
+                                      }));
+  
+                                      resolve();
+                                  } else {
+                                      resolve();
+                                  }
+                              });
+                          })
+                      );
+                  });
+  
+                  // Wait for all updates to complete
+                  await Promise.all(updatePromises);
+              }
+          } catch (error) {
+              console.error("Error fetching other section:", error);
+          } finally {
+              setLoading(false);
+          }
+      };
+      const fetchGuestAccomodationSectionOptions = async (
+          category,
+          selectedOption,
+          Key
+      ) => {
+          try {
+              setLoading(true);
+              const tableName = "Accommodation_Location";
+              const keyHierarchy = [
+                  "guestCapacity",
+                  "bedroomConfiguration",
+                  "bathroomConfiguration",
+                  "crewAccommodations",
+              ];
+  
+              const currentKeyIndex = keyHierarchy.indexOf(Key);
+              const fetchColumn = keyHierarchy[currentKeyIndex + 1];
+              let requestBody = {};
+              for (let i = 0; i <= currentKeyIndex; i++) {
+                  const key = keyHierarchy[i];
+                  requestBody[key] =
+                      key === Key ? selectedOption : allSelectedOptions[category]?.[key];
+              }
+  
+              if (!fetchColumn) {
+                  throw new Error(
+                      "No further data to fetch. All selections are complete."
+                  );
+              }
+              const response = await fetch(`${URL}${tableName}/${fetchColumn}`, {
+                  method: "POST",
+                  headers: {
+                      "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({ requestBody }),
+              });
+  
+              const data = await response.json();
+              setPageData(category, {
+                  ...sections[category],
+                  [fetchColumn]: data.result,
+              });
+          } catch (error) {
+              console.error("Error fetching manufacturers:", error);
+          } finally {
+              setLoading(false);
+          }
+      };*/
 
     useEffect(() => {
         const cachedData = localStorage.getItem(cacheKey);
@@ -384,7 +387,11 @@ export default function EngineAdvert() {
     };
 
     const errorDisplay = (fieldName) => {
-        return <div style={{ color: "red" }}>{fieldName} field is required</div>;
+        return (
+            <div style={{ color: "red", paddingLeft: 10 }}>
+                {fieldName} field is required
+            </div>
+        );
     };
 
     return (

@@ -28,7 +28,7 @@ advertTransportRouter.post("/transport", async (req, res) => {
         const tables = await connection.query(
           `SELECT distinct ${tableInfo.columnName}
           FROM ${tableInfo.tableName} WHERE ${tableInfo.columnName} IS NOT NULL
-          GROUP BY ${tableInfo.columnName};`
+          GROUP BY ${tableInfo.columnName} LIMIT 10`
         );
         filter[key] = tables?.[0].map((table) => Object.values(table));
       }
@@ -110,7 +110,7 @@ advertTransportRouter.post("/relevant_data", async (req, res) => {
     filterOptions = filters.length > 0 ? `WHERE ${filters.join(" AND ")}` : "";
     let results = {};
     const [marisailTransportID] = await connection.query(
-      `SELECT DISTINCT Transport_Item_ID FROM Trailers_ID ${filterOptions} ORDER BY Transport_Item_ID`
+      `SELECT DISTINCT Transport_Item_ID FROM Job ${filterOptions} ORDER BY Transport_Item_ID`
     );
     if (marisailTransportID.length === 0) {
       return res.status(404).json({ ok: false, message: "No data found" });

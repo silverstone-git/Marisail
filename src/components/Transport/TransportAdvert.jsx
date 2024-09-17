@@ -229,33 +229,21 @@ export default function TransportAdvert() {
                 },
             };
 
-            /*if (category === "guestAccomodation" && field === "crewAccommodations") {
-                const {
-                    guestCapacity,
-                    bedroomConfiguration,
-                    bathroomConfiguration,
-                    crewAccommodations,
-                } = updatedOptions.guestAccomodation;
-                fetchRelevantOptions(
-                    guestCapacity,
-                    bedroomConfiguration,
-                    bathroomConfiguration,
-                    crewAccommodations
-                );
-            }*/
+            if (category === "jobDescription" && field === "title") {
+                const { marisailTransportId, category, title } =
+                    updatedOptions.jobDescription;
+                fetchRelevantOptions(marisailTransportId, category, title);
+            }
 
             return updatedOptions;
         });
 
-        /*if (
-            category === "guestAccomodation" &&
-            (field === "guestCapacity" ||
-                field === "bedroomConfiguration" ||
-                field === "bathroomConfiguration")
+        if (
+            category === "jobDescription" &&
+            (field === "marisailTransportId" || field === "category")
         ) {
-            // Fetch manufacturers based on selected trailerId
-            fetchIdentificationSectionOptions(category, selectedOption, field);
-        }*/
+            fetchJDSectionOptions(category, selectedOption, field);
+        }
     };
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -376,11 +364,7 @@ export default function TransportAdvert() {
             setLoading(false);
         }
     };
-    const fetchIdentificationSectionOptions = async (
-        category,
-        selectedOption,
-        Key
-    ) => {
+    const fetchJDSectionOptions = async (category, selectedOption, Key) => {
         try {
             setLoading(true);
             const tableName = "Accommodation_Location";
@@ -448,7 +432,11 @@ export default function TransportAdvert() {
     };
 
     const errorDisplay = (fieldName) => {
-        return <div style={{ color: "red" }}>{fieldName} field is required</div>;
+        return (
+            <div style={{ color: "red", paddingLeft: 10 }}>
+                {fieldName} field is required
+            </div>
+        );
     };
 
     return (

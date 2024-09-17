@@ -497,7 +497,11 @@ export default function TrailersAdvert() {
   };
 
   const errorDisplay = (fieldName) => {
-    return <div style={{ color: "red" }}>{fieldName} field is required</div>;
+    return (
+      <div style={{ color: "red", paddingLeft: 10 }}>
+        {fieldName} field is required
+      </div>
+    );
   };
 
   return (

@@ -293,50 +293,50 @@ export default function EngineAdvert() {
     engineControlRoom: "",
   });
   const [engineMeasurements, setEngineMeasurements] = useState({
-    engineCoolingWaterFlow: "", 
-    engineExhaustTemperature: "", 
-    engineOperatingHours: "", 
-    enginePowerHpKw: "", 
-    engineRoomVolume: "", 
-    engineRpm: "", 
-    engineTorque: ""
+    engineCoolingWaterFlow: "",
+    engineExhaustTemperature: "",
+    engineOperatingHours: "",
+    enginePowerHpKw: "",
+    engineRoomVolume: "",
+    engineRpm: "",
+    engineTorque: "",
   });
   const [engineRoom, setEngineRoom] = useState({
-    engineRoom: "", 
-    engineRoomFan: "", 
-    engineRoomFanExtractor: "", 
-    engineRoomInsulation: "", 
-    engineRoomLight: "", 
-    engineRoomSoundproofing: "", 
-    engineRoomVentilation: ""
+    engineRoom: "",
+    engineRoomFan: "",
+    engineRoomFanExtractor: "",
+    engineRoomInsulation: "",
+    engineRoomLight: "",
+    engineRoomSoundproofing: "",
+    engineRoomVentilation: "",
   });
   const [engineShaft, setEngineShaft] = useState({
-    engineShaftBearing: "", 
-    engineShaftCollar: "", 
-    engineShaftCoupling: "", 
-    engineShaftKey: "", 
-    engineShaftLog: "", 
-    engineShaftNut: "", 
-    engineShaftSeal: "", 
-    engineShaftSealant: "", 
-    engineShaftSize: "", 
-    engineShaftSpacer: "", 
-    engineShaftStrut: "", 
-    engineShaftTube: "", 
-    engineShaftWasher: ""  
+    engineShaftBearing: "",
+    engineShaftCollar: "",
+    engineShaftCoupling: "",
+    engineShaftKey: "",
+    engineShaftLog: "",
+    engineShaftNut: "",
+    engineShaftSeal: "",
+    engineShaftSealant: "",
+    engineShaftSize: "",
+    engineShaftSpacer: "",
+    engineShaftStrut: "",
+    engineShaftTube: "",
+    engineShaftWasher: "",
   });
   const [engineType, setEngineType] = useState({
-    ecuEngineControlUnit: "", 
-    engineFuelType: "", 
-    engineStroke: "", 
-    engineTier: "", 
-    inboardOutboard: "", 
-    mainOrAuxiliary: "", 
-    podEngine: "", 
-    saildriveEngine: "", 
-    steeringAndEngineControls: "", 
-    sternDriveEngine: "", 
-    engineType: ""
+    ecuEngineControlUnit: "",
+    engineFuelType: "",
+    engineStroke: "",
+    engineTier: "",
+    inboardOutboard: "",
+    mainOrAuxiliary: "",
+    podEngine: "",
+    saildriveEngine: "",
+    steeringAndEngineControls: "",
+    sternDriveEngine: "",
+    engineType: "",
   });
 
   const checkRequired = () => {
@@ -422,7 +422,7 @@ export default function EngineAdvert() {
     engineMeasurements: setEngineMeasurements,
     engineRoom: setEngineRoom,
     engineShaft: setEngineShaft,
-    engineType: setEngineType
+    engineType: setEngineType,
   };
 
   const handleOptionSelect = (category, field, selectedOption) => {
@@ -463,7 +463,7 @@ export default function EngineAdvert() {
         field === "engineType")
     ) {
       // Fetch manufacturers based on selected trailerId
-      fetchIdentificationSectionOptions(category, selectedOption, field);
+      fetchEngineDetailsSectionOptions(category, selectedOption, field);
     }
   };
   const handleSubmit = (e) => {
@@ -587,7 +587,7 @@ export default function EngineAdvert() {
       setLoading(false);
     }
   };
-  const fetchIdentificationSectionOptions = async (
+  const fetchEngineDetailsSectionOptions = async (
     category,
     selectedOption,
     Key
@@ -673,7 +673,11 @@ export default function EngineAdvert() {
   };
 
   const errorDisplay = (fieldName) => {
-    return <div style={{ color: "red" }}>{fieldName} field is required</div>;
+    return (
+      <div style={{ color: "red", paddingLeft: 10 }}>
+        {fieldName} field is required
+      </div>
+    );
   };
 
   return (
