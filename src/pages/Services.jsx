@@ -1,6 +1,9 @@
 import MyEngine from "../components/Services/MyEngine";
 import PropTypes from "prop-types";
-import TrailersAdvert from "../components/Trailers/TrailersAdvert";
+import MyBerth from "../components/Services/MyBerth";
+import MyTrailer from "../components/Services/MyTrailer";
+import MyTransport from "../components/Services/MyTransport";
+import MyCharter from "../components/Services/MyTransport";
 
 const Services = ({ type }) => {
   // Example user object
@@ -21,7 +24,20 @@ const Services = ({ type }) => {
         overflow: "hidden",
       }}
     >
-      {type === "myEngines" ? <MyEngine /> : <TrailersAdvert />}
+      {type === "myEngines" ? (
+        <MyEngine />
+      ) : type === "myBerth" ? (
+        <MyBerth />
+      ) : type === "myCharter" ? (
+        <MyCharter />
+      ) : type === "myTransport" ? (
+        <MyTransport />
+      ) : type === "myTrailer" ? (
+        <MyTrailer />
+      ) : (
+        <MyCharter />
+      )}
+
     </main>
   );
 };

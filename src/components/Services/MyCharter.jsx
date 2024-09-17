@@ -4,10 +4,10 @@ import DropdownWithRadio from "../DropdownWithRadio";
 import Loader from "../Loader";
 import InputComponentDynamic from "../InputComponentDynamic";
 import SubmitButton from "../SubmitButton";
-import { keyToExpectedValueMap, typeDef } from "./CharterAdvertInfo";
+import { keyToExpectedValueMap, typeDef } from "../Charter/CharterAdvertInfo";
 import { makeString } from "../../services/common_functions";
 
-export default function CharterAdvert() {
+export default function MyCharter() {
     const [error, setError] = useState({});
     const hasFetched = useRef(false);
     const [engines, setEngines] = useState("");

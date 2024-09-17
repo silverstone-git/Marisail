@@ -132,10 +132,24 @@ const HeaderNavbar = ({ navbarRef }) => {
                 </NavDropdown.Item>
                 <NavDropdown.Item
                   as={NavLink}
-                  to='/trailers'
+                  to='/view-trailer'
                   className='text-capitalize'
                 >
                   My Trailers
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  as={NavLink}
+                  to='/view-berth'
+                  className='text-capitalize'
+                >
+                  My Berths
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  as={NavLink}
+                  to='/view-transport'
+                  className='text-capitalize'
+                >
+                  My Transport
                 </NavDropdown.Item>
               </NavDropdown>
             </Nav>
