@@ -165,7 +165,7 @@ export default function EngineAdvert() {
                 },
             };
 
-            if (category === "guestAccomodation" && field === "crewAccommodations") {
+            /*if (category === "guestAccomodation" && field === "crewAccommodations") {
                 const {
                     guestCapacity,
                     bedroomConfiguration,
@@ -178,21 +178,20 @@ export default function EngineAdvert() {
                     bathroomConfiguration,
                     crewAccommodations
                 );
-            }
+            }*/
 
             return updatedOptions;
         });
 
-        if (
+        /*if (
             category === "guestAccomodation" &&
             (   field === "guestCapacity" ||
                 field === "bedroomConfiguration" ||
                 field === "bathroomConfiguration"
             )
         ) {
-            // Fetch manufacturers based on selected trailerId
             fetchIdentificationSectionOptions(category, selectedOption, field);
-        }
+        }*/
     };
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -248,7 +247,7 @@ export default function EngineAdvert() {
             console.log("done");
         }
     };
-    const fetchRelevantOptions = async (
+    /*const fetchRelevantOptions = async (
         guestCapacity,
         bedroomConfiguration,
         bathroomConfiguration,
@@ -360,7 +359,7 @@ export default function EngineAdvert() {
         } finally {
             setLoading(false);
         }
-    };
+    };*/
 
     useEffect(() => {
         const cachedData = localStorage.getItem(cacheKey);
@@ -398,7 +397,7 @@ export default function EngineAdvert() {
                         {Object.keys(sections).map((title) => (
                             <Col md={6} key={title} className="mt-2">
                                 <legend className="fieldset-legend">
-                                    <h6 style={{ padding: "15px 0px 0px 0px" }}>
+                                    <h6 style={{ padding: "15px 10px 0px 10px" }}>
                                         {makeString(title, keyToExpectedValueMap)}
                                     </h6>
                                 </legend>

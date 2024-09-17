@@ -1,14 +1,22 @@
-import { Button } from "react-bootstrap";
+import TransportAdvert from "../components/Transport/TransportAdvert";
+import TransportSearch from "../components/Transport/TransportSearch";
+import PropTypes from "prop-types";
 
- 
-
-const Transport = () => {
+const Transport = ({ type }) => {
   return (
-    <>
-      <div className="h1 mt-5">Transport</div>
-     
-    </>
+    <main
+      style={{
+        minHeight: `100vh`,
+        overflow: "hidden",
+      }}
+    >
+      {type === "search" ? <TransportSearch /> : <TransportAdvert />}
+    </main>
   );
+};
+
+Transport.propTypes = {
+  type: PropTypes.string.isRequired,
 };
 
 export default Transport;

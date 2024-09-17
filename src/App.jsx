@@ -24,7 +24,8 @@ function App() {
       <HeaderNavbar {...{ navbarRef }}></HeaderNavbar>
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/transport" element={<Transport />}></Route>
+        <Route path="/transport" element={<Transport type="search"/>}></Route>
+        <Route path="/advert-transport" element={<Transport type="advert"/>}></Route>
         <Route path="/advert-charters" element={<Charters type="advert"/>}></Route>
         <Route path="/charters" element={<Charters type="search"/>}></Route>
         <Route path="/engines" element={<Engines type="advert" />} />

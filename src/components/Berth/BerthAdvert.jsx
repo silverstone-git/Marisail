@@ -552,7 +552,7 @@ export default function BerthAdvert() {
                         {Object.keys(sections).map((title) => (
                             <Col md={6} key={title} className="mt-2">
                                 <legend className="fieldset-legend">
-                                    <h6 style={{ padding: "15px 0px 0px 0px" }}>
+                                    <h6 style={{ padding: "15px 10px 0px 10px" }}>
                                         {makeString(title, keyToExpectedValueMap)}
                                     </h6>
                                 </legend>
