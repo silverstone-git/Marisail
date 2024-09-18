@@ -149,7 +149,7 @@ export default function ChandleryAdvert() {
         }
     }
 
-    const cacheKey = "trailersFilterData";
+    const cacheKey = "chandleryFilterData";
     const URL = "http://localhost:3001/api/advert_chandlery/";
 
     const fetchDistinctData = async () => {

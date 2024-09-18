@@ -38,4 +38,6 @@ export const typeDef = {
     }
 };
 
-export const keyToExpectedValueMap = {}
+export const keyToExpectedValueMap = {
+    vat: "VAT"
+}
