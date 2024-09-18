@@ -4,7 +4,7 @@ import { SHOP_ADVERT, UNIQUE_TABLE } from "../config/shopAdvertConfig.js";
 
 const advertChandleryRouter = Router();
 
-advertChandleryRouter.post("/trailers", async (req, res) => {
+advertChandleryRouter.post("/chandlery", async (req, res) => {
     let connection;
     const filter = req.body;
 

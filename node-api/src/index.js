@@ -28,7 +28,7 @@ router.use("/advert_charter", advertCharterRouter);
 
 router.use("/advert_transport", advertTransportRouter);
 
-router.use("/advert_chandlery", advertTransportRouter);
+router.use("/advert_chandlery", advertChandleryRouter);
 
 // Export the router
 export default router;
