@@ -4,11 +4,11 @@ import DropdownWithRadio from "../DropdownWithRadio";
 import Loader from "../Loader";
 import InputComponentDynamic from "../InputComponentDynamic";
 import SubmitButton from "../SubmitButton";
-import { keyToExpectedValueMap, typeDef } from "./ShopAdvertInfo";
+import { keyToExpectedValueMap, typeDef } from "../Shop/ShopAdvertInfo";
 import { makeString } from "../../services/common_functions";
 import { useNavigate } from "react-router-dom";
 
-export default function ChandleryAdvert() {
+export default function MyChandlery() {
     const navigate = useNavigate();
     const [error, setError] = useState({});
     const hasFetched = useRef(false);

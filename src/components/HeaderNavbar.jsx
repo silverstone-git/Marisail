@@ -119,9 +119,22 @@ const HeaderNavbar = ({ navbarRef }) => {
                   advertise an charter
                 </NavDropdown.Item>
               </NavDropdown>
-              <Nav.Link as={NavLink} to="/chandlery">
-                chandlery
-              </Nav.Link>
+              <NavDropdown title="chandlery">
+                <NavDropdown.Item
+                  as={NavLink}
+                  to="/chandlery"
+                  className="text-capitalize"
+                >
+                  find a chandlery
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  as={NavLink}
+                  to="/advert-chandlery"
+                  className="text-capitalize"
+                >
+                  advertise an chandlery
+                </NavDropdown.Item>
+              </NavDropdown>
               <NavDropdown title='services'>
                 <NavDropdown.Item
                   as={NavLink}
