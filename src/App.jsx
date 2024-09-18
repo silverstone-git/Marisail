@@ -36,7 +36,8 @@ function App() {
           path="/advert-trailers"
           element={<Trailers type="trailers" />}
         ></Route>
-        <Route path="/chandlery" element={<Chandlery />}></Route>
+        <Route path="/advert-chandlery" element={<Chandlery type="advert"/>}></Route>
+        <Route path="/chandlery" element={<Chandlery type="search"/>}></Route>
         <Route path="/berths" element={<Berths type="search" />} />
         <Route path="/advert-berth" element={<Berths type="advert" />} />
         <Route path="/buy" element={<Buy />}></Route>
