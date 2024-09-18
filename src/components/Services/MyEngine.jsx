@@ -730,7 +730,7 @@ export default function MyEngine() {
                     return (
                       <Col
                         md={12}
-                        className="mt-4 mr-3"
+                        className="mt-2 mr-3"
                         key={fieldKey}
                         style={{ width: 480 }}
                       >
@@ -767,7 +767,7 @@ export default function MyEngine() {
                     return (
                       <Col
                         md={12}
-                        className="mt-4 mr-3"
+                        className="mt-2 mr-3"
                         key={fieldKey}
                         style={{ width: 480 }}
                       >
