@@ -333,11 +333,11 @@ export default function MyChandlery() {
                                         return (
                                             <Col
                                                 md={12}
-                                                className="mt-2 mr-3"
+                                                className="mr-3"
                                                 key={fieldKey}
                                                 style={{ width: 480 }}
                                             >
-                                                <Col xs={3} md={12} className="mb-2">
+                                                <Col xs={3} md={12}>
                                                     <DropdownWithRadio
                                                         heading={fieldKey}
                                                         title={makeString(fieldKey, keyToExpectedValueMap)}
@@ -370,7 +370,7 @@ export default function MyChandlery() {
                                         return (
                                             <Col
                                                 md={12}
-                                                className="mt-2 mr-3"
+                                                className="mr-3"
                                                 key={fieldKey}
                                                 style={{ width: 480 }}
                                             >

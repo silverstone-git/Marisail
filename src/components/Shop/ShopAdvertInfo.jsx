@@ -16,7 +16,8 @@ export const typeDef = {
         delivery: { value: "", type: "radio", mandatory: true },
         returnsAccepted: { value: "", type: "radio", mandatory: true },
         returnsDetails: { value: "", type: "radio", mandatory: true },
-
+    },
+    sellerDetails: {
         sellerContactDetails: { value: "", type: "radio", mandatory: false },
         marisailSellerId: { value: "", type: "radio", mandatory: false },
         sellerName: { value: "", type: "radio", mandatory: false },
@@ -35,9 +36,9 @@ export const typeDef = {
         calculatePriceAndPay: { value: "", type: "radio", mandatory: false },
         vat: { value: "", type: "radio", mandatory: false },
         totalPrice: { value: "", type: "radio", mandatory: false },
-    }
+    },
 };
 
 export const keyToExpectedValueMap = {
-    vat: "VAT"
-}
+    vat: "VAT",
+};

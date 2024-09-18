@@ -17,7 +17,7 @@ export default function ChandleryAdvert() {
     const [openKey, setOpenKey] = useState(null);
     const [loading, setLoading] = useState(false);
     const [allSelectedOptions, setAllSelectedOptions] = useState({});
-    const [shopDetails, setShopDetails] = useState({
+    const [itemDescription, setItemDescription] = useState({
         marisailProductId: "",
         itemName: "",
         description: "",
@@ -34,7 +34,8 @@ export default function ChandleryAdvert() {
         delivery: "",
         returnsAccepted: "",
         returnsDetails: "",
-
+    });
+    const [sellerDetails, setSellerDetails] = useState({
         sellerContactDetails: "",
         marisailSellerId: "",
         sellerName: "",
@@ -43,7 +44,7 @@ export default function ChandleryAdvert() {
 
         contactSeller: "",
         visitShop: "",
-        uploadPictures: "",
+        uploadPictures: ""
     });
     const [paymentTerms, setPaymentTerms] = useState({
         paymentTerms: "",
@@ -88,12 +89,14 @@ export default function ChandleryAdvert() {
     };*/
 
     const sections = {
-        shopDetails,
+        itemDescription,
+        sellerDetails,
         paymentTerms,
     };
 
     const setStateFunctions = {
-        shopDetails: setShopDetails,
+        itemDescription: setItemDescription,
+        sellerDetails:setSellerDetails,
         paymentTerms: setPaymentTerms,
     };
 
@@ -334,11 +337,11 @@ export default function ChandleryAdvert() {
                                         return (
                                             <Col
                                                 md={12}
-                                                className="mt-2 mr-3"
+                                                className="mr-3"
                                                 key={fieldKey}
                                                 style={{ width: 480 }}
                                             >
-                                                <Col xs={3} md={12} className="mb-2">
+                                                <Col xs={3} md={12}>
                                                     <DropdownWithRadio
                                                         heading={fieldKey}
                                                         title={makeString(fieldKey, keyToExpectedValueMap)}
@@ -371,7 +374,7 @@ export default function ChandleryAdvert() {
                                         return (
                                             <Col
                                                 md={12}
-                                                className="mt-4 mr-3"
+                                                className="mr-3"
                                                 key={fieldKey}
                                                 style={{ width: 480 }}
                                             >
