@@ -4,7 +4,7 @@ export const typeDef = {
         category: { value: "", type: "radio", mandatory: true },
         title: { value: "", type: "radio", mandatory: true },
         description: { value: "", type: "radio", mandatory: true },
-        postedDate: { value: "", type: "radio", mandatory: false },
+        postedDate: { value: "", type: "date", mandatory: false },
         deadlineDate: { value: "", type: "radio", mandatory: true },
         timescale: { value: "", type: "radio", mandatory: true },
         preferredDate: { value: "", type: "radio", mandatory: true },

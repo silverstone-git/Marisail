@@ -7,12 +7,13 @@ import SubmitButton from "../SubmitButton";
 import { keyToExpectedValueMap, typeDef } from "./ShopAdvertInfo";
 import { makeString } from "../../services/common_functions";
 import { useNavigate } from "react-router-dom";
+import DatePickerComponent from "../DatePickerComponent"
 
 export default function ChandleryAdvert() {
     const navigate = useNavigate();
     const [error, setError] = useState({});
     const hasFetched = useRef(false);
-    const [trailers, setTrailers] = useState("");
+    const [shops, setShops] = useState("");
     const [openKey, setOpenKey] = useState(null);
     const [loading, setLoading] = useState(false);
     const [allSelectedOptions, setAllSelectedOptions] = useState({});
@@ -296,7 +297,7 @@ export default function ChandleryAdvert() {
     }, [setPageData]);
 
     const handleInputChange = (title, fieldKey, newValue) => {
-        setTrailers((prevTrailers) => ({
+        setShops((prevTrailers) => ({
             ...prevTrailers,
             [title]: {
                 ...prevTrailers[title],
@@ -376,7 +377,35 @@ export default function ChandleryAdvert() {
                                             >
                                                 <InputComponentDynamic
                                                     label={makeString(fieldKey, keyToExpectedValueMap)}
-                                                    value={trailers[title]?.[fieldKey] || ""}
+                                                    value={shops[title]?.[fieldKey] || ""}
+                                                    setValue={(e) =>
+                                                        handleInputChange(title, fieldKey, e.target.value)
+                                                    }
+                                                    formType="number"
+                                                    setOpenKey={setOpenKey}
+                                                    openKey={openKey}
+                                                    isMandatory={field.mandatory}
+                                                />
+                                                {error[`${fieldKey}`] && (
+                                                    <div>
+                                                        {errorDisplay(
+                                                            makeString(fieldKey, keyToExpectedValueMap)
+                                                        )}
+                                                    </div>
+                                                )}
+                                            </Col>
+                                        );
+                                    } else if (field && field.type === "date") {
+                                        return (
+                                            <Col
+                                                md={12}
+                                                className="mt-4 mr-3"
+                                                key={fieldKey}
+                                                style={{ width: 480 }}
+                                            >
+                                                <DatePickerComponent
+                                                    label={makeString(fieldKey, keyToExpectedValueMap)}
+                                                    value={shops[title]?.[fieldKey] || ""}
                                                     setValue={(e) =>
                                                         handleInputChange(title, fieldKey, e.target.value)
                                                     }

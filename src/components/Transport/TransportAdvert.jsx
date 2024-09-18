@@ -7,6 +7,7 @@ import SubmitButton from "../SubmitButton";
 import { keyToExpectedValueMap, typeDef } from "./TransportAdvertInfo";
 import { makeString } from "../../services/common_functions";
 import { useNavigate } from "react-router-dom"; 
+import DatePickerComponent from "../DatePickerComponent"
 
 export default function TransportAdvert() {
     const navigate = useNavigate(); 
@@ -491,6 +492,34 @@ export default function TransportAdvert() {
                                                 style={{ width: 480 }}
                                             >
                                                 <InputComponentDynamic
+                                                    label={makeString(fieldKey, keyToExpectedValueMap)}
+                                                    value={engines[title]?.[fieldKey] || ""}
+                                                    setValue={(e) =>
+                                                        handleInputChange(title, fieldKey, e.target.value)
+                                                    }
+                                                    formType="number"
+                                                    setOpenKey={setOpenKey}
+                                                    openKey={openKey}
+                                                    isMandatory={field.mandatory}
+                                                />
+                                                {error[`${fieldKey}`] && (
+                                                    <div>
+                                                        {errorDisplay(
+                                                            makeString(fieldKey, keyToExpectedValueMap)
+                                                        )}
+                                                    </div>
+                                                )}
+                                            </Col>
+                                        );
+                                    } else if (field && field.type === "date") {
+                                        return (
+                                            <Col
+                                                md={12}
+                                                className="mt-2 mr-3"
+                                                key={fieldKey}
+                                                style={{ width: 480 }}
+                                            >
+                                                <DatePickerComponent
                                                     label={makeString(fieldKey, keyToExpectedValueMap)}
                                                     value={engines[title]?.[fieldKey] || ""}
                                                     setValue={(e) =>
