@@ -106,7 +106,7 @@ export default function CharterAdvert() {
         priceDrop: "",
     });
 
-    const checkRequired = () => {
+    /*const checkRequired = () => {
         const errors = {};
         Object.keys(typeDef).forEach((sectionKey) => {
             const section = typeDef[sectionKey];
@@ -134,7 +134,7 @@ export default function CharterAdvert() {
 
         setError(errors);
         return Object.keys(errors).length === 0;
-    };
+    };*/
 
     const sections = {
         guestAccomodation,
@@ -380,10 +380,10 @@ export default function CharterAdvert() {
     }, [setPageData]);
 
     const handleInputChange = (title, fieldKey, newValue) => {
-        setEngines((prevTrailers) => ({
-            ...prevTrailers,
+        setEngines((prevCharter) => ({
+            ...prevCharter,
             [title]: {
-                ...prevTrailers[title],
+                ...prevCharter[title],
                 [fieldKey]: newValue,
             },
         }));

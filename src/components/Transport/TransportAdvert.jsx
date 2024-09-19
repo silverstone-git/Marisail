@@ -413,10 +413,10 @@ export default function TransportAdvert() {
     }, [setPageData]);
 
     const handleInputChange = (title, fieldKey, newValue) => {
-        setEngines((prevTrailers) => ({
-            ...prevTrailers,
+        setEngines((oldValue) => ({
+            ...oldValue,
             [title]: {
-                ...prevTrailers[title],
+                ...oldValue[title],
                 [fieldKey]: newValue,
             },
         }));

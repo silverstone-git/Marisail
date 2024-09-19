@@ -7,9 +7,11 @@ import { keyToExpectedValueMap, typeDef } from "./AuctionAdvertInfo";
 import { makeString } from "../../services/common_functions";
 import { useNavigate } from "react-router-dom"; 
 import DatePickerComponent from "../DatePickerComponent"
+import InputComponentDynamic from "../InputComponentDynamic";
 
 export default function AuctionAdvert() {
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
+    const [auctions, setAuctions] = useState("");
     const [error, setError] = useState({});
     const [auction, setAuction] = useState("");
     const hasFetched = useRef(false);
@@ -426,13 +428,41 @@ export default function AuctionAdvert() {
                                         return (
                                             <Col
                                                 md={12}
-                                                className="mt-4 mr-3"
+                                                className="mr-3"
                                                 key={fieldKey}
                                                 style={{ width: 480 }}
                                             >
                                                 <DatePickerComponent
                                                     label={makeString(fieldKey, keyToExpectedValueMap)}
                                                     value={auction[title]?.[fieldKey] || ""}
+                                                    setValue={(e) =>
+                                                        handleInputChange(title, fieldKey, e.target.value)
+                                                    }
+                                                    formType="number"
+                                                    setOpenKey={setOpenKey}
+                                                    openKey={openKey}
+                                                    isMandatory={field.mandatory}
+                                                />
+                                                {error[`${fieldKey}`] && (
+                                                    <div>
+                                                        {errorDisplay(
+                                                            makeString(fieldKey, keyToExpectedValueMap)
+                                                        )}
+                                                    </div>
+                                                )}
+                                            </Col>
+                                        );
+                                    } else if (field && field.type === "number") {
+                                        return (
+                                            <Col
+                                                md={12}
+                                                className="mr-3"
+                                                key={fieldKey}
+                                                style={{ width: 480 }}
+                                            >
+                                                <InputComponentDynamic
+                                                    label={makeString(fieldKey, keyToExpectedValueMap)}
+                                                    value={auctions[title]?.[fieldKey] || ""}
                                                     setValue={(e) =>
                                                         handleInputChange(title, fieldKey, e.target.value)
                                                     }
