@@ -1,5 +1,5 @@
 export const typeDef = {
-    shopDetails: {
+    itemDescription: {
         marisailProductId: { value: "", type: "radio", mandatory: false },
         itemName: { value: "", type: "radio", mandatory: true },
         description: { value: "", type: "radio", mandatory: true },
