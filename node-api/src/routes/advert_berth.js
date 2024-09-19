@@ -28,7 +28,7 @@ advertBerthRouter.post("/berths", async (req, res) => {
         const tables = await connection.query(
           `SELECT distinct ${tableInfo.columnName}
           FROM ${tableInfo.tableName} WHERE ${tableInfo.columnName} IS NOT NULL
-          GROUP BY ${tableInfo.columnName};`
+          GROUP BY ${tableInfo.columnName}`
         );
         filter[key] = tables?.[0].map((table) => Object.values(table));
       }
@@ -46,8 +46,6 @@ advertBerthRouter.post("/:tableName/:fetchColumn", async (req, res) => {
   try {
     let filterOptions = "";
     connection = await dbConnection.getConnection();
-    console.log("001 Fetch--",req.params);
-    
     const filters = [];
     let queryParams = {};
     const fetchColumnName = BERTHS_ADVERT.find(

@@ -39,7 +39,7 @@ advertEngineRouter.post("/engines", async (req, res) => {
         const tables = await connection.query(
           `SELECT distinct ${tableInfo.columnName}
           FROM ${tableInfo.tableName} WHERE ${tableInfo.columnName} IS NOT NULL
-          GROUP BY ${tableInfo.columnName};`
+          GROUP BY ${tableInfo.columnName}`
         );
         filter[key] = tables[0].map((table) => Object.values(table));
       }

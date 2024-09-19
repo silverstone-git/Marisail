@@ -16,6 +16,8 @@ import Sell from "./pages/Sell";
 import Services from "./pages/Services";
 import EngineDetailPage from "./components/Engine/EngineDetail";
 import TrailerDetail from "./components/Trailers/TrailerDetail";
+import Auction from "./pages/Auction";
+
 
 function App() {
   const navbarRef = useRef();
@@ -24,6 +26,8 @@ function App() {
       <HeaderNavbar {...{ navbarRef }}></HeaderNavbar>
       <Routes>
         <Route path="/" element={<Home />}></Route>
+        <Route path="/auction" element={<Auction type="search"/>}></Route>
+        <Route path="/advert-auction" element={<Auction type="advert"/>}></Route>
         <Route path="/transport" element={<Transport type="search"/>}></Route>
         <Route path="/advert-transport" element={<Transport type="advert"/>}></Route>
         <Route path="/advert-charters" element={<Charters type="advert"/>}></Route>

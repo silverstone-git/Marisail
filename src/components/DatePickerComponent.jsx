@@ -7,13 +7,12 @@ function DatePickerComponent({
     label,
     value,
     setValue,
-    type,
     setOpenKey,
     openKey,
     isMandatory
 }) {
     return (
-        <Accordion
+        <Accordion style={{marginLeft:'-10px'}}
             activeKey={openKey}
             onSelect={(eventKey) => setOpenKey(eventKey)}
         >
@@ -41,7 +40,6 @@ DatePickerComponent.propTypes = {
   value: PropTypes.instanceOf(Date),
   setOpenKey: PropTypes.func.isRequired,
   openKey: PropTypes.string,
-  type: PropTypes.string,
   isMandatory: PropTypes.bool.isRequired,
 };
 
