@@ -91,3 +91,67 @@ $secondary: #000;
   background-color: #193e77;
   border-color: #193e77;
 }
+.react-time-picker__wrapper {
+  display: flex;
+}
+.react-time-picker__inputGroup {
+  width: 96%;
+  .react-time-picker__inputGroup__divider{
+    padding: 1px;
+  }
+  .react-time-picker__inputGroup__leadingZero{
+    display: none !important;
+  }
+  .react-time-picker__inputGroup__hour {
+    width: 60% !important;
+    height: 37px !important;
+    background-clip: padding-box;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    padding-left: 10px;
+  }
+
+  .react-time-picker__inputGroup__hour:focus{
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: none !important;
+  }
+  
+  .react-time-picker__inputGroup__amPm{
+    width: 25% !important;
+    height: 37px !important;
+    background-clip: padding-box;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  }
+
+  .react-time-picker__inputGroup__amPm:focus{
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: none !important;
+  }
+  
+  .react-time-picker__inputGroup__minute{
+    width: 10% !important;
+    height: 37px !important;
+    background-clip: padding-box;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  }
+
+  .react-time-picker__inputGroup__minute:focus{
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: none !important;
+  }
+
+}

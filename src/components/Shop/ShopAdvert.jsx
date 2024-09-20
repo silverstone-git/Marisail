@@ -300,10 +300,10 @@ export default function ChandleryAdvert() {
     }, [setPageData]);
 
     const handleInputChange = (title, fieldKey, newValue) => {
-        setShops((prevTrailers) => ({
-            ...prevTrailers,
+        setShops((oldValue) => ({
+            ...oldValue,
             [title]: {
-                ...prevTrailers[title],
+                ...oldValue[title],
                 [fieldKey]: newValue,
             },
         }));
@@ -402,7 +402,7 @@ export default function ChandleryAdvert() {
                                         return (
                                             <Col
                                                 md={12}
-                                                className="mt-4 mr-3"
+                                                className="mr-3"
                                                 key={fieldKey}
                                                 style={{ width: 480 }}
                                             >
