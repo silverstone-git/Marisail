@@ -41,7 +41,7 @@ const HeaderNavbar = ({ navbarRef }) => {
               <NavDropdown title='berths'>
                 <NavDropdown.Item
                   as={NavLink}
-                  to="/berth"
+                  to="/berths"
                   className="text-capitalize"
                 >
                   find a berth
@@ -74,14 +74,14 @@ const HeaderNavbar = ({ navbarRef }) => {
               <NavDropdown title="transportation">
                 <NavDropdown.Item
                   as={NavLink}
-                  to="/engines"
+                  to="/transport"
                   className="text-capitalize"
                 >
                   find transportation
                 </NavDropdown.Item>
                 <NavDropdown.Item
                   as={NavLink}
-                  to="/berth"
+                  to="/advert-transport"
                   className="text-capitalize"
                 >
                   request transportation
@@ -105,9 +105,46 @@ const HeaderNavbar = ({ navbarRef }) => {
                   advertise an trailers
                 </NavDropdown.Item>
               </NavDropdown>
-              <Nav.Link as={NavLink} to="/chandlery">
+
+              <NavDropdown title="charter">
+                <NavDropdown.Item
+                  as={NavLink}
+                  to="/charter"
+                  className="text-capitalize"
+                >
+                  find a charter
+                </NavDropdown.Item>
+
+                <NavDropdown.Item
+                  as={NavLink}
+                  to="/advert-charter"
+                  className="text-capitalize"
+                >
+                  advertise a charter
+                </NavDropdown.Item>
+              </NavDropdown>
+
+              <NavDropdown title="Chandlery">
+                <NavDropdown.Item
+                  as={NavLink}
+                  to="/chandlery"
+                  className="text-capitalize"
+                >
+                  find a Chandlery
+                </NavDropdown.Item>
+
+                <NavDropdown.Item
+                  as={NavLink}
+                  to="/advert-chandlery"
+                  className="text-capitalize"
+                >
+                  advertise a Chandlery
+                </NavDropdown.Item>
+              </NavDropdown>
+
+              {/* <Nav.Link as={NavLink} to="/chandlery">
                 chandlery
-              </Nav.Link>
+              </Nav.Link> */}
               <NavDropdown title='services'>
                 <NavDropdown.Item
                   as={NavLink}

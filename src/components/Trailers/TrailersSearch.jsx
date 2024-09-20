@@ -5,6 +5,9 @@ import Loader from "../Loader";
 import TrailerCard from "../TrailerCard";
 import ResetBar from "../ResetBar";
 import { varToScreen } from "./trailerInfo";
+import TimePicker from "react-time-picker";
+import 'react-time-picker/dist/TimePicker.css';
+import 'react-clock/dist/Clock.css';
 
 export default function TrailersSearch() {
   const [page, setPage] = useState(0);
@@ -217,7 +220,7 @@ export default function TrailersSearch() {
   //   uploadPhotos: [],
   //   uploadVideos: [],
   // });
-
+  const [value, onChange] = useState('10:00');
   const filters = {
     identification,
     basics,
@@ -382,6 +385,9 @@ export default function TrailersSearch() {
 
   return (
     <Container>
+    <div>
+      <TimePicker onChange={onChange} value={value} />
+    </div>
       <Row>
         <Col md={3}>
           <Row>

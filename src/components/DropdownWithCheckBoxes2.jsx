@@ -60,7 +60,7 @@ const DropdownWithCheckBoxes = ({
   // if (loading) return <p>Loading...</p>;
   // if (error) return <p>Error: {error}</p>;
 
-  // console.log(options);
+  console.log(options);
 
   return (
     <div className="custom-dropdown-container">
