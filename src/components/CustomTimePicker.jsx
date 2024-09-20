@@ -33,13 +33,12 @@ const CustomTimePicker = ({
           {isMandatory && <span className="text-danger">&nbsp;*</span>}
         </Accordion.Header>
         <Accordion.Body>
-          <TimePicker
+          {/* <TimePicker
             onChange={handleChange}
             value={time}
             disableClock={true}
-            className="custom-time-picker"
-          />
-          <NewTimePicker start="00:00" end="23:59" step={15} />
+          /> */}
+          <NewTimePicker start="00:00" end="23:59" step={30} style={{marginTop: '-20px'}}/>
         </Accordion.Body>
       </Accordion.Item>
     </Accordion>
