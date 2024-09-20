@@ -5,11 +5,17 @@ import Loader from "../Loader";
 import SubmitButton from "../SubmitButton";
 import { keyToExpectedValueMap, typeDef } from "./AuctionAdvertInfo";
 import { makeString } from "../../services/common_functions";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import DatePickerComponent from "../DatePickerComponent"
 import InputComponentDynamic from "../InputComponentDynamic";
+import CustomTimePicker from '../CustomTimePicker';
 
 export default function AuctionAdvert() {
+    const [selectedTime, setSelectedTime] = useState('');
+    const handleTimeChange = (time) => {
+        console.log("001 Selected time--", time);
+        setSelectedTime(time);
+    };
     const navigate = useNavigate();
     const [auctions, setAuctions] = useState("");
     const [error, setError] = useState({});
@@ -31,11 +37,10 @@ export default function AuctionAdvert() {
     const [auctionDetails, setAuctionDetails] = useState({
         auctionDetails: "",
         marisailAuctionId: "",
-        dataSource: "",
         auctionDate: "",
         auctionVenue: "",
-        startTime: "",
-        closingTime: "",
+        startTime: "10:00",
+        closingTime: "10:00",
         biddingPeriod: "",
     });
     const [inspectionPeriod, setInspectionPeriod] = useState({
@@ -70,7 +75,7 @@ export default function AuctionAdvert() {
         currency: "",
         preferredPaymentMethods: "",
         invoiceReceiptProcedures: "",
-    
+
         calculatePricePay: "",
         priceLabel: "",
         priceDrop: "",
@@ -165,10 +170,10 @@ export default function AuctionAdvert() {
         e.preventDefault();
         try {
             // if (checkRequired()) {
-                console.log("001 Form is valid, submitting...");
-                localStorage.setItem("AuctionData", JSON.stringify(allSelectedOptions));
-                navigate("/view-berth");
-                // localStorage.setItem("advertise_engine", JSON.stringify(form));
+            console.log("001 Form is valid, submitting...");
+            localStorage.setItem("AuctionData", JSON.stringify(allSelectedOptions));
+            navigate("/view-berth");
+            // localStorage.setItem("advertise_engine", JSON.stringify(form));
             // } else {
             //     console.warn(error);
             // }
@@ -478,6 +483,29 @@ export default function AuctionAdvert() {
                                                         )}
                                                     </div>
                                                 )}
+                                            </Col>
+                                        );
+                                    } else if (field && field.type === "time") {
+                                        return (
+                                            <Col
+                                                md={12}
+                                                className="mr-3"
+                                                key={fieldKey}
+                                                style={{ width: 480 }}
+                                            >
+                                                <CustomTimePicker
+                                                    style={{width: '100%'}}
+                                                    setValue={(e) =>
+                                                        handleInputChange(title, fieldKey, e.target.value)
+                                                    }
+                                                    value={auctions[title]?.[fieldKey] || ""}
+                                                    label={makeString(fieldKey, keyToExpectedValueMap)}
+                                                    initialTime="12:00"
+                                                    onTimeChange={handleTimeChange}
+                                                    setOpenKey={setOpenKey}
+                                                    openKey={openKey}
+                                                    isMandatory={field.mandatory}
+                                                />
                                             </Col>
                                         );
                                     }

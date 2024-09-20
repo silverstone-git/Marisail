@@ -91,3 +91,15 @@ $secondary: #000;
   background-color: #193e77;
   border-color: #193e77;
 }
+
+.react-time-picker__inputGroup .react-time-picker__inputGroup__hour {
+  width: 60% !important;
+}
+
+.react-time-picker__inputGroup .react-time-picker__inputGroup__amPm{
+  width: 25% !important;
+}
+
+.react-time-picker__inputGroup .react-time-picker__inputGroup__minute{
+  width: 10% !important;
+}
