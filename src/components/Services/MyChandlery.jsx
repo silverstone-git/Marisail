@@ -4,109 +4,56 @@ import DropdownWithRadio from "../DropdownWithRadio";
 import Loader from "../Loader";
 import InputComponentDynamic from "../InputComponentDynamic";
 import SubmitButton from "../SubmitButton";
-import { keyToExpectedValueMap, typeDef } from "./CharterAdvertInfo";
+import { keyToExpectedValueMap, typeDef } from "../Shop/ShopAdvertInfo";
 import { makeString } from "../../services/common_functions";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 
-export default function CharterAdvert() {
-    const navigate = useNavigate(); 
+export default function MyChandlery() {
+    const navigate = useNavigate();
     const [error, setError] = useState({});
     const hasFetched = useRef(false);
-    const [engines, setEngines] = useState("");
+    const [trailers, setTrailers] = useState("");
     const [openKey, setOpenKey] = useState(null);
     const [loading, setLoading] = useState(false);
     const [allSelectedOptions, setAllSelectedOptions] = useState({});
-    const [guestAccomodation, setGuestAccomodation] = useState({
-        marisailVesselId: "",
-        marisailCharterId: "",
-        guestCapacity: "",
-        bedroomConfiguration: "",
-        bathroomConfiguration: "",
-        crewAccommodations: "",
-        accessibilityInformation: "",
-        cleaningAndMaintenanceProcedures: "",
-        vesselDecorAndSetupRequests: "",
-    });
-    const [locationDetails, setLocationDetails] = useState({
-        boardingPortArrivalTime: "",
-        boardingPortDepartureTime: "",
-        summerCruisingAreas: "",
-        boardingPort: "",
-        winterCruisingAreas: "",
-        disembarkationPort: "",
-        embarkationAndDisembarkationLogistics: "",
-        disembarkationPortArrivalTime: "",
-        dockingAndMooringInstructions: "",
-    });
-    const [guestRequirements, setGuestRequirements] = useState({
-        skipperIncluded: "",
-        crewIncluded: "",
-        crewUniformPreferences: "",
-        localCuisinePreferences: "",
-        cateringRequired: "",
-        carParkingAvailable: "",
-        specialRequirementsRequests: "",
-    });
-    const [
-        charterAgreementTermsAndConditions,
-        setCharterAgreementTermsAndConditions,
-    ] = useState({
-        smokingPolicy: "",
-        petFriendlyPolicy: "",
-        localRegulationsAndRestrictions: "",
-        charterAgreementTermsAndConditions: "",
-        environmentalPolicies: "",
-        waterConservationMeasures: "",
-        wasteManagementProtocols: "",
-        alcoholPolicy: "",
-        photographyAndVideographyPolicies: "",
-    });
-    const [guestSafety, setGuestSafety] = useState({
-        weatherContingencyPlans: "",
-        emergencyProcedures: "",
-        medicalFacilitiesOnboard: "",
-        emergencyContacts: "",
-        weatherForecastServices: "",
-        securityMeasures: "",
-        guestOrientationAndSafetyBriefing: "",
-        insuranceGuestsAndPersonalBelongings: "",
-        insuranceCoverageDetails: "",
-    });
-    const [costs, setCosts] = useState({
-        summerRatePerNight: "",
-        winterRatePerWeek: "",
-        winterRatePerNight: "",
-        summerRatePerWeek: "",
-        securityDepositAmount: "",
-        totalPrice: "",
-        refundableDeposit: "",
-        additionalFuelCosts: "",
-        additionalFees: "",
-        fuelIncluded: "",
-        lateCheckInOutFees: "",
-        vat: "",
-    });
-    const [availableDates, setAvailableDates] = useState({
-        minimumNightsPolicy: "",
-        datesAvailable: "",
-        cancellationPolicy: "",
-    });
-    const [dates, setDates] = useState({
-        startDate: "",
-        endDate: "",
-        numberNights: "",
+    const [shopDetails, setShopDetails] = useState({
+        marisailProductId: "",
+        itemName: "",
+        description: "",
+        condition: "",
+        usedCondition: "",
+        size: "",
+        quantity: "",
+        numberAvailable: "",
+        currency: "",
+        price: "",
+        priceLabel: "",
+        priceDrop: "",
+        postage: "",
+        delivery: "",
+        returnsAccepted: "",
+        returnsDetails: "",
+
+        sellerContactDetails: "",
+        marisailSellerId: "",
+        sellerName: "",
+        sellerAddress: "",
+        sellerDistance: "",
+
+        contactSeller: "",
+        visitShop: "",
+        uploadPictures: "",
     });
     const [paymentTerms, setPaymentTerms] = useState({
         paymentTerms: "",
-        currency: "",
         preferredPaymentMethods: "",
         invoiceAndReceiptProcedures: "",
-        calculatePriceAndPay: "",
-        priceLabel: "",
-        priceDrop: "",
-    });
 
-    const checkRequired = () => {
+        calculatePriceAndPay: "",
+        vat: "",
+        totalPrice: "",
+    });
+    /*const checkRequired = () => {
         const errors = {};
         Object.keys(typeDef).forEach((sectionKey) => {
             const section = typeDef[sectionKey];
@@ -116,6 +63,9 @@ export default function CharterAdvert() {
                 if (field.mandatory) {
                     const fieldValue = sectionData[fieldKey];
                     if (field.type === "radio") {
+                        // if(field.value){
+                        //   console.log("001 field value--",field);
+                        // }
                         if (!field.value || String(field.value).trim() === "") {
                             errors[`${fieldKey}`] = true;
                         }
@@ -134,29 +84,15 @@ export default function CharterAdvert() {
 
         setError(errors);
         return Object.keys(errors).length === 0;
-    };
+    };*/
 
     const sections = {
-        guestAccomodation,
-        locationDetails,
-        charterAgreementTermsAndConditions,
-        guestSafety,
-        costs,
-        guestRequirements,
-        availableDates,
-        dates,
+        shopDetails,
         paymentTerms,
     };
 
     const setStateFunctions = {
-        guestAccomodation: setGuestAccomodation,
-        locationDetails: setLocationDetails,
-        guestRequirements: setGuestRequirements,
-        charterAgreementTermsAndConditions: setCharterAgreementTermsAndConditions,
-        guestSafety: setGuestSafety,
-        costs: setCosts,
-        availableDates: setAvailableDates,
-        dates: setDates,
+        shopDetails: setShopDetails,
         paymentTerms: setPaymentTerms,
     };
 
@@ -170,42 +106,30 @@ export default function CharterAdvert() {
                 },
             };
 
-            /*if (category === "guestAccomodation" && field === "crewAccommodations") {
-                      const {
-                          guestCapacity,
-                          bedroomConfiguration,
-                          bathroomConfiguration,
-                          crewAccommodations,
-                      } = updatedOptions.guestAccomodation;
-                      fetchRelevantOptions(
-                          guestCapacity,
-                          bedroomConfiguration,
-                          bathroomConfiguration,
-                          crewAccommodations
-                      );
-                  }*/
+            /*if (category === "identification" && field === "model") {
+                const { trailerId, manufacturer, make, model } =
+                    updatedOptions.identification;
+                fetchRelevantOptions(trailerId, manufacturer, make, model);
+            }*/
 
             return updatedOptions;
         });
 
         /*if (
-                category === "guestAccomodation" &&
-                (   field === "guestCapacity" ||
-                    field === "bedroomConfiguration" ||
-                    field === "bathroomConfiguration"
-                )
-            ) {
-                fetchGuestAccomodationSectionOptions(category, selectedOption, field);
-            }*/
+            category === "identification" &&
+            (field === "trailerId" || field === "manufacturer" || field === "make")
+        ) {
+            fetchIdentificationSectionOptions(category, selectedOption, field);
+        }*/
     };
     const handleSubmit = (e) => {
         e.preventDefault();
         try {
             // if (checkRequired()) {
-                console.log("001 Form is valid, submitting...");
-                localStorage.setItem("CharterData", JSON.stringify(allSelectedOptions));
-                navigate("/view-charter");
-                // localStorage.setItem("advertise_engine", JSON.stringify(form));
+            console.log("001 Form is valid, submitting...");
+            localStorage.setItem("ChandleryData", JSON.stringify(allSelectedOptions));
+            navigate("/view-chandlery");
+            // localStorage.setItem("advertise_engine", JSON.stringify(form));
             // } else {
             //     console.warn(error);
             // }
@@ -225,14 +149,14 @@ export default function CharterAdvert() {
         }
     }
 
-    const cacheKey = "charterFilterData";
-    const URL = "http://localhost:3001/api/advert_charter/";
+    const cacheKey = "myChandleryFilterData";
+    const URL = "http://localhost:3001/api/advert_chandlery/";
 
     const fetchDistinctData = async () => {
         try {
             setLoading(true);
             const promises = Object.keys(sections).map(async (key) => {
-                const response = await fetch(`${URL}charter`, {
+                const response = await fetch(`${URL}chandlery`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -250,123 +174,115 @@ export default function CharterAdvert() {
             console.error(err);
         } finally {
             setLoading(false);
-            console.log("done");
         }
     };
-    /*const fetchRelevantOptions = async (
-          guestCapacity,
-          bedroomConfiguration,
-          bathroomConfiguration,
-          crewAccommodations
-      ) => {
-          try {
-              setLoading(true);
-              const requestBody = {
-                  guestCapacity,
-                  bedroomConfiguration,
-                  bathroomConfiguration,
-                  crewAccommodations,
-              };
-              const response = await fetch(`${URL}relevant_data`, {
-                  method: "POST",
-                  headers: {
-                      "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify({ requestBody }),
-              });
-              const data = await response.json();
-              const result = data?.result;
-  
-              if (result) {
-                  const updatePromises = Object.keys(result).map((fieldKey) => {
-                      if (Object.keys(requestBody).includes(fieldKey)) {
-                          return Promise.resolve();
-                      }
-                      return Promise.all(
-                          Object.keys(sections).map((sectionKey) => {
-                              return new Promise((resolve) => {
-                                  if (sections[sectionKey][fieldKey] !== undefined) {
-                                      const fieldValue =
-                                          Array.isArray(result[fieldKey]) &&
-                                              result[fieldKey].length > 0
-                                              ? result[fieldKey]?.[0]
-                                              : sections[sectionKey][fieldKey];
-  
-                                      setAllSelectedOptions((prevState) => ({
-                                          ...prevState,
-                                          [sectionKey]: {
-                                              ...prevState[sectionKey],
-                                              [fieldKey]: [fieldValue],
-                                          },
-                                      }));
-  
-                                      resolve();
-                                  } else {
-                                      resolve();
-                                  }
-                              });
-                          })
-                      );
-                  });
-  
-                  // Wait for all updates to complete
-                  await Promise.all(updatePromises);
-              }
-          } catch (error) {
-              console.error("Error fetching other section:", error);
-          } finally {
-              setLoading(false);
-          }
-      };
-      const fetchGuestAccomodationSectionOptions = async (
-          category,
-          selectedOption,
-          Key
-      ) => {
-          try {
-              setLoading(true);
-              const tableName = "Accommodation_Location";
-              const keyHierarchy = [
-                  "guestCapacity",
-                  "bedroomConfiguration",
-                  "bathroomConfiguration",
-                  "crewAccommodations",
-              ];
-  
-              const currentKeyIndex = keyHierarchy.indexOf(Key);
-              const fetchColumn = keyHierarchy[currentKeyIndex + 1];
-              let requestBody = {};
-              for (let i = 0; i <= currentKeyIndex; i++) {
-                  const key = keyHierarchy[i];
-                  requestBody[key] =
-                      key === Key ? selectedOption : allSelectedOptions[category]?.[key];
-              }
-  
-              if (!fetchColumn) {
-                  throw new Error(
-                      "No further data to fetch. All selections are complete."
-                  );
-              }
-              const response = await fetch(`${URL}${tableName}/${fetchColumn}`, {
-                  method: "POST",
-                  headers: {
-                      "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify({ requestBody }),
-              });
-  
-              const data = await response.json();
-              setPageData(category, {
-                  ...sections[category],
-                  [fetchColumn]: data.result,
-              });
-          } catch (error) {
-              console.error("Error fetching manufacturers:", error);
-          } finally {
-              setLoading(false);
-          }
-      };*/
+    /*const fetchRelevantOptions = async (trailerId, manufacturer, make, model) => {
+        try {
+            setLoading(true);
 
+            const requestBody = {
+                trailerId,
+                manufacturer,
+                make,
+                model,
+            };
+
+            const response = await fetch(`${URL}relevant_data`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(requestBody),
+            });
+
+            const data = await response.json();
+            const result = data?.result;
+
+            if (result) {
+                // Create an array of promises to update each section asynchronously
+                const updatePromises = Object.keys(result).map((fieldKey) => {
+                    if (Object.keys(requestBody).includes(fieldKey)) {
+                        return Promise.resolve();
+                    }
+                    return Promise.all(
+                        Object.keys(sections).map((sectionKey) => {
+                            return new Promise((resolve) => {
+                                if (sections[sectionKey][fieldKey] !== undefined) {
+                                    const fieldValue =
+                                        Array.isArray(result[fieldKey]) &&
+                                            result[fieldKey].length > 0
+                                            ? result[fieldKey]?.[0]
+                                            : sections[sectionKey][fieldKey];
+
+                                    setAllSelectedOptions((prevState) => ({
+                                        ...prevState,
+                                        [sectionKey]: {
+                                            ...prevState[sectionKey],
+                                            [fieldKey]: [fieldValue],
+                                        },
+                                    }));
+
+                                    resolve();
+                                } else {
+                                    resolve();
+                                }
+                            });
+                        })
+                    );
+                });
+                await Promise.all(updatePromises);
+            }
+        } catch (error) {
+            console.error("Error fetching relevant options:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const fetchIdentificationSectionOptions = async (
+        category,
+        selectedOption,
+        Key
+    ) => {
+        try {
+            setLoading(true);
+            const tableName = "Chandlery";
+            const keyHierarchy = ["manufacturer", "make", "model"];
+            const currentKeyIndex = keyHierarchy.indexOf(Key);
+            const fetchColumn = keyHierarchy[currentKeyIndex + 1];
+            let requestBody = {};
+            for (let i = 0; i <= currentKeyIndex; i++) {
+                const key = keyHierarchy[i];
+                requestBody[key] =
+                    key === Key ? selectedOption : allSelectedOptions[category]?.[key];
+            }
+
+            if (!fetchColumn) {
+                throw new Error(
+                    "No further data to fetch. All selections are complete."
+                );
+            }
+
+            const response = await fetch(`${URL}${tableName}/${fetchColumn}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ requestBody }),
+            });
+
+            const data = await response.json();
+
+            setPageData(category, {
+                ...sections[category],
+                [fetchColumn]: data.result,
+            });
+        } catch (error) {
+            console.error("Error fetching manufacturers:", error);
+        } finally {
+            setLoading(false);
+        }
+    };*/
     useEffect(() => {
         const cachedData = localStorage.getItem(cacheKey);
         if (cachedData) {
@@ -380,7 +296,7 @@ export default function CharterAdvert() {
     }, [setPageData]);
 
     const handleInputChange = (title, fieldKey, newValue) => {
-        setEngines((prevTrailers) => ({
+        setTrailers((prevTrailers) => ({
             ...prevTrailers,
             [title]: {
                 ...prevTrailers[title],
@@ -460,7 +376,7 @@ export default function CharterAdvert() {
                                             >
                                                 <InputComponentDynamic
                                                     label={makeString(fieldKey, keyToExpectedValueMap)}
-                                                    value={engines[title]?.[fieldKey] || ""}
+                                                    value={trailers[title]?.[fieldKey] || ""}
                                                     setValue={(e) =>
                                                         handleInputChange(title, fieldKey, e.target.value)
                                                     }
@@ -486,7 +402,7 @@ export default function CharterAdvert() {
                     </Row>
                     <SubmitButton
                         text="Submit"
-                        name="advert_charter_submit"
+                        name="advert_shop_submit"
                         onClick={handleSubmit}
                     />
                 </Form>

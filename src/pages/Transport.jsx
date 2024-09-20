@@ -1,6 +1,7 @@
-// import BerthAdvert from "../components/Berth/BerthAdvert";
-import PropTypes from "prop-types";
+import TransportAdvert from "../components/Transport/TransportAdvert";
 import TransportSearch from "../components/Transport/TransportSearch";
+import PropTypes from "prop-types";
+
 
 const Transport = ({ type }) => {
   return (
@@ -10,7 +11,8 @@ const Transport = ({ type }) => {
         overflow: "hidden",
       }}
     >
-      {type === "search" ? <TransportSearch /> : <TransportSearch />}
+
+      {type === "search" ? <TransportSearch /> : <TransportAdvert />}
     </main>
   );
 };

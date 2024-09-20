@@ -4,12 +4,17 @@ import DropdownWithRadio from "../DropdownWithRadio";
 import Loader from "../Loader";
 import InputComponentDynamic from "../InputComponentDynamic";
 import SubmitButton from "../SubmitButton";
-import { keyToExpectedValueMap, typeDef } from "./TrailerAdvertInfo";
+import { keyToExpectedValueMap, typeDef } from "../Trailers/TrailerAdvertInfo";
 import { makeString } from "../../services/common_functions";
-import { useNavigate } from "react-router-dom"; 
 
-export default function TrailersAdvert() {
-  const navigate = useNavigate(); 
+export default function MyTrailer() {
+  const storedUser = localStorage.getItem("user");
+  const formData = localStorage.getItem("TrailerData");
+  let trailerData;
+  if (storedUser && formData) {
+    trailerData = JSON.parse(formData);
+  }
+  
   const [error, setError] = useState({});
   const hasFetched = useRef(false);
   const [trailers, setTrailers] = useState("");
@@ -314,20 +319,19 @@ export default function TrailersAdvert() {
       fetchIdentificationSectionOptions(category, selectedOption, field);
     }
   };
+
   const handleSubmit = (e) => {
-      e.preventDefault();
-      try {
-          // if (checkRequired()) {
-              console.log("001 Form is valid, submitting...");
-              localStorage.setItem("TrailerData", JSON.stringify(allSelectedOptions));
-              navigate("/view-trailer");
-              // localStorage.setItem("advertise_engine", JSON.stringify(form));
-          // } else {
-          //     console.warn(error);
-          // }
-      } catch (error) {
-          console.error(error);
+    e.preventDefault();
+    try {
+      if (checkRequired()) {
+        console.log("001 Form is valid, submitting...");
+        // localStorage.setItem("advertise_engine", JSON.stringify(form));
+      } else {
+        console.warn(error);
       }
+    } catch (error) {
+      console.error(error);
+    }
   };
   function setPageData(key, newData) {
     const setStateFunction = setStateFunctions[key];
@@ -537,7 +541,7 @@ export default function TrailersAdvert() {
                             title={makeString(fieldKey, keyToExpectedValueMap)}
                             options={sections[title][fieldKey]}
                             selectedOption={
-                              allSelectedOptions[title]?.[fieldKey] || ""
+                              allSelectedOptions[title]?.[fieldKey] || trailerData[title]?.[fieldKey]  || ""
                             }
                             setSelectedOption={(selectedOption) =>
                               handleOptionSelect(

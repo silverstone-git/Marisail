@@ -1,7 +1,7 @@
-import BerthAdvert from "../components/Berth/BerthAdvert";
-// import BerthSearch from "../components/Berth/BerthSearch";
+import ChandleryAdvert from "../components/Shop/ShopAdvert";
+import ChandlerySearch from "../components/Shop/ShopSearch";
 import PropTypes from "prop-types";
-import ShopSearch from "../components/Shop/ShopSearch";
+
 
 const Chandlery = ({ type }) => {
   return (
@@ -11,7 +11,7 @@ const Chandlery = ({ type }) => {
         overflow: "hidden",
       }}
     >
-      {type === "search" ? <ShopSearch /> : <BerthAdvert/>}
+      {type === "search" ? <ChandlerySearch /> : <ChandleryAdvert />}
     </main>
   );
 };

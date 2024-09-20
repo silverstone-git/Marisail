@@ -1,20 +1,20 @@
 import { Router } from "express";
 import dbConnection from "../config/dbConfig.js";
 import {
-  BERTHS_ADVERT,
+  TRANSPORT_ADVERT,
   UNIQUE_TABLE,
-} from "../config/berthAdvertConfig.js";
+} from "../config/transportAdvertConfig.js";
 
-const advertBerthRouter = Router();
+const advertTransportRouter = Router();
 
-advertBerthRouter.post("/berths", async (req, res) => {
+advertTransportRouter.post("/transport", async (req, res) => {
   let connection;
   const filter = req.body;
 
   try {
     connection = await dbConnection.getConnection();
     for (const key of Object.keys(filter)) {
-      const tableInfo = BERTHS_ADVERT.find((item) => item.key === key);
+      const tableInfo = TRANSPORT_ADVERT.find((item) => item.key === key);
       if (!tableInfo) continue;
 
       const columnCheck = await connection.query(
@@ -41,17 +41,17 @@ advertBerthRouter.post("/berths", async (req, res) => {
     if (connection) connection.release();
   }
 });
-advertBerthRouter.post("/:tableName/:fetchColumn", async (req, res) => {
+advertTransportRouter.post("/:tableName/:fetchColumn", async (req, res) => {
   let connection;
   try {
     let filterOptions = "";
     connection = await dbConnection.getConnection();
     const filters = [];
     let queryParams = {};
-    const fetchColumnName = BERTHS_ADVERT.find(
+    const fetchColumnName = TRANSPORT_ADVERT.find(
       (item) => item.key === req.params?.fetchColumn
     );
-    BERTHS_ADVERT.forEach((item) => {
+    TRANSPORT_ADVERT.forEach((item) => {
       const key = item.key;
       const columnName = item.columnName;
       if (req.body?.requestBody[key]) {
@@ -83,20 +83,21 @@ advertBerthRouter.post("/:tableName/:fetchColumn", async (req, res) => {
     connection.release();
   }
 });
-advertBerthRouter.post("/relevant_data", async (req, res) => {
+advertTransportRouter.post("/relevant_data", async (req, res) => {
   let connection;
   try {
     let filterOptions = "";
     connection = await dbConnection.getConnection();
     const filters = [];
     let queryParams = {};
-    // console.log("----Table Names----",typeof valid_tables);
-    BERTHS_ADVERT.forEach((item) => {
+    let valid_tables = [];
+    valid_tables.push(UNIQUE_TABLE);
+    TRANSPORT_ADVERT.forEach((item) => {
       const key = item.key;
       const columnName = item.columnName;
-      if (req.body?.allSelectedOptions?.siteDetails[key]) {
+      if (req.body?.allSelectedOptions?.jobDescription[key]) {
         queryParams[columnName] =
-          req.body?.allSelectedOptions?.siteDetails[key];
+          req.body?.allSelectedOptions?.jobDescription[key];
       }
     });
 
@@ -108,12 +109,10 @@ advertBerthRouter.post("/relevant_data", async (req, res) => {
     }
     filterOptions = filters.length > 0 ? `WHERE ${filters.join(" AND ")}` : "";
     let results = {};
-    const [trailerID] = await connection.query(
-      `SELECT DISTINCT Marisail_Berth_ID FROM Marina_Port ${filterOptions} ORDER BY Marisail_Berth_ID`
+    const [marisailTransportID] = await connection.query(
+      `SELECT DISTINCT Transport_Item_ID FROM Job ${filterOptions} ORDER BY Transport_Item_ID`
     );
-    // console.log("-----Trailer ID----",trailerID);
-    // console.log("-----Trailer ID Query----",`SELECT DISTINCT Marisail_Berth_ID FROM Trailers_ID ${filterOptions} ORDER BY Marisail_Berth_ID`);
-    if (trailerID.length === 0) {
+    if (marisailTransportID.length === 0) {
       return res.status(404).json({ ok: false, message: "No data found" });
     }
     for (let tableName of UNIQUE_TABLE) {
@@ -122,19 +121,19 @@ advertBerthRouter.post("/relevant_data", async (req, res) => {
       ]);
       for (let column of columns) {
         const columnName = column.Field;
-        if (columnName != "Marisail_Berth_ID") {
+        if (columnName != "Transport_Item_ID") {
           const [rows] = await connection.query(
-            `SELECT DISTINCT ?? FROM ?? WHERE Marisail_Berth_ID IN (?) AND ?? IS NOT NULL GROUP BY ?? ORDER BY COUNT(*) DESC LIMIT 0,1`,
+            `SELECT DISTINCT ?? FROM ?? WHERE Transport_Item_ID IN (?) AND ?? IS NOT NULL GROUP BY ?? ORDER BY COUNT(*) DESC LIMIT 0,1`,
             [
               columnName,
               tableName,
-              trailerID.map((row) => row.Marisail_Berth_ID),
+              marisailTransportID.map((row) => row.Transport_Item_ID),
               columnName,
               columnName,
             ]
           );
           results[
-            BERTHS_ADVERT.find((item) => item.columnName === columnName)?.key
+            TRANSPORT_ADVERT.find((item) => item.columnName === columnName)?.key
           ] = rows.map((row) => row[columnName]);
         }
       }
@@ -146,4 +145,4 @@ advertBerthRouter.post("/relevant_data", async (req, res) => {
     connection.release();
   }
 });
-export default advertBerthRouter;
+export default advertTransportRouter;

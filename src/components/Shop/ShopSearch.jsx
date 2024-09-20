@@ -7,7 +7,7 @@ import ResetBar from "../ResetBar";
 import { varToScreen } from "./ShopInfo";
 // import { number } from "prop-types";
 
-export default function ShopSearch() {
+export default function ChandlerySearch() {
   const [page, setPage] = useState(0);
   // const [lastpage, setLastPage] = useState(1);
   const [loading, setLoading] = useState(true);
