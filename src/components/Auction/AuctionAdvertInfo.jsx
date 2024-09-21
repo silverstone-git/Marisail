@@ -24,11 +24,10 @@ export const typeDef = {
   auctionDetails: {
     auctionDetails: { value: "", type: "radio", mandatory: false },
     marisailAuctionId: { value: "", type: "radio", mandatory: false },
-    dataSource: { value: "", type: "radio", mandatory: false },
     auctionDate: { value: "", type: "date", mandatory: false },
     auctionVenue: { value: "", type: "radio", mandatory: false },
-    startTime: { value: "", type: "radio", mandatory: false },
-    closingTime: { value: "", type: "radio", mandatory: false },
+    startTime: { value: "", type: "time", mandatory: false },
+    closingTime: { value: "", type: "time", mandatory: false },
     biddingPeriod: { value: "", type: "radio", mandatory: false },
   },
   inspectionPeriod: {

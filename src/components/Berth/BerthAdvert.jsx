@@ -6,9 +6,11 @@ import SubmitButton from "../SubmitButton";
 import { keyToExpectedValueMap, typeDef } from "./BerthAdvertInfo";
 import { makeString } from "../../services/common_functions";
 import { useNavigate } from "react-router-dom"; 
+import InputComponentDynamic from "../InputComponentDynamic";
 
 export default function BerthAdvert() {
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
+    const [berths, setBerths] = useState("");
     const [error, setError] = useState({});
     const hasFetched = useRef(false);
     const [openKey, setOpenKey] = useState(null);
@@ -547,6 +549,16 @@ export default function BerthAdvert() {
         }
     };
 
+    const handleInputChange = (title, fieldKey, newValue) => {
+      setBerths((prevBerths) => ({
+        ...prevBerths,
+        [title]: {
+          ...prevBerths[title],
+          [fieldKey]: newValue,
+        },
+      }));
+    };
+
     useEffect(() => {
         const cachedData = localStorage.getItem(cacheKey);
         if (cachedData) {
@@ -618,6 +630,34 @@ export default function BerthAdvert() {
                                                         </div>
                                                     )}
                                                 </Col>
+                                            </Col>
+                                        );
+                                    } else if (field && field.type === "number") {
+                                        return (
+                                            <Col
+                                                md={12}
+                                                className="mr-3"
+                                                key={fieldKey}
+                                                style={{ width: 480 }}
+                                            >
+                                                <InputComponentDynamic
+                                                    label={makeString(fieldKey, keyToExpectedValueMap)}
+                                                    value={berths[title]?.[fieldKey] || ""}
+                                                    setValue={(e) =>
+                                                        handleInputChange(title, fieldKey, e.target.value)
+                                                    }
+                                                    formType="number"
+                                                    setOpenKey={setOpenKey}
+                                                    openKey={openKey}
+                                                    isMandatory={field.mandatory}
+                                                />
+                                                {error[`${fieldKey}`] && (
+                                                    <div>
+                                                        {errorDisplay(
+                                                            makeString(fieldKey, keyToExpectedValueMap)
+                                                        )}
+                                                    </div>
+                                                )}
                                             </Col>
                                         );
                                     }
