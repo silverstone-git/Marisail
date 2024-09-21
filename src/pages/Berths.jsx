@@ -10,7 +10,7 @@ const Berths = ({ type }) => {
         overflow: "hidden",
       }}
     >
-      {type === "search" ? <BerthSearch/> : <BerthAdvert/>}
+      {type === "search" ? <BerthSearch /> : <BerthAdvert/>}
     </main>
   );
 };

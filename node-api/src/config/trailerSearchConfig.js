@@ -52,7 +52,7 @@ export const varToColumn = {
   sideRails: "Side_Rails",
 
   // customizationOptions
-  customizationOptions: "Customization Options",
+  // customizationOptions: "Customization Options",
   color: "Color",
   decals: "Decals",
   storageBox: "Storage_Box",
@@ -73,7 +73,7 @@ export const varToColumn = {
   // tyresAndWheels
   tyreSize: "Tyre_Size", //
   tyreLoadRange: "Tyre_Load_Range",
-  tyreType: "Tyre", //
+  tyreType: "Tyre_Type", //
   wheelType: "Wheel",
   wheelBoltPattern: "Wheel_Bolt",
   hubLubricationSystem: "Hub_Lubrication",
@@ -86,7 +86,7 @@ export const varToColumn = {
   brakeFluidType: "Brake_Fluid",
   brakes: "Brakes",
   couplerSize: "Coupler_Size",
-  couplerType: "Coupler",
+  couplerType: "Coupler_Type",
   couplerLockType: "Coupler_Lock",
   hitchClass: "Hitch_Class",
   hitchReceiverSize: "Hitch_Receiver",
@@ -118,7 +118,7 @@ export const varToColumn = {
   // acessories
   spareTyreCarrier: "Spare_Tyre_Carrier",
   spareTyreSize: "Spare_Tyre",
-  spareTyreMountingLocation: "Spare_Tyre_Mounting_Location",
+  spareTyreMountingLocation: "Spare_Tyre_Location",
   jackType: "Jack",
   jackWheelType: "Jack_Wheel",
   jackCapacity: "Jack_Capacity",
@@ -130,7 +130,7 @@ export const varToColumn = {
   bunkMaterial: "Bunk_Material",
   bunkWidth: "Bunk_Width",
   bunkHeightAdjustment: "Bunk_Height_Adjustment",
-  bunkMountingBracketMaterial: "Bunk_Mounting_Bracket_Material",
+  bunkMountingBracketMaterial: "Bunk_Mounting_Bracket",
   rollers: "Rollers",
   rollerMaterial: "Roller_Material",
   rollerAxleDiameter: "Roller_Axle_Diameter",
@@ -147,7 +147,7 @@ export const varToColumn = {
 
   // performanceAndHandling
   maximumSpeedRating: "Maximum_Speed_Rating",
-  turningRadius: "Turning Radius",
+  turningRadius: "Turning_Radius",
 
   // tongue
   tongueMaterial: "Tongue_Material",
@@ -158,7 +158,7 @@ export const varToColumn = {
   tongueWeightRatio: "Tongue_Weight_Ratio",
 
   // documentation
-  ownerManual: "Owner_Manual",
+  ownerManual: "Owners_Manual",
   warranty: "Warranty",
 
   // regulatoryCompliance
@@ -190,48 +190,48 @@ export const varToColumn = {
 
 // name of the table in escelsheet is not matching with DBA
 export const varToTable = {
-    // identification: "Identification",
-    identification: "Trailers_ID",
-    // basics: "identification",
-    basics: "Trailers_ID",
-    constructionMaterials: "construction", // why C is ot capital as given in excel
-    maintenanceFeatures: "Construction",
-    userFeatures: "Construction",
-    specialFeatures: "Features",
-    additionalAccessories: "Features",
-    customizationOptions: "Features",
-    axlesAndSuspension: "Axles",
-    tyresAndWheels: "Tyres_Brakes",
-    brakesAndSafety: "Tyres_Brakes",
-    winchAndWrinchAccessories: "Winches_Lighting",
-    lightingAndElectrical: "Winches_Lighting",
-    accessories: "Accessories",
-    loadingAndTransportFeatures: "Loading_And_Transport_Features",
-    securityFeatures: "Security_Features",
-    environmentalAndCorrosionResistance: "Environmental_And_Corrosion_Resistance",
-    performanceAndHandling: "Performance_And_Handling",
-    tongue: "Tongue",
-    documentation: "Documentation",
-    regulatoryCompliance: "Regulatory",
-    paymentTerms: "Payment", // not for trailers
-    sales: "Sales", // not for trailers
-}
+  // identification: "Identification",
+  identification: "Trailers_ID",
+  // basics: "identification",
+  basics: "Trailers_ID",
+  constructionMaterials: "Construction", // why C is ot capital as given in excel
+  maintenanceFeatures: "Construction",
+  userFeatures: "Construction",
+  specialFeatures: "Trailer_Features",
+  additionalAccessories: "Trailer_Features",
+  customizationOptions: "Trailer_Features",
+  axlesAndSuspension: "Axles",
+  tyresAndWheels: "Tyres_Brakes",
+  brakesAndSafety: "Tyres_Brakes",
+  winchAndWrinchAccessories: "Winches_Lighting",
+  lightingAndElectrical: "Winches_Lighting",
+  accessories: "Accessories",
+  loadingAndTransportFeatures: "Loading_Transport_Features",
+  securityFeatures: "Security_Features",
+  environmentalAndCorrosionResistance: "Corrosion_Resistance",
+  performanceAndHandling: "Performance_Handling",
+  tongue: "Tongue",
+  documentation: "Documentation",
+  regulatoryCompliance: "Regulatory",
+  paymentTerms: "Trailers_Payment", // not for trailers
+  sales: "Trailers_Sales", // not for trailers
+};
 
 export const uniqueTable = [
   "Trailers_ID",
-  "construction",
-  // "Features",
-  // "Tyres_Brakes",
-  // "Winches_Lighting",
-  // "Accessories",
-  // "Loading_And_Transport_Features",
-  // "Security_Features",
-  // "Environmental_And_Corrosion_Resistance",
-  // "Performance_And_Handling",
-  // "Tongue",
-  // "Documentation",
-  // "Regulatory",
-  // "Payment",
-  // "Sales",
+  "Construction",
+  "Trailer_Features",
+  "Axles",
+  "Tyres_Brakes",
+  "Winches_Lighting",
+  "Accessories",
+  "Loading_Transport_Features",
+  "Security_Features",
+  "Corrosion_Resistance",
+  "Performance_Handling",
+  "Tongue",
+  "Documentation", // issues in it still and field below it 
+  "Regulatory",
+  // "Trailers_Payment",
+  // "Trailers_Sales",
 ];
-

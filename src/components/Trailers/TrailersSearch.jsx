@@ -5,6 +5,10 @@ import Loader from "../Loader";
 import TrailerCard from "../TrailerCard";
 import ResetBar from "../ResetBar";
 import { varToScreen } from "./trailerInfo";
+// import TimePicker from "react-time-picker";
+// import 'react-time-picker/dist/TimePicker.css';
+// import 'react-clock/dist/Clock.css';
+// import DatePickerComponent from "../DatePickerComponent";
 
 export default function TrailersSearch() {
   const [page, setPage] = useState(0);
@@ -189,35 +193,8 @@ export default function TrailersSearch() {
     tongueWeight: [],
     // tongueWeightRatio: [],
   });
-  // const [documentation, setDocumentation] = useState({
-  //   ownerManual: [],
-  //   warranty: [],
-  // });
-  // const [regulatoryCompliance, setRegulatoryCompliance] = useState({
-  //   dotCompliance: [],
-  //   natmCertification: [],
-  //   euTypeApproval: [],
-  //   adrCompliance: [],
-  // });
-  // const [paymentTerms, setPaymentTerms] = useState({
-  //   paymentTerms: [],
-  //   currency: [],
-  //   preferredPaymentMethod: [],
-  //   invoiceAndRecieptProcedures: [],
-  //   calculatePriceAndPay: [],
-  //   priceLabel: [],
-  //   priceDrop: [],
-  //   // currency: "",
-  //   VAT: [],
-  //   totalPrice: [],
-  //   country: [],
-  //   globalAddressLookup: [],
-  //   distance: [],
-  //   contactDetails: [],
-  //   uploadPhotos: [],
-  //   uploadVideos: [],
-  // });
 
+  // const [value, onChange] = useState("");
   const filters = {
     identification,
     basics,
@@ -380,6 +357,8 @@ export default function TrailersSearch() {
     fetchTrailerData();
   }, [allSelectedOptions, page]);
 
+  // const [openKey, setOpenKey] = useState("");
+
   return (
     <Container>
       <Row>
@@ -509,3 +488,15 @@ export default function TrailersSearch() {
     </Container>
   );
 }
+
+{/* <div> */}
+  {/* <TimePicker onChange={onChange} value={value} /> */}
+  // <DatePickerComponent
+  //   label="Date of Birth"
+  //   value={value}
+  //   setValue={onChange}
+  //   setOpenKey={setOpenKey}
+  //   openKey={openKey}
+  //   isMandatory={true}
+  // />
+// </div>;

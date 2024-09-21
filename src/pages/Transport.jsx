@@ -2,6 +2,7 @@ import TransportAdvert from "../components/Transport/TransportAdvert";
 import TransportSearch from "../components/Transport/TransportSearch";
 import PropTypes from "prop-types";
 
+
 const Transport = ({ type }) => {
   return (
     <main
@@ -10,6 +11,7 @@ const Transport = ({ type }) => {
         overflow: "hidden",
       }}
     >
+
       {type === "search" ? <TransportSearch /> : <TransportAdvert />}
     </main>
   );
