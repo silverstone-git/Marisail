@@ -41,7 +41,7 @@ const DropdownWithCheckBoxes = ({
       setSelectedOptions((prev) => {
         return { ...prev, [optionName]: heading };
       });
-      console.log(selectedOptions);
+      console.log("selectedOptions", selectedOptions);
     }
   };
 
@@ -60,7 +60,7 @@ const DropdownWithCheckBoxes = ({
   // if (loading) return <p>Loading...</p>;
   // if (error) return <p>Error: {error}</p>;
 
-  console.log(options);
+  console.log("options", options);
 
   return (
     <div className="custom-dropdown-container">

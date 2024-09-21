@@ -1,114 +1,430 @@
 export const varToScreen = {
   // identification
-  marisailVesselID: "Marisail Vessel ID",
-  marisailCharterID: "Marisail Charter ID",
-  dataSouce: "DATA SOURCE",
+  marisailVesselID: {
+    title: "Marisail Vessel ID",
+    db: "Marisail_Vessel_ID",
+    filter: "",
+  },
+  marisailCharterID: {
+    title: "Marisail Charter ID",
+    db: "Marisail_Charter_ID",
+    filter: "",
+  },
+  dataSouce: {
+    title: "DATA SOURCE",
+    db: "DATA_SOURCE",
+    filter: "",
+  },
 
   // Guest Accommodation
-  guestAccommodation: "Guest Accommodation",
-  guestCapacity: "Guest Capacity",
-  bedroomConfiguration: "Bedroom Configuration",
-  bathroomConfiguration: "Bathroom Configuration",
-  crewAccommodations: "Crew Accommodations",
-  accessibilityInformation: "Accessibility Information",
-  cleaningAndMaintenanceProcedures: "Cleaning & Maintenance Procedures",
-  vesselDecorAndSetupRequests: "Vessel Decor & Setup Requests",
+  guestAccommodation: {
+    title: "Guest Accommodation",
+    db: "",
+    filter: "",
+  },
+  guestCapacity: {
+    title: "Guest Capacity",
+    db: "Guest_Capacity",
+    filter: "dropdown",
+  },
+  bedroomConfiguration: {
+    title: "Bedroom Configuration",
+    db: "Bedroom_Configuration",
+    filter: "dropdown",
+  },
+  bathroomConfiguration: {
+    title: "Bathroom Configuration",
+    db: "Bathroom_Configuration",
+    filter: "",
+  },
+  crewAccommodations: {
+    title: "Crew Accommodations",
+    db: "Crew_Accommodations",
+    filter: "dropdown",
+  },
+  accessibilityInformation: {
+    title: "Accessibility Information",
+    db: "Accessibility_Information",
+    filter: "dropdown",
+  },
+  cleaningAndMaintenanceProcedures: {
+    title: "Cleaning & Maintenance Procedures",
+    db: "Maintenance_Procedures",
+    filter: "dropdown",
+  },
+
+  vesselDecorAndSetupRequests: {
+    title: "Vessel Decor & Setup Requests",
+    db: "Vessel_Decor",
+    filter: "",
+  },
 
   // Location Details
-  locationDetails: "Location Details",
-  boardingPortArrivalTime: "Boarding Port Arrival Time",
-  boardingPortDepartureTime: "Boarding Port Departure Time",
-  summerCruisingAreas: "Summer Cruising Areas",
-  boardingPort: "Boarding Port",
-  winterCruisingAreas: "Winter Cruising Areas",
-  disembarkationPort: "Disembarkation Port",
-  embarkationDisembarkationLogistics: "Embarkation & Disembarkation Logistics",
-  disembarkationPortArrivalTime: "Disembarkation Port Arrival Time",
-  dockingMooringInstructions: "Docking & Mooring Instructions",
+  locationDetails: {
+    title: "Location Details",
+    db: "",
+    filter: "",
+  },
+  boardingPortArrivalTime: {
+    title: "Boarding Port Arrival Time",
+    db: "Boarding_Arrival_Time",
+    filter: "",
+  },
+  boardingPortDepartureTime: {
+    title: "Boarding Port Departure Time",
+    db: "Boarding_Departure_Time",
+    filter: "",
+  },
+  summerCruisingAreas: {
+    title: "Summer Cruising Areas",
+    db: "Summer_Cruising_Areas",
+    filter: "dropdown",
+  },
+  boardingPort: {
+    title: "Boarding Port",
+    db: "Boarding_Port",
+    filter: "dropdown",
+  },
+  winterCruisingAreas: {
+    title: "Winter Cruising Areas",
+    db: "Winter_Cruising_Areas",
+    filter: "dropdown",
+  },
+  disembarkationPort: {
+    title: "Disembarkation Port",
+    db: "Disembarkation_Port",
+    filter: "dropdown",
+  },
+  embarkationDisembarkationLogistics: {
+    title: "Embarkation & Disembarkation Logistics",
+    db: "Logistics",
+    filter: "",
+  },  
+  disembarkationPortArrivalTime: {
+    title: "Disembarkation Port Arrival Time",
+    db: "Disembarkation_Arrival_Time",
+    filter: "",
+  },
+  dockingMooringInstructions: {
+    title: "Docking & Mooring Instructions",
+    db: "Mooring_Instructions",
+    filter: "",
+  },
 
   // Guest Requirements
-  guestRequirements: "Guest Requirements",
-  skipperIncluded: "Skipper Included",
-  crewIncluded: "Crew Included",
-  crewUniformPreferences: "Crew Uniform Preferences",
-  localCuisinePreferences: "Local Cuisine Preferences",
-  cateringRequired: "Catering Required",
-  carParkingAvailable: "Car Parking Available",
-  specialRequirementsRequests: "Special Requirements/Requests",
+  guestRequirements: {
+    title: "Guest Requirements",
+    db: "",
+    filter: "",
+  },
+  skipperIncluded: {
+    title: "Skipper Included",
+    db: "Captain_Included",
+    filter: "dropdown",
+  },
+  crewIncluded: {
+    title: "Crew Included",
+    db: "Crew_Included",
+    filter: "dropdown",
+  },
+  crewUniformPreferences: {
+    title: "Crew Uniform Preferences",
+    db: "Crew_Uniform",
+    filter: "dropdown",
+  },
+  localCuisinePreferences: {
+    title: "Local Cuisine Preferences",
+    db: "Cuisine_Preferences",
+    filter: "dropdown",
+  },
+  cateringRequired: {
+    title: "Catering Required",
+    db: "Catering_Required",
+    filter: "dropdown",
+  },
+  carParkingAvailable: {
+    title: "Car Parking Available",
+    db: "Car_Parking",
+    filter: "dropdown",
+  },
+  specialRequirementsRequests: {
+    title: "Special Requirements/Requests",
+    db: "Special_Requirements",
+    filter: "",
+  },
 
   // Charter Agreement Terms & Conditions
-  charterAgreementTermsConditions: "Charter Agreement Terms & Conditions",
-  smokingPolicy: "Smoking Policy",
-  petFriendlyPolicy: "Pet-Friendly Policy",
-  localRegulationsRestrictions: "Local Regulations & Restrictions",
-  // charterAgreementTermsConditions: "Charter Agreement Terms & Conditions",
-  environmentalPolicies: "Environmental Policies",
-  waterConservationMeasures: "Water Conservation Measures",
-  wasteManagementProtocols: "Waste Management Protocols",
-  alcoholPolicy: "Alcohol Policy",
-  photographyVideographyPolicies: "Photography & Videography Policies",
+  
+  smokingPolicy: {
+    title: "Smoking Policy",
+    db: "Smoking_Policy",
+    filter: "dropdown",
+  },
+  petFriendlyPolicy: {
+    title: "Pet-Friendly Policy",
+    db: "Pet_Policy",
+    filter: "dropdown",
+  },
+  localRegulationsRestrictions: {
+    title: "Local Regulations & Restrictions",
+    db: "Local_Regulations",
+    filter: "dropdown",
+  },
+  charterAgreementTermsConditions: {
+    title: "Charter Agreement Terms & Conditions",
+    db: "Charter_TCs",
+    filter: "dropdown",
+  },
+  environmentalPolicies: {
+    title: "Environmental Policies",
+    db: "Environmental_Policies",
+    filter: "dropdown",
+  },
+  waterConservationMeasures: {
+    title: "Water Conservation Measures",
+    db: "Water_Conservation",
+    filter: "dropdown",
+  },
+  wasteManagementProtocols: { 
+    title: "Waste Management Protocols",
+    db: "Waste_Management",
+    filter: "dropdown",
+  },
+  alcoholPolicy: {
+    title: "Alcohol Policy",
+    db: "Alcohol",
+    filter: "dropdown",
+  },
+  photographyVideographyPolicies: {
+    title: "Photography & Videography Policies",
+    db: "Photography_Policies",
+    filter: "dropdown",
+  },
 
   // Guest Safety
-  guestSafety: "Guest Safety",
-  weatherContingencyPlans: "Weather Contingency Plans",
-  emergencyProcedures: "Emergency Procedures",
-  medicalFacilitiesOnboard: "Medical Facilities Onboard",
-  emergencyContacts: "Emergency Contacts",
-  weatherForecastServices: "Weather Forecast Services",
-  securityMeasures: "Security Measures",
-  guestOrientationSafetyBriefing: "Guest Orientation & Safety Briefing",
-  insuranceForGuestsPersonalBelongings:
-    "Insurance for Guests & Personal Belongings",
-  insuranceCoverageDetails: "Insurance Coverage Details",
+  guestSafety: {
+    title: "Guest Safety",
+    db: "",
+    filter: "",
+  },
+  weatherContingencyPlans: {
+    title: "Weather Contingency Plans",
+    db: "Weather_Contingency",
+    filter: "dropdown",
+  },
+  emergencyProcedures: {
+    title: "Emergency Procedures",
+    db: "Emergency_Procedures",
+    filter: "dropdown",
+  },
+  medicalFacilitiesOnboard: {
+    title: "Medical Facilities Onboard",
+    db: "Medical_Facilities",
+    filter: "dropdown",
+  },
+  emergencyContacts: {
+    title: "Emergency Contacts",
+    db: "Emergency_Contacts",
+    filter: "",
+  },
+  weatherForecastServices: {
+    title: "Weather Forecast Services",
+    db: "Weather_Forecast",
+    filter: "dropdown",
+  },
+  securityMeasures: {
+    title: "Security Measures",
+    db: "Security_Measures",
+    filter: "dropdown",
+  },
+  guestOrientationSafetyBriefing: {
+    title: "Guest Orientation & Safety Briefing",
+    db: "Safety_Briefing",
+    filter: "dropdown",
+  },
+  insuranceForGuestsPersonalBelongings: {
+    title: "Insurance for Guests & Personal Belongings",
+    db: "Guest_Insurance",
+    filter: "dropdown",
+  },
+  insuranceCoverageDetails: {
+
+    title: "Insurance Coverage Details",  
+    db: "Insurance_Coverage",
+    filter: "dropdown",
+  },
 
   // Costs
-  costs: "Costs",
-  summerRatePerNight: "Summer Rate Per Night",
-  winterRatePerWeek: "Winter Rate Per Week",
-  winterRatePerNight: "Winter Rate Per Night",
-  summerRatePerWeek: "Summer Rate Per Week",
-  securityDepositAmount: "Security Deposit Amount",
-  totalPrice: "Total Price",
-  refundableDeposit: "Refundable Deposit",
-  additionalFuelCosts: "Additional Fuel Costs",
-  additionalFees: "Additional Fees (e.g., Docking Fees, Port Taxes)",
-  fuelIncluded: "Fuel Included",
-  lateCheckInCheckOutFees: "Late Check-In/Check-Out Fees",
-  vat: "VAT",
+  costs: {
+    title: "Costs",
+    db: "",
+    filter: "",
+  },
+  summerRatePerNight: {
+    title: "Summer Rate Per Night",
+    db: "Summer_Rate_PN",
+    filter: "dropdown",
+  },
+  winterRatePerWeek: {
+    title: "Winter Rate Per Week",
+    db: "Winter_Rate_PW",
+    filter: "dropdown",
+  },
+  winterRatePerNight: {
+    title: "Winter Rate Per Night",
+    db: "Winter_Rate_PN",
+    filter: "dropdown",
+  },
+  summerRatePerWeek: {
+    title: "Summer Rate Per Week",
+    db: "Summer_Rate_PW",
+    filter: "dropdown",
+  },
+  securityDepositAmount: {
+    title: "Security Deposit Amount",
+    db: "Deposit_Amount",
+    filter: "dropdown",
+  },
+  totalPrice: {
+    title: "Total Price",
+    db: "Total_Price",
+    filter: "dropdown",
+  },
+  refundableDeposit: {
+    title: "Refundable Deposit",
+    db: "Refundable_Deposit",
+    filter: "dropdown",
+  },
+  additionalFuelCosts: {
+    title: "Additional Fuel Costs",
+    db: "Additional_Fuel",
+    filter: "",
+  },
+  additionalFees: {
+    title: "Additional Fees",
+    db: "Additional_Fees",
+    filter: "",
+  },
+  fuelIncluded: {
+    title: "Fuel Included",
+    db: "Fuel_Included",
+    filter: "dropdown",
+  },
+  lateCheckInCheckOutFees: {
+    title: "Late Check-In/Check-Out Fees",
+    db: "Late_Fees",
+    filter: "dropdown",
+  },
+  vat: {
+    title: "VAT",
+    db: "VAT",
+    filter: "dropdown",
+  },
 
   // Availabile Dates
-  availableDates: "Available Dates",
-  minimumNightsPolicy: "Minimum Nights Policy",
-  datesAvailable: "Dates Available",
-  cancellationPolicy: "Cancellation Policy",
+  availableDates: {
+    title: "Available Dates",
+    db: "",
+    filter: "",
+  },
+  minimumNightsPolicy: {
+    title: "Minimum Nights Policy",
+    db: "Minimum_Nights",
+    filter: "dropdown",
+  },
+  datesAvailable: {
+    title: "Dates Available",
+    db: "Dates_Available",
+    filter: "date",
+  },
+  cancellationPolicy: { 
+    title: "Cancellation Policy",
+    db: "Cancellation_Policy",
+    filter: "",
+  }, 
 
   // Dates
-  dates: "Dates",
-  startDate: "Start Date",
-  endDate: "End Date",
-  numberNights: "Number Nights",
+  dates: {
+    title: "Dates",
+    db: "",
+    filter: "",
+  },
+  startDate: {
+    title: "Start Date",
+    db: "Start_Date",
+    filter: "date",
+  },
+  endDate: {
+    title: "End Date",
+    db: "End_Date",
+    filter: "date",
+  },
+  numberNights: {
+    title: "Number Nights",
+    db: "Number_Nights",
+    filter: "dropdown",
+  },
 
   // Payment Terms
-  paymentTerms: "Payment Terms",
-  currency: "Currency",
-  preferredPaymentMethods: "Preferred Payment Methods",
-  invoiceReceiptProcedures: "Invoice & Receipt Procedures",
+  paymentTerms: { 
+    title: "Payment Terms",
+    db: "Payment_Terms",
+    filter: "",
+  },
+  currency: {
+    title: "Currency",
+    db: "Currency",
+    filter: "",
+  },
+  preferredPaymentMethods: {
+    title: "Preferred Payment Methods",
+    db: "Payment_Payment",
+    filter: "",
+  },
+  invoiceReceiptProcedures: {
+    title: "Invoice & Receipt Procedures",
+    db: "Invoice_Receipt",
+    filter: "",
+  },
 
   // Calculate Price & Pay
-  calculatePricePay: "Calculate Price & Pay",
-  priceLabel: "Price Label",
-  priceDrop: "Price Drop",
-  // currency: "Currency", // duplicate so no need
-  // vat: "VAT",
-  total: "Total Price",
+  calculatePricePay: {
+    title: "Calculate Price & Pay",
+    db: "Calculate",
+    filter: "",
+  },
+  priceLabel: {
+    title: "Price Label",
+    db: "Price_Label",
+    filter: "dropdown",
+  },
+  priceDrop: {
+    title: "Price Drop",
+    db: "Price_Drop",
+    filter: "dropdown",
+  },
+  // total: {
+  //   title: "Total Price",
+  //   db: "",
+  //   filter: "",
+  // },
+  notDefined: {
+    title: "Not Defined",
+    db: "",
+    filter: "",
+  },
 
-  // Country (Lying)
-  countryLying: "Country (Lying)",
-  addressDetails: "Address Details",
-  distance: "Distance",
-  contactDetails: "Contact Details",
-  uploadPhotos: "Upload Photos",
-  uploadVideos: "Upload Videos",
+
+  
+  // total: "Total Price",
+
+  // // Country (Lying)
+  // countryLying: "Country (Lying)",
+  // addressDetails: "Address Details",
+  // distance: "Distance",
+  // contactDetails: "Contact Details",
+  // uploadPhotos: "Upload Photos",
+  // uploadVideos: "Upload Videos",
 };
 
 export const varToDb = {
