@@ -124,6 +124,23 @@ const HeaderNavbar = ({ navbarRef }) => {
                   My Trailers
                 </NavDropdown.Item>
               </NavDropdown>
+
+              <NavDropdown title='auction'>
+                <NavDropdown.Item
+                  as={NavLink}
+                  to='/auction'
+                  className='text-capitalize'
+                >
+                  Search Auction
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  as={NavLink}
+                  to='/advert-auction'
+                  className='text-capitalize'
+                >
+                  Advertise auction
+                </NavDropdown.Item>
+              </NavDropdown>
             </Nav>
           </Navbar.Collapse>
         </Container>

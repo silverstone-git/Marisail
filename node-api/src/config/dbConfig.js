@@ -3,16 +3,17 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const ENVIRONMENT = process.env;
+// const ENVIRONMENT = process.env;
 
 const connection = mysql.createPool({
-  host: ENVIRONMENT.HOST,
-  user: ENVIRONMENT.MY_USER,
-  password: ENVIRONMENT.MY_PASSWORD,
+  host: "92.205.173.128",
+  user: "Sarthak45",
+  password: "V3B4N6M7L9J5",
   database: "Marisail",
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
 });
+
 
 export default connection;

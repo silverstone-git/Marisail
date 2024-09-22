@@ -200,8 +200,6 @@ export const varToScreen = {
   distance: "Distance",
 };
 
-// export const dbToVar = {
-//   // identification
 //   Trailer_ID: "trailerID",
 //   Manufacturer: "manufacturer",
 //   Make: "make",

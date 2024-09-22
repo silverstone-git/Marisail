@@ -16,6 +16,9 @@ import Sell from "./pages/Sell";
 import Services from "./pages/Services";
 import EngineDetailPage from "./components/Engine/EngineDetail";
 import TrailerDetail from "./components/Trailers/TrailerDetail";
+import AuctionDetails from "./components/Auction/AuctionDetails";
+import AuctionSearch from "./components/Auction/AuctionSearch";
+import Auctions from "./pages/Auction";
 
 function App() {
   const navbarRef = useRef();
@@ -42,6 +45,8 @@ function App() {
         <Route path="/services" element={<Services type="myEngines"/>}></Route>
         <Route path="/engines/:id" element={<EngineDetailPage />} />
         <Route path="/trailer/:id" element={<TrailerDetail />} />
+        <Route path="/auction/:id" element={<AuctionDetails />} />
+        <Route path="/auction" element={<Auctions type="search" />} />
       </Routes>
     </BrowserRouter>
   );
