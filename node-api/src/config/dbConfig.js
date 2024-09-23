@@ -6,10 +6,10 @@ dotenv.config();
 // const ENVIRONMENT = process.env;
 
 const connection = mysql.createPool({
-  host: "92.205.173.128",
-  user: "Sarthak45",
-  password: "V3B4N6M7L9J5",
-  database: "Marisail",
+  host: "",
+  user: "",
+  password: "",
+  database: "",
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
