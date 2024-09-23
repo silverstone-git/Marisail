@@ -22,7 +22,7 @@ router.use("/search_engine", searchEngineRouter);
 
 router.use("/search_trailer", searchTrailerRouter);
 
-router.use("/search_auction", searchAuctionRouter)
+router.use("/search_auction", searchAuctionRouter);
 
 // Export the router
 export default router;

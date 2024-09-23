@@ -38,7 +38,7 @@ const HeaderNavbar = ({ navbarRef }) => {
                   sell
                 </NavDropdown.Item>
               </NavDropdown>
-              <NavDropdown title='berths'>
+              <NavDropdown title="berths">
                 <NavDropdown.Item
                   as={NavLink}
                   to="/berth"
@@ -108,35 +108,35 @@ const HeaderNavbar = ({ navbarRef }) => {
               <Nav.Link as={NavLink} to="/chandlery">
                 chandlery
               </Nav.Link>
-              <NavDropdown title='services'>
+              <NavDropdown title="services">
                 <NavDropdown.Item
                   as={NavLink}
-                  to='/services'
-                  className='text-capitalize'
+                  to="/services"
+                  className="text-capitalize"
                 >
                   My Engines
                 </NavDropdown.Item>
                 <NavDropdown.Item
                   as={NavLink}
-                  to='/trailers'
-                  className='text-capitalize'
+                  to="/trailers"
+                  className="text-capitalize"
                 >
                   My Trailers
                 </NavDropdown.Item>
               </NavDropdown>
 
-              <NavDropdown title='auction'>
+              <NavDropdown title="auction">
                 <NavDropdown.Item
                   as={NavLink}
-                  to='/auction'
-                  className='text-capitalize'
+                  to="/auction"
+                  className="text-capitalize"
                 >
                   Search Auction
                 </NavDropdown.Item>
                 <NavDropdown.Item
                   as={NavLink}
-                  to='/advert-auction'
-                  className='text-capitalize'
+                  to="/advert-auction"
+                  className="text-capitalize"
                 >
                   Advertise auction
                 </NavDropdown.Item>

@@ -10,7 +10,7 @@ const Auctions = ({ type }) => {
         overflow: "hidden",
       }}
     >
-      {type === "search" ? <AuctionSearch/> : <BerthAdvert/>}
+      {type === "search" ? <AuctionSearch /> : <BerthAdvert />}
     </main>
   );
 };

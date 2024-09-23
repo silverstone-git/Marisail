@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
-import { varToScreen } from './AuctionInfo';
+import PropTypes from "prop-types";
+import { varToScreen } from "./AuctionInfo";
 
 const AuctionDetailsPanel = ({ title, details }) => {
   return (
@@ -25,7 +25,7 @@ const AuctionDetailsPanel = ({ title, details }) => {
       </div>
     </div>
   );
-}
+};
 
 AuctionDetailsPanel.propTypes = {
   title: PropTypes.string.isRequired,
