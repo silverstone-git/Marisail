@@ -36,7 +36,7 @@ export const typeDef = {
         numberOfDocks: { value: "", type: "radio", mandatory: true },
         boatSlipSizes: { value: "", type: "radio", mandatory: true },
         numberBerthsAvailable: { value: "", type: "radio", mandatory: true },
-        length: { value: "", type: "radio", mandatory: true },
+        length: { value: "", type: "dual", mandatory: true },
         beam: { value: "", type: "radio", mandatory: true },
         draft: { value: "", type: "radio", mandatory: true },
         slipWidth: { value: "", type: "radio", mandatory: true },

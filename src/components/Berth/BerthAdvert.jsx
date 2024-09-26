@@ -7,6 +7,7 @@ import { keyToExpectedValueMap, typeDef } from "./BerthAdvertInfo";
 import { makeString } from "../../services/common_functions";
 import { useNavigate } from "react-router-dom"; 
 import InputComponentDynamic from "../InputComponentDynamic";
+import InputComponentDual from "../InputComponentDual";
 
 export default function BerthAdvert() {
     const navigate = useNavigate();
@@ -260,7 +261,7 @@ export default function BerthAdvert() {
         vat: "",
         totalPrice: "",
     });
-    const checkRequired = () => {
+    /*const checkRequired = () => {
         const errors = {};
         Object.keys(typeDef).forEach((sectionKey) => {
             const section = typeDef[sectionKey];
@@ -270,9 +271,6 @@ export default function BerthAdvert() {
                 if (field.mandatory) {
                     const fieldValue = sectionData[fieldKey];
                     if (field.type === "radio") {
-                        // if(field.value){
-                        //   console.log("001 field value--",field);
-                        // }
                         if (!field.value || String(field.value).trim() === "") {
                             errors[`${fieldKey}`] = true;
                         }
@@ -291,12 +289,12 @@ export default function BerthAdvert() {
 
         setError(errors);
         return Object.keys(errors).length === 0;
-    };
+    };*/
 
     const sections = {
         siteDetails,
         communityAndSocial,
-        environmentalConsiderations, //
+        environmentalConsiderations,
         generalInformation,
         amenitiesAndServices,
         surroundingArea,
@@ -641,6 +639,34 @@ export default function BerthAdvert() {
                                                 style={{ width: 480 }}
                                             >
                                                 <InputComponentDynamic
+                                                    label={makeString(fieldKey, keyToExpectedValueMap)}
+                                                    value={berths[title]?.[fieldKey] || ""}
+                                                    setValue={(e) =>
+                                                        handleInputChange(title, fieldKey, e.target.value)
+                                                    }
+                                                    formType="number"
+                                                    setOpenKey={setOpenKey}
+                                                    openKey={openKey}
+                                                    isMandatory={field.mandatory}
+                                                />
+                                                {error[`${fieldKey}`] && (
+                                                    <div>
+                                                        {errorDisplay(
+                                                            makeString(fieldKey, keyToExpectedValueMap)
+                                                        )}
+                                                    </div>
+                                                )}
+                                            </Col>
+                                        );
+                                    } else if (field && field.type === "dual") {
+                                        return (
+                                            <Col
+                                                md={12}
+                                                className="mr-3"
+                                                key={fieldKey}
+                                                style={{ width: 480 }}
+                                            >
+                                                <InputComponentDual
                                                     label={makeString(fieldKey, keyToExpectedValueMap)}
                                                     value={berths[title]?.[fieldKey] || ""}
                                                     setValue={(e) =>
