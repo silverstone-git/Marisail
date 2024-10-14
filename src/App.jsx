@@ -8,7 +8,6 @@ import Transport from "./pages/Transport";
 import Charters from "./pages/Charters";
 import Engines from "./pages/Engines";
 import Trailers from "./pages/Trailers";
-import Trailers2 from "./pages/Trailers2";
 import Chandlery from "./pages/Chandlery";
 import Berths from "./pages/Berths";
 import Buy from "./pages/Buy";
@@ -25,7 +24,7 @@ function App() {
     <BrowserRouter>
       <HeaderNavbar {...{ navbarRef }}></HeaderNavbar>
       <Routes>
-        <Route path="/" element={<Home />}></Route>
+        <Route path="/test" element={<Home />}></Route>
         <Route path="/auction" element={<Auction type="search"/>}></Route>
         <Route path="/advert-auction" element={<Auction type="advert"/>}></Route>
         <Route path="/transport" element={<Transport type="search"/>}></Route>
@@ -34,7 +33,6 @@ function App() {
         <Route path="/charters" element={<Charters type="search"/>}></Route>
         <Route path="/engines" element={<Engines type="advert" />} />
         <Route path="/advert-engines" element={<Engines type="search" />} />
-        <Route path="/trailers2" element={<Trailers2 />}></Route>
         <Route path="/trailers" element={<Trailers type="search" />}></Route>
         <Route
           path="/advert-trailers"
@@ -54,9 +52,6 @@ function App() {
 
         <Route path="/transport" element={<Transport type="search"/>}></Route>
         <Route path="/advert-charter" element={<Transport type="advert"/>}></Route>
-
-        
-        
         
         <Route path="/view-berth" element={<Services type="myBerth"/>}></Route>
         <Route path="/view-transport" element={<Services type="myTransport"/>}></Route>

@@ -16,12 +16,12 @@ const DropdownWithRadio = ({
   // console.log("001 List--",list);
   // console.log("001 Selected Value--",selectedOption);
   
-  if (typeof options === Number){
-    console.log("001 Number Title--",title);
-  }
-  if (typeof options === String){
-    console.log("001 String Title--",title);
-  }
+  // if (typeof options === Number){
+  //   console.log("001 Number Title--",title);
+  // }
+  // if (typeof options === String){
+  //   console.log("001 String Title--",title);
+  // }
   const handleOptionChange = (optionName) => {
     setSelectedOption(optionName);
   };

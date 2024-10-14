@@ -341,7 +341,7 @@ export default function EngineAdvert() {
     engineType: "",
   });
 
-  const checkRequired = () => {
+  /*const checkRequired = () => {
     const errors = {};
     Object.keys(typeDef).forEach((sectionKey) => {
       const section = typeDef[sectionKey];
@@ -369,7 +369,7 @@ export default function EngineAdvert() {
 
     setError(errors);
     return Object.keys(errors).length === 0;
-  };
+  };*/
 
   const sections = {
     engineDetails,

@@ -1,17 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import { Form, Container, Row, Col } from "react-bootstrap";
 import DropdownWithCheckBoxes from "../DropdownWithCheckBoxes";
 import EngineCard from "../EngineCard";
-import CustomDatePicker from "../CustomDatePicker";
 import SearchBar from "../SearchBar";
 import Pagination from "../CustomPagination";
-// import axios from "axios";
 import {
   fetchColumns,
-  fetchDistinctValues,
-  fetchTables,
-  fetchEngines,
 } from "../../api/searchEngineApi";
 import DropdownWithRadioButtons from "../DropdownWithRadioButtons";
 
@@ -20,12 +14,10 @@ import Loader from "../Loader";
 const Engines = () => {
   const [columns, setColumns] = useState([]);
   const [selectedColumn, setSelectedColumn] = useState("");
-  const [distinctValues, setDistinctValues] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [engines, setEngines] = useState([]);
   const [page, setPage] = useState(1);
-  const [limit] = useState(27); // Fixed limit
   const [search, setSearch] = useState([]);
   const [pagination, setPagination] = useState({
     currentPage: 1,
@@ -33,8 +25,6 @@ const Engines = () => {
     totalRecords: 0,
     limit: 21,
   });
-  const navigate = useNavigate();
-  const location = useLocation();
 
   const [selectedOptions, setSelectedOptions] = useState({
     condition_1: "",

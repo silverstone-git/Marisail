@@ -6,7 +6,7 @@ import BerthCard from "../BerthCard";
 import ResetBar from "../ResetBar";
 import { varToScreen } from "./CharterInfo";
 
-import DatePickerComponent from "../DatePickerComponent";
+// import DatePickerComponent from "../DatePickerComponent";
 import DatePickerComponent2 from "../DatePickerComponent2";
 
 export default function CharterSearch() {

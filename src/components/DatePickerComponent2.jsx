@@ -1,6 +1,5 @@
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Accordion } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 
@@ -12,7 +11,7 @@ function DatePickerComponent2({
 }) {
   const [value, setValue] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-  console.log("value", value);
+  // console.log("value", value);
 
   const handleDropdownToggle = () => {
     setIsOpen((prev) => !prev);
@@ -31,11 +30,9 @@ function DatePickerComponent2({
     }
   }, [value]);
 
-
-  
   return (
     <div className="custom-dropdown-container">
-    <div
+      <div
         className="custom-dropdown-header"
         onClick={handleDropdownToggle}
         aria-expanded={isOpen}
@@ -59,13 +56,15 @@ function DatePickerComponent2({
           </svg>
         </span>
       </div>
-      { isOpen && <DatePicker
-        selected={value}
-        className="form-control datepicker-input"
-        dateFormat="dd/MM/yyyy"
-        placeholderText="DD/MM/YYYY"
-        onChange={(date) => setValue(date)}
-      /> }
+      {isOpen && (
+        <DatePicker
+          selected={value}
+          className="form-control datepicker-input"
+          dateFormat="dd/MM/yyyy"
+          placeholderText="DD/MM/YYYY"
+          onChange={(date) => setValue(date)}
+        />
+      )}
     </div>
   );
 }

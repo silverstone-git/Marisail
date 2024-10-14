@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const Pagination = ({ totalPages }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -61,6 +62,10 @@ const Pagination = ({ totalPages }) => {
       )}
     </div>
   );
+};
+
+Pagination.propTypes = {
+  totalPages: PropTypes.number,
 };
 
 export default Pagination;

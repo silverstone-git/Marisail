@@ -1,5 +1,6 @@
-import EngineAdvert from "../components/Engine/EngineAdvert";
-import EngineSearch from "../components/Engine/EngineSearch";
+import React from "react";
+const EngineAdvert = React.lazy(() => import('../components/Engine/EngineAdvert'));
+const EngineSearch = React.lazy(() => import('../components/Engine/EngineSearch'));
 import PropTypes from "prop-types";
 
 const Engines = ({ type }) => {

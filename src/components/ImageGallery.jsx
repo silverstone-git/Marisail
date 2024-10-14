@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import PropTypes from "prop-types";
 
 const ImageGallery = ({ images }) => {
   const [selectedImage, setSelectedImage] = useState(images[0]);
@@ -25,6 +26,10 @@ const ImageGallery = ({ images }) => {
       </div>
     </div>
   );
+};
+
+ImageGallery.propTypes = {
+  images: PropTypes.string.isRequired,
 };
 
 export default ImageGallery;

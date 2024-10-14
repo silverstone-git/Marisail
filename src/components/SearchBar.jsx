@@ -1,5 +1,3 @@
-import React from "react";
-
 const SearchBar = ({ selectedTags, removeTag, resetTags, onChange }) => {
   return (
     <div id="search-bar">

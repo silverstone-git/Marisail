@@ -29,8 +29,8 @@ const DropdownWithCheckBoxes = ({
   };
 
   const handleOptionChange = (optionName) => {
-    console.log(optionName);
-    console.log(heading);
+    // console.log(optionName);
+    // console.log(heading);
     if (selectedOptions[optionName] !== undefined) {
       setSelectedOptions((prev) => {
         delete prev[optionName];
@@ -59,8 +59,7 @@ const DropdownWithCheckBoxes = ({
 
   // if (loading) return <p>Loading...</p>;
   // if (error) return <p>Error: {error}</p>;
-
-  console.log("options", options);
+  // console.log("options", options);
 
   return (
     <div className="custom-dropdown-container">
@@ -90,12 +89,26 @@ const DropdownWithCheckBoxes = ({
       </div>
       {isOpen && (
         <div>
-        {
-          options.length > 5 ? (
-        <input type="text" placeholder="Search.." id="myInput" style={
-          {width: "100%", padding: "8px 0px 8px 14px", margin: "0px 0 12px 0", display: "inline-block", border: "1px solid #fff", borderRadius: "4px", outline: "none", boxSizing: "", backgroundColor: "#f5f5f5"}
-        }  value={inputText}  onChange={inputHandler}></input>) : null
-        }
+          {options.length > 5 ? (
+            <input
+              type="text"
+              placeholder="Search.."
+              id="myInput"
+              style={{
+                width: "100%",
+                padding: "8px 0px 8px 14px",
+                margin: "0px 0 12px 0",
+                display: "inline-block",
+                border: "1px solid #fff",
+                borderRadius: "4px",
+                outline: "none",
+                boxSizing: "",
+                backgroundColor: "#f5f5f5",
+              }}
+              value={inputText}
+              onChange={inputHandler}
+            ></input>
+          ) : null}
           <div id="dropdown-content" className="custom-dropdown-content">
             <div className="custom-dropdown-options">
               <Form>

@@ -15,13 +15,13 @@ function InputComponentDual({
 
   const handleInputChange = (e) => {
     setInputText(e.target.value);
-    setValue(e); // Set value for the input text
+    setValue(e);
   };
 
-  const [selectValue, setSelectValue] = useState("Yes");
-  const handleSelectChange = (e) => {
-    setSelectValue(e.target.value); // Set value for the select option
-  };
+  // const [selectValue, setSelectValue] = useState("Yes");
+  /*const handleSelectChange = (e) => {
+    setSelectValue(e.target.value);
+  };*/
 
   useEffect(() => {
     setInputText(value);
@@ -40,7 +40,7 @@ function InputComponentDual({
         </Accordion.Header>
         <Accordion.Body>
           <Form.Group controlId="formGridState">
-            <Row className="d-flex align-items-center">
+            {/* <Row className="d-flex align-items-center">
               <Col md={8} style={{ display: "flex", alignItems: "center" }}>
                 <Form.Control
                   value={inputText}
@@ -64,8 +64,8 @@ function InputComponentDual({
                   </Form.Select>
                 </Form.Group>
               </Col>
-            </Row>
-            <Row className="mt-3">
+            </Row> */}
+            <Row className="">
               <Col md={8} style={{ display: "flex", alignItems: "center" }}>
                 <Form.Control
                   value={inputText}
@@ -77,7 +77,7 @@ function InputComponentDual({
                 />
               </Col>
               <Col md={4} style={{ display: "flex", alignItems: "center" }}>
-              <Form.Label className="me-2 mt-2">MU</Form.Label>
+              {/* <Form.Label className="me-2 mt-2">MU</Form.Label> */}
                 <div
                   className="btn-group"
                   role="group"
