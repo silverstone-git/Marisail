@@ -606,7 +606,7 @@ export default function BerthAdvert() {
                                                     <DropdownWithRadio
                                                         heading={fieldKey}
                                                         title={makeString(fieldKey, keyToExpectedValueMap)}
-                                                        options={sections[title][fieldKey]}
+                                                        options={sections[title][fieldKey] || []}
                                                         selectedOption={
                                                             allSelectedOptions[title]?.[fieldKey] || ""
                                                         }
@@ -619,7 +619,7 @@ export default function BerthAdvert() {
                                                         }
                                                         isMandatory={field.mandatory}
                                                         setOpenKey={setOpenKey}
-                                                        openKey={openKey}
+                                                        openKey={openKey || ""}
                                                     />
                                                     {error[`${fieldKey}`] && (
                                                         <div>
@@ -675,7 +675,7 @@ export default function BerthAdvert() {
                                                     }
                                                     formType="number"
                                                     setOpenKey={setOpenKey}
-                                                    openKey={openKey}
+                                                    openKey={openKey || ""}
                                                     isMandatory={field.mandatory}
                                                 />
                                                 {error[`${fieldKey}`] && (

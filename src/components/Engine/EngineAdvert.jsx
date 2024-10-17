@@ -712,7 +712,7 @@ export default function EngineAdvert() {
                           <DropdownWithRadio
                             heading={fieldKey}
                             title={makeString(fieldKey, keyToExpectedValueMap)}
-                            options={sections[title][fieldKey]}
+                            options={sections[title][fieldKey]  || []}
                             selectedOption={
                               allSelectedOptions[title]?.[fieldKey] || ""
                             }
@@ -725,7 +725,7 @@ export default function EngineAdvert() {
                             }
                             isMandatory={field.mandatory}
                             setOpenKey={setOpenKey}
-                            openKey={openKey}
+                            openKey={openKey || ""}
                           />
                           {error[`${fieldKey}`] && (
                             <div>

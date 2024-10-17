@@ -17,20 +17,28 @@ import EngineDetailPage from "./components/Engine/EngineDetail";
 import TrailerDetail from "./components/Trailers/TrailerDetail";
 import Auction from "./pages/Auction";
 
-
 function App() {
   const navbarRef = useRef();
   return (
     <BrowserRouter>
       <HeaderNavbar {...{ navbarRef }}></HeaderNavbar>
       <Routes>
-        <Route path="/test" element={<Home />}></Route>
-        <Route path="/auction" element={<Auction type="search"/>}></Route>
-        <Route path="/advert-auction" element={<Auction type="advert"/>}></Route>
-        <Route path="/transport" element={<Transport type="search"/>}></Route>
-        <Route path="/advert-transport" element={<Transport type="advert"/>}></Route>
-        <Route path="/advert-charters" element={<Charters type="advert"/>}></Route>
-        <Route path="/charters" element={<Charters type="search"/>}></Route>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/auction" element={<Auction type="search" />}></Route>
+        <Route
+          path="/advert-auction"
+          element={<Auction type="advert" />}
+        ></Route>
+        <Route path="/transport" element={<Transport type="search" />}></Route>
+        <Route
+          path="/advert-transport"
+          element={<Transport type="advert" />}
+        ></Route>
+        <Route
+          path="/advert-charters"
+          element={<Charters type="advert" />}
+        ></Route>
+        <Route path="/charter" element={<Charters type="search" />}></Route>
         <Route path="/engines" element={<Engines type="advert" />} />
         <Route path="/advert-engines" element={<Engines type="search" />} />
         <Route path="/trailers" element={<Trailers type="search" />}></Route>
@@ -38,25 +46,40 @@ function App() {
           path="/advert-trailers"
           element={<Trailers type="advert" />}
         ></Route>
-        <Route path="/advert-chandlery" element={<Chandlery type="advert"/>}></Route>
+        <Route
+          path="/advert-chandlery"
+          element={<Chandlery type="advert" />}
+        ></Route>
         <Route path="/chandlery" element={<Chandlery type="search" />}></Route>
-        <Route path="/advert-chandlery" element={<Chandlery type="search"/>}></Route>
+        <Route
+          path="/advert-chandlery"
+          element={<Chandlery type="search" />}
+        ></Route>
         <Route path="/berths" element={<Berths type="search" />} />
         <Route path="/advert-berth" element={<Berths type="advert" />} />
         <Route path="/buy" element={<Buy />}></Route>
         <Route path="/sell" element={<Sell />}></Route>
-        <Route path="/services" element={<Services type="myEngines"/>}></Route>
+        <Route path="/services" element={<Services type="myEngines" />}></Route>
 
-        <Route path="/charter" element={<Charters type="search" />}></Route>
-        <Route path="/advert-charter" element={<Charters type="advert"/>}></Route>
+        <Route path="/transport" element={<Transport type="search" />}></Route>
+        <Route
+          path="/advert-transport"
+          element={<Transport type="advert" />}
+        ></Route>
 
-        <Route path="/transport" element={<Transport type="search"/>}></Route>
-        <Route path="/advert-charter" element={<Transport type="advert"/>}></Route>
-        
-        <Route path="/view-berth" element={<Services type="myBerth"/>}></Route>
-        <Route path="/view-transport" element={<Services type="myTransport"/>}></Route>
-        <Route path="/view-charter" element={<Services type="myCharter"/>}></Route>
-        <Route path="/view-trailer" element={<Services type="myTrailer"/>}></Route>
+        <Route path="/view-berth" element={<Services type="myBerth" />}></Route>
+        <Route
+          path="/view-transport"
+          element={<Services type="myTransport" />}
+        ></Route>
+        <Route
+          path="/view-charter"
+          element={<Services type="myCharter" />}
+        ></Route>
+        <Route
+          path="/view-trailer"
+          element={<Services type="myTrailer" />}
+        ></Route>
         <Route path="/engines/:id" element={<EngineDetailPage />} />
         <Route path="/trailer/:id" element={<TrailerDetail />} />
         {/* have to change it to berthdetail */}
