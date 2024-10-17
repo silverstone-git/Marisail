@@ -7,6 +7,7 @@ import SubmitButton from "../SubmitButton";
 import { keyToExpectedValueMap, typeDef } from "../Shop/ShopAdvertInfo";
 import { makeString } from "../../services/common_functions";
 import { useNavigate } from "react-router-dom";
+const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function MyChandlery() {
     const navigate = useNavigate();
@@ -150,7 +151,7 @@ export default function MyChandlery() {
     }
 
     const cacheKey = "myChandleryFilterData";
-    const URL = "http://localhost:3001/api/advert_chandlery/";
+    const URL = apiUrl +"/advert_chandlery/";
 
     const fetchDistinctData = async () => {
         try {

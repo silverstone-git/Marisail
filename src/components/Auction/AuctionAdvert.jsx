@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import DatePickerComponent from "../DatePickerComponent"
 import InputComponentDynamic from "../InputComponentDynamic";
 import CustomTimePicker from '../CustomTimePicker';
+const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function AuctionAdvert() {
     const [selectedTime, setSelectedTime] = useState('');
@@ -194,7 +195,7 @@ export default function AuctionAdvert() {
     }
 
     const cacheKey = "auctionFilterData";
-    const URL = "http://localhost:3001/api/advert_auction/";
+    const URL = apiUrl +"/advert_auction/";
 
     const fetchDistinctData = async () => {
         try {

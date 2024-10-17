@@ -8,6 +8,7 @@ import { makeString } from "../../services/common_functions";
 import { useNavigate } from "react-router-dom"; 
 import InputComponentDynamic from "../InputComponentDynamic";
 import InputComponentDual from "../InputComponentDual";
+const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function BerthAdvert() {
     const navigate = useNavigate();
@@ -394,7 +395,7 @@ export default function BerthAdvert() {
     }
 
     const cacheKey = "berthsFilterData";
-    const URL = "http://localhost:3001/api/advert_berth/";
+    const URL = apiUrl +"/advert_berth/";
 
     const fetchDistinctData = async () => {
         try {

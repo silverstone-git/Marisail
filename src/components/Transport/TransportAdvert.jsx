@@ -8,6 +8,7 @@ import { keyToExpectedValueMap, typeDef } from "./TransportAdvertInfo";
 import { makeString } from "../../services/common_functions";
 import { useNavigate } from "react-router-dom"; 
 import DatePickerComponent from "../DatePickerComponent"
+const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function TransportAdvert() {
     const navigate = useNavigate(); 
@@ -278,7 +279,7 @@ export default function TransportAdvert() {
     }
 
     const cacheKey = "transportFilterData";
-    const URL = "http://localhost:3001/api/advert_transport/";
+    const URL = apiUrl +"/advert_transport/";
 
     const fetchDistinctData = async () => {
         try {

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Form, Container, Row, Col } from "react-bootstrap";
-import DropdownWithCheckBoxes from "../DropdownWithCheckBoxes";
+import DropdownWithCheckBoxes from "../DropdownWithCheckBoxes2";
 import EngineCard from "../EngineCard";
 import SearchBar from "../SearchBar";
 import Pagination from "../CustomPagination";
@@ -8,6 +8,7 @@ import {
   fetchColumns,
 } from "../../api/searchEngineApi";
 import DropdownWithRadioButtons from "../DropdownWithRadioButtons";
+const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 import "./engineSearch.scss";
 import Loader from "../Loader";
@@ -485,7 +486,7 @@ const Engines = () => {
       let { tables = [], columns = [], values = [] } = getSelectionData();
 
       // Construct the API URL
-      const url = `http://localhost:3001/api/search_engine/engines?tables=${tables}&columns=${columns}&values=${values}&page=${pagination.currentPage}&limit=${pagination.limit}`; 
+      const url = apiUrl +`/search_engine/engines?tables=${tables}&columns=${columns}&values=${values}&page=${pagination.currentPage}&limit=${pagination.limit}`; 
 
       // Fetch data from the API
       const response = await fetch(url, {

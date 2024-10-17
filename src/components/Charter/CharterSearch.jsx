@@ -5,6 +5,7 @@ import Loader from "../Loader";
 import BerthCard from "../BerthCard";
 import ResetBar from "../ResetBar";
 import { varToScreen } from "./CharterInfo";
+const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 // import DatePickerComponent from "../DatePickerComponent";
 import DatePickerComponent2 from "../DatePickerComponent2";
@@ -160,7 +161,7 @@ export default function CharterSearch() {
     setPage(newPage);
   };
 
-  const URL = "http://localhost:3001/api/search_charter/";
+  const URL = apiUrl +"/search_charter/";
 
   // fetch all the count of the available columns
   var data;

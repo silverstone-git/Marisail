@@ -4,8 +4,9 @@ import TrailerDetailsPanel from "./TrailerDetailsPanel";
 import Loader from "../Loader";
 import { Row, Col } from "react-bootstrap";
 import { varToDb, detailStateType } from "./trailerInfo";
+const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
-const URL = "http://localhost:3001/api/search_trailer/";
+const URL = apiUrl +"/search_trailer/";
 
 const TrailerDetail = () => {
   // console.log("detailStateType", detailStateType);

@@ -7,6 +7,7 @@ import SubmitButton from "../SubmitButton";
 import { keyToExpectedValueMap, typeDef } from "./EngineAdvertInfo";
 import { makeString } from "../../services/common_functions";
 import { useNavigate } from "react-router-dom"; 
+const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function EngineAdvert() {
   const navigate = useNavigate(); 
@@ -496,7 +497,7 @@ export default function EngineAdvert() {
   }
 
   const cacheKey = "enginesFilterData";
-  const URL = "http://localhost:3001/api/advert_engine/";
+  const URL = apiUrl +"/advert_engine/";
 
   const fetchDistinctData = async () => {
     try {

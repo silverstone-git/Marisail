@@ -6,6 +6,7 @@ import InputComponentDynamic from "../InputComponentDynamic";
 import SubmitButton from "../SubmitButton";
 import { keyToExpectedValueMap, typeDef } from "../Trailers/TrailerAdvertInfo";
 import { makeString } from "../../services/common_functions";
+const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function MyTrailer() {
   const storedUser = localStorage.getItem("user");
@@ -346,7 +347,7 @@ export default function MyTrailer() {
   }
 
   const cacheKey = "trailersFilterData";
-  const URL = "http://localhost:3001/api/trailers/";
+  const URL = apiUrl +"/trailers/";
 
   const fetchDistinctData = async () => {
     try {
