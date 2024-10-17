@@ -9,6 +9,7 @@ import { varToScreen } from "./trailerInfo";
 // import 'react-time-picker/dist/TimePicker.css';
 // import 'react-clock/dist/Clock.css';
 // import DatePickerComponent from "../DatePickerComponent";
+const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function TrailersSearch() {
   const [page, setPage] = useState(0);
@@ -277,7 +278,7 @@ export default function TrailersSearch() {
     setPage(newPage);
   };
 
-  const URL = "http://localhost:3001/api/search_trailer/";
+  const URL = apiUrl +"/search_trailer/";
 
   // fetch all the count of the available columns
   var data;

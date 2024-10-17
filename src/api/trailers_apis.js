@@ -1,7 +1,9 @@
+const apiUrl = import.meta.env.VITE_BACKEND_URL;
+
 export async function fetchTables() {
     try {
       const response = await fetch(
-        "http://localhost:3001/api/trailers/tables"
+        apiUrl +"/trailers/tables"
       );
       if (!response.ok) {
         throw new Error(`Error fetching tables: ${response.statusText}`);
@@ -20,7 +22,7 @@ export async function fetchTables() {
   export async function fetchColumns(tableName) {
     try {
       const response = await fetch(
-        `http://localhost:3001/api/trailers/columns/${tableName}`
+        apiUrl +`/trailers/columns/${tableName}`
       );
       if (!response.ok) {
         throw new Error(`Error fetching columns: ${response.statusText}`);
@@ -45,13 +47,12 @@ export async function fetchTables() {
   ) {
     try {
       const queryParams = new URLSearchParams();
-      console.log("*****************QUERY PARAMS*******************",queryParams);
       if (manufacturer) queryParams.append("manufacturer", manufacturer);
       if (make) queryParams.append("make", make);
       if (model) queryParams.append("model", model);
       if (year) queryParams.append("year", year);
       const response = await fetch(
-        `http://localhost:3001/api/trailers/${tableName}/${columnName}?${queryParams}`
+        apiUrl +`/trailers/${tableName}/${columnName}?${queryParams}`
       );  
       if (!response.ok) {
         throw new Error(`Error fetching distinct values: ${response.statusText}`);
@@ -81,7 +82,7 @@ export async function fetchTables() {
   
     try {
       const response = await fetch(
-        `http://localhost:3001/api/trailers/engines?page=${page}&limit=${limit}&search=${encodeURIComponent(
+        apiUrl +`/trailers/engines?page=${page}&limit=${limit}&search=${encodeURIComponent(
           search
         )}`
       );

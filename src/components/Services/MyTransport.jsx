@@ -6,6 +6,7 @@ import InputComponentDynamic from "../InputComponentDynamic";
 import SubmitButton from "../SubmitButton";
 import { keyToExpectedValueMap, typeDef } from "../Transport/TransportAdvertInfo";
 import { makeString } from "../../services/common_functions";
+const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function MyTransport() {
     // Retrieve the user object from localStorage
@@ -324,7 +325,7 @@ export default function MyTransport() {
     }
 
     const cacheKey = "transportFilterData";
-    const URL = "http://localhost:3001/api/advert_transport/";
+    const URL = apiUrl +"/advert_transport/";
 
     const fetchDistinctData = async () => {
         try {

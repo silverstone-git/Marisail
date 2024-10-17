@@ -1,8 +1,8 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Accordion } from "react-bootstrap";
 import NewTimePicker from 'react-bootstrap-time-picker';
-import TimePicker from 'react-time-picker';
+// import TimePicker from 'react-time-picker';
 
 const CustomTimePicker = ({
   label,
@@ -14,13 +14,13 @@ const CustomTimePicker = ({
   openKey,
   isMandatory 
 }) => {
-  const [time, setTime] = useState(initialTime || '12:00');
+  /*const [time, setTime] = useState(initialTime || '12:00');
   const handleChange = (newTime) => {
     setTime(newTime);
     if (onTimeChange) {
       onTimeChange(newTime);
     }
-  };
+  };*/
 
   return (
 

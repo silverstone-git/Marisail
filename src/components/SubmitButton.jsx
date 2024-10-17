@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 
-// Define the SubmitButton component
 const SubmitButton = ({ text="Submit", onClick, style={}, className="", name="submit" }) => {
     return (
         <div className="d-flex justify-content-center p-4 pt-5">

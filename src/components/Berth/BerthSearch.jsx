@@ -6,6 +6,7 @@ import BerthCard from "../BerthCard";
 import ResetBar from "../ResetBar";
 import { varToScreen } from "./BerthInfo";
 // import { number } from "prop-types";
+const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function BerthSearch() {
   const [page, setPage] = useState(0);
@@ -215,7 +216,7 @@ export default function BerthSearch() {
     setPage(newPage);
   };
 
-  const URL = "http://localhost:3001/api/search_berth/";
+  const URL = apiUrl +"/search_berth/";
 
   // fetch all the count of the available columns
   var data;

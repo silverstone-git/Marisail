@@ -3,7 +3,6 @@ import { Form } from "react-bootstrap";
 function FilterSearch() {
   const handleOptionChange = (optionName) => {
     console.log(optionName);
-    console.log(heading);
     if (selectedOptions[optionName] !== undefined) {
       setSelectedOptions((prev) => {
         delete prev[optionName];
@@ -14,7 +13,6 @@ function FilterSearch() {
       setSelectedOptions((prev) => {
         return { ...prev, [optionName]: heading };
       });
-      console.log(selectedOptions);
     }
   };
   return (

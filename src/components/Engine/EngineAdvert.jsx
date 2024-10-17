@@ -7,6 +7,7 @@ import SubmitButton from "../SubmitButton";
 import { keyToExpectedValueMap, typeDef } from "./EngineAdvertInfo";
 import { makeString } from "../../services/common_functions";
 import { useNavigate } from "react-router-dom"; 
+const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function EngineAdvert() {
   const navigate = useNavigate(); 
@@ -341,7 +342,7 @@ export default function EngineAdvert() {
     engineType: "",
   });
 
-  const checkRequired = () => {
+  /*const checkRequired = () => {
     const errors = {};
     Object.keys(typeDef).forEach((sectionKey) => {
       const section = typeDef[sectionKey];
@@ -369,7 +370,7 @@ export default function EngineAdvert() {
 
     setError(errors);
     return Object.keys(errors).length === 0;
-  };
+  };*/
 
   const sections = {
     engineDetails,
@@ -496,7 +497,7 @@ export default function EngineAdvert() {
   }
 
   const cacheKey = "enginesFilterData";
-  const URL = "http://localhost:3001/api/advert_engine/";
+  const URL = apiUrl +"/advert_engine/";
 
   const fetchDistinctData = async () => {
     try {
@@ -711,7 +712,7 @@ export default function EngineAdvert() {
                           <DropdownWithRadio
                             heading={fieldKey}
                             title={makeString(fieldKey, keyToExpectedValueMap)}
-                            options={sections[title][fieldKey]}
+                            options={sections[title][fieldKey]  || []}
                             selectedOption={
                               allSelectedOptions[title]?.[fieldKey] || ""
                             }
@@ -724,7 +725,7 @@ export default function EngineAdvert() {
                             }
                             isMandatory={field.mandatory}
                             setOpenKey={setOpenKey}
-                            openKey={openKey}
+                            openKey={openKey || ""}
                           />
                           {error[`${fieldKey}`] && (
                             <div>

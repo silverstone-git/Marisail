@@ -6,6 +6,7 @@ import BerthCard from "../BerthCard";
 import ResetBar from "../ResetBar";
 import { varToScreen } from "./ShopInfo";
 // import { number } from "prop-types";
+const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function ChandlerySearch() {
   const [page, setPage] = useState(0);
@@ -102,7 +103,7 @@ export default function ChandlerySearch() {
     setPage(newPage);
   };
 
-  const URL = "http://localhost:3001/api/search_chandlery/";
+  const URL = apiUrl +"/search_chandlery/";
 
   // fetch all the count of the available columns
   var data;

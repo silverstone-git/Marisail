@@ -6,6 +6,7 @@ import InputComponentDynamic from "../InputComponentDynamic";
 import SubmitButton from "../SubmitButton";
 import { keyToExpectedValueMap, typeDef } from "../Engine/EngineAdvertInfo";
 import { makeString } from "../../services/common_functions";
+const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function MyEngine() {
   const storedUser = localStorage.getItem("user");
@@ -523,7 +524,7 @@ export default function MyEngine() {
   }
 
   const cacheKey = "enginesFilterData";
-  const URL = "http://localhost:3001/api/advert_engine/";
+  const URL = apiUrl +"/advert_engine/";
 
   const fetchDistinctData = async () => {
     try {

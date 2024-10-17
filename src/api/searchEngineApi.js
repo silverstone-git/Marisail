@@ -1,7 +1,8 @@
+const apiUrl = import.meta.env.VITE_BACKEND_URL;
 export async function fetchTables() {
   try {
     const response = await fetch(
-      "http://localhost:3001/api/search_engine/tables"
+      apiUrl + "/search_engine/tables"
     );
     if (!response.ok) {
       throw new Error(`Error fetching tables: ${response.statusText}`);
@@ -20,7 +21,7 @@ export async function fetchTables() {
 export async function fetchColumns(tableName) {
   try {
     const response = await fetch(
-      `http://localhost:3001/api/search_engine/columns/${tableName}`
+      apiUrl +`/search_engine/columns/${tableName}`
     );
     if (!response.ok) {
       throw new Error(`Error fetching columns: ${response.statusText}`);
@@ -47,7 +48,7 @@ export async function fetchDistinctValues(
     if (engineModel) queryParams.append("engine_model", engineModel);
 
     const response = await fetch(
-      `http://localhost:3001/api/search_engine/${tableName}/${columnName}?${queryParams}`
+      apiUrl +`/search_engine/${tableName}/${columnName}?${queryParams}`
     );
 
     if (!response.ok) {
@@ -60,8 +61,6 @@ export async function fetchDistinctValues(
     }
 
     return data.result;
-
-    console.log("Distinct values:", data.result);
   } catch (error) {
     console.error("Error:", error);
     return [];
@@ -82,7 +81,7 @@ export const fetchEngines = async (
 
   try {
     const response = await fetch(
-      `http://localhost:3001/api/search_engine/engines?page=${page}&limit=${limit}&search=${encodeURIComponent(
+      apiUrl +`/search_engine/engines?page=${page}&limit=${limit}&search=${encodeURIComponent(
         search
       )}`
     );

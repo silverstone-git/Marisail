@@ -1,5 +1,4 @@
-export const keyToExpectedValueMap =
-{
+export const keyToExpectedValueMap = {
     marinaPortHarborName: "Marina/Port/Harbor Name",
     wifiAvailability: "Wi-Fi Availability",
     familyFriendlyAmenities: "Family-Friendly Amenities",
@@ -13,8 +12,8 @@ export const keyToExpectedValueMap =
     pricePA: "Price p.a.",
     picnicAndBBQAreas: "Picnic & BBQ Areas",
     childrensPlayArea: "Children's Play Area",
-    price_pcm: "Price PCM"
-}
+    price_pcm: "Price PCM",
+};
 
 export const typeDef = {
     siteDetails: {
@@ -36,7 +35,7 @@ export const typeDef = {
         numberOfDocks: { value: "", type: "radio", mandatory: true },
         boatSlipSizes: { value: "", type: "radio", mandatory: true },
         numberBerthsAvailable: { value: "", type: "radio", mandatory: true },
-        length: { value: "", type: "radio", mandatory: true },
+        length: { value: "", type: "dual", mandatory: true },
         beam: { value: "", type: "radio", mandatory: true },
         draft: { value: "", type: "radio", mandatory: true },
         slipWidth: { value: "", type: "radio", mandatory: true },
@@ -134,7 +133,11 @@ export const typeDef = {
         boatCleaningServices: { value: "", type: "radio", mandatory: false },
         boatMaintenanceRepair: { value: "", type: "radio", mandatory: false },
         chandleryServices: { value: "", type: "radio", mandatory: false },
-        repairAndMaintenanceServices: { value: "", type: "radio", mandatory: false },
+        repairAndMaintenanceServices: {
+            value: "",
+            type: "radio",
+            mandatory: false,
+        },
         haulOutServices: { value: "", type: "radio", mandatory: false },
         boatLiftSpecifications: { value: "", type: "radio", mandatory: true },
     },
@@ -286,3 +289,8 @@ export const typeDef = {
         totalPrice: { value: "", type: "radio", mandatory: false },
     },
 };
+
+export const radioOptions = [
+    { label: "Feet", value: "ft" },
+    { label: "Meters", value: "mtrs" },
+];

@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import EngineDetailsPanel from "./EngineDetailPanel";
 import Loader from "../Loader";
 import { Col, Row } from "react-bootstrap";
+const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 const EngineDetail = () => {
   const { id } = useParams();
@@ -14,7 +15,7 @@ const EngineDetail = () => {
     const fetchEngineDetails = async (id) => {
       try {
         const response = await fetch(
-          `http://localhost:3001/api/search_engine/engine-detail/${id}`
+          apiUrl +`/search_engine/engine-detail/${id}`
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");

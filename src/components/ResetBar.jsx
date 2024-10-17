@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 
 const ResetBar = ({ selectedTags, removeTag, resetTags }) => {
-    console.log("selectedTags", selectedTags);
   return (
     <div id="search-bar">
       <div

@@ -5,6 +5,7 @@ import Loader from "../Loader";
 import SubmitButton from "../SubmitButton";
 import { keyToExpectedValueMap, typeDef } from "../Berth/BerthAdvertInfo";
 import { makeString } from "../../services/common_functions";
+const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function MyBerth() {
     const storedUser = localStorage.getItem("user");
@@ -350,7 +351,7 @@ export default function MyBerth() {
     }
 
     const cacheKey = "berthsFilterData";
-    const URL = "http://localhost:3001/api/advert_berth/";
+    const URL = apiUrl +"/advert_berth/";
 
     const fetchDistinctData = async () => {
         try {

@@ -1,5 +1,5 @@
-import React from "react";
 import { Form } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 const TextField = ({ value }) => {
   return (
@@ -10,6 +10,10 @@ const TextField = ({ value }) => {
       readOnly
     />
   );
+};
+
+TextField.propTypes = {
+  value: PropTypes.string,
 };
 
 export default TextField;

@@ -7,6 +7,7 @@ import SubmitButton from "../SubmitButton";
 import { keyToExpectedValueMap, typeDef } from "./TrailerAdvertInfo";
 import { makeString } from "../../services/common_functions";
 import { useNavigate } from "react-router-dom"; 
+const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function TrailersAdvert() {
   const navigate = useNavigate(); 
@@ -342,7 +343,7 @@ export default function TrailersAdvert() {
   }
 
   const cacheKey = "trailersFilterData";
-  const URL = "http://localhost:3001/api/trailers/";
+  const URL = apiUrl +"/trailers/";
 
   const fetchDistinctData = async () => {
     try {

@@ -3,10 +3,12 @@ import { useEffect, useState, useRef } from "react";
 import DropdownWithRadio from "../DropdownWithRadio";
 import Loader from "../Loader";
 import SubmitButton from "../SubmitButton";
-import { keyToExpectedValueMap, typeDef } from "./BerthAdvertInfo";
+import { keyToExpectedValueMap, typeDef, radioOptions } from "./BerthAdvertInfo";
 import { makeString } from "../../services/common_functions";
 import { useNavigate } from "react-router-dom"; 
 import InputComponentDynamic from "../InputComponentDynamic";
+import InputComponentDual from "../InputComponentDual";
+const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function BerthAdvert() {
     const navigate = useNavigate();
@@ -260,7 +262,7 @@ export default function BerthAdvert() {
         vat: "",
         totalPrice: "",
     });
-    const checkRequired = () => {
+    /*const checkRequired = () => {
         const errors = {};
         Object.keys(typeDef).forEach((sectionKey) => {
             const section = typeDef[sectionKey];
@@ -270,9 +272,6 @@ export default function BerthAdvert() {
                 if (field.mandatory) {
                     const fieldValue = sectionData[fieldKey];
                     if (field.type === "radio") {
-                        // if(field.value){
-                        //   console.log("001 field value--",field);
-                        // }
                         if (!field.value || String(field.value).trim() === "") {
                             errors[`${fieldKey}`] = true;
                         }
@@ -291,12 +290,12 @@ export default function BerthAdvert() {
 
         setError(errors);
         return Object.keys(errors).length === 0;
-    };
+    };*/
 
     const sections = {
         siteDetails,
         communityAndSocial,
-        environmentalConsiderations, //
+        environmentalConsiderations,
         generalInformation,
         amenitiesAndServices,
         surroundingArea,
@@ -396,7 +395,7 @@ export default function BerthAdvert() {
     }
 
     const cacheKey = "berthsFilterData";
-    const URL = "http://localhost:3001/api/advert_berth/";
+    const URL = apiUrl +"/advert_berth/";
 
     const fetchDistinctData = async () => {
         try {
@@ -607,7 +606,7 @@ export default function BerthAdvert() {
                                                     <DropdownWithRadio
                                                         heading={fieldKey}
                                                         title={makeString(fieldKey, keyToExpectedValueMap)}
-                                                        options={sections[title][fieldKey]}
+                                                        options={sections[title][fieldKey] || []}
                                                         selectedOption={
                                                             allSelectedOptions[title]?.[fieldKey] || ""
                                                         }
@@ -620,7 +619,7 @@ export default function BerthAdvert() {
                                                         }
                                                         isMandatory={field.mandatory}
                                                         setOpenKey={setOpenKey}
-                                                        openKey={openKey}
+                                                        openKey={openKey || ""}
                                                     />
                                                     {error[`${fieldKey}`] && (
                                                         <div>
@@ -650,6 +649,35 @@ export default function BerthAdvert() {
                                                     setOpenKey={setOpenKey}
                                                     openKey={openKey}
                                                     isMandatory={field.mandatory}
+                                                />
+                                                {error[`${fieldKey}`] && (
+                                                    <div>
+                                                        {errorDisplay(
+                                                            makeString(fieldKey, keyToExpectedValueMap)
+                                                        )}
+                                                    </div>
+                                                )}
+                                            </Col>
+                                        );
+                                    } else if (field && field.type === "dual") {
+                                        return (
+                                            <Col
+                                                md={12}
+                                                className="mr-3"
+                                                key={fieldKey}
+                                                style={{ width: 480 }}
+                                            >
+                                                <InputComponentDual
+                                                    label={makeString(fieldKey, keyToExpectedValueMap)}
+                                                    value={berths[title]?.[fieldKey] || ""}
+                                                    setValue={(e) =>
+                                                        handleInputChange(title, fieldKey, e.target.value)
+                                                    }
+                                                    formType="number"
+                                                    setOpenKey={setOpenKey}
+                                                    openKey={openKey || ""}
+                                                    isMandatory={field.mandatory}
+                                                    radioOptions={radioOptions}
                                                 />
                                                 {error[`${fieldKey}`] && (
                                                     <div>

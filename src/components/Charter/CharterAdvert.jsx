@@ -7,6 +7,7 @@ import SubmitButton from "../SubmitButton";
 import { keyToExpectedValueMap, typeDef } from "./CharterAdvertInfo";
 import { makeString } from "../../services/common_functions";
 import { useNavigate } from "react-router-dom"; 
+const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function CharterAdvert() {
     const navigate = useNavigate(); 
@@ -226,7 +227,7 @@ export default function CharterAdvert() {
     }
 
     const cacheKey = "charterFilterData";
-    const URL = "http://localhost:3001/api/advert_charter/";
+    const URL = apiUrl +"/advert_charter/";
 
     const fetchDistinctData = async () => {
         try {
