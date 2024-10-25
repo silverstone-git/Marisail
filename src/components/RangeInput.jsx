@@ -73,9 +73,9 @@ const RangeInput = ({
               aria-label="Basic radio toggle button group"
               style={{
                 border: "1px solid #ccc",
-                borderRadius: "17px",
-                width: "30%",
+                borderRadius: "50px",
                 justifyContent: "space-around",
+                marginLeft: 10
               }}
             >
               {radioOptions.map((option, index) => (
