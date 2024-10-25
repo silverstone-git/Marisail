@@ -7,6 +7,8 @@ import BerthCard from "../BerthCard";
 import ResetBar from "../ResetBar";
 import { varToScreen } from "./BerthInfo";
 // import { number } from "prop-types";
+import { radioOptions } from "./BerthAdvertInfo";
+
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function BerthSearch() {
@@ -349,6 +351,7 @@ export default function BerthSearch() {
                             fromValue={fromValue}
                             toValue={toValue}
                             setFromValue={setFromValue}
+                            radioOptions={radioOptions}
                             setToValue={setToValue}
                           />
                         }
