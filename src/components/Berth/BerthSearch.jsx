@@ -1,6 +1,7 @@
 import { Form, Container, Row, Col } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import DropdownWithCheckBoxes from "../DropdownWithCheckBoxes2";
+import RangeInput from "../RangeInput";
 import Loader from "../Loader";
 import BerthCard from "../BerthCard";
 import ResetBar from "../ResetBar";
@@ -10,6 +11,9 @@ const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function BerthSearch() {
   const [page, setPage] = useState(0);
+  
+  const [fromValue, setFromValue] = useState("");
+  const [toValue, setToValue] = useState("");
   // const [lastpage, setLastPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [allSelectedOptions, setAllSelectedOptions] = useState([]);
@@ -107,17 +111,19 @@ export default function BerthSearch() {
     accessibleRestroomsAndShowers: [],
   });
 
-  const [connectivityAndTransportation, setconnectivityAndTransportation] = useState({
-    taxiServices: [],
-  });
+  const [connectivityAndTransportation, setconnectivityAndTransportation] =
+    useState({
+      taxiServices: [],
+    });
 
-  const [environmentalConsiderations, setEnvironmentalConsiderations] = useState({
-    wasteDisposal: [],
-    waterHookupSpecifications: [],
-  });
+  const [environmentalConsiderations, setEnvironmentalConsiderations] =
+    useState({
+      wasteDisposal: [],
+      waterHookupSpecifications: [],
+    });
 
   const [securityAndSafety, setSecurityAndSafety] = useState({
-   fireSafetyEquipment: [],
+    fireSafetyEquipment: [],
     firstAidKits: [],
     securityPatrol: [],
     cctvSurveillance: [],
@@ -200,8 +206,6 @@ export default function BerthSearch() {
 
   function setFilters(key, data) {
     const setStateFunction = setStateFunctions[key];
-    console.log(key);
-    console.log(data);
     if (setStateFunction) {
       setStateFunction(data);
     } else {
@@ -216,7 +220,7 @@ export default function BerthSearch() {
     setPage(newPage);
   };
 
-  const URL = apiUrl +"/search_berth/";
+  const URL = apiUrl + "/search_berth/";
 
   // fetch all the count of the available columns
   var data;
@@ -236,7 +240,6 @@ export default function BerthSearch() {
         });
 
         data = await response.json();
-        // console.log(data.res);
         setFilters(key, data.res);
       } catch (err) {
         console.log(err);
@@ -260,7 +263,7 @@ export default function BerthSearch() {
     }
 
     console.log(filters);
-  }, []);
+  }, [filters]);
 
   const [trailers, setTrailers] = useState([]);
 
@@ -281,9 +284,7 @@ export default function BerthSearch() {
         });
 
         const data = await response.json();
-        console.log(data);
         setTrailers(data.res[0]);
-        console.log("trailers", trailers);
       } catch (err) {
         console.log(err);
       } finally {
@@ -294,7 +295,7 @@ export default function BerthSearch() {
     };
 
     fetchTrailerData();
-  }, [allSelectedOptions, page]);
+  }, [allSelectedOptions, page, URL]);
 
   return (
     <Container>
@@ -303,7 +304,7 @@ export default function BerthSearch() {
           <Row>
             <h4
               className="py-3"
-              // style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
+            // style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
             >
               Search For Berth
             </h4>
@@ -334,13 +335,23 @@ export default function BerthSearch() {
                   <Row key={key2} className="row-margin">
                     <Col md={12}>
                       <Form.Group>
-                        <DropdownWithCheckBoxes
-                          heading={key2}
-                          title={varToScreen[key2]}
-                          options={filters[key][key2]}
-                          selectedOptions={allSelectedOptions}
-                          setSelectedOptions={setAllSelectedOptions}
-                        />
+                        { varToScreen[key2] != 'length' || varToScreen[key2] != 'Length' &&
+                          <DropdownWithCheckBoxes
+                            heading={key2}
+                            title={varToScreen[key2]}
+                            options={filters[key][key2]}
+                            selectedOptions={allSelectedOptions}
+                            setSelectedOptions={setAllSelectedOptions}
+                          />
+                        }
+                        { varToScreen[key2] == 'length' || varToScreen[key2] == 'Length' &&
+                          <RangeInput
+                            fromValue={fromValue}
+                            toValue={toValue}
+                            setFromValue={setFromValue}
+                            setToValue={setToValue}
+                          />
+                        }
                       </Form.Group>
                     </Col>
                   </Row>
@@ -414,7 +425,7 @@ export default function BerthSearch() {
               </button> */}
               <button
                 onClick={() => handlePageChange(page + 1)}
-                // disabled={page === pagination.totalPages}
+              // disabled={page === pagination.totalPages}
               >
                 Next
               </button>
