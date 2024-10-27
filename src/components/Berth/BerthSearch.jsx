@@ -337,7 +337,7 @@ export default function BerthSearch() {
                   <Row key={key2} className="row-margin">
                     <Col md={12}>
                       <Form.Group>
-                        { varToScreen[key2] != 'length' || varToScreen[key2] != 'Length' &&
+                        { varToScreen[key2] != 'Length' &&
                           <DropdownWithCheckBoxes
                             heading={key2}
                             title={varToScreen[key2]}
@@ -346,14 +346,17 @@ export default function BerthSearch() {
                             setSelectedOptions={setAllSelectedOptions}
                           />
                         }
-                        { varToScreen[key2] == 'length' || varToScreen[key2] == 'Length' &&
+                        { varToScreen[key2] == 'Length' &&
+                          <>
                           <RangeInput
+                            title={varToScreen[key2]}
                             fromValue={fromValue}
                             toValue={toValue}
                             setFromValue={setFromValue}
                             radioOptions={radioOptions}
                             setToValue={setToValue}
                           />
+                          </>
                         }
                       </Form.Group>
                     </Col>
