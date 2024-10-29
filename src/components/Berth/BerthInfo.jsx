@@ -542,3 +542,11 @@ export const varToDb = {
     // uploadVideos: "Upload Videos",
 }
 
+export const defaultUnit = {
+    length: "Meters",
+    beam: "Meters",
+    draft: "Meters",
+    slipWidth: "Meters",
+    slipLength: "Meters",
+}
+

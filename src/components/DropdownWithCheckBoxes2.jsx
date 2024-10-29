@@ -3,6 +3,7 @@ import { Form } from "react-bootstrap";
 import PropTypes from "prop-types";
 
 const DropdownWithCheckBoxes = ({
+  defaultUnit,
   heading,
   title,
   options,
@@ -44,6 +45,7 @@ const DropdownWithCheckBoxes = ({
       );
     }
   }, [inputText, options]);
+  const placeholder = defaultUnit ? `Search in ${defaultUnit}..` : 'Search...';
 
   return (
     <div className="custom-dropdown-container">
@@ -71,12 +73,13 @@ const DropdownWithCheckBoxes = ({
           </svg>
         </span>
       </div>
+
       {isOpen && (
         <div>
           {options.length > 5 ? (
             <input
               type="text"
-              placeholder="Search.."
+              placeholder={placeholder}
               id="myInput"
               style={{
                 width: "100%",
@@ -129,6 +132,7 @@ DropdownWithCheckBoxes.propTypes = {
   options: PropTypes.arrayOf(PropTypes.array).isRequired,
   selectedOptions: PropTypes.object.isRequired,
   setSelectedOptions: PropTypes.func.isRequired,
+  defaultUnit: PropTypes.string,
 };
 
 export default DropdownWithCheckBoxes;

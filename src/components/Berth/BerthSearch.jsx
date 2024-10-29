@@ -5,7 +5,7 @@ import RangeInput from "../RangeInput";
 import Loader from "../Loader";
 import BerthCard from "../BerthCard";
 import ResetBar from "../ResetBar";
-import { varToScreen } from "./BerthInfo";
+import { varToScreen, defaultUnit } from "./BerthInfo";
 import { radioOptions } from "./BerthAdvertInfo";
 
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
@@ -314,6 +314,7 @@ export default function BerthSearch() {
                             options={filters[key][key2]}
                             selectedOptions={allSelectedOptions}
                             setSelectedOptions={setAllSelectedOptions}
+                            defaultUnit={defaultUnit[key2] || ""}
                           />
                         )}
                         {varToScreen[key2] == "Length" && (
