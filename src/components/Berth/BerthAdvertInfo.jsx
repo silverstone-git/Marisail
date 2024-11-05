@@ -36,11 +36,11 @@ export const typeDef = {
         boatSlipSizes: { value: "", type: "radio", mandatory: true },
         numberBerthsAvailable: { value: "", type: "radio", mandatory: true },
         length: { value: "", type: "dual", mandatory: true },
-        beam: { value: "", type: "radio", mandatory: true },
-        draft: { value: "", type: "radio", mandatory: true },
-        slipWidth: { value: "", type: "radio", mandatory: true },
-        slipDepth: { value: "", type: "radio", mandatory: true },
-        slipLength: { value: "", type: "radio", mandatory: true },
+        beam: { value: "", type: "dual", mandatory: true },
+        draft: { value: "", type: "dual", mandatory: true },
+        slipWidth: { value: "", type: "dual", mandatory: true },
+        slipDepth: { value: "", type: "dual", mandatory: true },
+        slipLength: { value: "", type: "dual", mandatory: true },
         mooringType: { value: "", type: "radio", mandatory: true },
         tideRange: { value: "", type: "radio", mandatory: true },
     },
@@ -210,7 +210,7 @@ export const typeDef = {
         shelterAndProtection: { value: "", type: "radio", mandatory: false },
         prevailingWinds: { value: "", type: "radio", mandatory: false },
         seaConditions: { value: "", type: "radio", mandatory: false },
-        breakwaterTypes: { value: "", type: "radio", mandatory: false },
+        breakwaterTypes: { value: "", type: "dual", mandatory: false },
         weatherShelters: { value: "", type: "radio", mandatory: false },
         stormPreparationServices: { value: "", type: "radio", mandatory: false },
         floatingDockAvailability: { value: "", type: "radio", mandatory: false },
@@ -291,6 +291,6 @@ export const typeDef = {
 };
 
 export const radioOptions = [
-    { label: "Feet", value: "ft" },
-    { label: "Meters", value: "mtrs" },
+    { label: "Feet", value: "ft", id:1 },
+    { label: "Meters", value: "mtrs", id:2 },
 ];

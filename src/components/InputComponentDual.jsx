@@ -15,13 +15,18 @@ function InputComponentDual({
   const [inputText, setInputText] = useState(value);
   const [selectedRadio, setSelectedRadio] = useState(radioOptions.length > 0 ? radioOptions[0].value : "" );
 
+  console.log("001 label---",label,"----value---",value, "----formType---",formType, "----radioOptions----",radioOptions);
   const handleInputChange = (e) => {
+    console.log("001 e target---",e.target.value);
+    
     setInputText(e.target.value);
     setValue(e.target.value);
   };
 
   const handleRadioChange = (e) => {
+    console.log("001 radio change event---",e.target.value);
     setSelectedRadio(e.target.value);
+    setValue(e.target.value);
   };
 
   useEffect(() => {
@@ -75,20 +80,20 @@ function InputComponentDual({
                     }}
                     
                   >
-                    {radioOptions.map((option, index) => (
-                      <div key={index}>
+                    {radioOptions.map((option) => (
+                      <div key={option.id}>
                         <input
                           type="radio"
                           className="btn-check"
-                          name="btnradio"
-                          id={`btnradio${index}`}
+                          name={`btnradio-${label}`}
+                          id={`btnradio${option.id}`}
                           value={option.value}
                           onChange={handleRadioChange}
                           checked={selectedRadio === option.value}
                         />
                         <label
                           className="btn btn-outline-primary"
-                          htmlFor={`btnradio${index}`}
+                          htmlFor={`btnradio${option.id}`}
                         >
                           {option.label}
                         </label>

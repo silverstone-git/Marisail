@@ -549,6 +549,10 @@ export default function BerthAdvert() {
     };
 
     const handleInputChange = (title, fieldKey, newValue) => {
+      console.log("001 title--",title);
+      console.log("001 fieldKey--",fieldKey);
+      console.log("001 newValue--",newValue);
+        
       setBerths((prevBerths) => ({
         ...prevBerths,
         [title]: {
@@ -568,7 +572,7 @@ export default function BerthAdvert() {
                 hasFetched.current = true;
             }
         }
-    }, [setPageData]);
+    }, [setPageData, fetchDistinctData]);
 
     const errorDisplay = (fieldName) => {
         return (
