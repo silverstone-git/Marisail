@@ -1,12 +1,14 @@
 import { Form, Container, Row, Col } from "react-bootstrap";
 import { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom"; 
 import DropdownWithRadio from "../DropdownWithRadio";
 import Loader from "../Loader";
 import InputComponentDynamic from "../InputComponentDynamic";
 import SubmitButton from "../SubmitButton";
 import { keyToExpectedValueMap, typeDef } from "./TrailerAdvertInfo";
 import { makeString } from "../../services/common_functions";
-import { useNavigate } from "react-router-dom"; 
+import InputComponentDual from "../InputComponentDual";
+
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function TrailersAdvert() {
@@ -589,7 +591,36 @@ export default function TrailersAdvert() {
                         )}
                       </Col>
                     );
-                  }
+                  } else if (field && field.type === "dual") {
+                    return (
+                        <Col
+                            md={12}
+                            className="mr-3"
+                            key={fieldKey}
+                            style={{ width: 480 }}
+                        >
+                            <InputComponentDual
+                                label={makeString(fieldKey, keyToExpectedValueMap)}
+                                value={trailers[title]?.[fieldKey] || ""}
+                                setValue={(e) =>
+                                    handleInputChange(title, fieldKey, e.target.value)
+                                }
+                                formType="number"
+                                setOpenKey={setOpenKey}
+                                openKey={openKey || ""}
+                                isMandatory={field.mandatory}
+                                radioOptions={field?.radioOptions}
+                            />
+                            {error[`${fieldKey}`] && (
+                                <div>
+                                    {errorDisplay(
+                                        makeString(fieldKey, keyToExpectedValueMap)
+                                    )}
+                                </div>
+                            )}
+                        </Col>
+                    );
+                }
                   return null;
                 })}
               </Col>

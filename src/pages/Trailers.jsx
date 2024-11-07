@@ -10,7 +10,7 @@ const Trailers = ({ type }) => {
         overflow: "hidden",
       }}
     >
-      {type === "trailers" ? <TrailersAdvert /> : <TrailersSearch />}
+      {type === "trailers" ? <TrailersSearch /> : <TrailersAdvert />}
     </main>
   );
 };
