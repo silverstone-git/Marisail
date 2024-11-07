@@ -68,9 +68,10 @@ function InputComponentDual({
                     style={{
                       border: "1px solid #ccc",
                       borderRadius: "17px",
-                      width: "100%",
+                      width: "65%",
                       display: "flex",
                       justifyContent: "space-around",
+                      gap: "0px"
                     }}
                   >
                     {radioOptions.map((option) => (
@@ -87,6 +88,13 @@ function InputComponentDual({
                         <label
                           className="btn btn-outline-primary"
                           htmlFor={`btnradio-${label}-${option.value}`}
+                          style={{
+                            width: "100%",
+                            padding: "5px 10px",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
                         >
                           {option.label}
                         </label>

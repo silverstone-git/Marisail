@@ -16,8 +16,8 @@ export const keyToExpectedValueMap = {
 };
 
 export const radioOptions = [
-    { label: "Feet", value: "ft", id:1 },
-    { label: "Meters", value: "mtrs", id:2 },
+    { label: "ft", value: "ft", id:1 },
+    { label: "mtrs", value: "mtrs", id:2 },
 ];
 
 export const typeDef = {
@@ -115,8 +115,8 @@ export const typeDef = {
             type: "dual",
             mandatory: true,
             radioOptions: [
-                { label: "Feet", value: "ft", id: 1 },
-                { label: "Meters", value: "mtrs", id: 2 },
+                { label: "ft", value: "ft", id: 1 },
+                { label: "mtrs", value: "mtrs", id: 2 },
             ],
         },
         beam: {
@@ -124,8 +124,8 @@ export const typeDef = {
             type: "dual",
             mandatory: true,
             radioOptions: [
-                { label: "Feet", value: "ft", id: 1 },
-                { label: "Meters", value: "mtrs", id: 2 },
+                { label: "ft", value: "ft", id: 1 },
+                { label: "mtrs", value: "mtrs", id: 2 },
             ],
         },
         draft: {
@@ -133,8 +133,8 @@ export const typeDef = {
             type: "dual",
             mandatory: true,
             radioOptions: [
-                { label: "Feet", value: "ft", id: 1 },
-                { label: "Meters", value: "mtrs", id: 2 },
+                { label: "ft", value: "ft", id: 1 },
+                { label: "mtrs", value: "mtrs", id: 2 },
             ],
         },
         slipWidth: {
@@ -142,8 +142,8 @@ export const typeDef = {
             type: "dual",
             mandatory: true,
             radioOptions: [
-                { label: "Feet", value: "ft", id: 1 },
-                { label: "Meters", value: "mtrs", id: 2 },
+                { label: "ft", value: "ft", id: 1 },
+                { label: "mtrs", value: "mtrs", id: 2 },
             ],
         },
         slipDepth: {
@@ -151,8 +151,8 @@ export const typeDef = {
             type: "dual",
             mandatory: true,
             radioOptions: [
-                { label: "Feet", value: "ft", id: 1 },
-                { label: "Meters", value: "mtrs", id: 2 },
+                { label: "ft", value: "ft", id: 1 },
+                { label: "mtrs", value: "mtrs", id: 2 },
             ],
         },
         slipLength: {
@@ -160,8 +160,8 @@ export const typeDef = {
             type: "dual",
             mandatory: true,
             radioOptions: [
-                { label: "Feet", value: "ft", id: 1 },
-                { label: "Meters", value: "mtrs", id: 2 },
+                { label: "ft", value: "ft", id: 1 },
+                { label: "mtrs", value: "mtrs", id: 2 },
             ],
         },
         mooringType: {
@@ -939,8 +939,8 @@ export const typeDef = {
             type: "dual",
             mandatory: false,
             radioOptions: [
-                { label: "HP", value: "Hp", id: 1 },
-                { label: "KW", value: "Kw", id: 2 },
+                { label: "hp", value: "hp", id: 1 },
+                { label: "kW", value: "kW", id: 2 },
             ],
         },
         weatherShelters: {
