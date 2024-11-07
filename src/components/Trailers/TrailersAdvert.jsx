@@ -1,6 +1,6 @@
 import { Form, Container, Row, Col } from "react-bootstrap";
 import { useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import DropdownWithRadio from "../DropdownWithRadio";
 import Loader from "../Loader";
 import InputComponentDynamic from "../InputComponentDynamic";
@@ -12,7 +12,7 @@ import InputComponentDual from "../InputComponentDual";
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function TrailersAdvert() {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [error, setError] = useState({});
   const hasFetched = useRef(false);
   const [trailers, setTrailers] = useState("");
@@ -318,19 +318,19 @@ export default function TrailersAdvert() {
     }
   };
   const handleSubmit = (e) => {
-      e.preventDefault();
-      try {
-          // if (checkRequired()) {
-              console.log("001 Form is valid, submitting...");
-              localStorage.setItem("TrailerData", JSON.stringify(allSelectedOptions));
-              navigate("/view-trailer");
-              // localStorage.setItem("advertise_engine", JSON.stringify(form));
-          // } else {
-          //     console.warn(error);
-          // }
-      } catch (error) {
-          console.error(error);
-      }
+    e.preventDefault();
+    try {
+      // if (checkRequired()) {
+      console.log("001 Form is valid, submitting...");
+      localStorage.setItem("TrailerData", JSON.stringify(allSelectedOptions));
+      navigate("/view-trailer");
+      // localStorage.setItem("advertise_engine", JSON.stringify(form));
+      // } else {
+      //     console.warn(error);
+      // }
+    } catch (error) {
+      console.error(error);
+    }
   };
   function setPageData(key, newData) {
     const setStateFunction = setStateFunctions[key];
@@ -345,7 +345,7 @@ export default function TrailersAdvert() {
   }
 
   const cacheKey = "trailersFilterData";
-  const URL = apiUrl +"/trailers/";
+  const URL = apiUrl + "/trailers/";
 
   const fetchDistinctData = async () => {
     try {
@@ -593,34 +593,34 @@ export default function TrailersAdvert() {
                     );
                   } else if (field && field.type === "dual") {
                     return (
-                        <Col
-                            md={12}
-                            className="mr-3"
-                            key={fieldKey}
-                            style={{ width: 480 }}
-                        >
-                            <InputComponentDual
-                                label={makeString(fieldKey, keyToExpectedValueMap)}
-                                value={trailers[title]?.[fieldKey] || ""}
-                                setValue={(e) =>
-                                    handleInputChange(title, fieldKey, e.target.value)
-                                }
-                                formType="number"
-                                setOpenKey={setOpenKey}
-                                openKey={openKey || ""}
-                                isMandatory={field.mandatory}
-                                radioOptions={field?.radioOptions}
-                            />
-                            {error[`${fieldKey}`] && (
-                                <div>
-                                    {errorDisplay(
-                                        makeString(fieldKey, keyToExpectedValueMap)
-                                    )}
-                                </div>
+                      <Col
+                        md={12}
+                        className="mr-3"
+                        key={fieldKey}
+                        style={{ width: 480 }}
+                      >
+                        <InputComponentDual
+                          label={makeString(fieldKey, keyToExpectedValueMap)}
+                          value={trailers[title]?.[fieldKey] || ""}
+                          setValue={(e) =>
+                            handleInputChange(title, fieldKey, e.target.value)
+                          }
+                          formType="number"
+                          setOpenKey={setOpenKey}
+                          openKey={openKey || ""}
+                          isMandatory={field.mandatory}
+                          radioOptions={field?.radioOptions}
+                        />
+                        {error[`${fieldKey}`] && (
+                          <div>
+                            {errorDisplay(
+                              makeString(fieldKey, keyToExpectedValueMap)
                             )}
-                        </Col>
+                          </div>
+                        )}
+                      </Col>
                     );
-                }
+                  }
                   return null;
                 })}
               </Col>

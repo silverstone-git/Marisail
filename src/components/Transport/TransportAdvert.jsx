@@ -1,20 +1,22 @@
 import { Form, Container, Row, Col } from "react-bootstrap";
 import { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom"; 
 import DropdownWithRadio from "../DropdownWithRadio";
 import Loader from "../Loader";
 import InputComponentDynamic from "../InputComponentDynamic";
 import SubmitButton from "../SubmitButton";
 import { keyToExpectedValueMap, typeDef } from "./TransportAdvertInfo";
 import { makeString } from "../../services/common_functions";
-import { useNavigate } from "react-router-dom"; 
-import DatePickerComponent from "../DatePickerComponent"
+import DatePickerComponent from "../DatePickerComponent";
+import InputComponentDual from "../InputComponentDual";
+
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function TransportAdvert() {
     const navigate = useNavigate(); 
     const [error, setError] = useState({});
     const hasFetched = useRef(false);
-    const [engines, setEngines] = useState("");
+    const [transport, setTransport] = useState("");
     const [openKey, setOpenKey] = useState(null);
     const [loading, setLoading] = useState(false);
     const [allSelectedOptions, setAllSelectedOptions] = useState({});
@@ -414,7 +416,7 @@ export default function TransportAdvert() {
     }, [setPageData]);
 
     const handleInputChange = (title, fieldKey, newValue) => {
-        setEngines((oldValue) => ({
+        setTransport((oldValue) => ({
             ...oldValue,
             [title]: {
                 ...oldValue[title],
@@ -494,7 +496,7 @@ export default function TransportAdvert() {
                                             >
                                                 <InputComponentDynamic
                                                     label={makeString(fieldKey, keyToExpectedValueMap)}
-                                                    value={engines[title]?.[fieldKey] || ""}
+                                                    value={transport[title]?.[fieldKey] || ""}
                                                     setValue={(e) =>
                                                         handleInputChange(title, fieldKey, e.target.value)
                                                     }
@@ -522,7 +524,7 @@ export default function TransportAdvert() {
                                             >
                                                 <DatePickerComponent
                                                     label={makeString(fieldKey, keyToExpectedValueMap)}
-                                                    value={engines[title]?.[fieldKey] || ""}
+                                                    value={transport[title]?.[fieldKey] || ""}
                                                     setValue={(e) =>
                                                         handleInputChange(title, fieldKey, e.target.value)
                                                     }
@@ -530,6 +532,35 @@ export default function TransportAdvert() {
                                                     setOpenKey={setOpenKey}
                                                     openKey={openKey}
                                                     isMandatory={field.mandatory}
+                                                />
+                                                {error[`${fieldKey}`] && (
+                                                    <div>
+                                                        {errorDisplay(
+                                                            makeString(fieldKey, keyToExpectedValueMap)
+                                                        )}
+                                                    </div>
+                                                )}
+                                            </Col>
+                                        );
+                                    } else if (field && field.type === "dual") {
+                                        return (
+                                            <Col
+                                                md={12}
+                                                className="mr-3"
+                                                key={fieldKey}
+                                                style={{ width: 480 }}
+                                            >
+                                                <InputComponentDual
+                                                    label={makeString(fieldKey, keyToExpectedValueMap)}
+                                                    value={transport[title]?.[fieldKey] || ""}
+                                                    setValue={(e) =>
+                                                        handleInputChange(title, fieldKey, e.target.value)
+                                                    }
+                                                    formType="number"
+                                                    setOpenKey={setOpenKey}
+                                                    openKey={openKey || ""}
+                                                    isMandatory={field.mandatory}
+                                                    radioOptions={field?.radioOptions}
                                                 />
                                                 {error[`${fieldKey}`] && (
                                                     <div>
