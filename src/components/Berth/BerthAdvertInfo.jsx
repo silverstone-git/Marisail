@@ -15,6 +15,11 @@ export const keyToExpectedValueMap = {
     price_pcm: "Price PCM",
 };
 
+export const radioOptions = [
+    { label: "Feet", value: "ft", id:1 },
+    { label: "Meters", value: "mtrs", id:2 },
+];
+
 export const typeDef = {
     siteDetails: {
         marisailBerthId: { value: "", type: "radio", mandatory: true },
@@ -289,8 +294,3 @@ export const typeDef = {
         totalPrice: { value: "", type: "radio", mandatory: false },
     },
 };
-
-export const radioOptions = [
-    { label: "Feet", value: "ft", id:1 },
-    { label: "Meters", value: "mtrs", id:2 },
-];
