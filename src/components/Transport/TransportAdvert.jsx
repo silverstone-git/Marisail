@@ -5,7 +5,7 @@ import DropdownWithRadio from "../DropdownWithRadio";
 import Loader from "../Loader";
 import SubmitButton from "../SubmitButton";
 import { keyToExpectedValueMap, typeDef } from "./TransportAdvertInfo";
-import { makeString, convertToDefaultUnit } from "../../services/common_functions";
+import { makeString, convertUnitsInFormData } from "../../services/common_functions";
 import DatePickerComponent from "../DatePickerComponent";
 import InputComponentDual from "../InputComponentDual";
 
@@ -232,15 +232,14 @@ export default function TransportAdvert() {
                 [fieldKey]: { value: inputValue, unit: radioValue },
             },
         }));
-    };
-    
+    };    
     const handleOptionSelect = (category, field, selectedOption) => {
         setAllSelectedOptions((prevState) => {
             const updatedOptions = {
                 ...prevState,
                 [category]: {
                     ...prevState[category],
-                    [field]: selectedOption,
+                    [field]: { value: selectedOption, unit: null },
                 },
             };
             return updatedOptions;
@@ -249,7 +248,7 @@ export default function TransportAdvert() {
     const handleSubmit = (e) => {
         e.preventDefault();
         try {
-            // convertToDefaultUnit()
+            convertUnitsInFormData(allSelectedOptions);
             // if (checkRequired()) {
             // If no errors, proceed with form submission logic
             console.log("001 Form is valid, submitting...", allSelectedOptions);
@@ -458,7 +457,7 @@ export default function TransportAdvert() {
                                                         title={makeString(fieldKey, keyToExpectedValueMap)}
                                                         options={sections[title][fieldKey]}
                                                         selectedOption={
-                                                            allSelectedOptions[title]?.[fieldKey] || ""
+                                                            allSelectedOptions[title]?.[fieldKey]?.value || ""
                                                         }
                                                         setSelectedOption={(selectedOption) =>
                                                             handleOptionSelect(
