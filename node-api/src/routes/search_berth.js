@@ -1,14 +1,15 @@
 import { Router } from "express";
 import dbConnection from "../config/dbConfig.js";
-import { varToColumn, varToTable, uniqueTable } from "../config/berthSearchConfig.js";
+import {
+  varToColumn,
+  varToTable,
+  uniqueTable,
+} from "../config/berthSearchConfig.js";
 
 const searchBerthRouter = Router();
 
 searchBerthRouter.get("/berths", async (req, res) => {
   let connection;
-
-  // console.log(req.headers);
-
   try {
     var tableNames = [];
     connection = await dbConnection.getConnection();
@@ -22,15 +23,11 @@ searchBerthRouter.get("/berths", async (req, res) => {
 
     // Check if the column exists
     if (columnCheck[0].length > 0) {
-      console.log(columnCheck);
-      console.log("inside if");
       const tables = await connection.query(
         `SELECT Site_Details, COUNT(*) AS occurrence_cnt 
              FROM Marina_Port 
              GROUP BY Site_Details;`
       );
-
-      console.log(tables[0]);
       tableNames = tables[0].map((table) => Object.values(table));
     }
     return res.status(200).json({ ok: true, tables: tableNames });
@@ -43,13 +40,8 @@ searchBerthRouter.get("/berths", async (req, res) => {
 
 searchBerthRouter.post("/berths", async (req, res) => {
   let connection;
-
-  // console.log(req.body);
   const filter = req.body.filter;
   const tableName = varToTable[req.body.tableName];
-  // console.log("filter", filter);
-  // console.log("req.body", req.body);
-
   try {
     connection = await dbConnection.getConnection();
 
@@ -64,17 +56,33 @@ searchBerthRouter.post("/berths", async (req, res) => {
 
       // Check if the column exists
       if (columnCheck[0].length > 0) {
-        // console.log(columnCheck )
-        // console.log("inside if");
-        const tables = await connection.query(
-          `SELECT ${varToColumn[key]}, COUNT(*) AS occurrence_cnt 
-                 FROM ${tableName} 
-                 GROUP BY ${varToColumn[key]};`
-        );
-
-        console.log(tables[0]);
+        let tables;
+        if (varToColumn[key] == "Beam") {
+          //add dynamic coding here so that any no.of keys can be added
+          tables = await connection.query(
+            `SELECT 
+              CONCAT(FLOOR(( ${varToColumn[key]} - 1) / 10) * 10 + 1, '-', FLOOR(( ${varToColumn[key]} - 1) / 10) * 10 + 10) AS  ${varToColumn[key]}_Range,
+              COUNT(*) AS occurrence_cnt
+            FROM ${tableName} WHERE  ${varToColumn[key]} >= 1
+            GROUP BY  ${varToColumn[key]}_Range
+            ORDER BY  ${varToColumn[key]}_Range;
+            `
+          );
+          console.log(
+            "001 key--",
+            tables[0].map((table) => Object.values(table))
+          );
+        } else {
+          tables = await connection.query(
+            `SELECT ${varToColumn[key]}, COUNT(*) AS occurrence_cnt 
+              FROM ${tableName} 
+              GROUP BY ${varToColumn[key]};
+            `
+          );
+        }
+        // console.log("001 key--",filter[key]?.beam != undefined ? tables[0].map((table) => Object.values(table)): "" );
         filter[key] = tables[0].map((table) => Object.values(table));
-        // console.log(filter);
+        // console.log("001 key--",tables[0].map((table) => Object.values(table)));
       }
     }
 
@@ -88,27 +96,17 @@ searchBerthRouter.post("/berths", async (req, res) => {
 
 searchBerthRouter.post("/berthsData", async (req, res) => {
   let connection;
-
-  console.log(req.body);
-
   var page = req.body.page;
   var filter = {};
   for (const key of Object.keys(req.body.selectedOptions)) {
     let val = key,
       key2 = req.body.selectedOptions[key];
-    console.log(key2);
-    console.log(val);
-
     if (filter[key2] === undefined) {
       filter[key2] = [val];
     } else {
       filter[key2].push(val);
     }
-
-    // console.log(key);
-    // console.log(req.body[key]);
   }
-  console.log(filter);
 
   try {
     connection = await dbConnection.getConnection();
@@ -122,8 +120,6 @@ searchBerthRouter.post("/berthsData", async (req, res) => {
       basic += `WHERE `;
 
       for (const key of Object.keys(filter)) {
-        // console.log(key);
-        // console.log(filter[key]);
         var temp = `${key} IN (`;
         for (const val of filter[key]) {
           temp += `'${val}',`;
@@ -135,15 +131,10 @@ searchBerthRouter.post("/berthsData", async (req, res) => {
 
       basic = basic.slice(0, -3);
     }
-      
+
     basic += `LIMIT 60 OFFSET ${page * 30};`;
     basic += `;`;
-    console.log(basic);
-
     const tables = await connection.query(basic);
-
-    console.log(tables);
-
     return res.status(200).json({ ok: true, res: tables });
   } catch (err) {
     return res.status(500).json({ ok: false, message: err.message });
@@ -152,18 +143,12 @@ searchBerthRouter.post("/berthsData", async (req, res) => {
   }
 });
 
-
 searchBerthRouter.get("/berth-detail/:id", async (req, res) => {
-  console.log("Trailer ID:", req.params.id);
-  const { id } = req.params; // Get the engine ID from the URL parameter
-  console.log(id);
+  const { id } = req.params;
   let connection;
-
   try {
     connection = await dbConnection.getConnection();
-
     var query = `SELECT`;
-
     uniqueTable.forEach((table) => {
       query += ` ${table}.*,`;
     });
@@ -176,21 +161,13 @@ searchBerthRouter.get("/berth-detail/:id", async (req, res) => {
     }
 
     query += ` WHERE ${uniqueTable[0]}.Trailer_ID = ${id};`;
-
-    console.log(query);
-
-    const tables = await connection.query(
-      query
-    );
-
-    console.log(tables);
-
-    return res.status(200).json({ ok: true, res: tables});
+    const tables = await connection.query(query);
+    return res.status(200).json({ ok: true, res: tables });
   } catch (err) {
     return res.status(500).json({ ok: false, message: err.message });
   } finally {
     if (connection) connection.release();
   }
-})
+});
 
 export default searchBerthRouter;

@@ -1,47 +1,36 @@
 import { useState, useEffect } from "react";
 import { Form } from "react-bootstrap";
 import PropTypes from "prop-types";
-// import { fetchDistinctValues } from "../api/searchEngineApi";
-// import { set } from "react-datepicker/dist/date_utils";
-// import { set } from "react-datepicker/dist/date_utils";
 
 const DropdownWithCheckBoxes = ({
+  defaultUnit,
   heading,
   title,
   options,
   selectedOptions,
   setSelectedOptions,
 }) => {
-  // const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [inputText, setInputText] = useState("");
   const [list, setList] = useState(options);
-
   const handleDropdownToggle = () => {
     setIsOpen((prev) => !prev);
   };
 
   const inputHandler = (e) => {
     setInputText(e.target.value);
-    // var lowerCase = e.target.value.toLowerCase();
-    console.log(inputText);
   };
 
   const handleOptionChange = (optionName) => {
-    // console.log(optionName);
-    // console.log(heading);
     if (selectedOptions[optionName] !== undefined) {
       setSelectedOptions((prev) => {
         delete prev[optionName];
-        console.log(prev);
         return { ...prev };
       });
     } else {
       setSelectedOptions((prev) => {
         return { ...prev, [optionName]: heading };
       });
-      console.log("selectedOptions", selectedOptions);
     }
   };
 
@@ -56,10 +45,7 @@ const DropdownWithCheckBoxes = ({
       );
     }
   }, [inputText, options]);
-
-  // if (loading) return <p>Loading...</p>;
-  // if (error) return <p>Error: {error}</p>;
-  // console.log("options", options);
+  const placeholder = defaultUnit ? `Search in ${defaultUnit}..` : 'Search...';
 
   return (
     <div className="custom-dropdown-container">
@@ -87,12 +73,13 @@ const DropdownWithCheckBoxes = ({
           </svg>
         </span>
       </div>
+
       {isOpen && (
         <div>
           {options.length > 5 ? (
             <input
               type="text"
-              placeholder="Search.."
+              placeholder={placeholder}
               id="myInput"
               style={{
                 width: "100%",
@@ -118,7 +105,7 @@ const DropdownWithCheckBoxes = ({
                       <Form.Check
                         type="checkbox"
                         name={`checkbox-options`}
-                        label={`${item[0]} (${item[1]})`}
+                        label={`${item[0]}${item[1] !== undefined ? ` (${item[1]})` : ''}`}
                         checked={Boolean(selectedOptions[item[0]])}
                         onChange={() => handleOptionChange(item[0])}
                       />
@@ -145,6 +132,7 @@ DropdownWithCheckBoxes.propTypes = {
   options: PropTypes.arrayOf(PropTypes.array).isRequired,
   selectedOptions: PropTypes.object.isRequired,
   setSelectedOptions: PropTypes.func.isRequired,
+  defaultUnit: PropTypes.string,
 };
 
 export default DropdownWithCheckBoxes;

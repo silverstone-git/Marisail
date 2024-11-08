@@ -10,22 +10,35 @@ function InputComponentDual({
   isMandatory,
   openKey,
   setOpenKey,
+  radioOptions,
+  setSelectedOption
 }) {
   const [inputText, setInputText] = useState(value);
+  const [selectedRadio, setSelectedRadio] = useState(radioOptions.length > 0 ? radioOptions[0].value : "" );
 
   const handleInputChange = (e) => {
-    setInputText(e.target.value);
-    setValue(e);
-  };
+    const inputValue = e.target.value;
+    setInputText(inputValue);
+    setSelectedOption(inputValue, selectedRadio);
+};
 
-  // const [selectValue, setSelectValue] = useState("Yes");
-  /*const handleSelectChange = (e) => {
-    setSelectValue(e.target.value);
-  };*/
+const handleRadioChange = (e) => {
+    const radioValue = e.target.value;
+    setSelectedRadio(radioValue);
+    setSelectedOption(inputText, radioValue);
+};
+
 
   useEffect(() => {
     setInputText(value);
   }, [value]);
+
+  useEffect(() => {
+    if (radioOptions.length > 0) {
+      setSelectedRadio(radioOptions[0]?.value);
+    }
+  }, [radioOptions]);
+  
 
   return (
     <Accordion
@@ -40,7 +53,7 @@ function InputComponentDual({
         </Accordion.Header>
         <Accordion.Body>
           <Form.Group controlId="formGridState">
-            {/* <Row className="d-flex align-items-center">
+            <Row>
               <Col md={8} style={{ display: "flex", alignItems: "center" }}>
                 <Form.Control
                   value={inputText}
@@ -51,65 +64,51 @@ function InputComponentDual({
                   style={{ flexGrow: 1 }}
                 />
               </Col>
-              <Col md={4} style={{ display: "flex", alignItems: "center" }}>
-                <Form.Group controlId="formSelect" className="d-flex">
-                  <Form.Label className="me-2 mt-2">MU</Form.Label>
-                  <Form.Select
-                    value={selectValue}
-                    onChange={handleSelectChange}
-                    name={`${label}_select`}
+
+              {radioOptions.length > 0 && (
+                <Col md={4} style={{ display: "flex", alignItems: "center" }}>
+                  <div
+                    className="btn-group"
+                    role="group"
+                    aria-label="Basic radio toggle button group"
+                    style={{
+                      border: "1px solid #ccc",
+                      borderRadius: "17px",
+                      width: "65%",
+                      display: "flex",
+                      justifyContent: "space-around",
+                      gap: "0px"
+                    }}
                   >
-                    <option value="Ft">Ft</option>
-                    <option value="Mtrs">Mtrs</option>
-                  </Form.Select>
-                </Form.Group>
-              </Col>
-            </Row> */}
-            <Row className="">
-              <Col md={8} style={{ display: "flex", alignItems: "center" }}>
-                <Form.Control
-                  value={inputText}
-                  onChange={handleInputChange}
-                  type={formType}
-                  placeholder=""
-                  name={label}
-                  style={{ flexGrow: 1 }}
-                />
-              </Col>
-              <Col md={4} style={{ display: "flex", alignItems: "center" }}>
-              {/* <Form.Label className="me-2 mt-2">MU</Form.Label> */}
-                <div
-                  className="btn-group"
-                  role="group"
-                  aria-label="Basic radio toggle button group"
-                >
-                  <input
-                    type="radio"
-                    className="btn-check"
-                    name="btnradio"
-                    id="btnradio1"
-                    checked
-                  />
-                  <label
-                    className="btn btn-outline-primary"
-                    htmlFor="btnradio1"
-                  >
-                    Ft
-                  </label>
-                  <input
-                    type="radio"
-                    className="btn-check"
-                    name="btnradio"
-                    id="btnradio2"
-                  />
-                  <label
-                    className="btn btn-outline-primary"
-                    htmlFor="btnradio2"
-                  >
-                    Mtrs
-                  </label>
-                </div>
-              </Col>
+                    {radioOptions.map((option) => (
+                      <div key={option.id}>
+                        <input
+                          type="radio"
+                          className="btn-check"
+                          name={`btnradio-${label}-${option.value}`}
+                          id={`btnradio-${label}-${option.value}`}
+                          value={option.value}
+                          onChange={handleRadioChange}
+                          checked={selectedRadio === option.value}
+                        />
+                        <label
+                          className="btn btn-outline-primary"
+                          htmlFor={`btnradio-${label}-${option.value}`}
+                          style={{
+                            width: "100%",
+                            padding: "5px 10px",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          {option.label}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </Col>
+              )}
             </Row>
           </Form.Group>
         </Accordion.Body>
@@ -123,9 +122,16 @@ InputComponentDual.propTypes = {
   setValue: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
   formType: PropTypes.string.isRequired,
-  isMandatory: PropTypes.bool.isRequired,
+  isMandatory: PropTypes.bool,
   openKey: PropTypes.string.isRequired,
   setOpenKey: PropTypes.func.isRequired,
+  radioOptions: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+    })
+  ),
+  setSelectedOption: PropTypes.func.isRequired,
 };
 
 export default InputComponentDual;

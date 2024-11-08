@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import DropdownWithRadio from "../DropdownWithRadio";
 import Loader from "../Loader";
 import SubmitButton from "../SubmitButton";
-import { keyToExpectedValueMap, typeDef, radioOptions } from "./BerthAdvertInfo";
+import { keyToExpectedValueMap, typeDef } from "./BerthAdvertInfo";
 import { makeString } from "../../services/common_functions";
 import { useNavigate } from "react-router-dom"; 
 import InputComponentDynamic from "../InputComponentDynamic";
@@ -549,6 +549,10 @@ export default function BerthAdvert() {
     };
 
     const handleInputChange = (title, fieldKey, newValue) => {
+      console.log("001 title--",title);
+      console.log("001 fieldKey--",fieldKey);
+      console.log("001 newValue--",newValue);
+        
       setBerths((prevBerths) => ({
         ...prevBerths,
         [title]: {
@@ -568,7 +572,7 @@ export default function BerthAdvert() {
                 hasFetched.current = true;
             }
         }
-    }, [setPageData]);
+    }, [setPageData, fetchDistinctData]);
 
     const errorDisplay = (fieldName) => {
         return (
@@ -677,7 +681,7 @@ export default function BerthAdvert() {
                                                     setOpenKey={setOpenKey}
                                                     openKey={openKey || ""}
                                                     isMandatory={field.mandatory}
-                                                    radioOptions={radioOptions}
+                                                    radioOptions={field?.radioOptions}
                                                 />
                                                 {error[`${fieldKey}`] && (
                                                     <div>

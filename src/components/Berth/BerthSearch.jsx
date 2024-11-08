@@ -1,39 +1,26 @@
 import { Form, Container, Row, Col } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import DropdownWithCheckBoxes from "../DropdownWithCheckBoxes2";
+import RangeInput from "../RangeInput";
 import Loader from "../Loader";
 import BerthCard from "../BerthCard";
 import ResetBar from "../ResetBar";
-import { varToScreen } from "./BerthInfo";
-// import { number } from "prop-types";
+import { varToScreen, defaultUnit } from "./BerthInfo";
+import { radioOptions } from "./BerthAdvertInfo";
+
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function BerthSearch() {
   const [page, setPage] = useState(0);
-  // const [lastpage, setLastPage] = useState(1);
+  const [fromValue, setFromValue] = useState("");
+  const [toValue, setToValue] = useState("");
   const [loading, setLoading] = useState(true);
   const [allSelectedOptions, setAllSelectedOptions] = useState([]);
   const [siteDetails, setSiteDetails] = useState({
     siteDetails: [],
-    termsAndConditions: [
-      // ["Venture", 5],
-      // ["Karavan", 5],
-      // ["manufacturerr", 5],
-      // ["manufacturerrr", 5],
-      // ["manufacturerrrr", 5],
-    ],
-    type: [
-      // ["P5", 5],
-      // ["GD85", 5],
-      // ["makeee", 5],
-      // ["makeeee", 5],
-      // ["makeeeee", 5],
-    ],
-    marinaName: [
-      // ["Premium", 5],
-      // ["Deluxe", 5],
-      // ["Pro", 5],
-    ],
+    termsAndConditions: [],
+    type: [],
+    marinaName: [],
     location: [],
     ownership: [],
     yearEstablished: [],
@@ -107,17 +94,19 @@ export default function BerthSearch() {
     accessibleRestroomsAndShowers: [],
   });
 
-  const [connectivityAndTransportation, setconnectivityAndTransportation] = useState({
-    taxiServices: [],
-  });
+  const [connectivityAndTransportation, setconnectivityAndTransportation] =
+    useState({
+      taxiServices: [],
+    });
 
-  const [environmentalConsiderations, setEnvironmentalConsiderations] = useState({
-    wasteDisposal: [],
-    waterHookupSpecifications: [],
-  });
+  const [environmentalConsiderations, setEnvironmentalConsiderations] =
+    useState({
+      wasteDisposal: [],
+      waterHookupSpecifications: [],
+    });
 
   const [securityAndSafety, setSecurityAndSafety] = useState({
-   fireSafetyEquipment: [],
+    fireSafetyEquipment: [],
     firstAidKits: [],
     securityPatrol: [],
     cctvSurveillance: [],
@@ -185,8 +174,6 @@ export default function BerthSearch() {
     });
   });
 
-  // console.log(lookUpTable);
-
   function removeTag(tag) {
     setAllSelectedOptions((prev) => {
       delete prev[tag];
@@ -200,15 +187,11 @@ export default function BerthSearch() {
 
   function setFilters(key, data) {
     const setStateFunction = setStateFunctions[key];
-    console.log(key);
-    console.log(data);
     if (setStateFunction) {
       setStateFunction(data);
     } else {
       console.error(`No setState function found for key: ${key}`);
     }
-
-    console.log("Data fetched from API", filters);
   }
 
   const cacheKey = "trailersFilterData";
@@ -216,13 +199,12 @@ export default function BerthSearch() {
     setPage(newPage);
   };
 
-  const URL = apiUrl +"/search_berth/";
+  const URL = apiUrl + "/search_berth/";
 
   // fetch all the count of the available columns
   var data;
   const fetchFilterData = async () => {
     for (const key of Object.keys(filters)) {
-      console.log("filters", filters[key]);
       try {
         const response = await fetch(`${URL}berths`, {
           method: "POST",
@@ -236,17 +218,13 @@ export default function BerthSearch() {
         });
 
         data = await response.json();
-        // console.log(data.res);
         setFilters(key, data.res);
       } catch (err) {
         console.log(err);
       } finally {
-        // console.log("done");
+        console.log("done");
       }
     }
-
-    // console.log("Data fetched from API", filters);
-    // localStorage.setItem(cacheKey, JSON.stringify(filters));
   };
 
   useEffect(() => {
@@ -258,11 +236,9 @@ export default function BerthSearch() {
       // Fetch data if not cached
       fetchFilterData();
     }
-
-    console.log(filters);
   }, []);
 
-  const [trailers, setTrailers] = useState([]);
+  const [berths, setBerths] = useState([]);
 
   useEffect(() => {
     setLoading(true);
@@ -270,7 +246,7 @@ export default function BerthSearch() {
       selectedOptions: allSelectedOptions,
       page: page,
     };
-    const fetchTrailerData = async () => {
+    const fetchBerthData = async () => {
       try {
         const response = await fetch(`${URL}berthsData`, {
           method: "POST",
@@ -281,20 +257,17 @@ export default function BerthSearch() {
         });
 
         const data = await response.json();
-        console.log(data);
-        setTrailers(data.res[0]);
-        console.log("trailers", trailers);
+        setBerths(data.res[0]);
       } catch (err) {
         console.log(err);
       } finally {
         setLoading(false);
-
         console.log("done");
       }
     };
 
-    fetchTrailerData();
-  }, [allSelectedOptions, page]);
+    fetchBerthData();
+  }, [allSelectedOptions, page, URL]);
 
   return (
     <Container>
@@ -303,7 +276,7 @@ export default function BerthSearch() {
           <Row>
             <h4
               className="py-3"
-              // style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
+            // style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
             >
               Search For Berth
             </h4>
@@ -334,13 +307,28 @@ export default function BerthSearch() {
                   <Row key={key2} className="row-margin">
                     <Col md={12}>
                       <Form.Group>
-                        <DropdownWithCheckBoxes
-                          heading={key2}
-                          title={varToScreen[key2]}
-                          options={filters[key][key2]}
-                          selectedOptions={allSelectedOptions}
-                          setSelectedOptions={setAllSelectedOptions}
-                        />
+                        {varToScreen[key2] != "Length" && (
+                          <DropdownWithCheckBoxes
+                            heading={key2}
+                            title={varToScreen[key2]}
+                            options={filters[key][key2]}
+                            selectedOptions={allSelectedOptions}
+                            setSelectedOptions={setAllSelectedOptions}
+                            defaultUnit={defaultUnit[key2] || ""}
+                          />
+                        )}
+                        {varToScreen[key2] == "Length" && (
+                          <>
+                            <RangeInput
+                              title={varToScreen[key2]}
+                              fromValue={fromValue}
+                              toValue={toValue}
+                              setFromValue={setFromValue}
+                              radioOptions={radioOptions}
+                              setToValue={setToValue}
+                            />
+                          </>
+                        )}
                       </Form.Group>
                     </Col>
                   </Row>
@@ -368,12 +356,12 @@ export default function BerthSearch() {
             <Loader />
           ) : (
             <Row>
-              {trailers.length === 0 ? (
+              {berths.length === 0 ? (
                 <Col md={12}>
                   <p>No Results Found</p>
                 </Col>
               ) : (
-                trailers.map((trailer) => {
+                berths.map((trailer) => {
                   return (
                     <Col key={trailer} md={4}>
                       {/* <h1>{trailer.m}</h1> */}
@@ -414,7 +402,7 @@ export default function BerthSearch() {
               </button> */}
               <button
                 onClick={() => handlePageChange(page + 1)}
-                // disabled={page === pagination.totalPages}
+              // disabled={page === pagination.totalPages}
               >
                 Next
               </button>
