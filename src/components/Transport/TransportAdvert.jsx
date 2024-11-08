@@ -1,5 +1,5 @@
 import { Form, Container, Row, Col } from "react-bootstrap";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom"; 
 import DropdownWithRadio from "../DropdownWithRadio";
 import Loader from "../Loader";
@@ -262,7 +262,8 @@ export default function TransportAdvert() {
             console.error(error);
         }
     };
-    function setPageData(key, newData) {
+
+    const setPageData = useCallback((key, newData) => {
         const setStateFunction = setStateFunctions[key];
         if (setStateFunction) {
             setStateFunction((prevState) => ({
@@ -270,14 +271,14 @@ export default function TransportAdvert() {
                 ...newData,
             }));
         } else {
-            console.error(`No setState function found for key:`+ JSON.stringify(key));
+            console.error(`No setState function found for key: ` + JSON.stringify(key));
         }
-    }
+    }, [setStateFunctions]);
 
     const cacheKey = "transportFilterData";
     const URL = apiUrl +"/advert_transport/";
 
-    const fetchDistinctData = async () => {
+    const fetchDistinctData = useCallback(async () => {
         try {
             setLoading(true);
             const promises = Object.keys(sections).map(async (key) => {
@@ -301,7 +302,8 @@ export default function TransportAdvert() {
             setLoading(false);
             console.log("done");
         }
-    };
+    }, [sections, URL, setPageData]);
+    
     /*const fetchRelevantOptions = async (marisailTransportId, category, title) => {
         try {
             setLoading(true);
