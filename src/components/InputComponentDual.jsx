@@ -11,17 +11,23 @@ function InputComponentDual({
   openKey,
   setOpenKey,
   radioOptions,
+  setSelectedOption
 }) {
   const [inputText, setInputText] = useState(value);
   const [selectedRadio, setSelectedRadio] = useState(radioOptions.length > 0 ? radioOptions[0].value : "" );
 
   const handleInputChange = (e) => {
-    setInputText(e.target.value);
-  };
+    const inputValue = e.target.value;
+    setInputText(inputValue);
+    setSelectedOption(inputValue, selectedRadio);
+};
 
-  const handleRadioChange = (e) => {
-    setSelectedRadio(e.target.value);
-  };
+const handleRadioChange = (e) => {
+    const radioValue = e.target.value;
+    setSelectedRadio(radioValue);
+    setSelectedOption(inputText, radioValue);
+};
+
 
   useEffect(() => {
     setInputText(value);
@@ -125,6 +131,7 @@ InputComponentDual.propTypes = {
       label: PropTypes.string.isRequired,
     })
   ),
+  setSelectedOption: PropTypes.func.isRequired,
 };
 
 export default InputComponentDual;
