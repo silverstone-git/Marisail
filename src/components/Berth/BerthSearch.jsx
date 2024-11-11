@@ -300,36 +300,31 @@ export default function BerthSearch() {
                       padding: "15px 0px 0px 0px",
                     }}
                   >
-                    {varToScreen[key]}
+                    {varToScreen[key]?.displayText}
                   </h6>
                 </legend>
                 {Object.keys(filters[key]).map((key2) => (
                   <Row key={key2} className="row-margin">
                     <Col md={12}>
                       <Form.Group>
-                        {(varToScreen[key2] != "Length" && varToScreen[key2] != "Beam"
-                          && varToScreen[key2] != "Draft" && varToScreen[key2] != "Slip Width"
-                          && varToScreen[key2] != "Slip Length" && varToScreen[key2] != "Slip Depth") && (
+                        {(varToScreen[key2].type != "range") && (
                           <DropdownWithCheckBoxes
                             heading={key2}
-                            title={varToScreen[key2]}
+                            title={varToScreen[key2]?.displayText}
                             options={filters[key][key2]}
                             selectedOptions={allSelectedOptions}
                             setSelectedOptions={setAllSelectedOptions}
                             defaultUnit={defaultUnit[key2] || ""}
                           />
                         )}
-                        {(varToScreen[key2] == "Length" || varToScreen[key2] == "Beam"
-                          || varToScreen[key2] == "Draft" || varToScreen[key2] == "Slip Width"
-                          || varToScreen[key2] == "Slip Length" || varToScreen[key2] == "Slip Depth"
-                        ) && (
+                        {(varToScreen[key2].type == "range") && (
                           <>
                             <RangeInput
-                              title={varToScreen[key2]}
+                              title={varToScreen[key2]?.displayText}
                               fromValue={fromValue}
                               toValue={toValue}
                               setFromValue={setFromValue}
-                              radioOptions={radioOptions}
+                              radioOptions={varToScreen[key2]?.radioOptions}
                               setToValue={setToValue}
                             />
                           </>

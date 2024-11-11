@@ -6,6 +6,7 @@ import TrailerCard from "../TrailerCard";
 import ResetBar from "../ResetBar";
 import { varToScreen, radioOptions } from "./trailerInfo";
 import RangeInput from "../RangeInput";
+import { v4 as uuidv4 } from 'uuid';
 
 // import TimePicker from "react-time-picker";
 // import 'react-time-picker/dist/TimePicker.css';
@@ -266,7 +267,6 @@ export default function TrailersSearch() {
   var data;
   const fetchFilterData = async () => {
     for (const key of Object.keys(filters)) {
-      console.log("filters", filters[key]);
       try {
         const response = await fetch(`${URL}trailers`, {
           method: "POST",
@@ -278,7 +278,6 @@ export default function TrailersSearch() {
             filter: filters[key],
           }),
         });
-
         data = await response.json();
         setFilters(key, data.res);
       } catch (err) {
@@ -287,7 +286,6 @@ export default function TrailersSearch() {
         console.log("done");
       }
     }
-    // localStorage.setItem(cacheKey, JSON.stringify(filters));
   };
 
   useEffect(() => {
@@ -299,7 +297,7 @@ export default function TrailersSearch() {
       // Fetch data if not cached
       fetchFilterData();
     }
-  }, [fetchFilterData, setFilters]);
+  }, []);
 
   const [trailers, setTrailers] = useState([]);
 
@@ -354,7 +352,7 @@ export default function TrailersSearch() {
             {Object.keys(filters).map((key) => (
               <fieldset
                 // style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
-                key={key}
+                key={uuidv4()}
               >
                 <legend className="fieldset-legend">
                   <h6
@@ -362,16 +360,14 @@ export default function TrailersSearch() {
                       padding: "15px 0px 0px 0px",
                     }}
                   >
-                    {varToScreen[key].displayText}
+                    {varToScreen[key]?.displayText}
                   </h6>
                 </legend>
                 {Object.keys(filters[key]).map((key2) => (
-                  <Row key={key2} className="row-margin">
+                  <Row key={uuidv4()} className="row-margin">
                     <Col md={12}>
                       <Form.Group>
-                        {(varToScreen[key2].displayText != "Length" && varToScreen[key2].displayText != "Beam"
-                          && varToScreen[key2].displayText != "Draft" && varToScreen[key2].displayText != "Slip Width"
-                          && varToScreen[key2].displayText != "Slip Length" && varToScreen[key2].displayText != "Slip Depth") &&
+                        {(varToScreen[key2].type != "range") &&
                           (<DropdownWithCheckBoxes
                           heading={key2}
                           title={varToScreen[key2].displayText}
@@ -379,17 +375,14 @@ export default function TrailersSearch() {
                           selectedOptions={allSelectedOptions}
                           setSelectedOptions={setAllSelectedOptions}
                         />)}
-                        {(varToScreen[key2].displayText == "Length" || varToScreen[key2].displayText == "Beam"
-                          || varToScreen[key2].displayText == "Draft" || varToScreen[key2].displayText == "Slip Width"
-                          || varToScreen[key2].displayText == "Slip Length" || varToScreen[key2].displayText == "Slip Depth"
-                        ) && (
+                        {(varToScreen[key2].type == "range") && (
                           <>
                             <RangeInput
                               title={varToScreen[key2].displayText}
                               fromValue={fromValue}
                               toValue={toValue}
                               setFromValue={setFromValue}
-                              radioOptions={radioOptions}
+                              radioOptions={varToScreen[key2]?.radioOptions}
                               setToValue={setToValue}
                             />
                           </>
@@ -428,7 +421,7 @@ export default function TrailersSearch() {
               ) : (
                 trailers.map((trailer) => {
                   return (
-                    <Col key={trailer} md={4}>
+                    <Col key={uuidv4()} md={4}>
                       {/* <h1>{trailer.m}</h1> */}
                       <TrailerCard {...trailer} />
                     </Col>
