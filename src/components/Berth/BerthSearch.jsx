@@ -307,7 +307,9 @@ export default function BerthSearch() {
                   <Row key={key2} className="row-margin">
                     <Col md={12}>
                       <Form.Group>
-                        {varToScreen[key2] != "Length" && (
+                        {(varToScreen[key2] != "Length" && varToScreen[key2] != "Beam"
+                          && varToScreen[key2] != "Draft" && varToScreen[key2] != "Slip Width"
+                          && varToScreen[key2] != "Slip Length" && varToScreen[key2] != "Slip Depth") && (
                           <DropdownWithCheckBoxes
                             heading={key2}
                             title={varToScreen[key2]}
@@ -317,7 +319,10 @@ export default function BerthSearch() {
                             defaultUnit={defaultUnit[key2] || ""}
                           />
                         )}
-                        {varToScreen[key2] == "Length" && (
+                        {(varToScreen[key2] == "Length" || varToScreen[key2] == "Beam"
+                          || varToScreen[key2] == "Draft" || varToScreen[key2] == "Slip Width"
+                          || varToScreen[key2] == "Slip Length" || varToScreen[key2] == "Slip Depth"
+                        ) && (
                           <>
                             <RangeInput
                               title={varToScreen[key2]}

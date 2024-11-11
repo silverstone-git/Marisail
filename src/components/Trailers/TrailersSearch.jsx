@@ -4,7 +4,9 @@ import DropdownWithCheckBoxes from "../DropdownWithCheckBoxes2";
 import Loader from "../Loader";
 import TrailerCard from "../TrailerCard";
 import ResetBar from "../ResetBar";
-import { varToScreen } from "./trailerInfo";
+import { varToScreen, radioOptions } from "./trailerInfo";
+import RangeInput from "../RangeInput";
+
 // import TimePicker from "react-time-picker";
 // import 'react-time-picker/dist/TimePicker.css';
 // import 'react-clock/dist/Clock.css';
@@ -13,29 +15,15 @@ const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function TrailersSearch() {
   const [page, setPage] = useState(0);
+  const [fromValue, setFromValue] = useState("");
+  const [toValue, setToValue] = useState("");
   // const [lastpage, setLastPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [allSelectedOptions, setAllSelectedOptions] = useState([]);
   const [identification, setIdentification] = useState({
-    manufacturer: [
-      // ["Venture", 5],
-      // ["Karavan", 5],
-      // ["manufacturerr", 5],
-      // ["manufacturerrr", 5],
-      // ["manufacturerrrr", 5],
-    ],
-    make: [
-      // ["P5", 5],
-      // ["GD85", 5],
-      // ["makeee", 5],
-      // ["makeeee", 5],
-      // ["makeeeee", 5],
-    ],
-    model: [
-      // ["Premium", 5],
-      // ["Deluxe", 5],
-      // ["Pro", 5],
-    ],
+    manufacturer: [],
+    make: [],
+    model: [],
     year: [],
     askingPrice: [],
   });
@@ -225,8 +213,6 @@ export default function TrailersSearch() {
     });
   });
 
-  // console.log(lookUpTable);
-
   const setStateFunctions = {
     identification: setIdentification,
     basics: setBasics,
@@ -262,15 +248,11 @@ export default function TrailersSearch() {
 
   function setFilters(key, data) {
     const setStateFunction = setStateFunctions[key];
-    console.log(key);
-    console.log(data);
     if (setStateFunction) {
       setStateFunction(data);
     } else {
       console.error(`No setState function found for key: ${key}`);
     }
-
-    console.log("Data fetched from API", filters);
   }
 
   const cacheKey = "trailersFilterData";
@@ -298,16 +280,13 @@ export default function TrailersSearch() {
         });
 
         data = await response.json();
-        // console.log(data.res);
         setFilters(key, data.res);
       } catch (err) {
         console.log(err);
       } finally {
-        // console.log("done");
+        console.log("done");
       }
     }
-
-    // console.log("Data fetched from API", filters);
     // localStorage.setItem(cacheKey, JSON.stringify(filters));
   };
 
@@ -320,9 +299,7 @@ export default function TrailersSearch() {
       // Fetch data if not cached
       fetchFilterData();
     }
-
-    console.log(filters);
-  }, []);
+  }, [fetchFilterData, setFilters]);
 
   const [trailers, setTrailers] = useState([]);
 
@@ -341,24 +318,18 @@ export default function TrailersSearch() {
           },
           body: JSON.stringify(currInfo),
         });
-
         const data = await response.json();
-        console.log(data);
         setTrailers(data.res[0]);
-        // console.log("trailers", trailers);
       } catch (err) {
         console.log(err);
       } finally {
         setLoading(false);
-
         console.log("done");
       }
     };
 
     fetchTrailerData();
-  }, [allSelectedOptions, page]);
-
-  // const [openKey, setOpenKey] = useState("");
+  }, [allSelectedOptions, page, URL]);
 
   return (
     <Container>
@@ -391,20 +362,38 @@ export default function TrailersSearch() {
                       padding: "15px 0px 0px 0px",
                     }}
                   >
-                    {varToScreen[key]}
+                    {varToScreen[key].displayText}
                   </h6>
                 </legend>
                 {Object.keys(filters[key]).map((key2) => (
                   <Row key={key2} className="row-margin">
                     <Col md={12}>
                       <Form.Group>
-                        <DropdownWithCheckBoxes
+                        {(varToScreen[key2].displayText != "Length" && varToScreen[key2].displayText != "Beam"
+                          && varToScreen[key2].displayText != "Draft" && varToScreen[key2].displayText != "Slip Width"
+                          && varToScreen[key2].displayText != "Slip Length" && varToScreen[key2].displayText != "Slip Depth") &&
+                          (<DropdownWithCheckBoxes
                           heading={key2}
-                          title={varToScreen[key2]}
+                          title={varToScreen[key2].displayText}
                           options={filters[key][key2]}
                           selectedOptions={allSelectedOptions}
                           setSelectedOptions={setAllSelectedOptions}
-                        />
+                        />)}
+                        {(varToScreen[key2].displayText == "Length" || varToScreen[key2].displayText == "Beam"
+                          || varToScreen[key2].displayText == "Draft" || varToScreen[key2].displayText == "Slip Width"
+                          || varToScreen[key2].displayText == "Slip Length" || varToScreen[key2].displayText == "Slip Depth"
+                        ) && (
+                          <>
+                            <RangeInput
+                              title={varToScreen[key2].displayText}
+                              fromValue={fromValue}
+                              toValue={toValue}
+                              setFromValue={setFromValue}
+                              radioOptions={radioOptions}
+                              setToValue={setToValue}
+                            />
+                          </>
+                        )}
                       </Form.Group>
                     </Col>
                   </Row>
