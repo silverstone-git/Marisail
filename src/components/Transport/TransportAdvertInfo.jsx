@@ -27,9 +27,9 @@ export const typeDef = {
             mandatory: true,
         },
         timescale: {
-            value: "",
+            value: new Date(),
             radioOptions: null,
-            type: "radio",
+            type: "date",
             mandatory: true,
         },
         preferredDate: {

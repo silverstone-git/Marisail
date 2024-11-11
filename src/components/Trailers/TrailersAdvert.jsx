@@ -1,12 +1,15 @@
 import { Form, Container, Row, Col } from "react-bootstrap";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import DropdownWithRadio from "../DropdownWithRadio";
 import Loader from "../Loader";
 import InputComponentDynamic from "../InputComponentDynamic";
 import SubmitButton from "../SubmitButton";
 import { keyToExpectedValueMap, typeDef } from "./TrailerAdvertInfo";
-import { makeString } from "../../services/common_functions";
+import {
+  makeString,
+  convertUnitsInFormData,
+} from "../../services/common_functions";
 import InputComponentDual from "../InputComponentDual";
 
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
@@ -207,8 +210,17 @@ export default function TrailersAdvert() {
     uploadPhotos: "",
     uploadVideos: "",
   });
+  const handleDualInputChange = (title, fieldKey, inputValue, radioValue) => {
+    setAllSelectedOptions((prevState) => ({
+      ...prevState,
+      [title]: {
+        ...prevState[title],
+        [fieldKey]: { value: inputValue, unit: radioValue },
+      },
+    }));
+  };
 
-  const checkRequired = () => {
+  /*const checkRequired = () => {
     const errors = {};
     Object.keys(typeDef).forEach((sectionKey) => {
       const section = typeDef[sectionKey];
@@ -239,7 +251,7 @@ export default function TrailersAdvert() {
 
     setError(errors);
     return Object.keys(errors).length === 0;
-  };
+  };*/
 
   const sections = {
     identification,
@@ -320,6 +332,7 @@ export default function TrailersAdvert() {
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
+      convertUnitsInFormData(allSelectedOptions);
       // if (checkRequired()) {
       console.log("001 Form is valid, submitting...");
       localStorage.setItem("TrailerData", JSON.stringify(allSelectedOptions));
@@ -332,22 +345,25 @@ export default function TrailersAdvert() {
       console.error(error);
     }
   };
-  function setPageData(key, newData) {
-    const setStateFunction = setStateFunctions[key];
-    if (setStateFunction) {
-      setStateFunction((prevState) => ({
-        ...prevState,
-        ...newData,
-      }));
-    } else {
-      console.error(`No setState function found for key: ${key}`);
-    }
-  }
+  const setPageData = useCallback(
+    (key, newData) => {
+      const setStateFunction = setStateFunctions[key];
+      if (setStateFunction) {
+        setStateFunction((prevState) => ({
+          ...prevState,
+          ...newData,
+        }));
+      } else {
+        console.error(`No setState function found for key: ${key}`);
+      }
+    },
+    [setStateFunctions]
+  );
 
   const cacheKey = "trailersFilterData";
   const URL = apiUrl + "/trailers/";
 
-  const fetchDistinctData = async () => {
+  const fetchDistinctData = useCallback(async () => {
     try {
       setLoading(true);
       const promises = Object.keys(sections).map(async (key) => {
@@ -370,7 +386,7 @@ export default function TrailersAdvert() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [URL, sections, setPageData]);
   const fetchRelevantOptions = async (trailerId, manufacturer, make, model) => {
     try {
       setLoading(true);
@@ -490,7 +506,7 @@ export default function TrailersAdvert() {
         hasFetched.current = true;
       }
     }
-  }, [setPageData]);
+  }, [setPageData, fetchDistinctData]);
 
   const handleInputChange = (title, fieldKey, newValue) => {
     setTrailers((prevTrailers) => ({
@@ -610,6 +626,17 @@ export default function TrailersAdvert() {
                           openKey={openKey || ""}
                           isMandatory={field.mandatory}
                           radioOptions={field?.radioOptions}
+                          selectedOption={
+                            allSelectedOptions[title]?.[fieldKey]?.unit || ""
+                          }
+                          setSelectedOption={(inputValue, radioValue) =>
+                            handleDualInputChange(
+                              title,
+                              fieldKey,
+                              inputValue,
+                              radioValue
+                            )
+                          }
                         />
                         {error[`${fieldKey}`] && (
                           <div>

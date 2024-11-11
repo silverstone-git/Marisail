@@ -1,11 +1,14 @@
 import { Form, Container, Row, Col } from "react-bootstrap";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import DropdownWithRadio from "../DropdownWithRadio";
 import Loader from "../Loader";
 import SubmitButton from "../SubmitButton";
 import { keyToExpectedValueMap, typeDef } from "./BerthAdvertInfo";
-import { makeString } from "../../services/common_functions";
-import { useNavigate } from "react-router-dom"; 
+import {
+    makeString,
+    convertUnitsInFormData,
+} from "../../services/common_functions";
+import { useNavigate } from "react-router-dom";
 import InputComponentDynamic from "../InputComponentDynamic";
 import InputComponentDual from "../InputComponentDual";
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
@@ -263,34 +266,34 @@ export default function BerthAdvert() {
         totalPrice: "",
     });
     /*const checkRequired = () => {
-        const errors = {};
-        Object.keys(typeDef).forEach((sectionKey) => {
-            const section = typeDef[sectionKey];
-            const sectionData = sections[sectionKey];
-            Object.keys(section).forEach((fieldKey) => {
-                const field = section[fieldKey];
-                if (field.mandatory) {
-                    const fieldValue = sectionData[fieldKey];
-                    if (field.type === "radio") {
-                        if (!field.value || String(field.value).trim() === "") {
-                            errors[`${fieldKey}`] = true;
-                        }
-                    } else if (field.type === "number") {
-                        if (
-                            fieldValue === undefined ||
-                            fieldValue === "" ||
-                            isNaN(fieldValue)
-                        ) {
-                            errors[`${fieldKey}`] = true;
-                        }
-                    }
-                }
-            });
-        });
-
-        setError(errors);
-        return Object.keys(errors).length === 0;
-    };*/
+          const errors = {};
+          Object.keys(typeDef).forEach((sectionKey) => {
+              const section = typeDef[sectionKey];
+              const sectionData = sections[sectionKey];
+              Object.keys(section).forEach((fieldKey) => {
+                  const field = section[fieldKey];
+                  if (field.mandatory) {
+                      const fieldValue = sectionData[fieldKey];
+                      if (field.type === "radio") {
+                          if (!field.value || String(field.value).trim() === "") {
+                              errors[`${fieldKey}`] = true;
+                          }
+                      } else if (field.type === "number") {
+                          if (
+                              fieldValue === undefined ||
+                              fieldValue === "" ||
+                              isNaN(fieldValue)
+                          ) {
+                              errors[`${fieldKey}`] = true;
+                          }
+                      }
+                  }
+              });
+          });
+  
+          setError(errors);
+          return Object.keys(errors).length === 0;
+      };*/
 
     const sections = {
         siteDetails,
@@ -367,14 +370,25 @@ export default function BerthAdvert() {
             fetchSiteDetailsSectionOptions(category, selectedOption, field);
         }
     };
+
+    const handleDualInputChange = (title, fieldKey, inputValue, radioValue) => {
+        setAllSelectedOptions((prevState) => ({
+            ...prevState,
+            [title]: {
+                ...prevState[title],
+                [fieldKey]: { value: inputValue, unit: radioValue },
+            },
+        }));
+    };
     const handleSubmit = (e) => {
         e.preventDefault();
         try {
+            convertUnitsInFormData(allSelectedOptions);
             // if (checkRequired()) {
-                console.log("001 Form is valid, submitting...");
-                localStorage.setItem("BertData", JSON.stringify(allSelectedOptions));
-                navigate("/view-berth");
-                // localStorage.setItem("advertise_engine", JSON.stringify(form));
+            console.log("001 Form is valid, submitting...");
+            localStorage.setItem("BertData", JSON.stringify(allSelectedOptions));
+            navigate("/view-berth");
+            // localStorage.setItem("advertise_engine", JSON.stringify(form));
             // } else {
             //     console.warn(error);
             // }
@@ -382,22 +396,25 @@ export default function BerthAdvert() {
             console.error(error);
         }
     };
-    function setPageData(key, newData) {
-        const setStateFunction = setStateFunctions[key];
-        if (setStateFunction) {
-            setStateFunction((prevState) => ({
-                ...prevState,
-                ...newData,
-            }));
-        } else {
-            console.error(`No setState function found for key: ${key}`);
-        }
-    }
+    const setPageData = useCallback(
+        (key, newData) => {
+            const setStateFunction = setStateFunctions[key];
+            if (setStateFunction) {
+                setStateFunction((prevState) => ({
+                    ...prevState,
+                    ...newData,
+                }));
+            } else {
+                console.error(`No setState function found for key: ${key}`);
+            }
+        },
+        [setStateFunctions]
+    );
 
     const cacheKey = "berthsFilterData";
-    const URL = apiUrl +"/advert_berth/";
+    const URL = apiUrl + "/advert_berth/";
 
-    const fetchDistinctData = async () => {
+    const fetchDistinctData = useCallback(async () => {
         try {
             setLoading(true);
             const promises = Object.keys(sections).map(async (key) => {
@@ -420,7 +437,7 @@ export default function BerthAdvert() {
         } finally {
             setLoading(false);
         }
-    };
+    }, [URL, sections, setPageData]);
     const fetchRelevantOptions = async (
         marisailBerthId,
         siteDetails,
@@ -549,17 +566,17 @@ export default function BerthAdvert() {
     };
 
     const handleInputChange = (title, fieldKey, newValue) => {
-      console.log("001 title--",title);
-      console.log("001 fieldKey--",fieldKey);
-      console.log("001 newValue--",newValue);
-        
-      setBerths((prevBerths) => ({
-        ...prevBerths,
-        [title]: {
-          ...prevBerths[title],
-          [fieldKey]: newValue,
-        },
-      }));
+        console.log("001 title--", title);
+        console.log("001 fieldKey--", fieldKey);
+        console.log("001 newValue--", newValue);
+
+        setBerths((prevBerths) => ({
+            ...prevBerths,
+            [title]: {
+                ...prevBerths[title],
+                [fieldKey]: newValue,
+            },
+        }));
     };
 
     useEffect(() => {
@@ -682,6 +699,17 @@ export default function BerthAdvert() {
                                                     openKey={openKey || ""}
                                                     isMandatory={field.mandatory}
                                                     radioOptions={field?.radioOptions}
+                                                    selectedOption={
+                                                        allSelectedOptions[title]?.[fieldKey]?.unit || ""
+                                                    }
+                                                    setSelectedOption={(inputValue, radioValue) =>
+                                                        handleDualInputChange(
+                                                            title,
+                                                            fieldKey,
+                                                            inputValue,
+                                                            radioValue
+                                                        )
+                                                    }
                                                 />
                                                 {error[`${fieldKey}`] && (
                                                     <div>

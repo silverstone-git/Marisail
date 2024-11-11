@@ -1,18 +1,21 @@
 import { Form, Container, Row, Col } from "react-bootstrap";
-import { useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom"; 
+import { useEffect, useState, useRef, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import DropdownWithRadio from "../DropdownWithRadio";
 import Loader from "../Loader";
 import SubmitButton from "../SubmitButton";
 import { keyToExpectedValueMap, typeDef } from "./TransportAdvertInfo";
-import { makeString, convertToDefaultUnit } from "../../services/common_functions";
+import {
+    makeString,
+    convertUnitsInFormData,
+} from "../../services/common_functions";
 import DatePickerComponent from "../DatePickerComponent";
 import InputComponentDual from "../InputComponentDual";
 
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function TransportAdvert() {
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
     const [error, setError] = useState({});
     const hasFetched = useRef(false);
     const [transport, setTransport] = useState("");
@@ -24,7 +27,7 @@ export default function TransportAdvert() {
         category: "",
         title: "",
         description: "",
-        postedDate: new Date,
+        postedDate: new Date(),
         deadlineDate: "",
         timescale: "",
         preferredDate: "",
@@ -168,34 +171,34 @@ export default function TransportAdvert() {
     });
 
     /*const checkRequired = () => {
-        const errors = {};
-        Object.keys(typeDef).forEach((sectionKey) => {
-            const section = typeDef[sectionKey];
-            const sectionData = sections[sectionKey];
-            Object.keys(section).forEach((fieldKey) => {
-                const field = section[fieldKey];
-                if (field.mandatory) {
-                    const fieldValue = sectionData[fieldKey];
-                    if (field.type === "radio") {
-                        if (!field.value || String(field.value).trim() === "") {
-                            errors[`${fieldKey}`] = true;
-                        }
-                    } else if (field.type === "number") {
-                        if (
-                            fieldValue === undefined ||
-                            fieldValue === "" ||
-                            isNaN(fieldValue)
-                        ) {
-                            errors[`${fieldKey}`] = true;
-                        }
-                    }
-                }
-            });
-        });
-
-        setError(errors);
-        return Object.keys(errors).length === 0;
-    };*/
+          const errors = {};
+          Object.keys(typeDef).forEach((sectionKey) => {
+              const section = typeDef[sectionKey];
+              const sectionData = sections[sectionKey];
+              Object.keys(section).forEach((fieldKey) => {
+                  const field = section[fieldKey];
+                  if (field.mandatory) {
+                      const fieldValue = sectionData[fieldKey];
+                      if (field.type === "radio") {
+                          if (!field.value || String(field.value).trim() === "") {
+                              errors[`${fieldKey}`] = true;
+                          }
+                      } else if (field.type === "number") {
+                          if (
+                              fieldValue === undefined ||
+                              fieldValue === "" ||
+                              isNaN(fieldValue)
+                          ) {
+                              errors[`${fieldKey}`] = true;
+                          }
+                      }
+                  }
+              });
+          });
+  
+          setError(errors);
+          return Object.keys(errors).length === 0;
+      };*/
 
     const sections = {
         jobDescription,
@@ -233,14 +236,13 @@ export default function TransportAdvert() {
             },
         }));
     };
-    
     const handleOptionSelect = (category, field, selectedOption) => {
         setAllSelectedOptions((prevState) => {
             const updatedOptions = {
                 ...prevState,
                 [category]: {
                     ...prevState[category],
-                    [field]: selectedOption,
+                    [field]: { value: selectedOption, unit: null },
                 },
             };
             return updatedOptions;
@@ -249,7 +251,7 @@ export default function TransportAdvert() {
     const handleSubmit = (e) => {
         e.preventDefault();
         try {
-            // convertToDefaultUnit()
+            convertUnitsInFormData(allSelectedOptions);
             // if (checkRequired()) {
             // If no errors, proceed with form submission logic
             console.log("001 Form is valid, submitting...", allSelectedOptions);
@@ -263,22 +265,28 @@ export default function TransportAdvert() {
             console.error(error);
         }
     };
-    function setPageData(key, newData) {
-        const setStateFunction = setStateFunctions[key];
-        if (setStateFunction) {
-            setStateFunction((prevState) => ({
-                ...prevState,
-                ...newData,
-            }));
-        } else {
-            console.error(`No setState function found for key:`+ JSON.stringify(key));
-        }
-    }
+
+    const setPageData = useCallback(
+        (key, newData) => {
+            const setStateFunction = setStateFunctions[key];
+            if (setStateFunction) {
+                setStateFunction((prevState) => ({
+                    ...prevState,
+                    ...newData,
+                }));
+            } else {
+                console.error(
+                    `No setState function found for key: ` + JSON.stringify(key)
+                );
+            }
+        },
+        [setStateFunctions]
+    );
 
     const cacheKey = "transportFilterData";
-    const URL = apiUrl +"/advert_transport/";
+    const URL = apiUrl + "/advert_transport/";
 
-    const fetchDistinctData = async () => {
+    const fetchDistinctData = useCallback(async () => {
         try {
             setLoading(true);
             const promises = Object.keys(sections).map(async (key) => {
@@ -302,101 +310,102 @@ export default function TransportAdvert() {
             setLoading(false);
             console.log("done");
         }
-    };
+    }, [sections, URL, setPageData]);
+
     /*const fetchRelevantOptions = async (marisailTransportId, category, title) => {
-        try {
-            setLoading(true);
-            const requestBody = { marisailTransportId, category, title };
-            const response = await fetch(`${URL}relevant_data`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ requestBody }),
-            });
-            const data = await response.json();
-            const result = data?.result;
-
-            if (result) {
-                const updatePromises = Object.keys(result).map((fieldKey) => {
-                    if (Object.keys(requestBody).includes(fieldKey)) {
-                        return Promise.resolve();
-                    }
-                    return Promise.all(
-                        Object.keys(sections).map((sectionKey) => {
-                            return new Promise((resolve) => {
-                                if (sections[sectionKey][fieldKey] !== undefined) {
-                                    const fieldValue =
-                                        Array.isArray(result[fieldKey]) &&
-                                            result[fieldKey].length > 0
-                                            ? result[fieldKey]?.[0]
-                                            : sections[sectionKey][fieldKey];
-
-                                    setAllSelectedOptions((prevState) => ({
-                                        ...prevState,
-                                        [sectionKey]: {
-                                            ...prevState[sectionKey],
-                                            [fieldKey]: [fieldValue],
-                                        },
-                                    }));
-
-                                    resolve();
-                                } else {
-                                    resolve();
-                                }
-                            });
-                        })
-                    );
-                });
-
-                // Wait for all updates to complete
-                await Promise.all(updatePromises);
-            }
-        } catch (error) {
-            console.error("Error fetching other section:", error);
-        } finally {
-            setLoading(false);
-        }
-    };
-    const fetchJDSectionOptions = async (category, selectedOption, Key) => {
-        try {
-            setLoading(true);
-            const tableName = "Job";
-            const keyHierarchy = ["marisailTransportId", "category"];
-
-            const currentKeyIndex = keyHierarchy.indexOf(Key);
-            const fetchColumn = keyHierarchy[currentKeyIndex + 1];
-            let requestBody = {};
-            for (let i = 0; i <= currentKeyIndex; i++) {
-                const key = keyHierarchy[i];
-                requestBody[key] =
-                    key === Key ? selectedOption : allSelectedOptions[category]?.[key];
-            }
-
-            if (!fetchColumn) {
-                throw new Error(
-                    "No further data to fetch. All selections are complete."
-                );
-            }
-            const response = await fetch(`${URL}${tableName}/${fetchColumn}`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ requestBody }),
-            });
-
-            const data = await response.json();
-            setPageData(category, {
-                ...sections[category],
-                [fetchColumn]: data.result,
-            });
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        } finally {
-            setLoading(false);
-        }
-    };*/
+          try {
+              setLoading(true);
+              const requestBody = { marisailTransportId, category, title };
+              const response = await fetch(`${URL}relevant_data`, {
+                  method: "POST",
+                  headers: {
+                      "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({ requestBody }),
+              });
+              const data = await response.json();
+              const result = data?.result;
+  
+              if (result) {
+                  const updatePromises = Object.keys(result).map((fieldKey) => {
+                      if (Object.keys(requestBody).includes(fieldKey)) {
+                          return Promise.resolve();
+                      }
+                      return Promise.all(
+                          Object.keys(sections).map((sectionKey) => {
+                              return new Promise((resolve) => {
+                                  if (sections[sectionKey][fieldKey] !== undefined) {
+                                      const fieldValue =
+                                          Array.isArray(result[fieldKey]) &&
+                                              result[fieldKey].length > 0
+                                              ? result[fieldKey]?.[0]
+                                              : sections[sectionKey][fieldKey];
+  
+                                      setAllSelectedOptions((prevState) => ({
+                                          ...prevState,
+                                          [sectionKey]: {
+                                              ...prevState[sectionKey],
+                                              [fieldKey]: [fieldValue],
+                                          },
+                                      }));
+  
+                                      resolve();
+                                  } else {
+                                      resolve();
+                                  }
+                              });
+                          })
+                      );
+                  });
+  
+                  // Wait for all updates to complete
+                  await Promise.all(updatePromises);
+              }
+          } catch (error) {
+              console.error("Error fetching other section:", error);
+          } finally {
+              setLoading(false);
+          }
+      };
+      const fetchJDSectionOptions = async (category, selectedOption, Key) => {
+          try {
+              setLoading(true);
+              const tableName = "Job";
+              const keyHierarchy = ["marisailTransportId", "category"];
+  
+              const currentKeyIndex = keyHierarchy.indexOf(Key);
+              const fetchColumn = keyHierarchy[currentKeyIndex + 1];
+              let requestBody = {};
+              for (let i = 0; i <= currentKeyIndex; i++) {
+                  const key = keyHierarchy[i];
+                  requestBody[key] =
+                      key === Key ? selectedOption : allSelectedOptions[category]?.[key];
+              }
+  
+              if (!fetchColumn) {
+                  throw new Error(
+                      "No further data to fetch. All selections are complete."
+                  );
+              }
+              const response = await fetch(`${URL}${tableName}/${fetchColumn}`, {
+                  method: "POST",
+                  headers: {
+                      "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({ requestBody }),
+              });
+  
+              const data = await response.json();
+              setPageData(category, {
+                  ...sections[category],
+                  [fetchColumn]: data.result,
+              });
+          } catch (error) {
+              console.error("Error fetching data:", error);
+          } finally {
+              setLoading(false);
+          }
+      };*/
 
     useEffect(() => {
         const cachedData = localStorage.getItem(cacheKey);
@@ -458,7 +467,7 @@ export default function TransportAdvert() {
                                                         title={makeString(fieldKey, keyToExpectedValueMap)}
                                                         options={sections[title][fieldKey]}
                                                         selectedOption={
-                                                            allSelectedOptions[title]?.[fieldKey] || ""
+                                                            allSelectedOptions[title]?.[fieldKey]?.value || ""
                                                         }
                                                         setSelectedOption={(selectedOption) =>
                                                             handleOptionSelect(
@@ -528,9 +537,16 @@ export default function TransportAdvert() {
                                                     openKey={openKey || ""}
                                                     isMandatory={field.mandatory}
                                                     radioOptions={field?.radioOptions}
-                                                    selectedOption={allSelectedOptions[title]?.[fieldKey]?.unit || ""}
+                                                    selectedOption={
+                                                        allSelectedOptions[title]?.[fieldKey]?.unit || ""
+                                                    }
                                                     setSelectedOption={(inputValue, radioValue) =>
-                                                        handleDualInputChange(title, fieldKey, inputValue, radioValue)
+                                                        handleDualInputChange(
+                                                            title,
+                                                            fieldKey,
+                                                            inputValue,
+                                                            radioValue
+                                                        )
                                                     }
                                                 />
                                                 {error[`${fieldKey}`] && (

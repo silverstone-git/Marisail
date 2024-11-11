@@ -4,7 +4,10 @@ import DropdownWithCheckBoxes from "../DropdownWithCheckBoxes2";
 import Loader from "../Loader";
 import TrailerCard from "../TrailerCard";
 import ResetBar from "../ResetBar";
-import { varToScreen } from "./trailerInfo";
+import { varToScreen, radioOptions } from "./trailerInfo";
+import RangeInput from "../RangeInput";
+import { v4 as uuidv4 } from 'uuid';
+
 // import TimePicker from "react-time-picker";
 // import 'react-time-picker/dist/TimePicker.css';
 // import 'react-clock/dist/Clock.css';
@@ -13,29 +16,15 @@ const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function TrailersSearch() {
   const [page, setPage] = useState(0);
+  const [fromValue, setFromValue] = useState("");
+  const [toValue, setToValue] = useState("");
   // const [lastpage, setLastPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [allSelectedOptions, setAllSelectedOptions] = useState([]);
   const [identification, setIdentification] = useState({
-    manufacturer: [
-      // ["Venture", 5],
-      // ["Karavan", 5],
-      // ["manufacturerr", 5],
-      // ["manufacturerrr", 5],
-      // ["manufacturerrrr", 5],
-    ],
-    make: [
-      // ["P5", 5],
-      // ["GD85", 5],
-      // ["makeee", 5],
-      // ["makeeee", 5],
-      // ["makeeeee", 5],
-    ],
-    model: [
-      // ["Premium", 5],
-      // ["Deluxe", 5],
-      // ["Pro", 5],
-    ],
+    manufacturer: [],
+    make: [],
+    model: [],
     year: [],
     askingPrice: [],
   });
@@ -225,8 +214,6 @@ export default function TrailersSearch() {
     });
   });
 
-  // console.log(lookUpTable);
-
   const setStateFunctions = {
     identification: setIdentification,
     basics: setBasics,
@@ -262,15 +249,11 @@ export default function TrailersSearch() {
 
   function setFilters(key, data) {
     const setStateFunction = setStateFunctions[key];
-    console.log(key);
-    console.log(data);
     if (setStateFunction) {
       setStateFunction(data);
     } else {
       console.error(`No setState function found for key: ${key}`);
     }
-
-    console.log("Data fetched from API", filters);
   }
 
   const cacheKey = "trailersFilterData";
@@ -284,7 +267,6 @@ export default function TrailersSearch() {
   var data;
   const fetchFilterData = async () => {
     for (const key of Object.keys(filters)) {
-      console.log("filters", filters[key]);
       try {
         const response = await fetch(`${URL}trailers`, {
           method: "POST",
@@ -296,19 +278,14 @@ export default function TrailersSearch() {
             filter: filters[key],
           }),
         });
-
         data = await response.json();
-        // console.log(data.res);
         setFilters(key, data.res);
       } catch (err) {
         console.log(err);
       } finally {
-        // console.log("done");
+        console.log("done");
       }
     }
-
-    // console.log("Data fetched from API", filters);
-    // localStorage.setItem(cacheKey, JSON.stringify(filters));
   };
 
   useEffect(() => {
@@ -320,8 +297,6 @@ export default function TrailersSearch() {
       // Fetch data if not cached
       fetchFilterData();
     }
-
-    console.log(filters);
   }, []);
 
   const [trailers, setTrailers] = useState([]);
@@ -341,24 +316,18 @@ export default function TrailersSearch() {
           },
           body: JSON.stringify(currInfo),
         });
-
         const data = await response.json();
-        console.log(data);
         setTrailers(data.res[0]);
-        // console.log("trailers", trailers);
       } catch (err) {
         console.log(err);
       } finally {
         setLoading(false);
-
         console.log("done");
       }
     };
 
     fetchTrailerData();
-  }, [allSelectedOptions, page]);
-
-  // const [openKey, setOpenKey] = useState("");
+  }, [allSelectedOptions, page, URL]);
 
   return (
     <Container>
@@ -383,7 +352,7 @@ export default function TrailersSearch() {
             {Object.keys(filters).map((key) => (
               <fieldset
                 // style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
-                key={key}
+                key={uuidv4()}
               >
                 <legend className="fieldset-legend">
                   <h6
@@ -391,20 +360,33 @@ export default function TrailersSearch() {
                       padding: "15px 0px 0px 0px",
                     }}
                   >
-                    {varToScreen[key]}
+                    {varToScreen[key]?.displayText}
                   </h6>
                 </legend>
                 {Object.keys(filters[key]).map((key2) => (
-                  <Row key={key2} className="row-margin">
+                  <Row key={uuidv4()} className="row-margin">
                     <Col md={12}>
                       <Form.Group>
-                        <DropdownWithCheckBoxes
+                        {(varToScreen[key2].type != "range") &&
+                          (<DropdownWithCheckBoxes
                           heading={key2}
-                          title={varToScreen[key2]}
+                          title={varToScreen[key2].displayText}
                           options={filters[key][key2]}
                           selectedOptions={allSelectedOptions}
                           setSelectedOptions={setAllSelectedOptions}
-                        />
+                        />)}
+                        {(varToScreen[key2].type == "range") && (
+                          <>
+                            <RangeInput
+                              title={varToScreen[key2].displayText}
+                              fromValue={fromValue}
+                              toValue={toValue}
+                              setFromValue={setFromValue}
+                              radioOptions={varToScreen[key2]?.radioOptions}
+                              setToValue={setToValue}
+                            />
+                          </>
+                        )}
                       </Form.Group>
                     </Col>
                   </Row>
@@ -439,7 +421,7 @@ export default function TrailersSearch() {
               ) : (
                 trailers.map((trailer) => {
                   return (
-                    <Col key={trailer} md={4}>
+                    <Col key={uuidv4()} md={4}>
                       {/* <h1>{trailer.m}</h1> */}
                       <TrailerCard {...trailer} />
                     </Col>

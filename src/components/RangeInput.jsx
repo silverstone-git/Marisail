@@ -69,7 +69,7 @@ const RangeInput = ({
             type="number"
             value={fromValue}
             onChange={handleFromChange}
-            placeholder="from"
+            placeholder="From"
             style={{
               width: "65px",
               marginRight: "10px",
@@ -97,7 +97,7 @@ const RangeInput = ({
             type="number"
             value={toValue}
             onChange={handleToChange}
-            placeholder="to"
+            placeholder="To"
           />
           {radioOptions.length > 0 && (
             <div
@@ -116,8 +116,8 @@ const RangeInput = ({
                   <input
                     type="radio"
                     className="btn-check"
-                    name="btnradio"
-                    id={`btnradio${index}`}
+                    name={`btnradio-${option.label}-${option.value}`}
+                    id={`btnradio-${option.label}-${option.value}`}
                     value={option.value}
                     onChange={handleRadioChange}
                     checked={selectedRadio === option.value}
@@ -125,7 +125,7 @@ const RangeInput = ({
                   />
                   <label
                     className="btn btn-outline-primary"
-                    htmlFor={`btnradio${index}`}
+                    htmlFor={`btnradio-${option.label}-${option.value}`}
                     style={{
                       fontSize: "12px",
                       padding: "4px 6px",

@@ -1,11 +1,14 @@
 import { Form, Container, Row, Col } from "react-bootstrap";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
+import { useNavigate } from "react-router-dom"; 
 import DropdownWithRadio from "../DropdownWithRadio";
 import Loader from "../Loader";
-import InputComponentDynamic from "../InputComponentDynamic";
 import SubmitButton from "../SubmitButton";
 import { keyToExpectedValueMap, typeDef } from "../Transport/TransportAdvertInfo";
-import { makeString } from "../../services/common_functions";
+import { makeString, convertUnitsInFormData } from "../../services/common_functions";
+import DatePickerComponent from "../DatePickerComponent";
+import InputComponentDual from "../InputComponentDual";
+
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function MyTransport() {
@@ -18,182 +21,164 @@ export default function MyTransport() {
     if (storedUser && formData) {
         advertiseTransportData = JSON.parse(formData);
     }
+    const navigate = useNavigate(); 
     const [error, setError] = useState({});
     const hasFetched = useRef(false);
-    const [engines, setEngines] = useState("");
+    const [transport, setTransport] = useState("");
     const [openKey, setOpenKey] = useState(null);
     const [loading, setLoading] = useState(false);
     const [allSelectedOptions, setAllSelectedOptions] = useState({});
+    console.log("001 testing data--",advertiseTransportData?.jobDescription?.marisailTransportId?.value);
+    
     const [jobDescription, setJobDescription] = useState({
-        marisailTransportId: advertiseTransportData?.marisailTransportId || "",
-        category: advertiseTransportData?.category || "",
-        title: advertiseTransportData?.title || "",
-        description: advertiseTransportData?.description || "",
-        postedDate: advertiseTransportData?.postedDate || "",
-        deadlineDate: advertiseTransportData?.deadlineDate || "",
-        timescale: advertiseTransportData?.timescale || "",
-        preferredDate: advertiseTransportData?.preferredDate || "",
-        haulierToDepartureDistance:
-            advertiseTransportData?.haulierToDepartureDistance || "",
-        departureToDestinationDistance:
-            advertiseTransportData?.departureToDestinationDistance || "",
-        returnJourney: advertiseTransportData?.returnJourney || "",
-        roundTripDistance: advertiseTransportData?.roundTripDistance || "",
-        international: advertiseTransportData?.international || "",
-        ferryRequired: advertiseTransportData?.ferryRequired || "",
-        specialHandlingRequirements:
-            advertiseTransportData?.specialHandlingRequirements || "",
-        departureLoadingEquipmentNeeded:
-            advertiseTransportData?.departureLoadingEquipmentNeeded || "",
-        destinationUnloadingEquipmentNeeded:
-            advertiseTransportData?.destinationUnloadingEquipmentNeeded || "",
-        freightClass: advertiseTransportData?.freightClass || "",
-        overweightPermitNeeded: advertiseTransportData?.overweightPermitNeeded || "",
-        oversizePermitNeeded: advertiseTransportData?.oversizePermitNeeded || "",
-        numberQuotes: advertiseTransportData?.numberQuotes || "",
-        map: advertiseTransportData?.map || "",
-        jobDone: advertiseTransportData?.jobDone || "",
-        jobDoneDate: advertiseTransportData?.jobDoneDate || "",
-    });
+        marisailTransportId: advertiseTransportData?.jobDescription?.marisailTransportId?.value || "",
+        category: advertiseTransportData?.jobDescription?.category?.value || "",
+        title: advertiseTransportData?.jobDescription?.title?.value || "",
+        description: advertiseTransportData?.jobDescription?.description?.value || "",
+        postedDate: advertiseTransportData?.jobDescription?.postedDate?.value || new Date(),
+        deadlineDate: advertiseTransportData?.jobDescription?.deadlineDate?.value || "",
+        timescale: advertiseTransportData?.jobDescription?.timescale?.value || "",
+        preferredDate: advertiseTransportData?.jobDescription?.preferredDate?.value || "",
+        haulierToDepartureDistance: advertiseTransportData?.jobDescription?.haulierToDepartureDistance?.value || "",
+        departureToDestinationDistance: advertiseTransportData?.jobDescription?.departureToDestinationDistance?.value || "",
+        returnJourney: advertiseTransportData?.jobDescription?.returnJourney?.value || "",
+        roundTripDistance: advertiseTransportData?.jobDescription?.roundTripDistance?.value || "",
+        international: advertiseTransportData?.jobDescription?.international?.value || "",
+        ferryRequired: advertiseTransportData?.jobDescription?.ferryRequired?.value || "",
+        specialHandlingRequirements: advertiseTransportData?.jobDescription?.specialHandlingRequirements?.value || "",
+        departureLoadingEquipmentNeeded: advertiseTransportData?.jobDescription?.departureLoadingEquipmentNeeded?.value || "",
+        destinationUnloadingEquipmentNeeded: advertiseTransportData?.jobDescription?.destinationUnloadingEquipmentNeeded?.value || "",
+        freightClass: advertiseTransportData?.jobDescription?.freightClass?.value || "",
+        overweightPermitNeeded: advertiseTransportData?.jobDescription?.overweightPermitNeeded?.value || "",
+        oversizePermitNeeded: advertiseTransportData?.jobDescription?.oversizePermitNeeded?.value || "",
+        numberQuotes: advertiseTransportData?.jobDescription?.numberQuotes?.value || "",
+        map: advertiseTransportData?.jobDescription?.map?.value || "",
+        jobDone: advertiseTransportData?.jobDescription?.jobDone?.value|| "",
+        jobDoneDate: advertiseTransportData?.jobDescription?.jobDoneDate?.value || "",
+    });    
     const [vesselDetails, setVesselDetails] = useState({
-        itemNumber: advertiseTransportData?.itemNumber || "",
-        totalNumberItems: advertiseTransportData?.totalNumberItems || "",
-        photos: advertiseTransportData?.photos || "",
-        previousInsuranceClaims: advertiseTransportData?.previousInsuranceClaims || "",
-        existingDamage: advertiseTransportData?.existingDamage || "",
-        damageDescription: advertiseTransportData?.damageDescription || "",
-        vesselInsuranceType: advertiseTransportData?.vesselInsuranceType || "",
-        vesselInsuranceNotes: advertiseTransportData?.vesselInsuranceNotes || "",
-        boatDetails: advertiseTransportData?.boatDetails || "",
-    });
+        itemNumber: advertiseTransportData?.vesselDetails?.itemNumber?.value || "",
+        totalNumberItems: advertiseTransportData?.vesselDetails?.totalNumberItems?.value || "",
+        photos: advertiseTransportData?.vesselDetails?.photos?.value || "",
+        previousInsuranceClaims: advertiseTransportData?.vesselDetails?.previousInsuranceClaims?.value || "",
+        existingDamage: advertiseTransportData?.vesselDetails?.existingDamage?.value || "",
+        damageDescription: advertiseTransportData?.vesselDetails?.damageDescription?.value || "",
+        vesselInsuranceType: advertiseTransportData?.vesselDetails?.vesselInsuranceType?.value || "",
+        vesselInsuranceNotes: advertiseTransportData?.vesselDetails?.vesselInsuranceNotes?.value || "",
+        boatDetails: advertiseTransportData?.vesselDetails?.boatDetails?.value || "",
+    });    
     const [customerContactDetails, setCustomerDetails] = useState({
-        customerType: advertiseTransportData?.customerType || "",
-        customerId: advertiseTransportData?.customerId || "",
-        customerName: advertiseTransportData?.customerName || "",
-        customerCompanyName: advertiseTransportData?.customerCompanyName || "",
-        collectionDepartureNamedContact:
-            advertiseTransportData?.collectionDepartureNamedContact || "",
-        collectionDepartureMobile: advertiseTransportData?.collectionDepartureMobile || "",
-        deliveryDestinationNamedContact:
-            advertiseTransportData?.deliveryDestinationNamedContact || "",
-        collectionDepartureAddress:
-            advertiseTransportData?.collectionDepartureAddress || "",
-        deliveryDestinationMobile: advertiseTransportData?.deliveryDestinationMobile || "",
-        deliveryDestinationAddress:
-            advertiseTransportData?.deliveryDestinationAddress || "",
-        emergencyContactInformation:
-            advertiseTransportData?.emergencyContactInformation || "",
-        preferredCommunicationMethod:
-            advertiseTransportData?.preferredCommunicationMethod || "",
+        customerType: advertiseTransportData?.customerContactDetails?.customerType?.value || "",
+        customerId: advertiseTransportData?.customerContactDetails?.customerId?.value || "",
+        customerName: advertiseTransportData?.customerContactDetails?.customerName?.value || "",
+        customerCompanyName: advertiseTransportData?.customerContactDetails?.customerCompanyName?.value || "",
+        collectionDepartureNamedContact: advertiseTransportData?.customerContactDetails?.collectionDepartureNamedContact?.value || "",
+        collectionDepartureMobile: advertiseTransportData?.customerContactDetails?.collectionDepartureMobile?.value || "",
+        deliveryDestinationNamedContact: advertiseTransportData?.customerContactDetails?.deliveryDestinationNamedContact?.value || "",
+        collectionDepartureAddress: advertiseTransportData?.customerContactDetails?.collectionDepartureAddress?.value || "",
+        deliveryDestinationMobile: advertiseTransportData?.customerContactDetails?.deliveryDestinationMobile?.value || "",
+        deliveryDestinationAddress: advertiseTransportData?.customerContactDetails?.deliveryDestinationAddress?.value || "",
+        emergencyContactInformation: advertiseTransportData?.customerContactDetails?.emergencyContactInformation?.value || "",
+        preferredCommunicationMethod: advertiseTransportData?.customerContactDetails?.preferredCommunicationMethod?.value || "",
     });
     const [transportQuotes, setTransportQuotes] = useState({
-        quote: advertiseTransportData?.quote || "",
-        quoteDescription: advertiseTransportData?.quoteDescription || "",
-        quoteDate: advertiseTransportData?.quoteDate || "",
-        declineDate: advertiseTransportData?.declineDate || "",
-        withdrawDate: advertiseTransportData?.withdrawDate || "",
-        quoteStatus: advertiseTransportData?.quoteStatus || "",
-        declineQuote: advertiseTransportData?.declineQuote || "",
-        withdrawQuote: advertiseTransportData?.withdrawQuote || "",
-    });
+        quote: advertiseTransportData?.transportQuotes?.quote?.value || "",
+        quoteDescription: advertiseTransportData?.transportQuotes?.quoteDescription?.value || "",
+        quoteDate: advertiseTransportData?.transportQuotes?.quoteDate?.value || "",
+        declineDate: advertiseTransportData?.transportQuotes?.declineDate?.value || "",
+        withdrawDate: advertiseTransportData?.transportQuotes?.withdrawDate?.value || "",
+        quoteStatus: advertiseTransportData?.transportQuotes?.quoteStatus?.value || "",
+        declineQuote: advertiseTransportData?.transportQuotes?.declineQuote?.value || "",
+        withdrawQuote: advertiseTransportData?.transportQuotes?.withdrawQuote?.value || "",
+    });    
     const [qAndA, setQAndA] = useState({
-        questionDate: advertiseTransportData?.questionDate || "",
-        answerDate: advertiseTransportData?.answerDate || "",
-        transportProviderQuestions:
-            advertiseTransportData?.transportProviderQuestions || "",
-        customerAnswers: advertiseTransportData?.customerAnswers || "",
-        writeQuestion: advertiseTransportData?.writeQuestion || "",
-        answerQuestion: advertiseTransportData?.answerQuestion || "",
-        customerConfirmsCompletion:
-            advertiseTransportData?.customerConfirmsCompletion || "",
-        addItem: advertiseTransportData?.addItem || "",
-    });
+        questionDate: advertiseTransportData?.qAndA?.questionDate?.value || "",
+        answerDate: advertiseTransportData?.qAndA?.answerDate?.value || "",
+        transportProviderQuestions: advertiseTransportData?.qAndA?.transportProviderQuestions?.value || "",
+        customerAnswers: advertiseTransportData?.qAndA?.customerAnswers?.value || "",
+        writeQuestion: advertiseTransportData?.qAndA?.writeQuestion?.value || "",
+        answerQuestion: advertiseTransportData?.qAndA?.answerQuestion?.value || "",
+        customerConfirmsCompletion: advertiseTransportData?.qAndA?.customerConfirmsCompletion?.value || "",
+        addItem: advertiseTransportData?.qAndA?.addItem?.value || "",
+    });    
     const [feedback, setFeedback] = useState({
-        customerFeedbackNotes: advertiseTransportData?.customerFeedbackNotes || "",
-        customerFeedbackScore: advertiseTransportData?.customerFeedbackScore || "",
-        positive: advertiseTransportData?.positive || "",
-        neutral: advertiseTransportData?.neutral || "",
-        negative: advertiseTransportData?.negative || "",
-        reviews: advertiseTransportData?.reviews || "",
-        rating: advertiseTransportData?.rating || "",
-        itemTitle: advertiseTransportData?.itemTitle || "",
-        leftBy: advertiseTransportData?.leftBy || "",
-        comments: advertiseTransportData?.comments || "",
-        date: advertiseTransportData?.date || "",
-        customerGivesFeedbackNotes:
-            advertiseTransportData?.customerGivesFeedbackNotes || "",
-        customerGivesFeedbackScore:
-            advertiseTransportData?.customerGivesFeedbackScore || "",
-        seeMyQuotes: advertiseTransportData?.seeMyQuotes || "",
+        customerFeedbackNotes: advertiseTransportData?.feedback?.customerFeedbackNotes?.value || "",
+        customerFeedbackScore: advertiseTransportData?.feedback?.customerFeedbackScore?.value || "",
+        positive: advertiseTransportData?.feedback?.positive?.value || "",
+        neutral: advertiseTransportData?.feedback?.neutral?.value || "",
+        negative: advertiseTransportData?.feedback?.negative?.value || "",
+        reviews: advertiseTransportData?.feedback?.reviews?.value || "",
+        rating: advertiseTransportData?.feedback?.rating?.value || "",
+        itemTitle: advertiseTransportData?.feedback?.itemTitle?.value || "",
+        leftBy: advertiseTransportData?.feedback?.leftBy?.value || "",
+        comments: advertiseTransportData?.feedback?.comments?.value || "",
+        date: advertiseTransportData?.feedback?.date?.value || "",
+        customerGivesFeedbackNotes: advertiseTransportData?.feedback?.customerGivesFeedbackNotes?.value || "",
+        customerGivesFeedbackScore: advertiseTransportData?.feedback?.customerGivesFeedbackScore?.value || "",
+        seeMyQuotes: advertiseTransportData?.feedback?.seeMyQuotes?.value || "",
     });
     const [haulierDates, setHaulierDates] = useState({
-        haulierId: advertiseTransportData?.haulierId || "",
-        haulierAddress: advertiseTransportData?.haulierAddress || "",
-        haulierName: advertiseTransportData?.haulierName || "",
-        haulierNumberJobs: advertiseTransportData?.haulierNumberJobs || "",
-        haulierTotalCustomerScore: advertiseTransportData?.haulierTotalCustomerScore || "",
-        registeredSince: advertiseTransportData?.registeredSince || "",
-        numberVehicles: advertiseTransportData?.numberVehicles || "",
-        numberDrivers: advertiseTransportData?.numberDrivers || "",
-        verified: advertiseTransportData?.verified || "",
-        vehicleType: advertiseTransportData?.vehicleType || "",
-        vehicleCapacity: advertiseTransportData?.vehicleCapacity || "",
-    });
+        haulierId: advertiseTransportData?.haulierDates?.haulierId?.value || "",
+        haulierAddress: advertiseTransportData?.haulierDates?.haulierAddress?.value || "",
+        haulierName: advertiseTransportData?.haulierDates?.haulierName?.value || "",
+        haulierNumberJobs: advertiseTransportData?.haulierDates?.haulierNumberJobs?.value || "",
+        haulierTotalCustomerScore: advertiseTransportData?.haulierDates?.haulierTotalCustomerScore?.value || "",
+        registeredSince: advertiseTransportData?.haulierDates?.registeredSince?.value || "",
+        numberVehicles: advertiseTransportData?.haulierDates?.numberVehicles?.value || "",
+        numberDrivers: advertiseTransportData?.haulierDates?.numberDrivers?.value || "",
+        verified: advertiseTransportData?.haulierDates?.verified?.value || "",
+        vehicleType: advertiseTransportData?.haulierDates?.vehicleType?.value || "",
+        vehicleCapacity: advertiseTransportData?.haulierDates?.vehicleCapacity?.value || "",
+    });    
     const [haulierCommunications, setHaulierCommunications] = useState({
-        customerServiceContactInformation:
-            advertiseTransportData?.customerServiceContactInformation || "",
-        realTimeTracking: advertiseTransportData?.realTimeTracking || "",
-        electronicProofOfDelivery: advertiseTransportData?.electronicProofOfDelivery || "",
-        automatedAlertsAndNotifications:
-            advertiseTransportData?.automatedAlertsAndNotifications || "",
-        trackingSystem: advertiseTransportData?.trackingSystem || "",
-        deliveryWindow: advertiseTransportData?.deliveryWindow || "",
-        deliveryConfirmation: advertiseTransportData?.deliveryConfirmation || "",
-    });
+        customerServiceContactInformation: advertiseTransportData?.haulierCommunications?.customerServiceContactInformation?.value || "",
+        realTimeTracking: advertiseTransportData?.haulierCommunications?.realTimeTracking?.value || "",
+        electronicProofOfDelivery: advertiseTransportData?.haulierCommunications?.electronicProofOfDelivery?.value || "",
+        automatedAlertsAndNotifications: advertiseTransportData?.haulierCommunications?.automatedAlertsAndNotifications?.value || "",
+        trackingSystem: advertiseTransportData?.haulierCommunications?.trackingSystem?.value || "",
+        deliveryWindow: advertiseTransportData?.haulierCommunications?.deliveryWindow?.value || "",
+        deliveryConfirmation: advertiseTransportData?.haulierCommunications?.deliveryConfirmation?.value || "",
+    });    
     const [haulierSafetyAndCompliance, setHaulierSafetyAndCompliance] = useState({
-        safetyCertifications: advertiseTransportData?.safetyCertifications || "",
-        environmentalRegulationsCompliance:
-            advertiseTransportData?.environmentalRegulationsCompliance || "",
-        hazardousMaterialsHandling:
-            advertiseTransportData?.hazardousMaterialsHandling || "",
-        safetyTrainingPrograms: advertiseTransportData?.safetyTrainingPrograms || "",
-        accidentReportingProcedures:
-            advertiseTransportData?.accidentReportingProcedures || "",
-        healthAndSafetyPolicies: advertiseTransportData?.healthAndSafetyPolicies || "",
-        safetyAudits: advertiseTransportData?.safetyAudits || "",
-        riskAssessments: advertiseTransportData?.riskAssessments || "",
-        incidentManagement: advertiseTransportData?.incidentManagement || "",
-        complianceRecords: advertiseTransportData?.complianceRecords || "",
-        permitsAndLicenses: advertiseTransportData?.permitsAndLicenses || "",
-        transportRegulationsCompliance:
-            advertiseTransportData?.transportRegulationsCompliance || "",
+        safetyCertifications: advertiseTransportData?.haulierSafetyAndCompliance?.safetyCertifications?.value || "",
+        environmentalRegulationsCompliance: advertiseTransportData?.haulierSafetyAndCompliance?.environmentalRegulationsCompliance?.value || "",
+        hazardousMaterialsHandling: advertiseTransportData?.haulierSafetyAndCompliance?.hazardousMaterialsHandling?.value || "",
+        safetyTrainingPrograms: advertiseTransportData?.haulierSafetyAndCompliance?.safetyTrainingPrograms?.value || "",
+        accidentReportingProcedures: advertiseTransportData?.haulierSafetyAndCompliance?.accidentReportingProcedures?.value || "",
+        healthAndSafetyPolicies: advertiseTransportData?.haulierSafetyAndCompliance?.healthAndSafetyPolicies?.value || "",
+        safetyAudits: advertiseTransportData?.haulierSafetyAndCompliance?.safetyAudits?.value || "",
+        riskAssessments: advertiseTransportData?.haulierSafetyAndCompliance?.riskAssessments?.value || "",
+        incidentManagement: advertiseTransportData?.haulierSafetyAndCompliance?.incidentManagement?.value || "",
+        complianceRecords: advertiseTransportData?.haulierSafetyAndCompliance?.complianceRecords?.value || "",
+        permitsAndLicenses: advertiseTransportData?.haulierSafetyAndCompliance?.permitsAndLicenses?.value || "",
+        transportRegulationsCompliance: advertiseTransportData?.haulierSafetyAndCompliance?.transportRegulationsCompliance?.value || "",
     });
     const [paymentAndInsurance, setPaymentAndInsurance] = useState({
-        serviceLevelAgreement: advertiseTransportData?.serviceLevelAgreement || "",
-        acceptedPaymentMethods: advertiseTransportData?.acceptedPaymentMethods || "",
-        cancellationPolicy: advertiseTransportData?.cancellationPolicy || "",
-        invoiceTime: advertiseTransportData?.invoiceTime || "",
-        latePaymentFees: advertiseTransportData?.latePaymentFees || "",
-        billingContactInformation: advertiseTransportData?.billingContactInformation || "",
-        disputeResolutionTerms: advertiseTransportData?.disputeResolutionTerms || "",
-        liabilityCoverage: advertiseTransportData?.liabilityCoverage || "",
-        insurancePolicy: advertiseTransportData?.insurancePolicy || "",
-        insuranceCoverage: advertiseTransportData?.insuranceCoverage || "",
-        insuranceProvider: advertiseTransportData?.insuranceProvider || "",
-        insuranceClaimProcess: advertiseTransportData?.insuranceClaimProcess || "",
-    });
+        serviceLevelAgreement: advertiseTransportData?.paymentAndInsurance?.serviceLevelAgreement?.value || "",
+        acceptedPaymentMethods: advertiseTransportData?.paymentAndInsurance?.acceptedPaymentMethods?.value || "",
+        cancellationPolicy: advertiseTransportData?.paymentAndInsurance?.cancellationPolicy?.value || "",
+        invoiceTime: advertiseTransportData?.paymentAndInsurance?.invoiceTime?.value || "",
+        latePaymentFees: advertiseTransportData?.paymentAndInsurance?.latePaymentFees?.value || "",
+        billingContactInformation: advertiseTransportData?.paymentAndInsurance?.billingContactInformation?.value || "",
+        disputeResolutionTerms: advertiseTransportData?.paymentAndInsurance?.disputeResolutionTerms?.value || "",
+        liabilityCoverage: advertiseTransportData?.paymentAndInsurance?.liabilityCoverage?.value || "",
+        insurancePolicy: advertiseTransportData?.paymentAndInsurance?.insurancePolicy?.value || "",
+        insuranceCoverage: advertiseTransportData?.paymentAndInsurance?.insuranceCoverage?.value || "",
+        insuranceProvider: advertiseTransportData?.paymentAndInsurance?.insuranceProvider?.value || "",
+        insuranceClaimProcess: advertiseTransportData?.paymentAndInsurance?.insuranceClaimProcess?.value || "",
+    });    
     const [paymentTerms, setPaymentTerms] = useState({
-        paymentTerms: advertiseTransportData?.paymentTerms || "",
-        currency: advertiseTransportData?.currency || "",
-        preferredPaymentMethods: advertiseTransportData?.preferredPaymentMethods || "",
-        invoiceAndReceiptProcedures:
-            advertiseTransportData?.invoiceAndReceiptProcedures || "",
-        calculatePriceAndPay: advertiseTransportData?.calculatePriceAndPay || "",
-        priceLabel: advertiseTransportData?.priceLabel || "",
-        priceDrop: advertiseTransportData?.priceDrop || "",
-        vat: advertiseTransportData?.vat || "",
+        paymentTerms: advertiseTransportData?.paymentTerms?.paymentTerms?.value || "",
+        currency: advertiseTransportData?.paymentTerms?.currency?.value || "",
+        preferredPaymentMethods: advertiseTransportData?.paymentTerms?.preferredPaymentMethods?.value || "",
+        invoiceAndReceiptProcedures: advertiseTransportData?.paymentTerms?.invoiceAndReceiptProcedures?.value || "",
+        calculatePriceAndPay: advertiseTransportData?.paymentTerms?.calculatePriceAndPay?.value || "",
+        priceLabel: advertiseTransportData?.paymentTerms?.priceLabel?.value || "",
+        priceDrop: advertiseTransportData?.paymentTerms?.priceDrop?.value || "",
+        vat: advertiseTransportData?.paymentTerms?.vat?.value || "",
     });
-    const checkRequired = () => {
+    
+    /*const checkRequired = () => {
         const errors = {};
         Object.keys(typeDef).forEach((sectionKey) => {
             const section = typeDef[sectionKey];
@@ -221,7 +206,7 @@ export default function MyTransport() {
 
         setError(errors);
         return Object.keys(errors).length === 0;
-    };
+    };*/
 
     const sections = {
         jobDescription,
@@ -250,58 +235,36 @@ export default function MyTransport() {
         paymentAndInsurance: setPaymentAndInsurance,
         paymentTerms: setPaymentTerms,
     };
-
+    const handleDualInputChange = (title, fieldKey, inputValue, radioValue) => {
+        setAllSelectedOptions((prevState) => ({
+            ...prevState,
+            [title]: {
+                ...prevState[title],
+                [fieldKey]: { value: inputValue, unit: radioValue },
+            },
+        }));
+    };    
     const handleOptionSelect = (category, field, selectedOption) => {
         setAllSelectedOptions((prevState) => {
             const updatedOptions = {
                 ...prevState,
                 [category]: {
                     ...prevState[category],
-                    [field]: selectedOption,
+                    [field]: { value: selectedOption, unit: null },
                 },
             };
-
-            // if (category === "jobDescription" && field === "title") {
-            //     const { marisailTransportId, category, title } =
-            //         updatedOptions.jobDescription;
-            //     fetchRelevantOptions(marisailTransportId, category, title);
-            // }
-
             return updatedOptions;
         });
-
-        // if (
-        //     category === "jobDescription" &&
-        //     (field === "marisailTransportId" || field === "category")
-        // ) {
-        //     fetchJDSectionOptions(category, selectedOption, field);
-        // }
     };
     const handleSubmit = (e) => {
         e.preventDefault();
         try {
+            convertUnitsInFormData(allSelectedOptions);
             // if (checkRequired()) {
             // If no errors, proceed with form submission logic
             console.log("001 Form is valid, submitting...", allSelectedOptions);
-            // localStorage.setItem("advertise_engine", JSON.stringify(form));
-
-            const allFormData = {
-                jobDescription,
-                vesselDetails,
-                customerContactDetails,
-                transportQuotes,
-                qAndA,
-                feedback,
-                haulierDates,
-                haulierCommunications,
-                haulierSafetyAndCompliance,
-                paymentAndInsurance,
-                paymentTerms,
-            };
-
-            // Store the combined data in localStorage
             localStorage.setItem("TransportData", JSON.stringify(allSelectedOptions));
-
+            navigate("/view-transport");
             // console.log("001 Form data saved to localStorage:", allFormData);
             // } else {
             //     console.warn(error);
@@ -310,7 +273,8 @@ export default function MyTransport() {
             console.error(error);
         }
     };
-    function setPageData(key, newData) {
+
+    const setPageData = useCallback((key, newData) => {
         const setStateFunction = setStateFunctions[key];
         if (setStateFunction) {
             setStateFunction((prevState) => ({
@@ -318,16 +282,14 @@ export default function MyTransport() {
                 ...newData,
             }));
         } else {
-            console.error(
-                `No setState function found for key:` + JSON.stringify(key)
-            );
+            console.error(`No setState function found for key: ` + JSON.stringify(key));
         }
-    }
+    }, [setStateFunctions]);
 
     const cacheKey = "transportFilterData";
     const URL = apiUrl +"/advert_transport/";
 
-    const fetchDistinctData = async () => {
+    const fetchDistinctData = useCallback(async () => {
         try {
             setLoading(true);
             const promises = Object.keys(sections).map(async (key) => {
@@ -351,101 +313,7 @@ export default function MyTransport() {
             setLoading(false);
             console.log("done");
         }
-    };
-    const fetchRelevantOptions = async (marisailTransportId, category, title) => {
-        try {
-            setLoading(true);
-            const requestBody = { marisailTransportId, category, title };
-            const response = await fetch(`${URL}relevant_data`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ requestBody }),
-            });
-            const data = await response.json();
-            const result = data?.result;
-
-            if (result) {
-                const updatePromises = Object.keys(result).map((fieldKey) => {
-                    if (Object.keys(requestBody).includes(fieldKey)) {
-                        return Promise.resolve();
-                    }
-                    return Promise.all(
-                        Object.keys(sections).map((sectionKey) => {
-                            return new Promise((resolve) => {
-                                if (sections[sectionKey][fieldKey] !== undefined) {
-                                    const fieldValue =
-                                        Array.isArray(result[fieldKey]) &&
-                                            result[fieldKey].length > 0
-                                            ? result[fieldKey]?.[0]
-                                            : sections[sectionKey][fieldKey];
-
-                                    setAllSelectedOptions((prevState) => ({
-                                        ...prevState,
-                                        [sectionKey]: {
-                                            ...prevState[sectionKey],
-                                            [fieldKey]: [fieldValue],
-                                        },
-                                    }));
-
-                                    resolve();
-                                } else {
-                                    resolve();
-                                }
-                            });
-                        })
-                    );
-                });
-
-                // Wait for all updates to complete
-                await Promise.all(updatePromises);
-            }
-        } catch (error) {
-            console.error("Error fetching other section:", error);
-        } finally {
-            setLoading(false);
-        }
-    };
-    const fetchJDSectionOptions = async (category, selectedOption, Key) => {
-        try {
-            setLoading(true);
-            const tableName = "Job";
-            const keyHierarchy = ["marisailTransportId", "category"];
-
-            const currentKeyIndex = keyHierarchy.indexOf(Key);
-            const fetchColumn = keyHierarchy[currentKeyIndex + 1];
-            let requestBody = {};
-            for (let i = 0; i <= currentKeyIndex; i++) {
-                const key = keyHierarchy[i];
-                requestBody[key] =
-                    key === Key ? selectedOption : allSelectedOptions[category]?.[key];
-            }
-
-            if (!fetchColumn) {
-                throw new Error(
-                    "No further data to fetch. All selections are complete."
-                );
-            }
-            const response = await fetch(`${URL}${tableName}/${fetchColumn}`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ requestBody }),
-            });
-
-            const data = await response.json();
-            setPageData(category, {
-                ...sections[category],
-                [fetchColumn]: data.result,
-            });
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        } finally {
-            setLoading(false);
-        }
-    };
+    }, [sections, URL, setPageData]);
 
     useEffect(() => {
         const cachedData = localStorage.getItem(cacheKey);
@@ -457,13 +325,13 @@ export default function MyTransport() {
                 hasFetched.current = true;
             }
         }
-    }, [setPageData]);
+    }, [setPageData, fetchDistinctData]);
 
     const handleInputChange = (title, fieldKey, newValue) => {
-        setEngines((prevTrailers) => ({
-            ...prevTrailers,
+        setTransport((oldValue) => ({
+            ...oldValue,
             [title]: {
-                ...prevTrailers[title],
+                ...oldValue[title],
                 [fieldKey]: newValue,
             },
         }));
@@ -492,9 +360,7 @@ export default function MyTransport() {
                                     </h6>
                                 </legend>
                                 {Object.keys(sections[title]).map((fieldKey) => {
-                                    // <div>{JSON.stringify({sections[title][fieldKey]})}</div>
                                     const field = typeDef[title][fieldKey];
-                                    // <div>{JSON.stringify(sections[title])}</div>
                                     if (field && field.type === "radio") {
                                         return (
                                             <Col
@@ -509,7 +375,7 @@ export default function MyTransport() {
                                                         title={makeString(fieldKey, keyToExpectedValueMap)}
                                                         options={sections[title][fieldKey]}
                                                         selectedOption={
-                                                            allSelectedOptions[title]?.[fieldKey] || advertiseTransportData[title]?.[fieldKey] || ""
+                                                            allSelectedOptions[title]?.[fieldKey]?.value || ""
                                                         }
                                                         setSelectedOption={(selectedOption) =>
                                                             handleOptionSelect(
@@ -532,7 +398,7 @@ export default function MyTransport() {
                                                 </Col>
                                             </Col>
                                         );
-                                    } else if (field && field.type === "number") {
+                                    } else if (field && field.type === "date") {
                                         return (
                                             <Col
                                                 md={12}
@@ -540,9 +406,9 @@ export default function MyTransport() {
                                                 key={fieldKey}
                                                 style={{ width: 480 }}
                                             >
-                                                <InputComponentDynamic
+                                                <DatePickerComponent
                                                     label={makeString(fieldKey, keyToExpectedValueMap)}
-                                                    value={engines[title]?.[fieldKey] || ""}
+                                                    value={transport[title]?.[fieldKey] || new Date()}
                                                     setValue={(e) =>
                                                         handleInputChange(title, fieldKey, e.target.value)
                                                     }
@@ -550,6 +416,39 @@ export default function MyTransport() {
                                                     setOpenKey={setOpenKey}
                                                     openKey={openKey}
                                                     isMandatory={field.mandatory}
+                                                />
+                                                {error[`${fieldKey}`] && (
+                                                    <div>
+                                                        {errorDisplay(
+                                                            makeString(fieldKey, keyToExpectedValueMap)
+                                                        )}
+                                                    </div>
+                                                )}
+                                            </Col>
+                                        );
+                                    } else if (field && field.type === "dual") {
+                                        return (
+                                            <Col
+                                                md={12}
+                                                className="mr-3"
+                                                key={fieldKey}
+                                                style={{ width: 480 }}
+                                            >
+                                                <InputComponentDual
+                                                    label={makeString(fieldKey, keyToExpectedValueMap)}
+                                                    value={transport[title]?.[fieldKey] || ""}
+                                                    setValue={(e) =>
+                                                        handleInputChange(title, fieldKey, e.target.value)
+                                                    }
+                                                    formType="number"
+                                                    setOpenKey={setOpenKey}
+                                                    openKey={openKey || ""}
+                                                    isMandatory={field.mandatory}
+                                                    radioOptions={field?.radioOptions}
+                                                    selectedOption={allSelectedOptions[title]?.[fieldKey]?.unit || ""}
+                                                    setSelectedOption={(inputValue, radioValue) =>
+                                                        handleDualInputChange(title, fieldKey, inputValue, radioValue)
+                                                    }
                                                 />
                                                 {error[`${fieldKey}`] && (
                                                     <div>
