@@ -4,7 +4,7 @@ import DropdownWithCheckBoxes from "../DropdownWithCheckBoxes2";
 import Loader from "../Loader";
 import TrailerCard from "../TrailerCard";
 import ResetBar from "../ResetBar";
-import { varToScreen, radioOptions } from "./trailerInfo";
+import { varToScreen } from "./trailerInfo";
 import RangeInput from "../RangeInput";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -15,12 +15,13 @@ import { v4 as uuidv4 } from 'uuid';
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function TrailersSearch() {
+  const [trailers, setTrailers] = useState([]);
   const [page, setPage] = useState(0);
   const [fromValue, setFromValue] = useState("");
   const [toValue, setToValue] = useState("");
   // const [lastpage, setLastPage] = useState(1);
   const [loading, setLoading] = useState(true);
-  const [allSelectedOptions, setAllSelectedOptions] = useState([]);
+  const [allSelectedOptions, setAllSelectedOptions] = useState({});
   const [identification, setIdentification] = useState({
     manufacturer: [],
     make: [],
@@ -299,8 +300,6 @@ export default function TrailersSearch() {
     }
   }, []);
 
-  const [trailers, setTrailers] = useState([]);
-
   useEffect(() => {
     setLoading(true);
     let currInfo = {
@@ -317,7 +316,7 @@ export default function TrailersSearch() {
           body: JSON.stringify(currInfo),
         });
         const data = await response.json();
-        setTrailers(data.res[0]);
+        setTrailers(data?.res[0]);
       } catch (err) {
         console.log(err);
       } finally {
@@ -422,7 +421,7 @@ export default function TrailersSearch() {
                 trailers.map((trailer) => {
                   return (
                     <Col key={uuidv4()} md={4}>
-                      {/* <h1>{trailer.m}</h1> */}
+                      {/* <h1>{trailer}</h1> */}
                       <TrailerCard {...trailer} />
                     </Col>
                   );
