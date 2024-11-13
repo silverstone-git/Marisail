@@ -15,6 +15,7 @@ import { v4 as uuidv4 } from 'uuid';
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function TrailersSearch() {
+  const [selectedRadios, setSelectedRadios] = useState({});
   const [trailers, setTrailers] = useState([]);
   const [page, setPage] = useState(0);
   const [fromValue, setFromValue] = useState("");
@@ -215,6 +216,11 @@ export default function TrailersSearch() {
     });
   });
 
+  const handleRadioChange = (key2, value) => {
+    console.log("001 Key 2--",key2, "--value--",value);
+    setSelectedRadios((prev) => ({ ...prev, [key2]: value }));
+  };
+
   const setStateFunctions = {
     identification: setIdentification,
     basics: setBasics,
@@ -383,6 +389,8 @@ export default function TrailersSearch() {
                               setFromValue={setFromValue}
                               radioOptions={varToScreen[key2]?.radioOptions}
                               setToValue={setToValue}
+                              selectedRadio={selectedRadios[key2] || varToScreen[key2]?.radioOptions[0]?.value}
+                              onRadioChange={(value) => handleRadioChange(key2, value)}
                             />
                           </>
                         )}
