@@ -8,12 +8,10 @@ const RangeInput = ({
   setFromValue,
   setToValue,
   radioOptions,
+  selectedRadio,
+  onRadioChange,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedRadio, setSelectedRadio] = useState(
-    radioOptions.length > 0 ? radioOptions[0].value : ""
-  );
-
   const handleDropdownToggle = () => {
     setIsOpen((prev) => !prev);
   };
@@ -30,10 +28,6 @@ const RangeInput = ({
     if (!isNaN(value) || value === "") {
       setToValue(value);
     }
-  };
-
-  const handleRadioChange = (e) => {
-    setSelectedRadio(e.target.value);
   };
 
   return (
@@ -119,7 +113,7 @@ const RangeInput = ({
                     name={`btnradio-${option.label}-${option.value}`}
                     id={`btnradio-${option.label}-${option.value}`}
                     value={option.value}
-                    onChange={handleRadioChange}
+                    onChange={(e) => onRadioChange(e.target.value)}
                     checked={selectedRadio === option.value}
                     style={{ transform: "scale(0.8)" }}
                   />
@@ -150,6 +144,8 @@ RangeInput.propTypes = {
   setFromValue: PropTypes.func.isRequired,
   setToValue: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
+  selectedRadio: PropTypes.string,
+  onRadioChange: PropTypes.func.isRequired,
   radioOptions: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.string.isRequired,
