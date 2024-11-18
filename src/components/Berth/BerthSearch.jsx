@@ -5,7 +5,7 @@ import RangeInput from "../RangeInput";
 import Loader from "../Loader";
 import BerthCard from "../BerthCard";
 import ResetBar from "../ResetBar";
-import { varToScreen, defaultUnit } from "./BerthInfo";
+import { varToScreen } from "./BerthInfo";
 import { v4 as uuidv4 } from 'uuid';
 
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
@@ -169,7 +169,7 @@ export default function BerthSearch() {
   };
 
   const handleRadioChange = (key2, value) => {
-    console.log("001 Key 2--",key2, "--value--",value);
+    console.log("001 Key--",key2, "--value--",value);
     setSelectedRadios((prev) => ({ ...prev, [key2]: value }));
   };
 
@@ -200,7 +200,7 @@ export default function BerthSearch() {
     }
   }
 
-  const cacheKey = "trailersFilterData";
+  const cacheKey = "berthsFilterData";
   const handlePageChange = (newPage) => {
     setPage(newPage);
   };
@@ -232,6 +232,10 @@ export default function BerthSearch() {
       }
     }
   };
+
+  function mergeSpaces(str) {
+    return str.replace(/\s+/g, ' ').trim();
+  }
 
   useEffect(() => {
     const cachedData = localStorage.getItem(cacheKey);
@@ -320,12 +324,13 @@ export default function BerthSearch() {
                             options={filters[key][key2]}
                             selectedOptions={allSelectedOptions}
                             setSelectedOptions={setAllSelectedOptions}
-                            defaultUnit={defaultUnit[key2] || ""}
+                            defaultUnit={varToScreen[key2]?.radioOptions && varToScreen[key2]?.radioOptions?.[0].label || ""}
                           />
                         )}
                         {(varToScreen[key2].type == "range") && (
                           <>
                             <RangeInput
+                              key2={mergeSpaces(key2)}
                               title={varToScreen[key2]?.displayText}
                               fromValue={fromValue}
                               toValue={toValue}

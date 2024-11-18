@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
+import { v4 as uuidv4 } from 'uuid';
 
 const RangeInput = ({
   title,
@@ -10,7 +11,8 @@ const RangeInput = ({
   radioOptions,
   selectedRadio,
   onRadioChange,
-}) => {
+  key2
+}) => {  
   const [isOpen, setIsOpen] = useState(false);
   const handleDropdownToggle = () => {
     setIsOpen((prev) => !prev);
@@ -105,13 +107,14 @@ const RangeInput = ({
                 marginLeft: 10,
               }}
             >
-              {radioOptions.map((option, index) => (
-                <div key={index}>
+              {radioOptions.map((option) => (
+                <div key={uuidv4()}>
                   <input
+                    data-attri={key2}
                     type="radio"
                     className="btn-check"
-                    name={`btnradio-${option.label}-${option.value}`}
-                    id={`btnradio-${option.label}-${option.value}`}
+                    name={`btnradio-${key2}-${option.label}-${option.value}`}
+                    id={`btnradio-${key2}-${option.label}-${option.value}`}
                     value={option.value}
                     onChange={(e) => onRadioChange(e.target.value)}
                     checked={selectedRadio === option.value}
@@ -119,7 +122,7 @@ const RangeInput = ({
                   />
                   <label
                     className="btn btn-outline-primary"
-                    htmlFor={`btnradio-${option.label}-${option.value}`}
+                    htmlFor={`btnradio-${key2}-${option.label}-${option.value}`}
                     style={{
                       fontSize: "12px",
                       padding: "4px 6px",
@@ -152,6 +155,7 @@ RangeInput.propTypes = {
       label: PropTypes.string.isRequired,
     })
   ),
+  key2: PropTypes.string.isRequired,
 };
 
 export default RangeInput;
