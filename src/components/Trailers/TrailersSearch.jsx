@@ -6,7 +6,7 @@ import TrailerCard from "../TrailerCard";
 import ResetBar from "../ResetBar";
 import { varToScreen } from "./trailerInfo";
 import RangeInput from "../RangeInput";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 // import TimePicker from "react-time-picker";
 // import 'react-time-picker/dist/TimePicker.css';
@@ -217,7 +217,7 @@ export default function TrailersSearch() {
   });
 
   const handleRadioChange = (key2, value) => {
-    console.log("001 Key 2--",key2, "--value--",value);
+    console.log("001 Key 2--", key2, "--value--", value);
     setSelectedRadios((prev) => ({ ...prev, [key2]: value }));
   };
 
@@ -268,7 +268,7 @@ export default function TrailersSearch() {
     setPage(newPage);
   };
 
-  const URL = apiUrl +"/search_trailer/";
+  const URL = apiUrl + "/search_trailer/";
 
   // fetch all the count of the available columns
   var data;
@@ -294,6 +294,10 @@ export default function TrailersSearch() {
       }
     }
   };
+
+  function mergeSpaces(str) {
+    return str.replace(/\s+/g, ' ').trim();
+  }
 
   useEffect(() => {
     const cachedData = localStorage.getItem(cacheKey);
@@ -372,25 +376,32 @@ export default function TrailersSearch() {
                   <Row key={uuidv4()} className="row-margin">
                     <Col md={12}>
                       <Form.Group>
-                        {(varToScreen[key2].type != "range") &&
-                          (<DropdownWithCheckBoxes
-                          heading={key2}
-                          title={varToScreen[key2].displayText}
-                          options={filters[key][key2]}
-                          selectedOptions={allSelectedOptions}
-                          setSelectedOptions={setAllSelectedOptions}
-                        />)}
-                        {(varToScreen[key2].type == "range") && (
+                        {varToScreen[key2].type != "range" && (
+                          <DropdownWithCheckBoxes
+                            heading={key2}
+                            title={varToScreen[key2].displayText}
+                            options={filters[key][key2]}
+                            selectedOptions={allSelectedOptions}
+                            setSelectedOptions={setAllSelectedOptions}
+                          />
+                        )}
+                        {varToScreen[key2].type == "range" && (
                           <>
                             <RangeInput
+                              key2={mergeSpaces(key2)}
                               title={varToScreen[key2].displayText}
                               fromValue={fromValue}
                               toValue={toValue}
                               setFromValue={setFromValue}
                               radioOptions={varToScreen[key2]?.radioOptions}
                               setToValue={setToValue}
-                              selectedRadio={selectedRadios[key2] || varToScreen[key2]?.radioOptions[0]?.value}
-                              onRadioChange={(value) => handleRadioChange(key2, value)}
+                              selectedRadio={
+                                selectedRadios[key2] ||
+                                varToScreen[key2]?.radioOptions[0]?.value
+                              }
+                              onRadioChange={(value) =>
+                                handleRadioChange(key2, value)
+                              }
                             />
                           </>
                         )}
@@ -479,14 +490,18 @@ export default function TrailersSearch() {
   );
 }
 
-{/* <div> */}
-  {/* <TimePicker onChange={onChange} value={value} /> */}
-  // <DatePickerComponent
-  //   label="Date of Birth"
-  //   value={value}
-  //   setValue={onChange}
-  //   setOpenKey={setOpenKey}
-  //   openKey={openKey}
-  //   isMandatory={true}
-  // />
+{
+  /* <div> */
+}
+{
+  /* <TimePicker onChange={onChange} value={value} /> */
+}
+// <DatePickerComponent
+//   label="Date of Birth"
+//   value={value}
+//   setValue={onChange}
+//   setOpenKey={setOpenKey}
+//   openKey={openKey}
+//   isMandatory={true}
+// />
 // </div>;

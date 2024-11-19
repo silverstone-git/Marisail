@@ -16,6 +16,7 @@ const RangeInput = ({
   const [isOpen, setIsOpen] = useState(false);
   const handleDropdownToggle = () => {
     setIsOpen((prev) => !prev);
+    console.log("001 toggle called after--",!isOpen);
   };
 
   const handleFromChange = (e) => {
@@ -32,12 +33,17 @@ const RangeInput = ({
     }
   };
 
+  const handleRadioChangeInternal = (value) => {
+    console.log("001 radio change value--",value);
+    onRadioChange(value);
+  };
+
   return (
     <div className="custom-dropdown-container">
       <div
         className="custom-dropdown-header"
         onClick={handleDropdownToggle}
-        aria-expanded={isOpen}
+        aria-expanded={isOpen ? "true" : "false"}
         aria-controls="dropdown-content"
         style={{ marginBottom: "10px" }}
       >
@@ -110,13 +116,13 @@ const RangeInput = ({
               {radioOptions.map((option) => (
                 <div key={uuidv4()}>
                   <input
-                    data-attri={key2}
+                    data-attr={key2}
                     type="radio"
                     className="btn-check"
                     name={`btnradio-${key2}-${option.label}-${option.value}`}
                     id={`btnradio-${key2}-${option.label}-${option.value}`}
                     value={option.value}
-                    onChange={(e) => onRadioChange(e.target.value)}
+                    onChange={(e) => handleRadioChangeInternal(e.target.value)}
                     checked={selectedRadio === option.value}
                     style={{ transform: "scale(0.8)" }}
                   />
