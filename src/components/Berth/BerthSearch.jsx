@@ -1,21 +1,37 @@
 import { Form, Container, Row, Col } from "react-bootstrap";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useReducer } from "react";
 import DropdownWithCheckBoxes from "../DropdownWithCheckBoxes2";
 import RangeInput from "../RangeInput";
 import Loader from "../Loader";
 import BerthCard from "../BerthCard";
 import ResetBar from "../ResetBar";
-import { varToScreen, defaultUnit } from "./BerthInfo";
-import { radioOptions } from "./BerthAdvertInfo";
+import { varToScreen } from "./BerthInfo";
+import { v4 as uuidv4 } from 'uuid';
 
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 
 export default function BerthSearch() {
+  const [selectedRadios, setSelectedRadios] = useState({});
   const [page, setPage] = useState(0);
   const [fromValue, setFromValue] = useState("");
   const [toValue, setToValue] = useState("");
   const [loading, setLoading] = useState(true);
-  const [allSelectedOptions, setAllSelectedOptions] = useState([]);
+  const [allSelectedOptions, setAllSelectedOptions] = useState({});
+  const toggleReducer = (state, action) => {
+    switch (action.type) {
+      case "TOGGLE":
+        return {
+          ...state,
+          [action.key]: !state[action.key],
+        };
+      default:
+        return state;
+    }
+  };
+  const [openStates, dispatch] = useReducer(toggleReducer, {});
+  const toggleAccordion = (key) => {
+    dispatch({ type: "TOGGLE", key });
+  };
   const [siteDetails, setSiteDetails] = useState({
     siteDetails: [],
     termsAndConditions: [],
@@ -167,6 +183,11 @@ export default function BerthSearch() {
     notDefined: setNotDefined,
   };
 
+  const handleRadioChange = (key2, value) => {
+    console.log("001 Key--",key2, "--value--",value);
+    setSelectedRadios((prev) => ({ ...prev, [key2]: value }));
+  };
+
   const lookUpTable = {};
   Object.keys(filters).forEach((key) => {
     Object.keys(filters[key]).forEach((key2) => {
@@ -194,7 +215,7 @@ export default function BerthSearch() {
     }
   }
 
-  const cacheKey = "trailersFilterData";
+  const cacheKey = "berthsFilterData";
   const handlePageChange = (newPage) => {
     setPage(newPage);
   };
@@ -218,7 +239,7 @@ export default function BerthSearch() {
         });
 
         data = await response.json();
-        setFilters(key, data.res);
+        setFilters(key, data?.res);
       } catch (err) {
         console.log(err);
       } finally {
@@ -226,6 +247,10 @@ export default function BerthSearch() {
       }
     }
   };
+
+  function mergeSpaces(str) {
+    return str.replace(/\s+/g, ' ').trim();
+  }
 
   useEffect(() => {
     const cachedData = localStorage.getItem(cacheKey);
@@ -257,7 +282,7 @@ export default function BerthSearch() {
         });
 
         const data = await response.json();
-        setBerths(data.res[0]);
+        setBerths(data?.res[0]);
       } catch (err) {
         console.log(err);
       } finally {
@@ -292,7 +317,7 @@ export default function BerthSearch() {
             {Object.keys(filters).map((key) => (
               <fieldset
                 // style={{ borderBottom: "2px solid #f5f5f5", width: "80%" }}
-                key={key}
+                key={uuidv4()}
               >
                 <legend className="fieldset-legend">
                   <h6
@@ -304,7 +329,7 @@ export default function BerthSearch() {
                   </h6>
                 </legend>
                 {Object.keys(filters[key]).map((key2) => (
-                  <Row key={key2} className="row-margin">
+                  <Row key={uuidv4()} className="row-margin">
                     <Col md={12}>
                       <Form.Group>
                         {(varToScreen[key2].type != "range") && (
@@ -314,18 +339,23 @@ export default function BerthSearch() {
                             options={filters[key][key2]}
                             selectedOptions={allSelectedOptions}
                             setSelectedOptions={setAllSelectedOptions}
-                            defaultUnit={defaultUnit[key2] || ""}
+                            defaultUnit={varToScreen[key2]?.radioOptions && varToScreen[key2]?.radioOptions?.[0].label || ""}
                           />
                         )}
                         {(varToScreen[key2].type == "range") && (
                           <>
                             <RangeInput
+                              key2={mergeSpaces(key2)}
                               title={varToScreen[key2]?.displayText}
                               fromValue={fromValue}
                               toValue={toValue}
                               setFromValue={setFromValue}
                               radioOptions={varToScreen[key2]?.radioOptions}
                               setToValue={setToValue}
+                              selectedRadio={selectedRadios[key2] || varToScreen[key2]?.radioOptions[0]?.value}
+                              onRadioChange={(value) => handleRadioChange(key2, value)}
+                              isOpen={!!openStates[key2]}
+                              toggleAccordion={() => toggleAccordion(key2)}
                             />
                           </>
                         )}
@@ -363,7 +393,7 @@ export default function BerthSearch() {
               ) : (
                 berths.map((trailer) => {
                   return (
-                    <Col key={trailer} md={4}>
+                    <Col key={uuidv4()} md={4}>
                       {/* <h1>{trailer.m}</h1> */}
                       <BerthCard {...trailer} />
                     </Col>
