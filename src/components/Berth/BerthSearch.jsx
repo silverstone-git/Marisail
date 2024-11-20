@@ -1,5 +1,5 @@
 import { Form, Container, Row, Col } from "react-bootstrap";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useReducer } from "react";
 import DropdownWithCheckBoxes from "../DropdownWithCheckBoxes2";
 import RangeInput from "../RangeInput";
 import Loader from "../Loader";
@@ -17,6 +17,21 @@ export default function BerthSearch() {
   const [toValue, setToValue] = useState("");
   const [loading, setLoading] = useState(true);
   const [allSelectedOptions, setAllSelectedOptions] = useState({});
+  const toggleReducer = (state, action) => {
+    switch (action.type) {
+      case "TOGGLE":
+        return {
+          ...state,
+          [action.key]: !state[action.key],
+        };
+      default:
+        return state;
+    }
+  };
+  const [openStates, dispatch] = useReducer(toggleReducer, {});
+  const toggleAccordion = (key) => {
+    dispatch({ type: "TOGGLE", key });
+  };
   const [siteDetails, setSiteDetails] = useState({
     siteDetails: [],
     termsAndConditions: [],
@@ -339,6 +354,8 @@ export default function BerthSearch() {
                               setToValue={setToValue}
                               selectedRadio={selectedRadios[key2] || varToScreen[key2]?.radioOptions[0]?.value}
                               onRadioChange={(value) => handleRadioChange(key2, value)}
+                              isOpen={!!openStates[key2]}
+                              toggleAccordion={() => toggleAccordion(key2)}
                             />
                           </>
                         )}

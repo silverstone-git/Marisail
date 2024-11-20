@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 
 const RangeInput = ({
@@ -11,14 +10,10 @@ const RangeInput = ({
   radioOptions,
   selectedRadio,
   onRadioChange,
-  key2
-}) => {  
-  const [isOpen, setIsOpen] = useState(false);
-  const handleDropdownToggle = () => {
-    setIsOpen((prev) => !prev);
-    console.log("001 toggle called after--",!isOpen);
-  };
-
+  key2,
+  isOpen,
+  toggleAccordion,
+}) => {
   const handleFromChange = (e) => {
     const value = e.target.value;
     if (!isNaN(value) || value === "") {
@@ -34,7 +29,6 @@ const RangeInput = ({
   };
 
   const handleRadioChangeInternal = (value) => {
-    console.log("001 radio change value--",value);
     onRadioChange(value);
   };
 
@@ -42,8 +36,8 @@ const RangeInput = ({
     <div className="custom-dropdown-container">
       <div
         className="custom-dropdown-header"
-        onClick={handleDropdownToggle}
-        aria-expanded={isOpen ? "true" : "false"}
+        onClick={toggleAccordion}
+        aria-expanded={isOpen}
         aria-controls="dropdown-content"
         style={{ marginBottom: "10px" }}
       >
@@ -162,6 +156,8 @@ RangeInput.propTypes = {
     })
   ),
   key2: PropTypes.string.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  toggleAccordion: PropTypes.func.isRequired,
 };
 
 export default RangeInput;

@@ -1,5 +1,5 @@
 import { Form, Container, Row, Col } from "react-bootstrap";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useReducer } from "react";
 import DropdownWithCheckBoxes from "../DropdownWithCheckBoxes2";
 import Loader from "../Loader";
 import TrailerCard from "../TrailerCard";
@@ -23,6 +23,21 @@ export default function TrailersSearch() {
   // const [lastpage, setLastPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [allSelectedOptions, setAllSelectedOptions] = useState({});
+  const toggleReducer = (state, action) => {
+    switch (action.type) {
+      case "TOGGLE":
+        return {
+          ...state,
+          [action.key]: !state[action.key],
+        };
+      default:
+        return state;
+    }
+  };
+  const [openStates, dispatch] = useReducer(toggleReducer, {});
+  const toggleAccordion = (key) => {
+    dispatch({ type: "TOGGLE", key });
+  };
   const [identification, setIdentification] = useState({
     manufacturer: [],
     make: [],
@@ -402,6 +417,8 @@ export default function TrailersSearch() {
                               onRadioChange={(value) =>
                                 handleRadioChange(key2, value)
                               }
+                              isOpen={!!openStates[key2]}
+                              toggleAccordion={() => toggleAccordion(key2)}
                             />
                           </>
                         )}
