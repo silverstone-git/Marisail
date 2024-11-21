@@ -1,5 +1,5 @@
 const Buy = () => {
-  return <div>Buy sections</div>;
+  return <div>Buy</div>;
 };
 
 export default Buy;
