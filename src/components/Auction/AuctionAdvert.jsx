@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import DatePickerComponent from "../DatePickerComponent"
 import InputComponentDynamic from "../InputComponentDynamic";
 import CustomTimePicker from '../CustomTimePicker';
-import FormFieldCard from "../../services/FormFiledCard";
+import FormFieldCard from "../../services/FormFieldCard";
 
 const apiUrl = import.meta.env.VITE_BACKEND_URL;
 

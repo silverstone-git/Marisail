@@ -5,8 +5,6 @@ import countryList from 'react-select-country-list'
 import "rsuite/dist/rsuite.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import 'react-images-uploader/styles.css';
-import 'react-images-uploader/font.css';
 
 
 // date picker module
