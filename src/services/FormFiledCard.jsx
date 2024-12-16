@@ -11,6 +11,7 @@ import 'react-images-uploader/font.css';
 
 // date picker module
 function DatePickerModule() {
+    
     const [startDate, setStartDate] = useState(new Date());
   return (
     <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
@@ -44,7 +45,6 @@ export default function FormFieldCard() {
                 <Button>Select files...</Button>
             </Uploader>
             </div>
-
 
             <div className="mt-2 w-50 pr-5">
                 {CountrySelector()}
