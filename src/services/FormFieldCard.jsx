@@ -1,10 +1,11 @@
-import { Button, Uploader } from "rsuite";
 import React, { useState, useMemo } from 'react'
 import Select from 'react-select'
 import countryList from 'react-select-country-list'
 import "rsuite/dist/rsuite.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import PhotoUpload from "./PhotoUpload";
+import VideoUploader from './VideoUpload';
 
 
 // date picker module
@@ -29,21 +30,11 @@ function CountrySelector() {
 }
 
 export default function FormFieldCard() {
+
     return (
-        <div>
-            <div className="fieldset-legend">
-            Other...
-
-            {/* uploader */}
-            <Uploader
-                listType="picture-text"
-                action="//jsonplaceholder.typicode.com/posts/"
-                className="pt-2"
-            >
-                <Button>Select files...</Button>
-            </Uploader>
-            </div>
-
+        <div className='mt-2 col-md-6'>
+            <PhotoUpload />
+            <VideoUploader />
             <div className="mt-2 w-50 pr-5">
                 {CountrySelector()}
             </div>
