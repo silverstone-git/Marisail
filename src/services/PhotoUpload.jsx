@@ -30,10 +30,8 @@ const PhotoUploader = () => {
   // onclick file upload
   const handleUpload = async (e) => {
     e.preventDefault();
-    // Replace this with actual upload logic
+    // upload logic
     console.log("Files ready to upload:", files);
-
-
 
     const formData = new FormData();
     formData.append("operation", "upload");
