@@ -7,7 +7,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import PhotoUpload from "./PhotoUpload";
 import VideoUploader from './VideoUpload';
 
-
 // date picker module
 function DatePickerModule() {
     
@@ -29,18 +28,18 @@ function CountrySelector() {
     return <Select placeholder={'Select Country...'} options={options} value={value} onChange={changeHandler} />
 }
 
-export default function FormFieldCard() {
+export default function FormFieldCard({dateVisible, countryVisible}) {
 
     return (
-        <div className='mt-2 col-md-6'>
+        <div className='mt-3 col-md-6' style={{padding:'0 20px'}}>
             
             <PhotoUpload />
             <VideoUploader />
             <div className="mt-2 w-80 pr-5">
-                {CountrySelector()}
+                {countryVisible && CountrySelector()}
             </div>
             <div className="mt-4 w-50 pr-5">
-                {DatePickerModule()}
+                {dateVisible && DatePickerModule()}
             </div>
         </div>
     )
