@@ -65,6 +65,7 @@ const VideoUploader = () => {
 
   return (
     <div className="photo-uploader-container">
+      <span className="title">Upload Video</span>
       <div
         {...getRootProps()}
         className={`dropzone ${isDragActive ? "dropzone-active" : ""}`}

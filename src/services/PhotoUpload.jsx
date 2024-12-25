@@ -65,6 +65,7 @@ const PhotoUploader = () => {
 
   return (
     <div className="photo-uploader-container">
+      <span className="title">Upload Photo</span>
       <div
         {...getRootProps()}
         className={`dropzone ${isDragActive ? "dropzone-active" : ""}`}

@@ -33,12 +33,13 @@ export default function FormFieldCard() {
 
     return (
         <div className='mt-2 col-md-6'>
+            
             <PhotoUpload />
             <VideoUploader />
-            <div className="mt-2 w-50 pr-5">
+            <div className="mt-2 w-80 pr-5">
                 {CountrySelector()}
             </div>
-            <div className="mt-2 w-50 pr-5">
+            <div className="mt-4 w-50 pr-5">
                 {DatePickerModule()}
             </div>
         </div>
