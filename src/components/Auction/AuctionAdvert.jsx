@@ -516,7 +516,7 @@ export default function AuctionAdvert() {
                                 })}
                             </Col>
                         ))}
-                        <FormFieldCard dateVisible={true} countryVisible={true} />
+                        
                     </Row>
                     <SubmitButton
                         text="Submit"

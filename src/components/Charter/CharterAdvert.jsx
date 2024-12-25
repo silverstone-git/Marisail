@@ -485,7 +485,7 @@ export default function CharterAdvert() {
                                 })}
                             </Col>
                         ))}
-                        <FormFieldCard countryVisible={true} />
+                        <FormFieldCard countryVisible={true} dateVisible={true} />
                     </Row>
                     <SubmitButton
                         text="Submit"
