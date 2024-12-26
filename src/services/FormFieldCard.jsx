@@ -6,6 +6,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import PhotoUpload from "./PhotoUpload";
 import VideoUploader from './VideoUpload';
+import PriceLabel from './PriceLabel';
 
 // date picker module
 function DatePickerModule() {
@@ -41,6 +42,7 @@ export default function FormFieldCard({dateVisible, countryVisible}) {
             <div className="mt-4 w-50 pr-5">
                 {dateVisible && DatePickerModule()}
             </div>
+            <PriceLabel />
         </div>
     )
 }
