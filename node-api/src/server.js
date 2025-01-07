@@ -26,9 +26,9 @@ server.use(function (req, res, next) {
   next(createError(404));
 });
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = (process.env.PORT || '3000');
 
 server.listen(port, () => {
-  console.log(`Running on 3001`);
+  console.log(`Running on port` + port);
 });
 export default server; 
