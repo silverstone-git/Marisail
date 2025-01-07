@@ -29,6 +29,6 @@ server.use(function (req, res, next) {
 var port = (process.env.PORT || '3000');
 
 server.listen(port, () => {
-  console.log(`Running on port` + port);
+  console.log(`Running on port ` + port);
 });
 export default server; 
