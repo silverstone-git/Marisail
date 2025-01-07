@@ -26,7 +26,7 @@ server.use(function (req, res, next) {
   next(createError(404));
 });
 
-// usin .env PORT value or the pm2 start script value
+// usin .env PORT value or the pm2 start script value, testing 2, new port
 var port = (process.env.PORT || '3000'); 
 
 server.listen(port, () => {
